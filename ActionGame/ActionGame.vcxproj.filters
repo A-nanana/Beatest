@@ -72,6 +72,15 @@
     <ClCompile Include="..\100_source\110_drawing_tools\camera.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="..\100_source\130_data_manager\131_character\enemy_object.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="..\100_source\130_data_manager\132_shots\shot_manager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="..\100_source\130_data_manager\132_shots\shot_object.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\100_source\130_data_manager\131_character\hit_box.h">
@@ -123,6 +132,15 @@
       <Filter>ヘッダー ファイル\110_draw_tool</Filter>
     </ClInclude>
     <ClInclude Include="..\100_source\110_drawing_tools\camera.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\100_source\130_data_manager\131_character\enemy_object.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\100_source\130_data_manager\132_shots\shot_manager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\100_source\130_data_manager\132_shots\shot_object.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

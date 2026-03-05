@@ -11,6 +11,9 @@
 #ifndef __DEFINING_DRAWING_H__
 #define __DEFINING_DRAWING_H__
 
+#define _USE_MATH_DEFINES
+
+#include <math.h> //数学ライブラリ
 //-----------------------------
 // @name   window_setting
 // @brief  ウィンドウ関係
@@ -27,6 +30,8 @@ namespace window_setting {
 	static int center_y = 200; // y
 //  ウィンドウの表示猶予
 	static int offset_shown = 100;
+//  画像拡大率
+	static float graph_extender_ = 1.0f;
 //  ウィンドウの初期設定を一括でする関数
 	void WindowSettings();
 }
@@ -89,8 +94,11 @@ namespace hit_set {
 // @memo   
 //------------------------------
 namespace string_set {
-//  追加行動
-	static const char* ex_act[3] = { "行動しない","1つのダイスを振り直す","魔術を使う"};
+//  弾の種類
+	static const enum ShotType{
+		ENEMY_NOMAL,
+
+	};
 //  不定値(値がわからないとき)
 	static const char* unknown = " ? ";
 
@@ -103,8 +111,12 @@ namespace string_set {
 // @memo   
 //------------------------------
 namespace system_set {
-//  歩きの速さ
+//  プレイヤーの速さ
 	static const float player_walk_speed = 5.0f;
+//  弾の角度修正単位
+	static const float angle_per_time = 15.0f * M_PI / 180.0f;
+//  画面上の弾数
+	static const int shot_max = 10000;
 
 }
 

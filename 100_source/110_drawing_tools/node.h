@@ -50,6 +50,8 @@ protected:
 	virtual void Load() {};
 	//リソース解放
 	virtual void Release() {};
+	//セット
+	virtual void SetUp() {};
 	//更新(更新するときの時間)
 	virtual void Update(float delta_time) {};
 	//描画(描画先)
@@ -80,12 +82,16 @@ public:
 	void AddChild(Node* node);
 	//num番目の子ノードを取得(主にルートノードで使用)
 	Node* GetChild(int num);
+	//子の削除
+	void DeleteChild(Node* node);
 
 //  呼び出し
 	//これと全て子のリソース読み込み
 	virtual void LoadResourceAll() final; 
 	//これと全て子のリソース解放
 	virtual void ReleaseResourceAll() final;
+	//これと全て子のリソースセット
+	virtual void SetUpAll()final;
 	//これと全て子のリソース更新(更新時間)
 	virtual void UpdateAll(float delta_time) final;
 	//これと全て子の描画(描画先)

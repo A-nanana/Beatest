@@ -20,6 +20,8 @@ void PlayerObject::Update(float delta_time)
 {
 	//加算用
 	Vector2D move_vector(NULL,NULL);
+	//直前位置の記憶
+	Vector2D last_pos(world_position_);
 	//Wキーで上に
 	if (Inputer::GetInstance()->GetHitKey(KEY_INPUT_W)) {
 		move_vector.Add(NULL, -system_set::player_walk_speed);
@@ -36,8 +38,14 @@ void PlayerObject::Update(float delta_time)
 	if (Inputer::GetInstance()->GetHitKey(KEY_INPUT_D)) {
 		move_vector.Add(system_set::player_walk_speed, NULL);
 	}
-
+	
 	//移動値を加算
 	position_.Add(move_vector);
 	world_position_.Add(move_vector);
+	//端の場合はクランプ
+	CrampDouble(world_position_.x_, NULL, window_setting::size_x - size_x_);
+	CrampDouble(world_position_.y_, NULL, window_setting::size_y -size_y_);
+	//こっちの位置も修正
+	position_.Add({ world_position_.x_ - last_pos.x_,world_position_.y_ - last_pos.y_ });
+
 }

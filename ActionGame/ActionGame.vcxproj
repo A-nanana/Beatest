@@ -142,9 +142,12 @@
     <ClCompile Include="..\100_source\110_drawing_tools\tool.cpp" />
     <ClCompile Include="..\100_source\110_drawing_tools\Vector2.cpp" />
     <ClCompile Include="..\100_source\110_drawing_tools\vector3.cpp" />
+    <ClCompile Include="..\100_source\130_data_manager\131_character\enemy_object.cpp" />
     <ClCompile Include="..\100_source\130_data_manager\131_character\hit_box.cpp" />
     <ClCompile Include="..\100_source\130_data_manager\131_character\object_common.cpp" />
     <ClCompile Include="..\100_source\130_data_manager\131_character\player_object.cpp" />
+    <ClCompile Include="..\100_source\130_data_manager\132_shots\shot_manager.cpp" />
+    <ClCompile Include="..\100_source\130_data_manager\132_shots\shot_object.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -162,9 +165,12 @@
     <ClInclude Include="..\100_source\110_drawing_tools\tool.h" />
     <ClInclude Include="..\100_source\110_drawing_tools\Vector2.h" />
     <ClInclude Include="..\100_source\110_drawing_tools\vector3.h" />
+    <ClInclude Include="..\100_source\130_data_manager\131_character\enemy_object.h" />
     <ClInclude Include="..\100_source\130_data_manager\131_character\hit_box.h" />
     <ClInclude Include="..\100_source\130_data_manager\131_character\object_common.h" />
     <ClInclude Include="..\100_source\130_data_manager\131_character\player_object.h" />
+    <ClInclude Include="..\100_source\130_data_manager\132_shots\shot_manager.h" />
+    <ClInclude Include="..\100_source\130_data_manager\132_shots\shot_object.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

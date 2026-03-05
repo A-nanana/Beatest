@@ -17,10 +17,13 @@ public:
 	Vector2D position_;//位置(カメラの左端位置)
 	Vector2D size_;//描画サイズ
 	Vector2D player_pos_;//プレイヤーとの相対位置
+	bool lock_;//カメラロック
 //  コンストラクタ
 	Camera(float x, float y);
+	Camera();
 	void Init();//初期化
 	void Update();//更新
+	bool IsDraw(Vector2D world_pos, int size_x, int size_y);//描画すべきか
 	bool IsDraw(Vector2D world_pos);//描画すべきか
 };
 

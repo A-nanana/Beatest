@@ -21,6 +21,7 @@ public:
 	Vector3D() :x_(0.0f), y_(0.0f), z_(0.0f) {};
 //  セッター
 	void Set(const Vector2D& other);
+	void Set(const float x, const float y);
 //  差
 	Vector3D Sub(const Vector3D& other);
 	Vector3D Sub(const Vector2D& other);

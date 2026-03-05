@@ -19,10 +19,13 @@ class GraphNode:public Node
 protected:
 	int graph_handle_; //画像ハンドル
 	std::string name_; //画像名
+	float rotate_; //回転
+	int size_x_,size_y_;//大きさ
 
 public:
 //  コンストラクタ(x,yは相対位置)
 	GraphNode(const char* name, float x,float y);
+	GraphNode(const int graph_handle, float x, float y);
 
 //  セッター
 	void SetName(const char* name);

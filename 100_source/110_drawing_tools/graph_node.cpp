@@ -11,12 +11,25 @@
 #include "graph_node.h"
 #include "tool.h"
 #include "camera.h"
+#include "defining.h"
 GraphNode::GraphNode(const char* name, float x, float y)
 {
 	graph_handle_ = NULL;
 	name_ = name;
 	SetPosition(x, y);
+	rotate_ = 0.0f;
+	size_x_ = NULL;
+	size_y_ = NULL;
+}
 
+GraphNode::GraphNode(const int graph_handle, float x, float y)
+{
+	graph_handle_ = graph_handle;
+	name_ = nullptr;
+	SetPosition(x, y);
+	rotate_ = 0.0f;
+	size_x_ = NULL;
+	size_y_ = NULL;
 }
 
 void GraphNode::SetName(const char* name)
@@ -34,6 +47,8 @@ void GraphNode::Load()
 	}
 
 	 graph_handle_ = LoadGraph(name_.c_str());
+	 GetGraphSize(graph_handle_, &size_x_, &size_y_);
+
 }
 
 //ƒŠƒŠ[ƒX
@@ -45,8 +60,12 @@ void GraphNode::Release()
 void GraphNode::Draw(int screen_handle,Camera* camera)
 {
 	//ƒJƒƒ‰“à‚©
-	if (camera->IsDraw(GetWorldPosition())) {
-		DrawGraph(Abs(world_position_.x_ - camera->position_.x_), Abs(world_position_.y_ - camera->position_.y_), graph_handle_, false);
+	if (camera->IsDraw(GetWorldPosition(),size_x_,size_y_)) {
+		Vector2D draw_pos_(world_position_);
+		draw_pos_.x_ += -camera->position_.x_ + size_x_ / 2;
+		draw_pos_.y_ += -camera->position_.y_ + size_y_ / 2;
+		DrawRotaGraph2(draw_pos_.x_, draw_pos_.y_,size_x_/2,size_y_/2, window_setting::graph_extender_
+			,rotate_,graph_handle_, TRUE);
 	}
 }
 

@@ -14,6 +14,13 @@ Camera::Camera(float x, float y) :position_(x, y)
 {
 	size_.x_ = window_setting::size_x;
 	size_.y_ = window_setting::size_y;
+	lock_ = false;
+}
+Camera::Camera():position_(NULL,NULL)
+{
+	size_.x_ = window_setting::size_x;
+	size_.y_ = window_setting::size_y;
+	lock_ = true;
 }
 void Camera::Init() {
 	player_pos_.x_ = PlayerObject::GetInstance()->GetWorldPosition().x_ - position_.x_;
@@ -21,12 +28,24 @@ void Camera::Init() {
 }
 void Camera::Update()
 {
-
+	if (lock_) {
+		return;
+	}
 	position_.Set(PlayerObject::GetInstance()->GetWorldPosition());
 	position_.x_ -= player_pos_.x_;
 	position_.y_ -= player_pos_.y_;
 
 
+}
+
+bool Camera::IsDraw(Vector2D world_pos, int size_x, int size_y)
+{
+	//描画領域の外にあるなら描画しないとする
+	if ((position_.x_ - size_x> world_pos.x_) || ((position_.x_ + size_.x_) < world_pos.x_)
+		|| (position_.y_ - size_y > world_pos.y_) || ((position_.y_ + size_.y_ ) < world_pos.y_)) {
+		return false;
+	}
+	return true;
 }
 
 bool Camera::IsDraw(Vector2D world_pos)

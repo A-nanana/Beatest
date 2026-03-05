@@ -13,6 +13,8 @@
 #include "text_node.h"
 #include "..\130_data_manager\131_character\object_common.h"
 #include "..\130_data_manager\131_character\player_object.h"
+#include "..\130_data_manager\131_character\enemy_object.h"
+#include "..\130_data_manager\132_shots\shot_manager.h"
 #include "inputer.h"
 
 void GameScene::PushCheck() {
@@ -24,13 +26,22 @@ void GameScene::PushCheck() {
 void GameScene::Init()
 {
 	root_ = new Node();
-	camera_ = new Camera(NULL,NULL);
+	camera_ = new Camera();
 	next_buttom_ = new ButtomNode(1000, 1000, 10.0f, 10.0f, std::bind( &GameScene::PushCheck,this), false);
 	next_buttom_->AddChild(new TextNode("押し", GetColor(255, 255, 255), 0.0f, 0.0f));
 	Node* ko2 = new TextNode("テストテスト", GetColor(255, 255, 255), window_setting::size_x -10.0f, window_setting::size_y - 10.0f);
 	
+	player_ = PlayerObject::GetInstance();
+	enemy_ = new EnemyObject();
+	shot_manage_ = new ShotManager();
+
 	root_->AddChild(ko2);
-	root_->AddChild(PlayerObject::GetInstance());
+	root_->AddChild(player_);
+	root_->AddChild(enemy_);
+	root_->AddChild(shot_manage_);
+
+	shot_manage_->SetPlayerObject(player_);
+	shot_manage_->SetEnemyObject(enemy_);
 
 	next_scene_ = this;
 }
@@ -38,18 +49,20 @@ void GameScene::Init()
 void GameScene::SetUp()
 {
 	root_->LoadResourceAll();
-	root_->SetWorldPositionAll();
+	root_->SetUpAll();
 
 	next_buttom_->LoadResourceAll();
-	next_buttom_->SetWorldPositionAll();
 }
 
 Scene* GameScene::Update(float delta_time) {
 	camera_->Update();
 
 	root_->UpdateAll(delta_time);
+	root_->SetWorldPositionAll();
 
 	next_buttom_->UpdateAll(delta_time);
+	next_buttom_->SetWorldPositionAll();
+
 
 	return next_scene_;
 }

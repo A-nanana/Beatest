@@ -14,6 +14,9 @@
 #include "scene.h"
 
 class ButtomNode;
+class EnemyObject;
+class PlayerObject;
+class ShotManager;
 class GameScene:public Scene
 {
 	
@@ -21,9 +24,12 @@ class GameScene:public Scene
 	Scene* next_scene_;//次のシーン
 
 	Node* root_;//根ノード作成
-
 	ButtomNode* next_buttom_;//遷移用ボタン
 
+	//それぞれのオブジェクトのポインタ保存用
+	EnemyObject* enemy_;
+	PlayerObject* player_;
+	ShotManager* shot_manage_;
 
 public:
 

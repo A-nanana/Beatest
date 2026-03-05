@@ -24,7 +24,7 @@ void window_setting::WindowSettings()
 	SetWindowSizeChangeEnableFlag(FALSE, FALSE);
 	//ウィンドウのモード設定
 	SetGraphMode(size_x, size_y, color_bit);
-
+	SetUsePremulAlphaConvertLoad(TRUE);
 	//サイズ設定
 	SetWindowSize(window_setting::size_x, window_setting::size_y);
 	//カラービット取得

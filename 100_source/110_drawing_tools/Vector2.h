@@ -25,6 +25,8 @@ public:
 	//回転行列の設定
 	void SetMatrixRotate(float rad);
 };
+
+
 //数式系はメンバ変数もパブリックにすることもある
 class Vector2D {
 public:
@@ -73,5 +75,6 @@ public:
 		void ZahyouDasi(void);
 		
 		//型変換
-		operator int()const {return int();};
+		operator int()const { return int(); };
+		operator int() {return int();};
 };

@@ -5,6 +5,12 @@ void Vector3D::Set(const Vector2D& other)
     x_ = other.x_;
     y_ = other.y_;
 }
+void Vector3D::Set(const float x, const float y)
+{
+    x_ = x;
+    y_ = y;
+    z_ = 0.0f;
+}
 //  差
 Vector3D Vector3D::Sub(const Vector3D& other)
 {

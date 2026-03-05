@@ -86,6 +86,16 @@ Node* Node::GetChild(int num)
 	}
 	return nullptr;
 }
+//Žq‚Ìíœ
+void Node::DeleteChild(Node* node)
+{
+	//Œë”š–hŽ~—p
+	node->parent_ = nullptr;
+	node->ReleaseResourceAll();
+	children_.remove(node);
+	delete node;
+	node = nullptr;
+}
 
 void Node::LoadResourceAll()
 {
@@ -100,6 +110,14 @@ void Node::ReleaseResourceAll()
 	this->Release();
 	for (Node* child : children_) {
 		child->ReleaseResourceAll();
+	}
+}
+
+void Node::SetUpAll()
+{
+	this->SetUp();
+	for (Node* child : children_) {
+		child->SetUpAll();
 	}
 }
 
