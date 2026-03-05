@@ -20,6 +20,7 @@ class ShotObject;
 class ShotManager:public Node
 {
 	std::vector<int> shot_graph_handle_;//弾画像のハンドル
+	int size_x_, size_y_;//弾画像のサイズ
 	float change_time_; //変換のための時間
 	PlayerObject* player_;//使うプレイヤー
 	EnemyObject* enemy_;//使う敵

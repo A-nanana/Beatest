@@ -16,13 +16,14 @@
 //ロード
 void ShotManager::Load() {
 	shot_graph_handle_.push_back(LoadGraph("..\\200_resource\\bullet.png"));
-};
+	
+}
 //リソース解放
 void ShotManager::Release() {
 	for (int i = 0; i < shot_graph_handle_.size(); i++) {
 		DeleteGraph(shot_graph_handle_[i]);
 	}
-};
+}
 //更新(更新するときの時間)
 void ShotManager::Update(float delta_time) {
 	for (Node* node : children_) {
@@ -37,28 +38,28 @@ void ShotManager::Update(float delta_time) {
 
 		shot->IsHit(player_);
 	}
-};
+}
 //セット
 void ShotManager::SetUp() {
 	SetPosition(NULL, NULL);
-};
+}
 
 //コンストラクタ
 ShotManager::ShotManager()
 {
-};
+}
 
 //  セッター
 void ShotManager::SetPlayerObject(PlayerObject* player)
 {
 	player_ = player;
-};
+}
 void ShotManager::SetEnemyObject(EnemyObject* enemy)
 {
 	enemy_ = enemy;
-};
+}
 //追加
 void ShotManager::AddChild(ShotObject* node)
 {
 	Node::AddChild(node);
-};
+}

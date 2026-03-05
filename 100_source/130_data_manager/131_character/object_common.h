@@ -18,11 +18,13 @@ class ObjectCommon:public GraphNode
 	HitBox hit_box_; //当たり判定
 	bool hit_use_; //判定を使うか
 public:
-	//コンストラクタ
+//  コンストラクタ
 	ObjectCommon(const char* name, float x, float y, float hit_size_x, float hit_size_y) :GraphNode(name, x, y), hit_box_(x, y, hit_size_x, hit_size_y) { hit_use_ = true; };
 	ObjectCommon(const char* name, float x, float y) :GraphNode(name, x, y), hit_box_(x, y, 0.0f, 0.0f) { hit_use_ = false; };
-	ObjectCommon(const int graph_handle, float x, float y) :GraphNode(graph_handle, x, y), hit_box_(x, y, 0.0f, 0.0f) { hit_use_ = false; };
+	ObjectCommon(const int graph_handle, float x, float y);
 
+//  セッター
+	void SetRotate(float angle);//回転
 
 	//当たり判定
 	HitBox* GetHitBox() { return &hit_box_; };//判定に使う数値

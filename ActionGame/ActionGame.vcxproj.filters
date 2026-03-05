@@ -81,6 +81,15 @@
     <ClCompile Include="..\100_source\130_data_manager\132_shots\shot_object.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="..\100_source\130_data_manager\131_character\enemy_manager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="..\100_source\140_roading_from_other\file_roader.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="..\100_source\130_data_manager\132_shots\shot_booker.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\100_source\130_data_manager\131_character\hit_box.h">
@@ -141,6 +150,15 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="..\100_source\130_data_manager\132_shots\shot_object.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\100_source\130_data_manager\131_character\enemy_manager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\100_source\140_roading_from_other\file_roader.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\100_source\130_data_manager\132_shots\shot_booker.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

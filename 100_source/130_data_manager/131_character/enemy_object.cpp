@@ -9,7 +9,8 @@
 //------------------------------
 #include "enemy_object.h"
 
-EnemyObject::EnemyObject():ObjectCommon("..\\200_resource\\enemy.png", 1.0f, 1.0f, 180.0f, 180.0f)
+EnemyObject::EnemyObject(ShotManager* shot_manager):shot_manager_(shot_manager),
+ObjectCommon("..\\200_resource\\enemy.png", 1.0f, 1.0f, 180.0f, 180.0f)
 {
 	
 }

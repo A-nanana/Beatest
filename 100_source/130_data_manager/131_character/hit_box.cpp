@@ -21,6 +21,26 @@ HitBox::HitBox(float x_start, float y_start, float x_size, float y_size, float l
 	}
 }
 
+void HitBox::SetToSize(int x, int y)
+{
+	//回転の設定
+	Matrix2 matrix;
+	matrix.SetMatrixRotate(lotate_rad_);
+	//頂点設定
+	point_[1].Set(point_[0].x_ + x, point_[0].y_);
+	point_[2].Set(point_[0].x_ + x, point_[0].y_ + y);
+	point_[3].Set(point_[0].x_, point_[0].y_ + y);
+	for (int i = 0; i < hit_set::squair_point; i++) {
+		point_[i].ChangeForMatrix(matrix);
+	}
+
+	//ベクトル計算
+	for (int i = 0; i < hit_set::squair_point; i++) {
+		vectol_[i].Set(point_[(i + 1) % hit_set::squair_point]);
+		vectol_[i].Sub(point_[i]);
+	}
+}
+
 bool HitBox::HitCheckToPoint(Vector2D* other)
 {
 	for (int i = 0; i < hit_set::squair_point; i++) {

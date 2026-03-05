@@ -32,8 +32,8 @@ void GameScene::Init()
 	Node* ko2 = new TextNode("テストテスト", GetColor(255, 255, 255), window_setting::size_x -10.0f, window_setting::size_y - 10.0f);
 	
 	player_ = PlayerObject::GetInstance();
-	enemy_ = new EnemyObject();
 	shot_manage_ = new ShotManager();
+	enemy_ = new EnemyObject(shot_manage_);
 
 	root_->AddChild(ko2);
 	root_->AddChild(player_);

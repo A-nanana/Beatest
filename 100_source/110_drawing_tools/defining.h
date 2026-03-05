@@ -118,6 +118,7 @@ namespace system_set {
 //  âÊñ è„ÇÃíeêî
 	static const int shot_max = 10000;
 
+
 }
 
 #endif // !__DEFINING_DRAWING_H__

@@ -11,6 +11,14 @@
 #include "..\131_character\player_object.h"
 #include "..\..\110_drawing_tools\defining.h"
 
+ShotObject::ShotObject(const int graph_handle, float x, float y, float speed, float angle)
+	:used_(false), ObjectCommon(graph_handle, x, y) {
+	
+	speed_.x_ = speed * cos(angle);
+	speed_.y_ = speed * sin(angle);
+	SetRotate(angle);
+}
+
 //端っこ返す系
 int ShotObject::XLeft(void)
 {
@@ -33,7 +41,7 @@ int ShotObject::YBottom(void)
 }
 
 //作成
-int ShotObject::Shoot(int size_x, int size_y, int _speed, double angle)
+int ShotObject::Shoot(int _speed, double angle)
 {
 	{
 		//未使用品なら使用.
@@ -41,8 +49,7 @@ int ShotObject::Shoot(int size_x, int size_y, int _speed, double angle)
 
 
 		//セット処理.
-		size_x_ = size_x;
-		size_y_ = size_y;
+		
 		SetPosition(NULL, NULL);
 		speed_.x_ = _speed * cos(angle);
 		speed_.y_ = _speed * sin(angle);

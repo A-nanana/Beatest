@@ -18,7 +18,7 @@ class EnemyObject :public ObjectCommon
 protected:
 	ShotManager* shot_manager_;
 public:
-	EnemyObject();
+	EnemyObject(ShotManager* shot_manager);
 	//更新(更新するときの時間)
 	void Update(float delta_time);
 };
