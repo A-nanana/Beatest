@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\110_draw_tool">
+      <UniqueIdentifier>{52853a9a-29d4-42af-b23a-3248b6960ab2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\110_draw_tools">
+      <UniqueIdentifier>{3858c41b-6354-4d4f-ba1f-e050edc48b2f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="..\100_source\130_data_manager\131_character\hit_box.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="..\100_source\130_data_manager\131_character\object_common.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="..\100_source\130_data_manager\131_character\player_object.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="..\100_source\110_drawing_tools\graph_node.cpp">
+      <Filter>ソース ファイル\110_draw_tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\100_source\110_drawing_tools\buttom_node.cpp">
+      <Filter>ソース ファイル\110_draw_tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\100_source\110_drawing_tools\defining.cpp">
+      <Filter>ソース ファイル\110_draw_tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\100_source\110_drawing_tools\game_scene.cpp">
+      <Filter>ソース ファイル\110_draw_tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\100_source\110_drawing_tools\inputer.cpp">
+      <Filter>ソース ファイル\110_draw_tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\100_source\110_drawing_tools\node.cpp">
+      <Filter>ソース ファイル\110_draw_tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\100_source\110_drawing_tools\scene_manager.cpp">
+      <Filter>ソース ファイル\110_draw_tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\100_source\110_drawing_tools\text_node.cpp">
+      <Filter>ソース ファイル\110_draw_tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\100_source\110_drawing_tools\time.cpp">
+      <Filter>ソース ファイル\110_draw_tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\100_source\110_drawing_tools\Vector2.cpp">
+      <Filter>ソース ファイル\110_draw_tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\100_source\110_drawing_tools\tool.cpp">
+      <Filter>ソース ファイル\110_draw_tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\100_source\110_drawing_tools\vector3.cpp">
+      <Filter>ソース ファイル\110_draw_tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\100_source\110_drawing_tools\camera.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\100_source\130_data_manager\131_character\hit_box.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\100_source\130_data_manager\131_character\object_common.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\100_source\130_data_manager\131_character\player_object.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\100_source\110_drawing_tools\buttom_node.h">
+      <Filter>ヘッダー ファイル\110_draw_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\100_source\110_drawing_tools\defining.h">
+      <Filter>ヘッダー ファイル\110_draw_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\100_source\110_drawing_tools\game_scene.h">
+      <Filter>ヘッダー ファイル\110_draw_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\100_source\110_drawing_tools\graph_node.h">
+      <Filter>ヘッダー ファイル\110_draw_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\100_source\110_drawing_tools\inputer.h">
+      <Filter>ヘッダー ファイル\110_draw_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\100_source\110_drawing_tools\node.h">
+      <Filter>ヘッダー ファイル\110_draw_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\100_source\110_drawing_tools\scene.h">
+      <Filter>ヘッダー ファイル\110_draw_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\100_source\110_drawing_tools\scene_manager.h">
+      <Filter>ヘッダー ファイル\110_draw_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\100_source\110_drawing_tools\text_node.h">
+      <Filter>ヘッダー ファイル\110_draw_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\100_source\110_drawing_tools\time.h">
+      <Filter>ヘッダー ファイル\110_draw_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\100_source\110_drawing_tools\tool.h">
+      <Filter>ヘッダー ファイル\110_draw_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\100_source\110_drawing_tools\Vector2.h">
+      <Filter>ヘッダー ファイル\110_draw_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\100_source\110_drawing_tools\vector3.h">
+      <Filter>ヘッダー ファイル\110_draw_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\100_source\110_drawing_tools\camera.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

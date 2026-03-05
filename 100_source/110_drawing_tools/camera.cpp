@@ -1,0 +1,40 @@
+//-----------------------------
+// @name   camera.cpp
+// @brief  カメラ クラス
+// @auther A.namami
+// @date   2026/3/3  新規作成
+// @memo   エラー型が来た場合は-1で返します
+//
+//Copyright (c) 2026 A.nanami All rights reserved.
+//------------------------------
+#include "camera.h"
+#include "..\130_data_manager\131_character\player_object.h"
+#include "defining.h"
+Camera::Camera(float x, float y) :position_(x, y)
+{
+	size_.x_ = window_setting::size_x;
+	size_.y_ = window_setting::size_y;
+}
+void Camera::Init() {
+	player_pos_.x_ = PlayerObject::GetInstance()->GetWorldPosition().x_ - position_.x_;
+	player_pos_.y_ = PlayerObject::GetInstance()->GetWorldPosition().y_ - position_.y_;
+}
+void Camera::Update()
+{
+
+	position_.Set(PlayerObject::GetInstance()->GetWorldPosition());
+	position_.x_ -= player_pos_.x_;
+	position_.y_ -= player_pos_.y_;
+
+
+}
+
+bool Camera::IsDraw(Vector2D world_pos)
+{
+	//描画領域の外にあるなら描画しないとする
+	if ((position_.x_ - window_setting::offset_shown > world_pos.x_ ) || ((position_.x_ + size_.x_ + window_setting::offset_shown) < world_pos.x_)
+		|| (position_.y_ - window_setting::offset_shown > world_pos.y_) || ((position_.y_ + size_.y_ + window_setting::offset_shown) < world_pos.y_)) {
+		return false;
+	}
+	return true;
+}
