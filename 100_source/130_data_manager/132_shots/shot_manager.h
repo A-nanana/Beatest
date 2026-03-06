@@ -40,9 +40,12 @@ public:
 //  セッター
 	void SetPlayerObject(PlayerObject* player);
 	void SetEnemyObject(EnemyObject* enemy);
+//  ゲッター
+	Vector2D GetPlayerObjectPos();
 
 //  追加
 	void AddChild(ShotObject* node);
+	void AddShot(float x, float y, float speed, float angle);
 };
 
 #endif // !__SHOT_MANAGER_H__

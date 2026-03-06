@@ -15,7 +15,7 @@
 
 //ロード
 void ShotManager::Load() {
-	shot_graph_handle_.push_back(LoadGraph("..\\200_resource\\bullet.png"));
+	shot_graph_handle_.push_back(LoadGraph("..\\..\\200_resource\\bullet.png"));
 	
 }
 //リソース解放
@@ -26,17 +26,21 @@ void ShotManager::Release() {
 }
 //更新(更新するときの時間)
 void ShotManager::Update(float delta_time) {
+
 	for (Node* node : children_) {
 		ShotObject* shot = dynamic_cast<ShotObject*>(node);
 		if (!shot) {
 			continue;
 		}
 		if (!shot->IsUsed()) {
-			DeleteChild(shot);
+			
 			continue;
 		}
 
-		shot->IsHit(player_);
+		
+		if (shot->IsHit(player_)) {
+			DeleteChild(shot);
+		};
 	}
 }
 //セット
@@ -47,6 +51,7 @@ void ShotManager::SetUp() {
 //コンストラクタ
 ShotManager::ShotManager()
 {
+	change_time_ = 0;
 }
 
 //  セッター
@@ -58,8 +63,17 @@ void ShotManager::SetEnemyObject(EnemyObject* enemy)
 {
 	enemy_ = enemy;
 }
+Vector2D ShotManager::GetPlayerObjectPos()
+{
+	return player_->GetWorldPosition();
+}
 //追加
 void ShotManager::AddChild(ShotObject* node)
 {
 	Node::AddChild(node);
+}
+
+void ShotManager::AddShot(float x, float y, float speed, float angle)
+{
+	Node::AddChild(new ShotObject(shot_graph_handle_.front(), x, y, speed, angle));
 }

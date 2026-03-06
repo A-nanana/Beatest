@@ -11,14 +11,23 @@
 #ifndef __ENEMY_OBJECT_H__
 #define __ENEMY_OBJECT_H__
 
+#include <vector>
 #include "object_common.h"
+
+class ShotBooker;
 class ShotManager;
 class EnemyObject :public ObjectCommon
 {
 protected:
-	ShotManager* shot_manager_;
+	ShotManager* shot_manager_;//弾の管理
+	std::vector<ShotBooker>* shot_booker_;//弾の予約
+	float last_delta_;//直前の更新時間
 public:
-	EnemyObject(ShotManager* shot_manager);
+//  コンストラクタ
+	EnemyObject(ShotManager* shot_manager, std::vector<ShotBooker>* shot_booker);
+	//更新補助
+	void SetAngle(float to_x, float to_y);
+
 	//更新(更新するときの時間)
 	void Update(float delta_time);
 };

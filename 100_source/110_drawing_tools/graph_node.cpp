@@ -25,7 +25,7 @@ GraphNode::GraphNode(const char* name, float x, float y)
 GraphNode::GraphNode(const int graph_handle, float x, float y)
 {
 	graph_handle_ = graph_handle;
-	name_ = nullptr;
+	name_ = "UseHandleOnly";
 	SetPosition(x, y);
 	rotate_ = 0.0f;
 	size_x_ = NULL;
@@ -64,7 +64,7 @@ void GraphNode::Draw(int screen_handle,Camera* camera)
 		Vector2D draw_pos_(world_position_);
 		draw_pos_.x_ += -camera->position_.x_ + size_x_ / 2;
 		draw_pos_.y_ += -camera->position_.y_ + size_y_ / 2;
-		DrawRotaGraph2(draw_pos_.x_, draw_pos_.y_,size_x_/2,size_y_/2, window_setting::graph_extender_
+		DrawRotaGraph2(draw_pos_.x_, draw_pos_.y_,size_x_/2,size_y_/2, window_setting::graph_extender_* 0.5f
 			,rotate_,graph_handle_, TRUE);
 	}
 }

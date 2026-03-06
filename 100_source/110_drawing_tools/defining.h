@@ -113,6 +113,12 @@ namespace string_set {
 namespace system_set {
 //  ƒvƒŒƒCƒ„[‚Ì‘¬‚³
 	static const float player_walk_speed = 5.0f;
+//  Šp“x‚ª‘å‚«‚­‚È‚Á‚½‚Æ‚«‚ÌC³Šp“x
+	static const float repair_rad = M_PI * 270.0f / 180.0f;
+//  —P—\ŠÔ
+	static const float border_time = 34.0f;
+//  1•ª‚ğms‚É’¼‚·
+	static const float ms_per_min = 60000.0f;
 //  ’e‚ÌŠp“xC³’PˆÊ
 	static const float angle_per_time = 15.0f * M_PI / 180.0f;
 //  ‰æ–Êã‚Ì’e”

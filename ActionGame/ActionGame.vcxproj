@@ -150,6 +150,7 @@
     <ClCompile Include="..\100_source\130_data_manager\132_shots\shot_booker.cpp" />
     <ClCompile Include="..\100_source\130_data_manager\132_shots\shot_manager.cpp" />
     <ClCompile Include="..\100_source\130_data_manager\132_shots\shot_object.cpp" />
+    <ClCompile Include="..\100_source\130_data_manager\133_music\music_manager.cpp" />
     <ClCompile Include="..\100_source\140_roading_from_other\file_roader.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -176,6 +177,7 @@
     <ClInclude Include="..\100_source\130_data_manager\132_shots\shot_booker.h" />
     <ClInclude Include="..\100_source\130_data_manager\132_shots\shot_manager.h" />
     <ClInclude Include="..\100_source\130_data_manager\132_shots\shot_object.h" />
+    <ClInclude Include="..\100_source\130_data_manager\133_music\music_manager.h" />
     <ClInclude Include="..\100_source\140_roading_from_other\file_roader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

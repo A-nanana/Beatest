@@ -86,13 +86,20 @@ Node* Node::GetChild(int num)
 	}
 	return nullptr;
 }
+void Node::RemoveChild(Node* node)
+{
+	//Œë”š–hŽ~—p
+	node->ResetParent();
+	remove_list_.push_back(node);
+}
 //Žq‚Ìíœ
 void Node::DeleteChild(Node* node)
 {
 	//Œë”š–hŽ~—p
-	node->parent_ = nullptr;
+	node->ResetParent();
 	node->ReleaseResourceAll();
-	children_.remove(node);
+	remove_list_.push_back(node);
+
 	delete node;
 	node = nullptr;
 }
@@ -124,9 +131,17 @@ void Node::SetUpAll()
 void Node::UpdateAll(float delta_time)
 {
 	this->Update(delta_time);
+
+	//•\Ž¦‘O‚Éíœ
+	for (Node* child : remove_list_) {
+		children_.remove(child);
+	}
+	//XV
 	for (Node* child : children_) {
 		child->UpdateAll(delta_time);
 	}
+	
+	remove_list_.clear();
 }
 
 void Node::DrawAll(int screen_handle, Camera* camera)
@@ -149,6 +164,7 @@ Node::Node()
 {
 	parent_ = nullptr;
 	children_.clear();
+	remove_list_.clear();
 	position_.x_ = 0.0f;
 	position_.y_ = 0.0f;
 	world_position_.x_ = 0.0f;

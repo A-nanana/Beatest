@@ -12,7 +12,7 @@
 #include "..\..\110_drawing_tools\defining.h"
 
 ShotObject::ShotObject(const int graph_handle, float x, float y, float speed, float angle)
-	:used_(false), ObjectCommon(graph_handle, x, y) {
+	:used_(true), ObjectCommon(graph_handle, x, y) {
 	
 	speed_.x_ = speed * cos(angle);
 	speed_.y_ = speed * sin(angle);
@@ -93,6 +93,11 @@ void ShotObject::Update(float delta_time) {
 	// ˆÚ“®
 	position_.Add(speed_);
 	is_caliculate_ = false;
+
+}
+
+void ShotObject::Release()
+{
 
 }
 

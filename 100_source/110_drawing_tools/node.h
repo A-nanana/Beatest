@@ -41,6 +41,8 @@ class Node
 protected:
 	Node* parent_; //親ノードのポインタ
 	std::list<Node*> children_; //子ノードのポインタ
+	std::list<Node*> remove_list_;//外す子のポインタ
+
 	Vector2D world_position_; //ワールド位置
 	Vector2D position_; //親との相対位置
 	bool is_caliculate_; //座標をワールド座標にしたか
@@ -62,6 +64,7 @@ public:
 
 //  親のセット
 	void SetParent(Node* parent) { parent_ = parent; };
+	void ResetParent() { parent_ = nullptr; }; //他のとこからリセットかける用
 
 //  座標関係
 	//相対位置取得
@@ -83,6 +86,7 @@ public:
 	//num番目の子ノードを取得(主にルートノードで使用)
 	Node* GetChild(int num);
 	//子の削除
+	void RemoveChild(Node* node);
 	void DeleteChild(Node* node);
 
 //  呼び出し

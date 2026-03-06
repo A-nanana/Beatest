@@ -13,6 +13,7 @@
 #include "..\100_source\110_drawing_tools\scene_manager.h"
 #include "..\100_source\110_drawing_tools\time.h"
 #include "..\100_source\110_drawing_tools\game_scene.h"
+#include "..\100_source\130_data_manager\133_music\music_manager.h"
 
 int main(void) {
 
@@ -21,11 +22,14 @@ int main(void) {
 	}
 	
 	window_setting::WindowSettings();
+	MusicManager::GetInstance()->SetPlayMusic("Marioneter");
+
 	SceneManager* scene_manage = new SceneManager();
 	scene_manage->SetNextScene(new GameScene());
 	Time time;
 
 	SetDrawScreen(DX_SCREEN_BACK);
+
 
 	while (ProcessMessage() != -1) {
 		ClearDrawScreen();

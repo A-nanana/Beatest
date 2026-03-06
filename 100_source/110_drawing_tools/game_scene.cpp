@@ -15,6 +15,8 @@
 #include "..\130_data_manager\131_character\player_object.h"
 #include "..\130_data_manager\131_character\enemy_object.h"
 #include "..\130_data_manager\132_shots\shot_manager.h"
+#include "..\130_data_manager\133_music\music_manager.h"
+#include "..\140_roading_from_other\file_roader.h"
 #include "inputer.h"
 
 void GameScene::PushCheck() {
@@ -32,8 +34,10 @@ void GameScene::Init()
 	Node* ko2 = new TextNode("テストテスト", GetColor(255, 255, 255), window_setting::size_x -10.0f, window_setting::size_y - 10.0f);
 	
 	player_ = PlayerObject::GetInstance();
+	player_->SetPosition(window_setting::size_x / 2, window_setting::size_y / 2);
+
 	shot_manage_ = new ShotManager();
-	enemy_ = new EnemyObject(shot_manage_);
+	enemy_ = new EnemyObject(shot_manage_,FileRoader::GetInstance()->RoadHumen(MusicManager::GetInstance()->GetMusicData()));
 
 	root_->AddChild(ko2);
 	root_->AddChild(player_);
@@ -52,6 +56,7 @@ void GameScene::SetUp()
 	root_->SetUpAll();
 
 	next_buttom_->LoadResourceAll();
+	MusicManager::GetInstance()->PlayMusic();
 }
 
 Scene* GameScene::Update(float delta_time) {
@@ -80,6 +85,7 @@ void GameScene::Finalize()
 {
 	root_->ReleaseResourceAll();
 	next_buttom_->ReleaseResourceAll();
+	MusicManager::GetInstance()->DeleteMusic();
 }
 
 //ここから下はテスト用!

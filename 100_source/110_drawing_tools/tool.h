@@ -43,3 +43,6 @@ void ChangeColorToRgb(unsigned int color_code, int& red, int& green, int& blue);
 // @out unsigned int カラーコード
 // @in int red, int green, int blue それぞれ色素
 unsigned int ChangeColorToCode(int red, int green, int blue);
+
+//誤差考慮等価判定(1e-8 = 0.00000001)
+bool AlmostEqual(double a, double b, double epsilon = 1e-8);

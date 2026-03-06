@@ -8,7 +8,8 @@
 //Copyright (c) 2026 A.nanami All rights reserved.
 //------------------------------
 
-#include "Tool.h"
+#include <cmath>
+#include "tool.h"
 
 void CrampInt(int& param, int low, int max)
 {
@@ -84,4 +85,9 @@ unsigned int ChangeColorToCode(int red, int green, int blue)
 	//‚Ð‚½‚·‚ç‘«‚·
 
 	return red_16+green_16+blue_16;
+}
+
+bool AlmostEqual(double a, double b, double epsilon)
+{
+	return std::fabs(a - b) < epsilon;
 }

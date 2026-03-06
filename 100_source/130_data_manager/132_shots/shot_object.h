@@ -38,6 +38,8 @@ public:
 	
 	//更新(更新するときの時間)
 	void Update(float delta_time)override;
+	//解放
+	void Release() override;
 	
 	
 };
