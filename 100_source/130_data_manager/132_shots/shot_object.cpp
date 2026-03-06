@@ -7,9 +7,11 @@
 //
 //Copyright (c) 2026 A.nanami All rights reserved.
 //------------------------------
+#include <iostream>
 #include "shot_object.h"
 #include "..\131_character\player_object.h"
 #include "..\..\110_drawing_tools\defining.h"
+
 
 ShotObject::ShotObject(const int graph_handle, float x, float y, float speed, float angle)
 	:used_(true), ObjectCommon(graph_handle, x, y) {
@@ -17,6 +19,7 @@ ShotObject::ShotObject(const int graph_handle, float x, float y, float speed, fl
 	speed_.x_ = speed * cos(angle);
 	speed_.y_ = speed * sin(angle);
 	SetRotate(angle);
+	
 }
 
 //’[‚Á‚±•Ô‚·Œn
@@ -92,8 +95,10 @@ void ShotObject::Update(float delta_time) {
 
 	// ˆÚ“®
 	position_.Add(speed_);
-	is_caliculate_ = false;
 
+	is_caliculate_ = false;
+	hit_box_.Update(speed_.x_, speed_.y_);
+	std::cout << hit_box_.point_[0].x_ << std::endl;
 }
 
 void ShotObject::Release()

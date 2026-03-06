@@ -13,6 +13,7 @@
 
 #include "..\130_data_manager\133_music\music_manager.h"
 #include "..\130_data_manager\132_shots\shot_booker.h"
+#include "..\110_drawing_tools\defining.h"
 #include "file_roader.h"
 
 FileRoader* FileRoader::roader_ = nullptr;
@@ -60,7 +61,7 @@ std::vector<ShotBooker>* FileRoader::RoadHumen(const MusicData& music_data)
 	//譜面
 	std::string Humen_2;
 	//デフォルト
-	ShotBooker booked_def = { 8, 10, 3,0, 1, false };
+	ShotBooker booked_def = { 8,system_set::shot_speed_def , 3,0, 1, false };
 	ShotBooker booked = booked_def;
 	//返り値
 	std::vector<ShotBooker>* booker = new std::vector<ShotBooker>();

@@ -39,7 +39,16 @@ int main(void) {
 		scene_manage->Update(time.GetDelta());
 		scene_manage->Draw(DX_SCREEN_BACK);
 		ScreenFlip();
-
+		
+		float next_to_time = time.GetDelta();
+		float set_last = GetNowCount();
+		
+		while (next_to_time < window_setting::sec_per_frame)
+		{
+			float now = GetNowCount();
+			next_to_time += now - set_last;
+			set_last = now;
+		}
 	}
 	
 	DxLib_End();

@@ -7,6 +7,9 @@
 //
 //Copyright (c) 2026 A.nanami All rights reserved.
 //------------------------------
+
+#include <iostream>
+#include "DxLib.h"
 #include "shot_manager.h"
 
 #include "shot_object.h"
@@ -15,8 +18,7 @@
 
 //ロード
 void ShotManager::Load() {
-	shot_graph_handle_.push_back(LoadGraph("..\\..\\200_resource\\bullet.png"));
-	
+	shot_graph_handle_.push_back(LoadGraph("..\\200_resource\\bullet.png"));
 }
 //リソース解放
 void ShotManager::Release() {
@@ -26,21 +28,26 @@ void ShotManager::Release() {
 }
 //更新(更新するときの時間)
 void ShotManager::Update(float delta_time) {
-
+	
 	for (Node* node : children_) {
 		ShotObject* shot = dynamic_cast<ShotObject*>(node);
+		//オブジェクトがあるか
 		if (!shot) {
 			continue;
 		}
+		//オブジェクトが有効か
 		if (!shot->IsUsed()) {
-			
+			//有効でないならとり除く
+			DeleteChild(shot);
 			continue;
 		}
 
-		
-		if (shot->IsHit(player_)) {
-			DeleteChild(shot);
+		//当たっているか
+		if (player_->IsHit(shot)) {
+			//存在フラグ切り替え
+			shot->ChangeUsed();
 		};
+	
 	}
 }
 //セット
@@ -75,5 +82,8 @@ void ShotManager::AddChild(ShotObject* node)
 
 void ShotManager::AddShot(float x, float y, float speed, float angle)
 {
-	Node::AddChild(new ShotObject(shot_graph_handle_.front(), x, y, speed, angle));
+	//存在できるか
+	if (children_.size() < system_set::shot_max) {
+		Node::AddChild(new ShotObject(shot_graph_handle_.front(), x, y, speed, angle));
+	}
 }

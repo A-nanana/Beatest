@@ -35,7 +35,9 @@ public:
 	int Shoot(int _speed, double angle);
 	//有効か返す
 	bool IsUsed() { return used_; };
-	
+	//有効かの切り替え
+	void ChangeUsed() { used_ ^= 1; };
+
 	//更新(更新するときの時間)
 	void Update(float delta_time)override;
 	//解放

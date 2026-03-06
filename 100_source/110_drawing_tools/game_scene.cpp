@@ -34,7 +34,7 @@ void GameScene::Init()
 	Node* ko2 = new TextNode("テストテスト", GetColor(255, 255, 255), window_setting::size_x -10.0f, window_setting::size_y - 10.0f);
 	
 	player_ = PlayerObject::GetInstance();
-	player_->SetPosition(window_setting::size_x / 2, window_setting::size_y / 2);
+	player_->SetPosition(window_setting::size_x -100 , window_setting::size_y -100);
 
 	shot_manage_ = new ShotManager();
 	enemy_ = new EnemyObject(shot_manage_,FileRoader::GetInstance()->RoadHumen(MusicManager::GetInstance()->GetMusicData()));
@@ -78,6 +78,8 @@ void GameScene::Draw(int screen_handle) {
 	root_->DrawAll(screen_handle,camera_);
 	
 	next_buttom_->DrawAll(screen_handle,camera_);
+	//デバック用表示
+	std::cout << PlayerObject::GetInstance()->GetWorldPosition().x_ << std::endl;
 }
 
 

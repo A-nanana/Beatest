@@ -40,7 +40,6 @@ void PlayerObject::Update(float delta_time)
 	}
 	
 	//移動値を加算
-	position_.Add(move_vector);
 	world_position_.Add(move_vector);
 	//端の場合はクランプ
 	CrampDouble(world_position_.x_, NULL, window_setting::size_x - size_x_);
@@ -48,4 +47,6 @@ void PlayerObject::Update(float delta_time)
 	//こっちの位置も修正
 	position_.Add({ world_position_.x_ - last_pos.x_,world_position_.y_ - last_pos.y_ });
 
+	//当たり判定の更新
+	hit_box_.Update(world_position_.x_ - last_pos.x_, world_position_.y_ - last_pos.y_);
 }

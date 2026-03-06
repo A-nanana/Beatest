@@ -23,6 +23,8 @@ public:
 
 	//コンストラクタ
 	HitBox(float x_start, float y_start, float x_size, float y_size, float lotate_rad = 0.0f);
+	//移動量で更新
+	void Update(float move_x, float move_y);
 	//セッター
 	void SetToSize(int x, int y);
 	//当たり判定

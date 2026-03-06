@@ -32,6 +32,10 @@ namespace window_setting {
 	static int offset_shown = 100;
 //  画像拡大率
 	static float graph_extender_ = 1.0f;
+//  fps
+	static const int fps = 60;
+//  fpsから1コマあたりの時間を出す
+	static const float sec_per_frame = 1000.0f / fps;
 //  ウィンドウの初期設定を一括でする関数
 	void WindowSettings();
 }
@@ -113,6 +117,8 @@ namespace string_set {
 namespace system_set {
 //  プレイヤーの速さ
 	static const float player_walk_speed = 5.0f;
+//  弾のデフォルトの速さ
+	static const float shot_speed_def = 20;
 //  角度が大きくなったときの修正角度
 	static const float repair_rad = M_PI * 270.0f / 180.0f;
 //  猶予時間
@@ -122,7 +128,7 @@ namespace system_set {
 //  弾の角度修正単位
 	static const float angle_per_time = 15.0f * M_PI / 180.0f;
 //  画面上の弾数
-	static const int shot_max = 10000;
+	static const int shot_max = 100;
 
 
 }

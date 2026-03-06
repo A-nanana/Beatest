@@ -1,3 +1,13 @@
+//-----------------------------
+// @name   hit_box.cpp
+// @brief  当たり判定 クラス
+// @auther A.namami
+// @date   2026/3/2  新規作成
+// @memo   エラー型が来た場合は-1で返します
+//
+//Copyright (c) 2026 A.nanami All rights reserved.
+//------------------------------
+#include <iostream>
 #include "hit_box.h"
 HitBox::HitBox(float x_start, float y_start, float x_size, float y_size, float lotate_rad)
 {
@@ -17,6 +27,19 @@ HitBox::HitBox(float x_start, float y_start, float x_size, float y_size, float l
 	//ベクトル計算
 	for (int i = 0; i < hit_set::squair_point; i++) {
 		vectol_[i].Set( point_[(i + 1) % hit_set::squair_point]);
+		vectol_[i].Sub(point_[i]);
+	}
+}
+
+void HitBox::Update(float move_x, float move_y) {
+	//頂点設定
+	for (int i = 0; i < hit_set::squair_point; i++) {
+		point_[i].Add(move_x, move_y);
+
+	}
+	//ベクトル計算
+	for (int i = 0; i < hit_set::squair_point; i++) {
+		vectol_[i].Set(point_[(i + 1) % hit_set::squair_point]);
 		vectol_[i].Sub(point_[i]);
 	}
 }
@@ -46,8 +69,8 @@ bool HitBox::HitCheckToPoint(Vector2D* other)
 	for (int i = 0; i < hit_set::squair_point; i++) {
 		Vector3D to_point_(other->x_ - point_[i].x_, other->y_ - point_[i].y_, 0.0f);
 		to_point_.Cross(vectol_[i]);
-		//外積が0より大きいなら当たり判定の外
-		if (to_point_.x_ > 0 || to_point_.y_ > 0 || to_point_.z_ > 0) {
+		//外積が0以上なら当たり判定の外
+		if (to_point_.x_ > 0 && to_point_.y_ > 0) {
 			return false;
 		}
 
@@ -58,9 +81,9 @@ bool HitBox::HitCheckToPoint(Vector2D* other)
 bool HitBox::HitCheckToBox(HitBox* other)
 {
 	for (int i = 0; i < hit_set::squair_point; i++) {
-		if (!HitCheckToPoint(&other->point_[i])) {
-			return false;
+		if (HitCheckToPoint(&other->point_[i])) {
+			return true;
 		}
 	}
-	return true;
+	return false;
 }

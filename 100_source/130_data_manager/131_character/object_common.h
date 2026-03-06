@@ -15,6 +15,7 @@
 #include "hit_box.h"
 class ObjectCommon:public GraphNode
 {
+protected:
 	HitBox hit_box_; //当たり判定
 	bool hit_use_; //判定を使うか
 public:
@@ -25,10 +26,12 @@ public:
 
 //  セッター
 	void SetRotate(float angle);//回転
+	void SetHitSize(float x, float y);//サイズ
 
 	//当たり判定
 	HitBox* GetHitBox() { return &hit_box_; };//判定に使う数値
 	bool IsObject() { return hit_use_; };//物として扱うものか
+
 	//実際の当たり判定
 	bool IsHit(ObjectCommon* other);
 

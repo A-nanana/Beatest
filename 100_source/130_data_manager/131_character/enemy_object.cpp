@@ -64,8 +64,9 @@ void EnemyObject::Update(float delta_time) {
 		float angle = rotate_ + (system_set::angle_per_time * i /shot_booker_->operator[](n).rooper);
 
 
-		shot_manager_->AddShot(world_position_.x_, world_position_.y_,
+		shot_manager_->AddShot(world_position_.x_ + size_x_/2, world_position_.y_ + size_y_ / 2,
 			shot_booker_->operator[](n).speed, angle);
+
 	}
 
 }
