@@ -7,7 +7,10 @@
 //
 //Copyright (c) 2026 A.nanami All rights reserved.
 //------------------------------
+
+#include <iostream>
 #include "enemy_object.h"
+
 #include "..\132_shots\shot_manager.h"
 #include "..\132_shots\shot_booker.h"
 #include "..\132_shots\shot_object.h"
@@ -15,42 +18,26 @@
 #include "..\..\110_drawing_tools\tool.h"
 
 EnemyObject::EnemyObject(ShotManager* shot_manager, std::vector<ShotBooker>* shot_booker)
-	:shot_manager_(shot_manager),shot_booker_(shot_booker),ObjectCommon("..\\200_resource\\enemy.png", 1.0f, 1.0f, 180.0f, 180.0f)
+	:shot_manager_(shot_manager),shot_booker_(shot_booker),ObjectCommon("..\\200_resource\\enemy.png", 1.0f, 1.0f, 90.0f, 120.0f)
 {
-	
-}
-
-void EnemyObject::SetAngle(float to_x, float to_y)
-{
-	//ŽZo—pÀ•W
-	float dy = to_y - world_position_.y_;
-	float dx = to_x - world_position_.x_;
-	//ŽZo—pŠp“x
-	float angle;
-	//0‚ª‚ç‚Ý‚ÌˆÀ’è‰»
-	if (AlmostEqual(dx, 0) && AlmostEqual(dy, 0)) {
-		angle = system_set::repair_rad;
-	}
-	else {
-		angle = atan2(dy, dx);
-	}
-
-	rotate_ = angle;
+	time_ = 0.0f;
 }
 
 void EnemyObject::Update(float delta_time) {
 	//Šp“xÝ’è
-	SetAngle(shot_manager_->GetPlayerObjectPos().x_, shot_manager_->GetPlayerObjectPos().x_);
+	SetAngle(shot_manager_->GetPlayerCenter().x_, shot_manager_->GetPlayerCenter().y_);
+	time_ += delta_time;
+
 	//—\–ñŠm”F
 	int n = 0;
 	for (n = 0; n < shot_booker_->size(); n++) {
 
-		//ŽžŠÔ‡‚í‚¹(‘O‰ñ‚©‚ç‚Ì·)
-		int check = shot_booker_->operator[](n).bool_time;
-
+		//ŽžŠÔ‡‚í‚¹
+		float check = shot_booker_->operator[](n).bool_time * system_set::ms_per_s;
+		check -= shot_manager_->GetPlayerObjectPos().Length() / shot_booker_->operator[](n).speed;
 		
-		//std::cout << boder << std::endl;
-		if (check > delta_time - system_set::border_time && check < delta_time + system_set::border_time
+		//—P—\ŽžŠÔ’†‚È‚ç”­ŽË
+		if (check >  time_- (window_setting::sec_per_frame / 2)  && check <  time_ + (window_setting::sec_per_frame / 2)
 			&& shot_booker_->operator[](n).shooted == false) {
 			break;
 		}
@@ -65,6 +52,7 @@ void EnemyObject::Update(float delta_time) {
 
 		shot_manager_->AddShot(world_position_.x_ + size_x_/2, world_position_.y_ + size_y_ / 2,
 			shot_booker_->operator[](n).speed, angle);
+		shot_booker_->operator[](n).shooted = true;
 
 	}
 

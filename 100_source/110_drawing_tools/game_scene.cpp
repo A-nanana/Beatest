@@ -20,7 +20,6 @@
 #include "inputer.h"
 
 void GameScene::PushCheck() {
-	next_scene_ = new GameScene2();
 
 }
 
@@ -61,9 +60,10 @@ void GameScene::SetUp()
 
 Scene* GameScene::Update(float delta_time) {
 	camera_->Update();
-	root_->SetWorldPositionAll();
 	root_->UpdateAll(delta_time);
 	root_->SetWorldPositionAll();
+	shot_manage_->ShotIn(camera_);
+
 
 	next_buttom_->SetWorldPositionAll();
 	next_buttom_->UpdateAll(delta_time);
@@ -79,8 +79,7 @@ void GameScene::Draw(int screen_handle) {
 	root_->DrawAll(screen_handle,camera_);
 	
 	next_buttom_->DrawAll(screen_handle,camera_);
-	//デバック用表示
-	std::cout << PlayerObject::GetInstance()->GetWorldPosition().x_ << std::endl;
+
 }
 
 
@@ -92,56 +91,3 @@ void GameScene::Finalize()
 }
 
 //ここから下はテスト用!
-
-void GameScene2::PushCheck() {
-
-	next_scene_ = new GameScene();
-}
-
-
-
-void GameScene2::Init()
-{
-	root_ = new Node();
-	camera_ = new Camera(NULL,NULL);
-
-	next_buttom_ = new ButtomNode(1000, 1000, 10.0f, 10.0f, std::bind ( &GameScene2::PushCheck ,this), false);
-	next_buttom_->AddChild(new TextNode("押し", GetColor(255, 255, 255), 0.0f, 0.0f));
-	Node* ko2 = new TextNode("テストちゅ", GetColor(255, 255, 255), 150.0f, 150.0f);
-	next_scene_ = this;
-
-	root_->AddChild(ko2);
-	camera_->Init();
-}
-
-void GameScene2::SetUp()
-{
-	root_->LoadResourceAll();
-	root_->SetWorldPositionAll();
-
-	next_buttom_->LoadResourceAll();
-	next_buttom_->SetWorldPositionAll();
-}
-
-Scene* GameScene2::Update(float delta_time) {
-
-	root_->UpdateAll(delta_time);
-	camera_->Update();
-	next_buttom_->UpdateAll(delta_time);
-
-
-	return next_scene_;
-}
-
-
-void GameScene2::Draw(int screen_handle) {
-	root_->DrawAll(screen_handle,camera_);
-	next_buttom_->DrawAll(screen_handle,camera_);
-}
-
-
-void GameScene2::Finalize()
-{
-	root_->ReleaseResourceAll();
-	next_buttom_->ReleaseResourceAll();
-}

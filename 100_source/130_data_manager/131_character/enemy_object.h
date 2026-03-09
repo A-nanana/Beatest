@@ -21,13 +21,11 @@ class EnemyObject :public ObjectCommon
 protected:
 	ShotManager* shot_manager_;//弾の管理
 	std::vector<ShotBooker>* shot_booker_;//弾の予約
-	float last_delta_;//直前の更新時間
+	float time_;//直前の更新時間
 public:
 //  コンストラクタ
 	EnemyObject(ShotManager* shot_manager, std::vector<ShotBooker>* shot_booker);
-	//更新補助
-	void SetAngle(float to_x, float to_y);
-
+	
 	//更新(更新するときの時間)
 	void Update(float delta_time);
 };

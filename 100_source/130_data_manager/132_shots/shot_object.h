@@ -15,11 +15,12 @@
 class ShotObject:public ObjectCommon
 {
 	Vector2D speed_; //速度.
+	Vector2D target_;//対象方向
 	bool used_; //有効か
 public:
 //  コンストラクタ
 	ShotObject(const int graph_handle, float x, float y) :used_(false), ObjectCommon(graph_handle, x, y) {};
-	ShotObject(const int graph_handle, float x, float y, float speed, float angle);
+	ShotObject(const int graph_handle, float x, float y, float speed, float angle,Vector2D target);
 //  デストラクタ
 	~ShotObject();
 
@@ -39,7 +40,7 @@ public:
 	//有効か返す
 	bool IsUsed() { return used_; };
 	//有効かの切り替え
-	void ChangeUsed() { used_ ^= 1; };
+	void ChangeUsed() { used_ = false; };
 
 	//更新(更新するときの時間)
 	void Update(float delta_time)override;

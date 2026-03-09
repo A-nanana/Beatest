@@ -12,10 +12,13 @@
 
 #include <vector>
 #include "..\..\110_drawing_tools\node.h"
+#include "..\131_character\player_object.h"
+#include "..\131_character\enemy_object.h"
 
 class EnemyObject;
 class PlayerObject;
 class ShotObject;
+class Camera;
 
 class ShotManager:public Node
 {
@@ -42,10 +45,14 @@ public:
 	void SetEnemyObject(EnemyObject* enemy);
 //  ゲッター
 	Vector2D GetPlayerObjectPos();
+	Vector2D GetPlayerCenter() { return player_->GetCenter(); };
 
 //  追加
 	void AddChild(ShotObject* node);
 	void AddShot(float x, float y, float speed, float angle);
+//  ショット更新
+	void ShotIn(Camera* camera);
+
 };
 
 #endif // !__SHOT_MANAGER_H__

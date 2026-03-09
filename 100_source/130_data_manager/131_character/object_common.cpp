@@ -10,12 +10,13 @@
 #include <iostream>
 #include "..\..\110_drawing_tools\tool.h"
 #include "object_common.h"
+#include "..\..\110_drawing_tools\defining.h"
 
 ObjectCommon::ObjectCommon(const char* name, float x, float y, float hit_size_x, float hit_size_y)
     :GraphNode(name, x, y) {
 
     rotate_ = 0.0f;
-
+    hit_size_.Set(hit_size_x, hit_size_y);
     hit_use_ = true;
 }
 
@@ -23,6 +24,9 @@ ObjectCommon::ObjectCommon(const int graph_handle, float x, float y)
     :GraphNode(graph_handle, x, y){
     
     GetGraphSize(graph_handle_, &size_x_, &size_y_);
+    size_x_ *= window_setting::graph_extender_;
+    size_y_ *= window_setting::graph_extender_;
+    hit_size_.Set(size_x_, size_y_);
 
     rotate_ = 0.0f;
     hit_use_ = true;
@@ -36,8 +40,8 @@ void ObjectCommon::SetRotate(float angle)
 
 void ObjectCommon::SetHitSize(float x, float y)
 {
-    size_x_ = x;
-    size_y_ = y;
+    hit_size_.x_ = x;
+    hit_size_.y_ = y;
 }
 
 void ObjectCommon::SetPosition(const float& x, const float& y)
@@ -50,16 +54,16 @@ void ObjectCommon::SetWorldPosition()
 {
     Node::SetWorldPosition();
     //頂点(回転の中心と図形の中心を合わせる)設定
-    point_[0].Set(-size_x_ / 2, -size_y_ / 2);
-    point_[1].Set(+size_x_ / 2, -size_y_ / 2);
-    point_[2].Set(+size_x_ / 2, +size_y_ / 2);
-    point_[3].Set(-size_x_ / 2, +size_y_ / 2);
+    point_[0].Set(-hit_size_.x_ / 2, -hit_size_.y_ / 2);
+    point_[1].Set(+hit_size_.x_ / 2, -hit_size_.y_ / 2);
+    point_[2].Set(+hit_size_.x_ / 2, +hit_size_.y_ / 2);
+    point_[3].Set(-hit_size_.x_ / 2, +hit_size_.y_ / 2);
     //回転行列で変換
     Matrix2 mat;//変換用マトリクス
     mat.SetMatrixRotate(rotate_);
     for (int i = 0; i < hit_set::squair_point; i++) {
         point_[i].ChangeForMatrix(mat);
-        point_[i].Add(GetWorldPosition()); //ワールド座標に変換
+        point_[i].Add(GetWorldPosition().x_ + size_x_ /2, GetWorldPosition().y_ + size_y_ /2); //ワールド座標に変換
     }
 
     //ベクトル計算
@@ -67,6 +71,36 @@ void ObjectCommon::SetWorldPosition()
         vectol_[i].Set(point_[(i + 1) % hit_set::squair_point]);
         vectol_[i].Sub(point_[i]);
     }
+}
+
+void ObjectCommon::SetAngle(float to_x, float to_y)
+{
+    //算出用座標
+    float dy = to_y + size_y_ - world_position_.y_;
+    float dx = to_x + size_x_ - world_position_.x_;
+    //算出用角度
+    float angle;
+    //0がらみの安定化
+    if (AlmostEqual(dx, 0) && AlmostEqual(dy, 0)) {
+        angle = system_set::repair_rad;
+    }
+    else {
+        angle = atan2(dy, dx);
+    }
+
+    rotate_ = angle;
+}
+
+void ObjectCommon::Load()
+{
+    GraphNode::Load();
+    //当たり判定を使うか
+    if (!hit_use_) return;
+    //当たり判定の作成がされているか
+    if (hit_size_.x_ > NULL || hit_size_.y_ > NULL) {
+        return;
+    }
+    hit_size_.Set(size_x_, size_y_);
 }
 
 bool ObjectCommon::HitCheckToPoint(Vector2D* other)
@@ -104,7 +138,6 @@ bool ObjectCommon::IsHit(ObjectCommon* other)
 {
     //当たり判定を扱えるか
     if (hit_use_ && other->IsObject()) {
-        DrawLine(point_[0].x_, point_[0].y_, point_[2].x_, point_[2].y_, ChangeColorToCode(255, 255, 255), FALSE);
 
         return HitCheckToBox(other);
         

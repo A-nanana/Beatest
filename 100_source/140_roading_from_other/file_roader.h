@@ -11,6 +11,7 @@
 #define __FILE_ROADER_H__
 
 #include <vector>
+#include <string>
 
 class MusicData;
 class ShotBooker;
@@ -26,6 +27,8 @@ class FileRoader
 public:
 	//インスタンスアクセス
 	static FileRoader* GetInstance();
+	//ラインナップ読み込み
+	void RoadLineup(std::vector<std::string>* title);
 	//曲読み込み
 	void RoadMusic(MusicData* music_data);
 	//譜面読み込み

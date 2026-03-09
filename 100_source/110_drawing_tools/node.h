@@ -102,6 +102,7 @@ public:
 	virtual void DrawAll(int screen_handle,Camera* camera);
 	//これと全て子の座標をワールド座標に
 	virtual void SetWorldPositionAll();
+	
 
 //  コンストラクタ
 	Node();

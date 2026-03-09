@@ -47,8 +47,13 @@ void GraphNode::Load()
 	}
 
 	 graph_handle_ = LoadGraph(name_.c_str());
+	//既にサイズが設定されているか
+	 if (size_x_ > NULL && size_y_ > NULL) {
+		 return;
+	}
 	 GetGraphSize(graph_handle_, &size_x_, &size_y_);
-
+	 size_x_ *= window_setting::graph_extender_;
+	 size_y_ *= window_setting::graph_extender_;
 }
 
 //リリース

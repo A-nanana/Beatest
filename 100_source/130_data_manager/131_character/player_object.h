@@ -20,6 +20,7 @@ protected:
 public:
 	//内容取得
 	static PlayerObject* GetInstance();
+	Vector2D GetCenter() { return { world_position_.x_ + size_x_ / 2,world_position_.y_ + size_y_ / 2 }; };
 	//更新(更新するときの時間)
 	void Update(float delta_time);
 };

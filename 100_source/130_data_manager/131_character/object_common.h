@@ -19,7 +19,7 @@ class ObjectCommon:public GraphNode
 protected:
 	Vector2D point_[hit_set::squair_point]; //頂点
 	Vector2D vectol_[hit_set::squair_point]; //各頂点のベクトル
-
+	Vector2D hit_size_;//当たり判定の大きさ
 	bool hit_use_; //判定を使うか
 public:
 //  コンストラクタ
@@ -32,8 +32,13 @@ public:
 	void SetHitSize(float x, float y);//サイズ
 	void SetPosition(const float& x, const float& y);//相対位置
 	void SetWorldPosition();//ワールド座標
+	void SetAngle(float to_x, float to_y); //x,yの目標地点から
 
-	//当たり判定
+
+	void Load() override;//ロード
+
+
+	//当たり判定補助
 	bool IsObject() { return hit_use_; };//物として扱うものか
 	//当たり判定
 	bool HitCheckToPoint(Vector2D* other);//点と辺

@@ -5,8 +5,9 @@
 #include "..\..\110_drawing_tools\tool.h"
 
 PlayerObject* PlayerObject::player_ = nullptr;
-PlayerObject::PlayerObject():ObjectCommon("..\\200_resource\\aruku.png", 1.0f, 1.0f, 180.0f, 180.0f)
+PlayerObject::PlayerObject():ObjectCommon("..\\200_resource\\aruku.png", 1.0f, 1.0f,NULL,NULL)
 {
+	
 }
 
 PlayerObject* PlayerObject::GetInstance()

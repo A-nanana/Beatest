@@ -31,7 +31,7 @@ namespace window_setting {
 //  ƒEƒBƒ“ƒhƒE‚Ì•\¦—P—\
 	static int offset_shown = 100;
 //  ‰æ‘œŠg‘å—¦
-	static float graph_extender_ = 1.0f;
+	static float graph_extender_ = 0.5f;
 //  fps
 	static const int fps = 60;
 //  fps‚©‚ç1ƒRƒ}‚ ‚½‚è‚ÌŠÔ‚ğo‚·
@@ -65,7 +65,7 @@ namespace line_set {
 	static const int brank_y = 32; // y
 //  Å‘å‚Å•À‚×‚ç‚ê‚é”
 	static const int amount_x_max = 4; // x
-	static const int amount_y_max = 4; // y
+	static const int amount_y_max = 5; // y
 
 }
 
@@ -98,13 +98,12 @@ namespace hit_set {
 // @memo   
 //------------------------------
 namespace string_set {
-//  ’e‚Ìí—Ş
-	static const enum ShotType{
-		ENEMY_NOMAL,
-
-	};
 //  •s’è’l(’l‚ª‚í‚©‚ç‚È‚¢‚Æ‚«)
 	static const char* unknown = " ? ";
+//  ƒgƒbƒv‚Ì•¶š
+	static const char* title = " Beatest ";
+//  “®ìŒn
+	static const char* push_to_start = "push Enter to start"; //ŠJn
 
 }
 
@@ -123,12 +122,17 @@ namespace system_set {
 	static const float repair_rad = M_PI * 270.0f / 180.0f;
 //  —P—\ŠÔ
 	static const float border_time = 34.0f;
-//  1•ª‚ğms‚É’¼‚·
-	static const float ms_per_min = 60000.0f;
+//  1s‚ğms‚É’¼‚·
+	static const int ms_per_s = 1000;
 //  ’e‚ÌŠp“xC³’PˆÊ
 	static const float angle_per_time = 15.0f * M_PI / 180.0f;
 //  ‰æ–Êã‚Ì’e”
 	static const int shot_max = 100;
+//  ’e‚Ìí—Ş
+	static const enum ShotType {
+		ENEMY_NOMAL,
+
+	};
 
 
 }

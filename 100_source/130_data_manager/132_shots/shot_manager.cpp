@@ -15,6 +15,7 @@
 #include "shot_object.h"
 #include "..\131_character\player_object.h"
 #include "..\131_character\enemy_object.h"
+#include "..\..\110_drawing_tools\camera.h"
 
 //ロード
 void ShotManager::Load() {
@@ -47,7 +48,24 @@ void ShotManager::Update(float delta_time) {
 			//存在フラグ切り替え
 			shot->ChangeUsed();
 		};
+		
 	
+	}
+}
+void ShotManager::ShotIn(Camera* camera)
+{
+	for (Node* node : children_) {
+		ShotObject* shot = dynamic_cast<ShotObject*>(node);
+		//オブジェクトがあるか
+		if (!shot) {
+			continue;
+		}
+		//カメラに入っているか
+		if ((shot->GetWorldPosition().x_ + size_x_< camera->position_.x_ || shot->GetWorldPosition().x_>camera->position_.x_ + camera->size_.x_)
+			&& (shot->GetWorldPosition().y_ + size_y_< camera->position_.y_ || shot->GetWorldPosition().y_>camera->position_.y_ + camera->size_.y_)) {
+			//存在フラグ切り替え
+			shot->ChangeUsed();
+		}
 	}
 }
 //セット
@@ -84,6 +102,7 @@ void ShotManager::AddShot(float x, float y, float speed, float angle)
 {
 	//存在できるか
 	if (children_.size() < system_set::shot_max) {
-		Node::AddChild(new ShotObject(shot_graph_handle_.front(), x, y, speed, angle));
+		//追加
+		Node::AddChild(new ShotObject(shot_graph_handle_.front(), x, y, speed, angle, GetPlayerCenter()));
 	}
 }

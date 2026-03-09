@@ -80,6 +80,9 @@ public:
 
 	//セットされたタグ
 	int GetTagParam() { return tag_; };
+	//入力キーの状態を返す
+	char* GetKeyState() {
+		return key_buf_;};
 
 //  更新処理
 	void Update();

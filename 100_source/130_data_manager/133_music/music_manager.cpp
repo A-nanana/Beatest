@@ -9,6 +9,7 @@
 //------------------------------
 #include "DxLib.h"
 #include "..\..\140_roading_from_other\file_roader.h"
+#include "..\..\110_drawing_tools\defining.h"
 #include "music_manager.h"
 
 MusicManager* MusicManager::music_manager_ = nullptr;
@@ -21,7 +22,6 @@ MusicManager::~MusicManager()
 {
 	//‰Šú‰»
 	InitSoundMem();
-
 }
 
 MusicManager* MusicManager::GetInstance() {
@@ -34,27 +34,38 @@ MusicManager* MusicManager::GetInstance() {
 
 void MusicManager::SetPlayMusic(const char* title)
 {
-	play_music_.title = title;
+	play_music_.title_ = title;
 	FileRoader::GetInstance()->RoadMusic(&play_music_);
+}
+
+void MusicManager::SetLineUp()
+{
+	FileRoader::GetInstance()->RoadLineup(&title_line_up_);
+	//‰½‚©‚ ‚é‚©
+	if (title_line_up_.size() > NULL) {
+		return;
+	}
+	//“ü‚Á‚Ä‚È‚¢‚±‚Æ‚ğ‹³‚¦‚é
+	title_line_up_.push_back(string_set::unknown);
 }
 
 //Ä¶ŠÖŒW
 void MusicManager::PlayMusic()
 {
-	PlaySoundMem(play_music_.handle, DX_PLAYTYPE_BACK);
+	PlaySoundMem(play_music_.handle_, DX_PLAYTYPE_BACK);
 }
 
 void MusicManager::StopMusic()
 {
 	//Ä¶’†‚©
-	if (CheckSoundMem(play_music_.handle)) {
-		StopSoundMem(play_music_.handle);
+	if (CheckSoundMem(play_music_.handle_)) {
+		StopSoundMem(play_music_.handle_);
 	}
 }
 
 void MusicManager::DeleteMusic()
 {
-	DeleteSoundMem(play_music_.handle);
+	DeleteSoundMem(play_music_.handle_);
 }
 
 void MusicManager::PlayBgm()
@@ -65,7 +76,7 @@ void MusicManager::PlayBgm()
 void MusicManager::StopBgm()
 {
 	//Ä¶’†‚©
-	if (CheckSoundMem(play_music_.handle)) {
+	if (CheckSoundMem(play_music_.handle_)) {
 		StopSoundMem(bgm_handle_);
 	}
 }
