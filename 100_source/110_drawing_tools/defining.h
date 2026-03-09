@@ -118,7 +118,7 @@ namespace system_set {
 //  プレイヤーの速さ
 	static const float player_walk_speed = 5.0f;
 //  弾のデフォルトの速さ
-	static const float shot_speed_def = 20;
+	static const float shot_speed_def = 10;
 //  角度が大きくなったときの修正角度
 	static const float repair_rad = M_PI * 270.0f / 180.0f;
 //  猶予時間

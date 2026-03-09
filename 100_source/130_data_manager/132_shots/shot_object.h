@@ -20,6 +20,9 @@ public:
 //  コンストラクタ
 	ShotObject(const int graph_handle, float x, float y) :used_(false), ObjectCommon(graph_handle, x, y) {};
 	ShotObject(const int graph_handle, float x, float y, float speed, float angle);
+//  デストラクタ
+	~ShotObject();
+
 //  ワールド座標で見た端を返す
 	//左端を返す
 	int XLeft(void);

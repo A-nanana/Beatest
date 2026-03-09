@@ -36,7 +36,7 @@ void ShotManager::Update(float delta_time) {
 			continue;
 		}
 		//オブジェクトが有効か
-		if (!shot->IsUsed()) {
+		if (!(shot->IsUsed())) {
 			//有効でないならとり除く
 			DeleteChild(shot);
 			continue;

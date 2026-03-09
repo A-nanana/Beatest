@@ -1,3 +1,4 @@
+#include <iostream>
 #include "player_object.h"
 #include "..\..\110_drawing_tools\inputer.h"
 #include "..\..\110_drawing_tools\defining.h"
@@ -22,6 +23,7 @@ void PlayerObject::Update(float delta_time)
 	Vector2D move_vector(NULL,NULL);
 	//直前位置の記憶
 	Vector2D last_pos(world_position_);
+
 	//Wキーで上に
 	if (Inputer::GetInstance()->GetHitKey(KEY_INPUT_W)) {
 		move_vector.Add(NULL, -system_set::player_walk_speed);
@@ -38,15 +40,15 @@ void PlayerObject::Update(float delta_time)
 	if (Inputer::GetInstance()->GetHitKey(KEY_INPUT_D)) {
 		move_vector.Add(system_set::player_walk_speed, NULL);
 	}
-	
-	//移動値を加算
-	world_position_.Add(move_vector);
+	//ノルム化
+	move_vector.Normalize();
+	move_vector.Scale(system_set::player_walk_speed);
 	//端の場合はクランプ
-	CrampDouble(world_position_.x_, NULL, window_setting::size_x - size_x_);
-	CrampDouble(world_position_.y_, NULL, window_setting::size_y -size_y_);
-	//こっちの位置も修正
-	position_.Add({ world_position_.x_ - last_pos.x_,world_position_.y_ - last_pos.y_ });
+	CrampDouble(move_vector.x_, -last_pos.x_, window_setting::size_x - size_x_ - last_pos.x_);
+	CrampDouble(move_vector.y_, -last_pos.y_, window_setting::size_y -size_y_ - last_pos.y_);
+	//位置の加算
+	SetPosition(position_.x_ + move_vector.x_, position_.y_ + move_vector.y_);
+	ObjectCommon::SetWorldPosition();
 
-	//当たり判定の更新
-	hit_box_.Update(world_position_.x_ - last_pos.x_, world_position_.y_ - last_pos.y_);
+
 }

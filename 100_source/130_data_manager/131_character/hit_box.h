@@ -23,13 +23,16 @@ public:
 
 	//コンストラクタ
 	HitBox(float x_start, float y_start, float x_size, float y_size, float lotate_rad = 0.0f);
+	HitBox() {};
 	//移動量で更新
 	void Update(float move_x, float move_y);
 	//セッター
-	void SetToSize(int x, int y);
+	void SetToSize(int x, int y); //サイズ
+	void SetBox(float x_start, float y_start, float x_size, 
+		float y_size, float lotate_rad = 0.0f); //当たり判定
 	//当たり判定
-	bool HitCheckToPoint(Vector2D* other);
-	bool HitCheckToBox(HitBox* other);
+	bool HitCheckToPoint(Vector2D* other);//点と辺
+	bool HitCheckToBox(HitBox* other);//点と矩形
 
 };
 

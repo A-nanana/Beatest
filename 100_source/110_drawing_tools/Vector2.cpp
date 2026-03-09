@@ -131,8 +131,9 @@
 	//çsóÒÇ≈ïœçX
 	Vector2D Vector2D::ChangeForMatrix(Matrix2 matrix_)
 	{
-		x_ = x_ * matrix_.matrix_[0][0] + y_ * matrix_.matrix_[0][1];
-		y_ = x_ * matrix_.matrix_[1][0] + y_ * matrix_.matrix_[1][1];
+		Vector2D last_(x_, y_);//íºëOÇÃÇ‚Ç¬
+		x_ = last_.x_ * matrix_.matrix_[0][0] + last_.y_ * matrix_.matrix_[0][1];
+		y_ = last_.x_ * matrix_.matrix_[1][0] + last_.y_ * matrix_.matrix_[1][1];
 		return { x_,y_ };
 	}
 

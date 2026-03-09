@@ -61,10 +61,11 @@ void GameScene::SetUp()
 
 Scene* GameScene::Update(float delta_time) {
 	camera_->Update();
-
+	root_->SetWorldPositionAll();
 	root_->UpdateAll(delta_time);
 	root_->SetWorldPositionAll();
 
+	next_buttom_->SetWorldPositionAll();
 	next_buttom_->UpdateAll(delta_time);
 	next_buttom_->SetWorldPositionAll();
 

@@ -24,9 +24,6 @@
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="..\100_source\130_data_manager\131_character\hit_box.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="..\100_source\130_data_manager\131_character\object_common.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -95,9 +92,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\100_source\130_data_manager\131_character\hit_box.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="..\100_source\130_data_manager\131_character\object_common.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>

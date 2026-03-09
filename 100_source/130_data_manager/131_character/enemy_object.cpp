@@ -35,7 +35,6 @@ void EnemyObject::SetAngle(float to_x, float to_y)
 		angle = atan2(dy, dx);
 	}
 
-	GetHitBox()->lotate_rad_ = angle;
 	rotate_ = angle;
 }
 

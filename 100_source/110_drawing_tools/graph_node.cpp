@@ -64,9 +64,8 @@ void GraphNode::Draw(int screen_handle,Camera* camera)
 		Vector2D draw_pos_(world_position_);
 		draw_pos_.x_ += -camera->position_.x_ + size_x_ / 2;
 		draw_pos_.y_ += -camera->position_.y_ + size_y_ / 2;
-		DrawRotaGraph2(draw_pos_.x_, draw_pos_.y_,size_x_/2,size_y_/2, window_setting::graph_extender_* 0.5f
+		DrawRotaGraph2(draw_pos_.x_, draw_pos_.y_,size_x_,size_y_, window_setting::graph_extender_
 			,rotate_,graph_handle_, TRUE);
-		DrawBox(world_position_.x_, world_position_.y_, world_position_.x_ + size_x_, world_position_.y_ +size_y_, ChangeColorToCode(255,255,255),FALSE);
 	}
 }
 

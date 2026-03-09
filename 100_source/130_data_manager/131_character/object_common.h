@@ -13,27 +13,35 @@
 
 #include "..\..\110_drawing_tools\graph_node.h"
 #include "hit_box.h"
+
 class ObjectCommon:public GraphNode
 {
 protected:
-	HitBox hit_box_; //当たり判定
+	Vector2D point_[hit_set::squair_point]; //頂点
+	Vector2D vectol_[hit_set::squair_point]; //各頂点のベクトル
+
 	bool hit_use_; //判定を使うか
 public:
 //  コンストラクタ
-	ObjectCommon(const char* name, float x, float y, float hit_size_x, float hit_size_y) :GraphNode(name, x, y), hit_box_(x, y, hit_size_x, hit_size_y) { hit_use_ = true; };
-	ObjectCommon(const char* name, float x, float y) :GraphNode(name, x, y), hit_box_(x, y, 0.0f, 0.0f) { hit_use_ = false; };
+	ObjectCommon(const char* name, float x, float y, float hit_size_x, float hit_size_y);
+	ObjectCommon(const char* name, float x, float y) :GraphNode(name, x, y), hit_use_(false) { };
 	ObjectCommon(const int graph_handle, float x, float y);
 
 //  セッター
 	void SetRotate(float angle);//回転
 	void SetHitSize(float x, float y);//サイズ
+	void SetPosition(const float& x, const float& y);//相対位置
+	void SetWorldPosition();//ワールド座標
 
 	//当たり判定
-	HitBox* GetHitBox() { return &hit_box_; };//判定に使う数値
 	bool IsObject() { return hit_use_; };//物として扱うものか
-
+	//当たり判定
+	bool HitCheckToPoint(Vector2D* other);//点と辺
+	bool HitCheckToBox(ObjectCommon* other);//点と矩形
 	//実際の当たり判定
 	bool IsHit(ObjectCommon* other);
+
+
 
 
 };

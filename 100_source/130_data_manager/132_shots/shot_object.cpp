@@ -19,6 +19,11 @@ ShotObject::ShotObject(const int graph_handle, float x, float y, float speed, fl
 	speed_.x_ = speed * cos(angle);
 	speed_.y_ = speed * sin(angle);
 	SetRotate(angle);
+	hit_use_ = true;
+}
+
+ShotObject::~ShotObject()
+{
 	
 }
 
@@ -65,6 +70,7 @@ int ShotObject::Shoot(int _speed, double angle)
 
 //更新
 void ShotObject::Update(float delta_time) {
+	/*
 	//方向の各成分入れ
 	Vector3D a, b;
 	//今の向き
@@ -79,7 +85,7 @@ void ShotObject::Update(float delta_time) {
 	// 外積を利用し向きを照準側に向ける
 	a.Cross(b);
 	//反時計回りか
-	if (a.x_ < 0.0f) {
+	if (a.z_ <= NULL) {
 		m_angle += -system_set::angle_per_time;
 	}
 	else {
@@ -91,14 +97,13 @@ void ShotObject::Update(float delta_time) {
 	mat.SetMatrixRotate(m_angle);
 	// 速度変更
 	speed_.ChangeForMatrix(mat);
-	
+	*/
 
 	// 移動
-	position_.Add(speed_);
+	SetPosition(position_.x_ + speed_.x_, position_.y_ + speed_.y_);
+	ObjectCommon::SetWorldPosition();
+	
 
-	is_caliculate_ = false;
-	hit_box_.Update(speed_.x_, speed_.y_);
-	std::cout << hit_box_.point_[0].x_ << std::endl;
 }
 
 void ShotObject::Release()
