@@ -68,6 +68,8 @@ void FileRoader::RoadMusic(MusicData* music_data)
 	}
 
 	propaty_p.close();
+	//1拍当たりの秒数計算
+	music_data->ms_per_hyousi_ = system_set::ms_per_s * 60.0f / music_data->bpm_;
 }
 
 std::vector<ShotBooker>* FileRoader::RoadHumen(const MusicData& music_data)
@@ -96,6 +98,7 @@ std::vector<ShotBooker>* FileRoader::RoadHumen(const MusicData& music_data)
 	int retu = 0;//ファイルの列
 	int setu = 0;//曲の節数
 	int i = 0;//ループカウント
+
 	while (humen_2.size() > i) {
 		switch (humen_2[i])
 		{
@@ -109,12 +112,11 @@ std::vector<ShotBooker>* FileRoader::RoadHumen(const MusicData& music_data)
 				ShotBooker booked = booked_def;//予約カード
 
 				if (humen_2[i - retu + j] == '1') {
-					float in_time = (float)(((setu + j / retu) + 1.0f) * music_data.hyousi_ * 60.0f  / music_data.bpm_); //時間
+					float in_time = (float)(((setu + j / retu) + 1.0f) * music_data.hyousi_ * music_data.ms_per_hyousi_); //時間
 
-					booked.bool_time = in_time;
+					booked.bool_time = in_time;//差分時間で予約
 					booked.type = 0;
 					booker->push_back(booked);
-					
 				}
 			}
 			setu++;

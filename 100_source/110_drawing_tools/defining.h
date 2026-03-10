@@ -30,12 +30,18 @@ namespace window_setting {
 	static int center_y = 200; // y
 //  ウィンドウの表示猶予
 	static int offset_shown = 100;
-//  画像拡大率
-	static float graph_extender_ = 0.5f;
-//  fps
+
+	//  画像拡大率
+	static float graph_extender_ = 0.25f;
+
+	//  fps
 	static const int fps = 60;
 //  fpsから1コマあたりの時間を出す
 	static const float sec_per_frame = 1000.0f / fps;
+
+//  0(iostream入れないとNULLを使えなさそう)
+	static const int null_param = 0;
+
 //  ウィンドウの初期設定を一括でする関数
 	void WindowSettings();
 }
@@ -66,7 +72,11 @@ namespace line_set {
 //  最大で並べられる数
 	static const int amount_x_max = 4; // x
 	static const int amount_y_max = 5; // y
-
+//  セレクター系の初期位置
+	static const int selecter_x = window_setting::center_x / 3;//x
+	static const int selecter_y = window_setting::size_y / 3;//y
+//  見出しの初期配置
+	static const int midasi_y = window_setting::center_y / 2;//y
 }
 
 //-----------------------------
@@ -104,6 +114,8 @@ namespace string_set {
 	static const char* title = " Beatest ";
 //  動作系
 	static const char* push_to_start = "push Enter to start"; //開始
+	static const char* select_song = "Select To Play!";//選択
+	static const char* result = "Your Result"; //結果
 
 }
 
@@ -115,7 +127,7 @@ namespace string_set {
 //------------------------------
 namespace system_set {
 //  プレイヤーの速さ
-	static const float player_walk_speed = 5.0f;
+	static const float player_walk_speed = 10.0f;
 //  弾のデフォルトの速さ
 	static const float shot_speed_def = 10;
 //  角度が大きくなったときの修正角度
@@ -127,13 +139,14 @@ namespace system_set {
 //  弾の角度修正単位
 	static const float angle_per_time = 15.0f * M_PI / 180.0f;
 //  画面上の弾数
-	static const int shot_max = 100;
+	static const int shot_max = 1000;
 //  弾の種類
 	static const enum ShotType {
 		ENEMY_NOMAL,
 
 	};
-
+//  必須待機時間
+	static const int need_wait_time_ = 1.5 * ms_per_s;
 
 }
 

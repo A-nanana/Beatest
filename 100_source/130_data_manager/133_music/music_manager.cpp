@@ -52,11 +52,17 @@ void MusicManager::SetLineUp()
 //çƒê∂ä÷åW
 void MusicManager::PlayMusic()
 {
+	if (play_music_.handle_ == -1) {
+		return;
+	}
 	PlaySoundMem(play_music_.handle_, DX_PLAYTYPE_BACK);
 }
 
 void MusicManager::StopMusic()
 {
+	if (play_music_.handle_ == -1) {
+		return;
+	}
 	//çƒê∂íÜÇ©
 	if (CheckSoundMem(play_music_.handle_)) {
 		StopSoundMem(play_music_.handle_);
@@ -65,16 +71,25 @@ void MusicManager::StopMusic()
 
 void MusicManager::DeleteMusic()
 {
+	if (play_music_.handle_ == -1) {
+		return;
+	}
 	DeleteSoundMem(play_music_.handle_);
 }
 
 void MusicManager::PlayBgm()
 {
+	if (bgm_handle_ == -1) {
+		return;
+	}
 	PlaySoundMem(bgm_handle_, DX_PLAYTYPE_BACK | DX_PLAYTYPE_LOOP);
 }
 
 void MusicManager::StopBgm()
 {
+	if (bgm_handle_ == -1) {
+		return;
+	}
 	//çƒê∂íÜÇ©
 	if (CheckSoundMem(play_music_.handle_)) {
 		StopSoundMem(bgm_handle_);
@@ -83,5 +98,8 @@ void MusicManager::StopBgm()
 
 void MusicManager::EndBgm()
 {
+	if (bgm_handle_ == -1) {
+		return;
+	}
 	DeleteSoundMem(bgm_handle_);
 }

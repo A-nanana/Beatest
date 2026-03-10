@@ -11,7 +11,7 @@
 #include "shot_object.h"
 #include "..\131_character\player_object.h"
 #include "..\..\110_drawing_tools\defining.h"
-
+#include "..\133_music\music_manager.h"
 
 ShotObject::ShotObject(const int graph_handle, float x, float y, float speed, float angle, Vector2D target)
 	:used_(true),target_(target), ObjectCommon(graph_handle, x, y) {

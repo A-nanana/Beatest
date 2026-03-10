@@ -16,6 +16,7 @@
 #include "..\131_character\player_object.h"
 #include "..\131_character\enemy_object.h"
 #include "..\..\110_drawing_tools\camera.h"
+#include "..\134_other\score_manager.h"
 
 //ロード
 void ShotManager::Load() {
@@ -47,6 +48,8 @@ void ShotManager::Update(float delta_time) {
 		if (player_->IsHit(shot)) {
 			//存在フラグ切り替え
 			shot->ChangeUsed();
+			//コンボの消去
+			ScoreManager::GetInstance()->ComboUpdate(false);
 		};
 		
 	
@@ -65,6 +68,8 @@ void ShotManager::ShotIn(Camera* camera)
 			&& (shot->GetWorldPosition().y_ + size_y_< camera->position_.y_ || shot->GetWorldPosition().y_>camera->position_.y_ + camera->size_.y_)) {
 			//存在フラグ切り替え
 			shot->ChangeUsed();
+			//コンボの成功
+			ScoreManager::GetInstance()->ComboUpdate(true);
 		}
 	}
 }
@@ -76,7 +81,6 @@ void ShotManager::SetUp() {
 //コンストラクタ
 ShotManager::ShotManager()
 {
-	change_time_ = 0;
 }
 
 //  セッター

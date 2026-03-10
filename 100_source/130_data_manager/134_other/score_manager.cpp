@@ -1,0 +1,74 @@
+//-----------------------------
+// @name   score_manager.cpp
+// @brief  スコア管理 クラス
+// @auther A.namami
+// @date   2026/3/10  新規作成
+// @memo   エラー型が来た場合は-1で返します
+//
+//Copyright (c) 2026 A.nanami All rights reserved.
+//------------------------------
+
+#include "score_manager.h"
+#include "..\..\110_drawing_tools\defining.h"
+
+//------------------------------
+// @name   ScoreManager
+// @brief  スコア管理 クラス
+// @memo   エラー型が来た場合は-1で返します
+//------------------------------
+
+ScoreManager* ScoreManager::instance_ = nullptr;
+//  コンストラクタ
+ScoreManager::ScoreManager() {
+	score_.max_conbo = window_setting::null_param;
+	score_.score = window_setting::null_param;
+	count_conbo_ = window_setting::null_param;
+	count_conbo_max_ = window_setting::null_param;
+}
+
+//インスタンスアクセス
+ScoreManager* ScoreManager::GetInstance() {
+	if (instance_ == nullptr) {
+		instance_ = new ScoreManager();
+	}
+	return instance_;
+}
+
+//更新
+void ScoreManager::ComboUpdate(bool is_conbo)
+{
+	//コンボの成否
+	if (is_conbo) {
+		count_conbo_++;
+	}
+	else {
+		//コンボは最高記録か
+		if (score_.max_conbo < count_conbo_)
+		{
+			score_.max_conbo = count_conbo_;
+		}
+
+		//コンボなし
+		count_conbo_ = window_setting::null_param;
+	}
+	count_conbo_max_++;
+}
+
+//結果確定
+void ScoreManager::ResultLock()
+{
+	//コンボは最高記録か
+	if (score_.max_conbo < count_conbo_)
+	{
+		score_.max_conbo = count_conbo_;
+	}
+
+}
+
+//リセット
+void ScoreManager::Reset() {
+	score_.max_conbo = window_setting::null_param;
+	score_.score = window_setting::null_param;
+	count_conbo_ = window_setting::null_param;
+	count_conbo_max_ = window_setting::null_param;
+}

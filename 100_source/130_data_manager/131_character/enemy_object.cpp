@@ -33,7 +33,7 @@ void EnemyObject::Update(float delta_time) {
 	for (n = 0; n < shot_booker_->size(); n++) {
 
 		//ŽžŠÔ‡‚í‚¹
-		float check = shot_booker_->operator[](n).bool_time * system_set::ms_per_s;
+		float check = shot_booker_->operator[](n).bool_time;
 		check -= shot_manager_->GetPlayerObjectPos().Length() / shot_booker_->operator[](n).speed;
 		
 		//—P—\ŽžŠÔ’†‚È‚ç”­ŽË
