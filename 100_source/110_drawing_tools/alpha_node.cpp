@@ -9,10 +9,16 @@
 //Copyright (c) 2026 A.nanami All rights reserved.
 //------------------------------
 #include "alpha_node.h"
-#include "defining.h"
 
 void AlphaNode::Draw(int screen_handle,Camera* camera)
 {
 	//ブレンドモードを変えて描画
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha_ * window_setting::max_dxlib_param);
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha_ * 255);
+}
+
+void AlphaNode::DrawAll(int screen_handle,Camera* camera)
+{
+	Node::DrawAll(screen_handle,camera);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, alpha_ * 255);
+
 }

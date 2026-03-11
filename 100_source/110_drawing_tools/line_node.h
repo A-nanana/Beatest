@@ -10,9 +10,8 @@
 #pragma once
 
 #include "node.h"
-#include "alpha_node.h"
 
-
+class AlphaNode;
 //-----------------------------
 // @name   LineNode
 // @brief  線ノード
@@ -21,7 +20,7 @@
 class LineNode:public Node
 {
 protected:
-	Vector2D length_; //最終位置
+	Vector2D position_2_; //最終位置
 	int color_code_; //色コード
 	float thick_;//太さ
 
@@ -33,7 +32,7 @@ protected:
 	//更新(更新するときの時間)
 	void Update(float delta_time) override;
 	//描画(描画先)
-	void Draw(int screen_handle,Camera* camera) override;
+	void Draw(int screen_handle, Camera* camera) override;
 
 public:
 	LineNode(float x, float y, float last_pos_x, float last_pos_y, int color_code, float thick);
@@ -45,17 +44,14 @@ public:
 // @brief  線エフェクト
 // @memo   セットしてから使うこと
 //------------------------------
-class LineEffect :public AlphaNode
+class LineEffect :public LineNode
 {
 protected:
-
-	Vector2D length_; //最終位置
-	int color_code_; //色コード
-	float thick_;//太さ
 	int looper_max_;//エフェクトループの最大
 	int looper_count_;//ループカウント(最大はループ最大数の二倍であることに注意)
 	float time_per_loop_harf_;//0.5ループあたりの時間
 	float time_count_;//時間カウント
+	AlphaNode* alpha_node_;//アルファチャンネル
 
 
 	//更新(更新するときの時間)
@@ -65,7 +61,8 @@ protected:
 
 public:
 	//コンストラクタ
-	LineEffect(float x, float y, float last_pos_x, float last_pos_y, int color_code, float thick, int looper, float time);
-
+	LineEffect(float x, float y, float last_pos_x, float last_pos_y, int color_code, float thick , int looper , float time);
 	
+	//セッター
+	void SetAlphaNode(AlphaNode* alpha) { alpha_node_ = alpha; };
 };

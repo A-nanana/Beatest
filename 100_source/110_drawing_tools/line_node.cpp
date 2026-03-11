@@ -9,7 +9,7 @@
 //------------------------------
 
 #include "line_node.h"
-#include "camera.h"
+#include "alpha_node.h"
 #include "tool.h"
 
 //-----------------------------
@@ -20,7 +20,7 @@
 LineNode::LineNode(float x, float y, float last_pos_x, float last_pos_y, int color_code, float thick)
 {
 	SetPosition(x, y);
-	length_.Set(last_pos_x, last_pos_y);
+	position_2_.Set(last_pos_x, last_pos_y);
 	color_code_ = color_code;
 	thick_ = thick;
 }
@@ -38,8 +38,8 @@ void LineNode::Update(float delta_time) {
 
 }
 //描画(描画先)
-void LineNode::Draw(int screen_handle, Camera* camera) {
-	DrawLineAA(world_position_.x_,world_position_.y_,length_.x_,length_.y_,color_code_,thick_);
+void LineNode::Draw(int screen_handle,Camera* camera) {
+	DrawLineAA(world_position_.x_,world_position_.y_,position_2_.x_,position_2_.y_,color_code_,thick_);
 }
 
 //-----------------------------
@@ -48,17 +48,13 @@ void LineNode::Draw(int screen_handle, Camera* camera) {
 // @memo   セットしてから使うこと
 //------------------------------
 LineEffect::LineEffect(float x, float y, float last_pos_x, float last_pos_y, int color_code, float thick, int looper, float time)
-	:AlphaNode(NULL)
+	:LineNode(x,y,last_pos_x,last_pos_y,color_code,thick)
 {
-	SetPosition(x, y);
-	length_.Set(last_pos_x, last_pos_y);
-	color_code_ = color_code;
-	thick_ = thick;
-
 	looper_max_ = looper;
 	looper_count_ = 0;
 	time_per_loop_harf_ = time / 2;
 	time_count_ = 0;
+	alpha_node_ == nullptr;
 }
 
 
@@ -66,7 +62,7 @@ void LineEffect::Update(float delta_time)
 {
 	//時間追加
 	time_count_ += delta_time;
-
+	
 
 	//時間がカウント更新時間になったらループカウント追加
 	if (time_count_ >= time_per_loop_harf_) {
@@ -81,26 +77,26 @@ void LineEffect::Update(float delta_time)
 
 	//アルファ値追加
 	//対象があるか
+	if (alpha_node_ == nullptr) return;
 
 	//奇数か偶数かで処理切り替え
 	if ((looper_count_ % 2) == 0) {
-		Add((float)(delta_time / time_per_loop_harf_));
+		alpha_node_->Add((float)(delta_time / time_per_loop_harf_));
 	}
 	else {
-		Sub((float)(delta_time / time_per_loop_harf_));
+		alpha_node_->Sub((float)(delta_time / time_per_loop_harf_));
 
 	}
-
+	
 }
 
-void LineEffect::Draw(int screen_handle, Camera* camera)
+void LineEffect::Draw(int screen_handle,Camera* camera)
 {
-
-	AlphaNode::Draw(screen_handle, camera);
-	DrawLineAA(world_position_.x_, world_position_.y_, length_.x_, length_.y_, color_code_, thick_);
 	
-	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, NULL);
-
+	
+	DrawLineAA(world_position_.x_, world_position_.y_, position_2_.x_, position_2_.y_, color_code_, thick_);
+	
+	
 }
 
 

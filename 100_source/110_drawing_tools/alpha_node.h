@@ -15,7 +15,7 @@ class AlphaNode:public Node
 {
 	float alpha_;//ƒAƒ‹ƒtƒ@ƒ`ƒƒƒ“ƒlƒ‹
 	
-protected:
+	
 	//•`‰æ(•`‰ææ)
 	void Draw(int screen_handle, Camera* camera) override;
 
@@ -30,5 +30,8 @@ public:
 //  ‰ÁŒ¸Z
 	void Add(float param) { alpha_ += param; };// ‰ÁZ
 	void Sub(float param) { alpha_ -= param; };// Œ¸Z
+
+//  ’Ç‰ÁŒn
+	void DrawAll(int screen_handle, Camera* camera) override;
 };
 

@@ -99,16 +99,16 @@
     <ClCompile Include="..\100_source\130_data_manager\134_other\score_manager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="..\100_source\110_drawing_tools\line_node.cpp">
-      <Filter>ソース ファイル\110_draw_tools</Filter>
-    </ClCompile>
     <ClCompile Include="..\100_source\150_effect\151_player\player_effect.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="..\100_source\110_drawing_tools\splite_node.cpp">
+      <Filter>ソース ファイル\110_draw_tools</Filter>
     </ClCompile>
     <ClCompile Include="..\100_source\110_drawing_tools\alpha_node.cpp">
       <Filter>ソース ファイル\110_draw_tools</Filter>
     </ClCompile>
-    <ClCompile Include="..\100_source\110_drawing_tools\splite_node.cpp">
+    <ClCompile Include="..\100_source\110_drawing_tools\line_node.cpp">
       <Filter>ソース ファイル\110_draw_tools</Filter>
     </ClCompile>
   </ItemGroup>
@@ -191,16 +191,16 @@
     <ClInclude Include="..\100_source\130_data_manager\134_other\score_manager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="..\100_source\110_drawing_tools\line_node.h">
-      <Filter>ヘッダー ファイル\110_draw_tool</Filter>
-    </ClInclude>
     <ClInclude Include="..\100_source\150_effect\151_player\player_effect.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\100_source\110_drawing_tools\splite_node.h">
+      <Filter>ヘッダー ファイル\110_draw_tool</Filter>
     </ClInclude>
     <ClInclude Include="..\100_source\110_drawing_tools\alpha_node.h">
       <Filter>ヘッダー ファイル\110_draw_tool</Filter>
     </ClInclude>
-    <ClInclude Include="..\100_source\110_drawing_tools\splite_node.h">
+    <ClInclude Include="..\100_source\110_drawing_tools\line_node.h">
       <Filter>ヘッダー ファイル\110_draw_tool</Filter>
     </ClInclude>
   </ItemGroup>
