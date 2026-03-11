@@ -57,3 +57,18 @@ bool Camera::IsDraw(Vector2D world_pos)
 	}
 	return true;
 }
+
+Vector2D Camera::DrawPosition(const Vector2D& world_pos)
+{
+	return {world_pos - position_.x_,world_pos -position_.y_};
+}
+
+int Camera::DrawPositionX(float world_pos_x)
+{
+	return world_pos_x - position_.x_;
+}
+
+int Camera::DrawPositionY(float world_pos_y)
+{
+	return world_pos_y - position_.y_;
+}

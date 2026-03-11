@@ -31,12 +31,15 @@ void GameScene::TextUpdate()
 
 
 	Node* new_text_ = new Node();
-	new_text_->SetPosition(ege_set::brank_x, ege_set::brank_y);
 
 	//テキストデータ作成
 	new_text_->AddChild(new TextNode(ScoreManager::GetInstance()->GetNowConbo().c_str(), GetColor(255, 0, 255),
-		window_setting::center_x / 2, window_setting::center_y));
+		window_setting::center_x , window_setting::center_y));
+	//サイズ確認
+	int text_length = GetDrawStringWidth(ScoreManager::GetInstance()->GetScore().c_str(), -1);
 
+	new_text_->AddChild(new TextNode(ScoreManager::GetInstance()->GetScore().c_str(), GetColor(255, 0, 255),
+		window_setting::size_x - text_length - line_set::brank_x, window_setting::size_y - line_set::brank_y));
 
 	//元々根ノードがあるなら削除
 	if (text_ != nullptr) {
@@ -54,25 +57,33 @@ void GameScene::TextUpdate()
 void GameScene::Init()
 {
 	root_ = new Node();
-	root_->SetPosition(ege_set::bar_brank_x, ege_set::bar_brank_y);
 
 	camera_ = new Camera();
 	
 	//中身の設定
 	
+	//プレイヤー
 	player_ = PlayerObject::GetInstance();
-	player_->SetPosition(window_setting::size_x -100 , window_setting::size_y -100);
+	player_->SetPosition(window_setting::center_x , window_setting::center_y + line_set::brank_y);
 
+	//ショットと敵
 	shot_manage_ = new ShotManager();
 	enemy_ = new EnemyObject(shot_manage_,FileRoader::GetInstance()->RoadHumen(MusicManager::GetInstance()->GetMusicData()));
 
+	//ルートノードに追加
 	root_->AddChild(player_);
 	root_->AddChild(enemy_);
 	root_->AddChild(shot_manage_);
 
+	//ショット管理に要素追加
 	shot_manage_->SetPlayerObject(player_);
 	shot_manage_->SetEnemyObject(enemy_);
 
+	//固定テキストをそのまま追加
+	root_->AddChild(new TextNode(string_set::conbo, GetColor(255, 0, 255),
+		window_setting::center_x, window_setting::center_y - line_set::brank_y));
+
+	//テキスト更新
 	TextUpdate();
 
 	next_scene_ = this;

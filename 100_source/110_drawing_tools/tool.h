@@ -40,9 +40,16 @@ int Abs(int param);
 void ChangeColorToRgb(unsigned int color_code, int& red, int& green, int& blue);
 
 // @rgbからカラーコード変換
-// @out unsigned int カラーコード
 // @in int red, int green, int blue それぞれ色素
+// @out unsigned int カラーコード
 unsigned int ChangeColorToCode(int red, int green, int blue);
 
-//誤差考慮等価判定(1e-8 = 0.00000001)
+// @誤差考慮等価判定(1e-8 = 0.00000001)
+// @in double a, double b  それぞれ比較したい値, double epsilon  許容範囲
+// @out bool T/F 等しい/等しくない
 bool AlmostEqual(double a, double b, double epsilon = 1e-8);
+
+// @ビットフラグが何番目か調べる
+// @in int flg 調べるフラグ
+// @out int 番号
+int ChangeBitToNum(int flg);

@@ -42,6 +42,9 @@ namespace window_setting {
 //  0(iostream入れないとNULLを使えなさそう)
 	static const int null_param = 0;
 
+//  255(DxLibの要素指定で最大値になりそう)
+	static const int max_dxlib_param = 255;
+
 //  ウィンドウの初期設定を一括でする関数
 	void WindowSettings();
 }
@@ -116,9 +119,36 @@ namespace string_set {
 	static const char* push_to_start = "push Enter to start"; //開始
 	static const char* select_song = "Select To Play!";//選択
 	static const char* result = "Your Result"; //結果
+//  名詞
+	static const char* conbo = "C O N B O !"; //結果
 
 }
 
+//-----------------------------
+// @name   score_set
+// @brief  スコア関係
+// @memo   
+//------------------------------
+namespace score_set {
+//  クリティカル
+	static const int per_critical = 1000;
+//  ちょっと回避
+	static const int per_avoiding = 500;
+//  がっつり回避
+	static const int per_none = 100;
+
+}
+
+//-----------------------------
+// @name   effect_set
+// @brief  スコア関係
+// @memo   ビット演算が前提です
+//------------------------------
+namespace effect_set {
+//  当たり判定のエフェクト
+	static const int effect_critical = 1 << 0;
+
+}
 
 //-----------------------------
 // @name   system_set
@@ -147,6 +177,11 @@ namespace system_set {
 	};
 //  必須待機時間
 	static const int need_wait_time_ = 1.5 * ms_per_s;
+
+//  判定開始距離
+	static const float start_hit_check = 30.0f;
+//  クリティカルチェック基準距離
+	static const float critical_hit_check = 20.0f;
 
 }
 

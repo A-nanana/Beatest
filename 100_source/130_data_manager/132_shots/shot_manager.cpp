@@ -46,11 +46,35 @@ void ShotManager::Update(float delta_time) {
 
 		//当たっているか
 		if (player_->IsHit(shot)) {
+			//コンボの消去
+			ScoreManager::GetInstance()->ScoreUpdate(k_miss);
 			//存在フラグ切り替え
 			shot->ChangeUsed();
-			//コンボの消去
-			ScoreManager::GetInstance()->ComboUpdate(false);
-		};
+			
+		}
+		
+		//判定距離で分岐
+		else if( (player_->GetDistance() < system_set::critical_hit_check)
+			&& shot->GetCenter().Length() >= player_->GetCenter().Length())//クリティカルの範囲かつ弾がプレイヤーの距離を超える
+		{
+			//クリティカル加算
+			ScoreManager::GetInstance()->ScoreUpdate(k_critical);
+			//存在フラグ切り替え
+			shot->ChangeUsed();
+			
+		}
+		else if (player_->GetDistance() < system_set::start_hit_check &&
+			shot->GetCenter().Length() >= player_->GetCenter().Length()) //判定開始ライン かつ　弾が奥にある
+		{
+			//スコア加算
+			ScoreManager::GetInstance()->ScoreUpdate(k_avoid);
+			//存在フラグ切り替え
+			shot->ChangeUsed();
+		
+
+		}
+
+		
 		
 	
 	}
@@ -64,12 +88,13 @@ void ShotManager::ShotIn(Camera* camera)
 			continue;
 		}
 		//カメラに入っているか
-		if ((shot->GetWorldPosition().x_ + size_x_< camera->position_.x_ || shot->GetWorldPosition().x_>camera->position_.x_ + camera->size_.x_)
-			&& (shot->GetWorldPosition().y_ + size_y_< camera->position_.y_ || shot->GetWorldPosition().y_>camera->position_.y_ + camera->size_.y_)) {
+		if (!camera->IsDraw(shot->GetWorldPosition())) {
+			//スコア加算
+			ScoreManager::GetInstance()->ScoreUpdate(k_none);
 			//存在フラグ切り替え
 			shot->ChangeUsed();
-			//コンボの成功
-			ScoreManager::GetInstance()->ComboUpdate(true);
+			
+
 		}
 	}
 }

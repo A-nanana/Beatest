@@ -21,10 +21,21 @@ struct ScoreData{
 	
 	int score;//スコア
 	int max_conbo;//最大コンボ
-
-
+	int critical;//ギリギリの避け
+	int avoiding;//次にギリギリの避け
 };
 
+//------------------------------
+// @name   HitType
+// @brief  判定結果のデータ 構造体
+// @memo   
+//------------------------------
+enum HitType {
+	k_critical,//クリティカル
+	k_avoid,//避け
+	k_miss,//当たった
+	k_none,//何事もなく場外
+};
 
 //------------------------------
 // @name   ScoreManager
@@ -51,7 +62,8 @@ public:
 	static ScoreManager* GetInstance();
 
 //  更新
-	void ComboUpdate(bool is_conbo);
+	void ComboUpdate(bool is_conbo);//コンボ
+	void ScoreUpdate(HitType type);//スコア
 	
 //  表示用char切り替えゲッター
 	std::string GetScore() { return std::to_string(score_.score); }; //スコア

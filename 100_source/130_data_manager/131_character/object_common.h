@@ -20,6 +20,7 @@ protected:
 	Vector2D point_[hit_set::squair_point]; //頂点
 	Vector2D vectol_[hit_set::squair_point]; //各頂点のベクトル
 	Vector2D hit_size_;//当たり判定の大きさ
+	Vector2D distance_;//当たり判定時の最小距離
 	bool hit_use_; //判定を使うか
 public:
 //  コンストラクタ
@@ -34,14 +35,17 @@ public:
 	void SetWorldPosition();//ワールド座標
 	void SetAngle(float to_x, float to_y); //x,yの目標地点から
 
+//  ゲッター
+	Vector2D GetCenter() { return { world_position_.x_ - size_x_ / 2 , world_position_.y_ - size_y_ / 2 }; };//中心
+	const float GetDistance() { return distance_.Length(); };//当たり判定時の最小距離
+	const float GetAllLength();//右下端までの距離
 
 	void Load() override;//ロード
-
 
 	//当たり判定補助
 	bool IsObject() { return hit_use_; };//物として扱うものか
 	//当たり判定
-	bool HitCheckToPoint(Vector2D* other);//点と辺
+	bool HitCheckToPoint(Vector2D* other,Vector2D* dist_);//点と辺
 	bool HitCheckToBox(ObjectCommon* other);//点と矩形
 	//実際の当たり判定
 	bool IsHit(ObjectCommon* other);

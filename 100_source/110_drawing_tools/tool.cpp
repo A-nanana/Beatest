@@ -91,3 +91,20 @@ bool AlmostEqual(double a, double b, double epsilon)
 {
 	return std::fabs(a - b) < epsilon;
 }
+
+int ChangeBitToNum(int flg)
+{
+	//0以下ならそもそもフラグではないので突き返す
+	if (flg <= 0) {
+		return -1;
+	}
+	int i = 0;//返り値
+	while (true) {
+		//フラグが見つかるか
+		if ((flg >> i) & 1) {
+			break;
+		}
+		i++;
+	}
+	return i;
+}

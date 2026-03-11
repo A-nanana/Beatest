@@ -18,6 +18,8 @@ ObjectCommon::ObjectCommon(const char* name, float x, float y, float hit_size_x,
     rotate_ = 0.0f;
     hit_size_.Set(hit_size_x, hit_size_y);
     hit_use_ = true;
+    distance_.Set(system_set::start_hit_check, window_setting::null_param);
+
 }
 
 ObjectCommon::ObjectCommon(const int graph_handle, float x, float y)
@@ -30,6 +32,7 @@ ObjectCommon::ObjectCommon(const int graph_handle, float x, float y)
 
     rotate_ = 0.0f;
     hit_use_ = true;
+    distance_.Set(system_set::start_hit_check, window_setting::null_param);
 
 }
 
@@ -91,6 +94,14 @@ void ObjectCommon::SetAngle(float to_x, float to_y)
     rotate_ = angle;
 }
 
+const float ObjectCommon::GetAllLength()
+{
+    //返り値
+    Vector2D returner(GetWorldPosition());
+    returner.Add(size_x_, size_y_);
+    return returner;
+}
+
 void ObjectCommon::Load()
 {
     GraphNode::Load();
@@ -103,8 +114,9 @@ void ObjectCommon::Load()
     hit_size_.Set(size_x_, size_y_);
 }
 
-bool ObjectCommon::HitCheckToPoint(Vector2D* other)
+bool ObjectCommon::HitCheckToPoint(Vector2D* other, Vector2D* dist_)
 {
+    bool returner = true;//当たり判定の返り値
     for (int i = 0; i < hit_set::squair_point; i++) {
 
         //頂点へのベクトル
@@ -114,24 +126,33 @@ bool ObjectCommon::HitCheckToPoint(Vector2D* other)
 
         //外積が0未満(ベクトルの右側)なら当たり判定の外
         if (result_ < 0) {
-            return false;
+
+            //近い距離であるか
+            if (dist_->Length() > to_point_.Length()) {
+                dist_->Set(to_point_);
+            }
+            returner = false;
         }
 
 
 
-
     }
-    return true;
+    return returner;
 }
 
-bool ObjectCommon::HitCheckToBox(ObjectCommon* other)
+bool ObjectCommon::HitCheckToBox(ObjectCommon* other )
 {
+    distance_.Set(system_set::start_hit_check,window_setting::null_param);
+    bool returner = false;//当たり判定の返り値
+
+    //頂点分繰り返す
     for (int i = 0; i < hit_set::squair_point; i++) {
-        if (HitCheckToPoint(&other->point_[i])) {
-            return true;
+        //当たり判定があるか
+        if (HitCheckToPoint(&other->point_[i],&distance_)) {
+            returner = true;
         }
     }
-    return false;
+    return returner;
 }
 
 bool ObjectCommon::IsHit(ObjectCommon* other)

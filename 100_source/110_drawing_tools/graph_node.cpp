@@ -67,8 +67,8 @@ void GraphNode::Draw(int screen_handle,Camera* camera)
 	//ƒJƒƒ‰“à‚©
 	if (camera->IsDraw(GetWorldPosition(),size_x_,size_y_)) {
 		Vector2D draw_pos_(world_position_);
-		draw_pos_.x_ += -camera->position_.x_ + size_x_ / 2;
-		draw_pos_.y_ += -camera->position_.y_ + size_y_ / 2;
+		draw_pos_.x_ += camera->DrawPositionX(world_position_.x_) + size_x_ / 2;
+		draw_pos_.y_ += camera->DrawPositionY(world_position_.y_) + size_y_ / 2;
 		DrawRotaGraph2(draw_pos_.x_, draw_pos_.y_,size_x_,size_y_, window_setting::graph_extender_
 			,rotate_,graph_handle_, TRUE);
 	}

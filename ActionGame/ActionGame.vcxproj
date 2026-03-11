@@ -129,14 +129,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\100_source\110_drawing_tools\alpha_node.cpp" />
     <ClCompile Include="..\100_source\110_drawing_tools\buttom_node.cpp" />
     <ClCompile Include="..\100_source\110_drawing_tools\camera.cpp" />
     <ClCompile Include="..\100_source\110_drawing_tools\defining.cpp" />
     <ClCompile Include="..\100_source\110_drawing_tools\game_scene.cpp" />
     <ClCompile Include="..\100_source\110_drawing_tools\graph_node.cpp" />
     <ClCompile Include="..\100_source\110_drawing_tools\inputer.cpp" />
+    <ClCompile Include="..\100_source\110_drawing_tools\line_node.cpp" />
     <ClCompile Include="..\100_source\110_drawing_tools\node.cpp" />
     <ClCompile Include="..\100_source\110_drawing_tools\scene_manager.cpp" />
+    <ClCompile Include="..\100_source\110_drawing_tools\splite_node.cpp" />
     <ClCompile Include="..\100_source\110_drawing_tools\text_node.cpp" />
     <ClCompile Include="..\100_source\110_drawing_tools\time.cpp" />
     <ClCompile Include="..\100_source\110_drawing_tools\tool.cpp" />
@@ -154,18 +157,22 @@
     <ClCompile Include="..\100_source\130_data_manager\133_music\music_manager.cpp" />
     <ClCompile Include="..\100_source\130_data_manager\134_other\score_manager.cpp" />
     <ClCompile Include="..\100_source\140_roading_from_other\file_roader.cpp" />
+    <ClCompile Include="..\100_source\150_effect\151_player\player_effect.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\100_source\110_drawing_tools\alpha_node.h" />
     <ClInclude Include="..\100_source\110_drawing_tools\buttom_node.h" />
     <ClInclude Include="..\100_source\110_drawing_tools\camera.h" />
     <ClInclude Include="..\100_source\110_drawing_tools\defining.h" />
     <ClInclude Include="..\100_source\110_drawing_tools\game_scene.h" />
     <ClInclude Include="..\100_source\110_drawing_tools\graph_node.h" />
     <ClInclude Include="..\100_source\110_drawing_tools\inputer.h" />
+    <ClInclude Include="..\100_source\110_drawing_tools\line_node.h" />
     <ClInclude Include="..\100_source\110_drawing_tools\node.h" />
     <ClInclude Include="..\100_source\110_drawing_tools\scene.h" />
     <ClInclude Include="..\100_source\110_drawing_tools\scene_manager.h" />
+    <ClInclude Include="..\100_source\110_drawing_tools\splite_node.h" />
     <ClInclude Include="..\100_source\110_drawing_tools\text_node.h" />
     <ClInclude Include="..\100_source\110_drawing_tools\time.h" />
     <ClInclude Include="..\100_source\110_drawing_tools\tool.h" />
@@ -183,6 +190,7 @@
     <ClInclude Include="..\100_source\130_data_manager\133_music\music_manager.h" />
     <ClInclude Include="..\100_source\130_data_manager\134_other\score_manager.h" />
     <ClInclude Include="..\100_source\140_roading_from_other\file_roader.h" />
+    <ClInclude Include="..\100_source\150_effect\151_player\player_effect.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -54,6 +54,35 @@ void ScoreManager::ComboUpdate(bool is_conbo)
 	count_conbo_max_++;
 }
 
+void ScoreManager::ScoreUpdate(HitType type)
+{
+	//“–‚½‚è”»’è‚ÌŒ‹‰Ê‚Å•ªŠò
+	switch (type)
+	{
+	case k_critical:
+		score_.critical++;
+		score_.score += score_set::per_critical;
+		ComboUpdate(true);
+		break;
+	case k_avoid:
+		score_.avoiding++;
+		score_.score += score_set::per_avoiding;
+		ComboUpdate(true);
+		break;
+	case k_miss:
+		ComboUpdate(false);
+		break;
+	case k_none:
+		score_.score += score_set::per_none;
+		ComboUpdate(true);
+
+		break;
+	default:
+		break;
+	}
+
+}
+
 //Œ‹‰ÊŠm’è
 void ScoreManager::ResultLock()
 {

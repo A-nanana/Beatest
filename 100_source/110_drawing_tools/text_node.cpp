@@ -60,7 +60,7 @@ void TextNode::Draw(int screen_handle,Camera* camera)
 {
 	//ƒJƒƒ‰“à‚©
 	if (camera->IsDraw(GetWorldPosition())) {
-		DrawString((int)world_position_.x_-camera->position_.x_, (int)world_position_.y_-camera->position_.y_, text_.c_str(), text_color_);
+		DrawString(camera->DrawPositionX(world_position_.x_), camera->DrawPositionY(world_position_.y_), text_.c_str(), text_color_);
 	}
 }
 
@@ -179,6 +179,6 @@ void TextFormatNode::Release()
 
 void TextFormatNode::Draw(int screen_handle,Camera* camera)
 {
-	DrawStringToHandle((int)world_position_.x_, (int)world_position_.y_, text_.c_str(), text_color_, font_handle_);
+	DrawStringToHandle(camera->DrawPositionX(world_position_.x_), camera->DrawPositionY(world_position_.y_), text_.c_str(), text_color_, font_handle_);
 }
 
