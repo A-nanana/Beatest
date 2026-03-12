@@ -99,7 +99,7 @@ const float ObjectCommon::GetAllLength()
     //返り値
     Vector2D returner(GetWorldPosition());
     returner.Add(size_x_, size_y_);
-    return returner;
+    return returner.Length_2zyou();
 }
 
 void ObjectCommon::Load()
@@ -128,7 +128,7 @@ bool ObjectCommon::HitCheckToPoint(Vector2D* other, Vector2D* dist_)
         if (result_ < 0) {
 
             //近い距離であるか
-            if (dist_->Length() > to_point_.Length()) {
+            if (dist_->Length_2zyou() > to_point_.Length_2zyou()) {
                 dist_->Set(to_point_);
             }
             returner = false;

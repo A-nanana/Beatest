@@ -4,7 +4,7 @@
 // @auther A.namami
 // @date   2026/3/5  新規作成
 // @memo   エラー型が来た場合は-1で返します
-//
+//         比較は二乗比較
 //Copyright (c) 2026 A.nanami All rights reserved.
 //------------------------------
 
@@ -54,18 +54,22 @@ void ShotManager::Update(float delta_time) {
 		}
 		
 		//判定距離で分岐
-		else if( (player_->GetDistance() < system_set::critical_hit_check)
-			&& shot->GetCenter().Length() >= player_->GetCenter().Length())//クリティカルの範囲かつ弾がプレイヤーの距離を超える
+		else if( (player_->GetDistance() < system_set::critical_hit_check*system_set::critical_hit_check)
+			&& shot->GetCenter().Length_2zyou() >= player_->GetCenter().Length_2zyou())//クリティカルの範囲かつ弾がプレイヤーの距離を超える
 		{
+			//エフェクトのフラグを立てる
+			player_->SetEffect(effect_set::effect_critical);
 			//クリティカル加算
 			ScoreManager::GetInstance()->ScoreUpdate(k_critical);
 			//存在フラグ切り替え
 			shot->ChangeUsed();
 			
 		}
-		else if (player_->GetDistance() < system_set::start_hit_check &&
-			shot->GetCenter().Length() >= player_->GetCenter().Length()) //判定開始ライン かつ　弾が奥にある
+		else if (player_->GetDistance() < system_set::start_hit_check* system_set::start_hit_check &&
+			shot->GetCenter().Length_2zyou() >= player_->GetCenter().Length_2zyou()) //判定開始ライン かつ　弾が奥にある
 		{
+			//エフェクトのフラグを立てる
+			player_->SetEffect(effect_set::effect_avoid);
 			//スコア加算
 			ScoreManager::GetInstance()->ScoreUpdate(k_avoid);
 			//存在フラグ切り替え

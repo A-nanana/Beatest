@@ -31,10 +31,13 @@ namespace window_setting {
 //  ウィンドウの表示猶予
 	static int offset_shown = 100;
 
-	//  画像拡大率
+//  ウィンドウの端直線距離
+	static int length = 400;
+
+//  画像拡大率
 	static float graph_extender_ = 0.25f;
 
-	//  fps
+//  fps
 	static const int fps = 60;
 //  fpsから1コマあたりの時間を出す
 	static const float sec_per_frame = 1000.0f / fps;
@@ -100,7 +103,8 @@ namespace buttom_set {
 //------------------------------
 namespace hit_set {
 //  頂点の数
-	static const int squair_point = 4;
+	static const int squair_point = 4;//四角
+	static const int size_per_point = 2;//点1つあたりの半径(なめらかに見せたい)
 //  
 
 }
@@ -121,7 +125,8 @@ namespace string_set {
 	static const char* result = "Your Result"; //結果
 //  名詞
 	static const char* conbo = "C O N B O !"; //結果
-
+	static const char* score = "Score";//スコア
+	static const char* max_conbo = "Max Conbo";//最大コンボ
 }
 
 //-----------------------------
@@ -141,12 +146,36 @@ namespace score_set {
 
 //-----------------------------
 // @name   effect_set
-// @brief  スコア関係
+// @brief  エフェクト関係
 // @memo   ビット演算が前提です
 //------------------------------
 namespace effect_set {
 //  当たり判定のエフェクト
-	static const int effect_critical = 1 << 0;
+	static const int effect_critical = 1 << 0;//クリティカル
+	static const int effect_avoid = 1 << 1;//ちょい避け
+	static const int effect_none = 1 << 2; //がっつり避け
+}
+//-----------------------------
+// @name   effect_param
+// @brief  エフェクト値
+// @memo   ビット演算が前提です
+//------------------------------
+namespace effect_param {
+//  ループ関係
+	static const int loop_hit = 1;//ループ回数
+	static const float time_per_loop = 500;// 1ループ当たりの時間(ms)
+
+//  広がり関係
+	//外への広がり
+	static const float pos_out_x = 1.0f;//x
+	static const float pos_out_y = 1.0f;//y
+
+//  太さ関係
+	static const float eff_thick = 2.0;//太さ(基本これ)
+	static const float back_thick = 5.0;//太さ(背景エフェクト)
+
+//  アルファ関係
+	static const float back_alpha = 0.4f;//背景エフェクトの透明度
 
 }
 
@@ -176,12 +205,12 @@ namespace system_set {
 
 	};
 //  必須待機時間
-	static const int need_wait_time_ = 1.5 * ms_per_s;
+	static const int need_wait_time_ = 0.2 * ms_per_s;
 
 //  判定開始距離
-	static const float start_hit_check = 30.0f;
+	static const float start_hit_check = 70.0f;
 //  クリティカルチェック基準距離
-	static const float critical_hit_check = 20.0f;
+	static const float critical_hit_check = 35.0f;
 
 }
 

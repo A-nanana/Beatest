@@ -11,11 +11,49 @@
 #define __PLAYER_EFFECT_H__
 
 #include "..\..\110_drawing_tools\node.h"
+#include "..\..\110_drawing_tools\alpha_node.h"
 
+class PlayerObject;
+//------------------------------
+// @name   HitLineEffect
+// @brief  ラインヒットエフェクト
+// @memo   
+//------------------------------
+class HitLineEffect :public AlphaNode {
+
+protected:
+	int looper_max_;//エフェクトループの最大
+	int looper_count_;//ループカウント(最大はループ最大数の二倍であることに注意)
+	float time_per_loop_harf_;//0.5ループあたりの時間
+	float time_count_;//時間カウント
+
+
+	//更新(更新するときの時間)
+	void Update(float delta_time);
+public:
+//  コンストラクタ
+	HitLineEffect(int loop_max,int time_per_loop, Vector2D vector_point, Vector2D size);
+
+//  位置設定(第一引数で中心を渡すこと)
+	void SetEffPositon(Vector2D player_point, Vector2D graph_size);
+//  終了確認
+	bool IsEnd() { return looper_count_ > looper_max_; };
+
+};
+
+
+//------------------------------
+// @name   PlayerEffect
+// @brief  プレイヤーのエフェクト管理 
+// @memo   
+//------------------------------
 class PlayerEffect:public Node
 {
+protected:
 	
-	
+	PlayerObject* player_; //プレイヤー
+
+
 	//ロード
 	void Load() {};
 	//リソース解放
@@ -28,7 +66,7 @@ class PlayerEffect:public Node
 	void Draw(int screen_handle, Camera* camera) {};
 public:
 //  コンストラクタ
-	PlayerEffect();
+	PlayerEffect(PlayerObject* player);
 	
 //  エフェクト作成(対応フラグ)
 	void Create(int flg);

@@ -14,10 +14,12 @@
 #include "object_common.h"
 #include "..\..\110_drawing_tools\defining.h"
 
+class PlayerEffect;
 
 class PlayerObject:public ObjectCommon
 {
 	static PlayerObject* player_; //インスタンス
+	PlayerEffect* effect_;//エフェクトの根
 
 	int is_effect_; //エフェクトが必要か
 

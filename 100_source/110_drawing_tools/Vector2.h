@@ -59,6 +59,7 @@ public:
 		Vector2D ReverseScale();
 		//ƒmƒ‹ƒ€ŒvZ
 		double Length();
+		double Length_2zyou() { return x_ * x_ + y_ * y_; };
 		//ŠÈˆÕ“àÏŒvZ
 		double Dot(const Vector2D& _other);
 		

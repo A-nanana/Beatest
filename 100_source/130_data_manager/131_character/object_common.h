@@ -37,8 +37,10 @@ public:
 
 //  ゲッター
 	Vector2D GetCenter() { return { world_position_.x_ - size_x_ / 2 , world_position_.y_ - size_y_ / 2 }; };//中心
-	const float GetDistance() { return distance_.Length(); };//当たり判定時の最小距離
+	const float GetDistance() { return distance_.Length_2zyou(); };//当たり判定時の最小距離の二乗
 	const float GetAllLength();//右下端までの距離
+	Vector2D* GetPoints() { return point_; };//頂点
+	Vector2D GetSize() { return hit_size_; };//大きさ(当たり判定)
 
 	void Load() override;//ロード
 

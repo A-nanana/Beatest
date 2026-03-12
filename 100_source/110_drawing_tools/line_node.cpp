@@ -10,6 +10,7 @@
 
 #include "line_node.h"
 #include "alpha_node.h"
+#include "camera.h"
 #include "tool.h"
 
 //-----------------------------
@@ -17,12 +18,17 @@
 // @brief  線ノード
 // @memo   セットしてから使うこと
 //------------------------------
-LineNode::LineNode(float x, float y, float last_pos_x, float last_pos_y, int color_code, float thick)
+LineNode::LineNode(float x, float y, float last_pos_x, float last_pos_y, unsigned int color_code, float thick)
 {
 	SetPosition(x, y);
 	position_2_.Set(last_pos_x, last_pos_y);
 	color_code_ = color_code;
 	thick_ = thick;
+}
+
+void LineNode::SetWorldPosition()
+{
+	Node::SetWorldPosition();
 }
 
 //ロード
@@ -39,7 +45,8 @@ void LineNode::Update(float delta_time) {
 }
 //描画(描画先)
 void LineNode::Draw(int screen_handle,Camera* camera) {
-	DrawLineAA(world_position_.x_,world_position_.y_,position_2_.x_,position_2_.y_,color_code_,thick_);
+	DrawLineAA(camera->DrawPositionX(world_position_.x_), camera->DrawPositionY(world_position_.y_), camera->DrawPositionX(position_2_.x_+world_position_.x_),
+		camera->DrawPositionY(position_2_.y_ + world_position_.y_), color_code_, thick_);
 }
 
 //-----------------------------
@@ -47,7 +54,7 @@ void LineNode::Draw(int screen_handle,Camera* camera) {
 // @brief  線エフェクト
 // @memo   セットしてから使うこと
 //------------------------------
-LineEffect::LineEffect(float x, float y, float last_pos_x, float last_pos_y, int color_code, float thick, int looper, float time)
+LineEffect::LineEffect(float x, float y, float last_pos_x, float last_pos_y, unsigned int color_code, float thick, int looper, float time)
 	:LineNode(x,y,last_pos_x,last_pos_y,color_code,thick)
 {
 	looper_max_ = looper;
@@ -94,7 +101,8 @@ void LineEffect::Draw(int screen_handle,Camera* camera)
 {
 	
 	
-	DrawLineAA(world_position_.x_, world_position_.y_, position_2_.x_, position_2_.y_, color_code_, thick_);
+	DrawLineAA(camera->DrawPositionX(world_position_.x_), camera->DrawPositionY(world_position_.y_), camera->DrawPositionX(position_2_.x_), camera->DrawPositionY(position_2_.y_), color_code_, thick_);
+
 	
 	
 }

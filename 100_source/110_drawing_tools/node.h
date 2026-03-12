@@ -77,7 +77,7 @@ public:
 	void SetPosition(const float& x, const float& y);
 	//ƒ[ƒ‹ƒhˆÊ’uİ’è
 	void SetWorldPosition(const Vector2D& pos) { world_position_ = pos; };
-	void SetWorldPosition();
+	virtual void SetWorldPosition();
 
 
 //  ’Ç‰Á

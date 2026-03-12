@@ -30,4 +30,6 @@ void window_setting::WindowSettings()
 	//’†‰›ˆÊ’uŒvŽZ
 	center_x = size_x / 2;
 	center_y = size_y / 2;
+	//’·‚³ŒvŽZ
+	length = sqrt(size_x * size_x + size_y * size_y);
 }

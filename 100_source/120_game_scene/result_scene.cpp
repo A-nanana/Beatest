@@ -79,12 +79,14 @@ void ResultScene::Init() {
 	Node* ko2 = new TextNode(string_set::result, GetColor(255, 255, 255), window_setting::center_x - string_size / 2, line_set::midasi_y);
 
 	root_->AddChild(ko2);
+	root_->AddChild(new TextNode(string_set::score, GetColor(255, 255, 255), window_setting::center_x / 2 - line_set::brank_x, line_set::midasi_y + line_set::selecter_y));
+	root_->AddChild(new TextNode(string_set::max_conbo, GetColor(255, 255, 255), window_setting::center_x / 2 - line_set::brank_x, line_set::midasi_y + line_set::selecter_y + line_set::brank_y));
 
 	//ここからフェーズ切り替え用
 	root_res_[k_fase_all_res_] = new TextNode(ScoreManager::GetInstance()->GetScore().c_str(), GetColor(255, 255, 255),
-		window_setting::center_x/2, line_set::midasi_y + line_set::selecter_y);
+		window_setting::center_x , line_set::midasi_y + line_set::selecter_y);
 	root_res_[k_fase_conbo_] = new TextNode(ScoreManager::GetInstance()->GetMaxConbo().c_str(), GetColor(255, 255, 255),
-		window_setting::center_x/2 , line_set::midasi_y + line_set::selecter_y + line_set::brank_y);
+		window_setting::center_x , line_set::midasi_y + line_set::selecter_y + line_set::brank_y);
 
 
 	next_scene_ = this;

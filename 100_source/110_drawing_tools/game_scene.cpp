@@ -13,11 +13,13 @@
 #include "..\130_data_manager\131_character\object_common.h"
 #include "..\130_data_manager\131_character\player_object.h"
 #include "..\130_data_manager\131_character\enemy_object.h"
+#include "..\150_effect\field_effect.h"
 #include "..\130_data_manager\132_shots\shot_manager.h"
 #include "..\130_data_manager\133_music\music_manager.h"
 #include "..\130_data_manager\134_other\score_manager.h"
 #include "..\140_roading_from_other\file_roader.h"
 #include "..\120_game_scene\result_scene.h"
+#include "..\120_game_scene\background_node.h"
 #include "inputer.h"
 
 void GameScene::SceneCheck() {
@@ -57,7 +59,7 @@ void GameScene::TextUpdate()
 void GameScene::Init()
 {
 	root_ = new Node();
-
+	root_->AddChild(new BackgroundNode("..\\200_resource\\back_tree.png", {window_setting::null_param,100.0f}));
 	camera_ = new Camera();
 	
 	//中身の設定
@@ -71,6 +73,7 @@ void GameScene::Init()
 	enemy_ = new EnemyObject(shot_manage_,FileRoader::GetInstance()->RoadHumen(MusicManager::GetInstance()->GetMusicData()));
 
 	//ルートノードに追加
+	root_->AddChild(new FieldEffect());
 	root_->AddChild(player_);
 	root_->AddChild(enemy_);
 	root_->AddChild(shot_manage_);
@@ -100,13 +103,13 @@ void GameScene::SetUp()
 Scene* GameScene::Update(float delta_time) {
 	last_time_ += delta_time;
 	camera_->Update();
-
+	
 	TextUpdate();
 
 	root_->UpdateAll(delta_time);
 	root_->SetWorldPositionAll();
 	shot_manage_->ShotIn(camera_);
-	
+
 
 
 	SceneCheck();

@@ -4,12 +4,14 @@
 #include "..\..\110_drawing_tools\inputer.h"
 #include "..\..\110_drawing_tools\defining.h"
 #include "..\..\110_drawing_tools\tool.h"
+#include "..\..\150_effect\151_player\player_effect.h"
+
 
 PlayerObject* PlayerObject::player_ = nullptr;
 PlayerObject::PlayerObject():ObjectCommon("..\\200_resource\\aruku.png", 1.0f, 1.0f,window_setting::null_param,window_setting::null_param)
 {
-	
-	
+	effect_ = new PlayerEffect(this);
+	AddChild(effect_);
 }
 
 PlayerObject* PlayerObject::GetInstance()
@@ -31,6 +33,7 @@ void PlayerObject::SetUp()
 
 void PlayerObject::Update(float delta_time)
 {
+
 	//加算用
 	Vector2D move_vector(window_setting::null_param,window_setting::null_param);
 	//直前位置の記憶
@@ -61,7 +64,8 @@ void PlayerObject::Update(float delta_time)
 	//位置の加算
 	SetPosition(position_.x_ + move_vector.x_, position_.y_ + move_vector.y_);
 	ObjectCommon::SetWorldPosition();
-	
+
+	effect_->Create(is_effect_);
 
 }
 

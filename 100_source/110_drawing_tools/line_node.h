@@ -21,7 +21,7 @@ class LineNode:public Node
 {
 protected:
 	Vector2D position_2_; //最終位置
-	int color_code_; //色コード
+	unsigned int color_code_; //色コード
 	float thick_;//太さ
 
 //  各自でオーバーライドする
@@ -35,7 +35,10 @@ protected:
 	void Draw(int screen_handle, Camera* camera) override;
 
 public:
-	LineNode(float x, float y, float last_pos_x, float last_pos_y, int color_code, float thick);
+	//コンストラクタ(相対位置)
+	LineNode(float x, float y, float last_pos_x, float last_pos_y,unsigned int color_code, float thick);
+	//ノードセット
+	void SetWorldPosition() override;
 
 };
 
@@ -61,7 +64,7 @@ protected:
 
 public:
 	//コンストラクタ
-	LineEffect(float x, float y, float last_pos_x, float last_pos_y, int color_code, float thick , int looper , float time);
+	LineEffect(float x, float y, float last_pos_x, float last_pos_y, unsigned int color_code, float thick , int looper , float time);
 	
 	//セッター
 	void SetAlphaNode(AlphaNode* alpha) { alpha_node_ = alpha; };
