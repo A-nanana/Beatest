@@ -53,6 +53,18 @@ namespace window_setting {
 }
 
 //-----------------------------
+// @name   file_set
+// @brief  ファイル名前関係
+// @memo   
+//------------------------------
+namespace file_set {
+//  楽曲データベースファイル
+	static const char* music_data_base_pass = "..\\200_resource\\music\\music.db";//相対パス
+	static const char* music_data_base_table = "GameMusicData";//テーブル名
+
+}
+
+//-----------------------------
 // @name   ege_set
 // @brief  ウィンドウ端関数
 // @memo   
@@ -161,9 +173,11 @@ namespace effect_set {
 // @memo   ビット演算が前提です
 //------------------------------
 namespace effect_param {
+//  判定成功　//
+
 //  ループ関係
 	static const int loop_hit = 1;//ループ回数
-	static const float time_per_loop = 500;// 1ループ当たりの時間(ms)
+	static const float time_per_loop = 250;// 1ループ当たりの時間(ms)
 
 //  広がり関係
 	//外への広がり
@@ -177,6 +191,8 @@ namespace effect_param {
 //  アルファ関係
 	static const float back_alpha = 0.4f;//背景エフェクトの透明度
 
+//  スコア表示エフェクト
+	static const int wait_score = 50;//スコア表示の間の待機時間
 }
 
 //-----------------------------

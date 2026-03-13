@@ -30,14 +30,14 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -50,7 +50,7 @@
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -197,8 +197,13 @@
     <ClInclude Include="..\100_source\130_data_manager\133_music\music_manager.h" />
     <ClInclude Include="..\100_source\130_data_manager\134_other\score_manager.h" />
     <ClInclude Include="..\100_source\140_roading_from_other\file_roader.h" />
+    <ClInclude Include="..\100_source\140_roading_from_other\sqlite3.h" />
+    <ClInclude Include="..\100_source\140_roading_from_other\sqlite3ext.h" />
     <ClInclude Include="..\100_source\150_effect\151_player\player_effect.h" />
     <ClInclude Include="..\100_source\150_effect\field_effect.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\100_source\140_roading_from_other\SQLite3.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

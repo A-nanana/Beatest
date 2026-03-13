@@ -71,7 +71,7 @@ void ShotManager::Update(float delta_time) {
 			//エフェクトのフラグを立てる
 			player_->SetEffect(effect_set::effect_avoid);
 			//スコア加算
-			ScoreManager::GetInstance()->ScoreUpdate(k_avoid);
+			ScoreManager::GetInstance()->ScoreUpdate(k_great);
 			//存在フラグ切り替え
 			shot->ChangeUsed();
 		

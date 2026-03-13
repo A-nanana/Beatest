@@ -19,6 +19,9 @@
     <Filter Include="ソース ファイル\110_draw_tools">
       <UniqueIdentifier>{3858c41b-6354-4d4f-ba1f-e050edc48b2f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\sqlite">
+      <UniqueIdentifier>{14cb9e09-17a8-4ee9-811b-d922b07abe76}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -227,5 +230,16 @@
     <ClInclude Include="..\100_source\120_game_scene\background_node.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="..\100_source\140_roading_from_other\sqlite3.h">
+      <Filter>ヘッダー ファイル\sqlite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\100_source\140_roading_from_other\sqlite3ext.h">
+      <Filter>ヘッダー ファイル\sqlite</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\100_source\140_roading_from_other\SQLite3.lib">
+      <Filter>リソース ファイル</Filter>
+    </Library>
   </ItemGroup>
 </Project>

@@ -22,6 +22,10 @@ ScoreManager* ScoreManager::instance_ = nullptr;
 ScoreManager::ScoreManager() {
 	score_.max_conbo = window_setting::null_param;
 	score_.score = window_setting::null_param;
+	score_.critical = window_setting::null_param;
+	score_.great = window_setting::null_param;
+	score_.good = window_setting::null_param;
+	score_.miss = window_setting::null_param;
 	count_conbo_ = window_setting::null_param;
 	count_conbo_max_ = window_setting::null_param;
 }
@@ -64,15 +68,17 @@ void ScoreManager::ScoreUpdate(HitType type)
 		score_.score += score_set::per_critical;
 		ComboUpdate(true);
 		break;
-	case k_avoid:
-		score_.avoiding++;
+	case k_great:
+		score_.great++;
 		score_.score += score_set::per_avoiding;
 		ComboUpdate(true);
 		break;
 	case k_miss:
+		score_.miss++;
 		ComboUpdate(false);
 		break;
 	case k_none:
+		score_.good++;
 		score_.score += score_set::per_none;
 		ComboUpdate(true);
 
@@ -98,6 +104,10 @@ void ScoreManager::ResultLock()
 void ScoreManager::Reset() {
 	score_.max_conbo = window_setting::null_param;
 	score_.score = window_setting::null_param;
+	score_.critical = window_setting::null_param;
+	score_.great = window_setting::null_param;
+	score_.good = window_setting::null_param;
+	score_.miss = window_setting::null_param;
 	count_conbo_ = window_setting::null_param;
 	count_conbo_max_ = window_setting::null_param;
 }

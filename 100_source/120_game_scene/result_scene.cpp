@@ -33,8 +33,30 @@ ResultScene::ResultScene()
 
 //キーの押し確認
 void ResultScene::PushCheck() {
+	
+	//押されなくても切り替える
+	//待機時間を満たした+終了判定ではないか
+	if ((time_hold_ > effect_param::wait_score) && fase_ != k_fase_end_) {
+		//状態で処理切り替え
+		switch (fase_) {
+		case k_fase_critical_:
+			fase_ = k_fase_great_;
+			break;
+		case k_fase_great_:
+			fase_ = k_fase_good_;
+			break;
+		case k_fase_good_:
+			fase_ = k_fase_miss_;
+			break;
+		case k_fase_miss_:
+			fase_ = k_fase_end_;
+		}
+		time_hold_ = NULL;
+
+	}
 	//エンターで決定
 	if (!Inputer::GetInstance()->GetDownKey(KEY_INPUT_RETURN)) {
+
 		return;
 	}
 	//状態で処理切り替え
@@ -43,7 +65,7 @@ void ResultScene::PushCheck() {
 		fase_ = k_fase_conbo_;
 		break;
 	case k_fase_conbo_:
-		fase_ = k_fase_end_;
+		fase_ = k_fase_critical_;
 		time_hold_ = NULL;
 		break;
 	case k_fase_end_:
@@ -72,6 +94,7 @@ void ResultScene::TextUpdate() {
 
 //  初期化
 void ResultScene::Init() {
+
 	root_ = new Node();
 	camera_ = new Camera();
 	int string_size = GetDrawStringWidth(string_set::result, -1);
@@ -85,8 +108,21 @@ void ResultScene::Init() {
 	//ここからフェーズ切り替え用
 	root_res_[k_fase_all_res_] = new TextNode(ScoreManager::GetInstance()->GetScore().c_str(), GetColor(255, 255, 255),
 		window_setting::center_x , line_set::midasi_y + line_set::selecter_y);
+
 	root_res_[k_fase_conbo_] = new TextNode(ScoreManager::GetInstance()->GetMaxConbo().c_str(), GetColor(255, 255, 255),
 		window_setting::center_x , line_set::midasi_y + line_set::selecter_y + line_set::brank_y);
+
+	root_res_[k_fase_critical_] = new TextNode(ScoreManager::GetInstance()->GetCritical().c_str(), GetColor(255, 255, 255),
+		window_setting::center_x, line_set::midasi_y + line_set::selecter_y + line_set::brank_y * 2);
+
+	root_res_[k_fase_great_] = new TextNode(ScoreManager::GetInstance()->GetGreat().c_str(), GetColor(255, 255, 255),
+		window_setting::center_x, line_set::midasi_y + line_set::selecter_y + line_set::brank_y * 3);
+
+	root_res_[k_fase_good_] = new TextNode(ScoreManager::GetInstance()->GetGood().c_str(), GetColor(255, 255, 255),
+		window_setting::center_x, line_set::midasi_y + line_set::selecter_y + line_set::brank_y * 4);
+
+	root_res_[k_fase_miss_] = new TextNode(ScoreManager::GetInstance()->GetMiss().c_str(), GetColor(255, 255, 255),
+		window_setting::center_x, line_set::midasi_y + line_set::selecter_y + line_set::brank_y * 5);
 
 
 	next_scene_ = this;
@@ -95,7 +131,7 @@ void ResultScene::Init() {
 void ResultScene::SetUp() {
 	root_->LoadResourceAll();
 	root_->SetUpAll();
-
+	
 }
 //  終了
 void ResultScene::Finalize() {

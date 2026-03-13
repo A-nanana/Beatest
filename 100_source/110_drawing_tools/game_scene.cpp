@@ -25,6 +25,8 @@
 void GameScene::SceneCheck() {
 	if (MusicManager::GetInstance()->GetMusicTime() * system_set::ms_per_s < last_time_) {
 		next_scene_ = new ResultScene();
+		ScoreManager::GetInstance()->ResultLock();
+
 	}
 }
 
@@ -131,7 +133,6 @@ void GameScene::Finalize()
 {
 	root_->ReleaseResourceAll();
 	MusicManager::GetInstance()->DeleteMusic();
-	ScoreManager::GetInstance()->ResultLock();
 }
 
 //ここから下はテスト用!

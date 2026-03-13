@@ -37,7 +37,7 @@ void EnemyObject::Update(float delta_time) {
 		check -= shot_manager_->GetPlayerObjectPos().Length() / shot_booker_->operator[](n).speed;
 		
 		//—P—\ŽžŠÔ’†‚È‚ç”­ŽË
-		if (check >  time_- (window_setting::sec_per_frame / 2)  && check <  time_ + (window_setting::sec_per_frame / 2)
+		if (check >  time_- (window_setting::sec_per_frame / 3)  && check <  time_ + (window_setting::sec_per_frame / 3)
 			&& shot_booker_->operator[](n).shooted == false) {
 			break;
 		}

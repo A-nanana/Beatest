@@ -31,6 +31,10 @@ class ResultScene:public Scene
 	enum ResFase {
 		k_fase_all_res_ , //最終結果
 		k_fase_conbo_,//コンボ数出す
+		k_fase_critical_,//クリティカル
+		k_fase_great_,//次にいいやつ出す
+		k_fase_good_,//次にいいやつ出す
+		k_fase_miss_,//当たったやつ出す
 		k_fase_end_,//出し終わり
 
 	};

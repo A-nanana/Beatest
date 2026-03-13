@@ -28,27 +28,33 @@ int main(void) {
 	
 	SetAlwaysRunFlag(TRUE);
 	
-
+	//シーン設定
 	SceneManager* scene_manage = new SceneManager();
 	scene_manage->SetNextScene(new TopScene());
+	//時間計測用変数
 	Time time;
-
+	//裏画面化
 	SetDrawScreen(DX_SCREEN_BACK);
 
+	//画面制御用時間確認
 	float next_to_time = time.GetDelta();
 	float set_last = GetNowCount();
 
+	//メインループ
 	while (ProcessMessage() != -1) {
+		//画面クリア
 		ClearDrawScreen();
+		//設定系更新
 		time.Update();
 		Inputer::GetInstance()->Update();
 
+		//描画系更新
 		scene_manage->Update(time.GetDelta());
 		scene_manage->Draw(DX_SCREEN_BACK);
 		ScreenFlip();
 		
 		
-		
+		//fpsの確認
 		while (next_to_time < window_setting::sec_per_frame)
 		{
 			float now = GetNowCount();
@@ -56,7 +62,7 @@ int main(void) {
 			set_last = now;
 		}
 	}
-	
+	//終了設定
 	DxLib_End();
 	return 0;
 }

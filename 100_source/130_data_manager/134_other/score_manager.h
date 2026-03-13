@@ -22,7 +22,9 @@ struct ScoreData{
 	int score;//スコア
 	int max_conbo;//最大コンボ
 	int critical;//ギリギリの避け
-	int avoiding;//次にギリギリの避け
+	int great;//次にギリギリの避け
+	int good;//がっつり避け
+	int miss;//当たった
 };
 
 //------------------------------
@@ -32,7 +34,7 @@ struct ScoreData{
 //------------------------------
 enum HitType {
 	k_critical,//クリティカル
-	k_avoid,//避け
+	k_great,//避け
 	k_miss,//当たった
 	k_none,//何事もなく場外
 };
@@ -69,6 +71,10 @@ public:
 	std::string GetScore() { return std::to_string(score_.score); }; //スコア
 	std::string GetMaxConbo() { return std::to_string(score_.max_conbo); }; //最大コンボ
 	std::string GetNowConbo() { return std::to_string(count_conbo_); };//今のコンボ数
+	std::string GetCritical() { return std::to_string(score_.critical); };//クリティカル回数
+	std::string GetGreat() { return std::to_string(score_.great); };//回避回数
+	std::string GetGood() { return std::to_string(score_.good); };//グッド回数
+	std::string GetMiss() { return std::to_string(score_.miss); };//ミス判定
 
 //  結果確定
 	void ResultLock();

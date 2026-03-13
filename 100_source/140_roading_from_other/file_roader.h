@@ -12,19 +12,29 @@
 
 #include <vector>
 #include <string>
+#include "./sqlite3.h" 
+
 
 class MusicData;
 class ShotBooker;
 class FileRoader
 {
 	static FileRoader* roader_; //インスタンス確認用
+	bool use_lib_;//sqlite3を使用できるか
+	sqlite3* db_;//データベース
+	char* err_message_;//エラーメッセージ
 
 //  コンストラクタ
 	FileRoader();
 //  デストラクタ
 	~FileRoader();
-
+//  コールバック関数
+	static int CallbackTableCheck(void* param, int col_int, char** row_text, char** col_name);
 public:
+//  複製防止
+	FileRoader operator= (const FileRoader&) = delete;
+	FileRoader& operator= (FileRoader&) = delete;
+
 	//インスタンスアクセス
 	static FileRoader* GetInstance();
 	//ラインナップ読み込み
