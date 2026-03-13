@@ -59,7 +59,7 @@ void GameScene::TextUpdate()
 void GameScene::Init()
 {
 	root_ = new Node();
-	root_->AddChild(new BackgroundNode("..\\200_resource\\back_tree.png", {window_setting::null_param,100.0f}));
+	root_->AddChild(new BackgroundNode("..\\200_resource\\back_tree.png", {NULL,NULL}));
 	camera_ = new Camera();
 	
 	//’†g‚Ìİ’è

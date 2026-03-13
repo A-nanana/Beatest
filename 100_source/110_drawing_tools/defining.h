@@ -35,7 +35,7 @@ namespace window_setting {
 	static int length = 400;
 
 //  ‰æ‘œŠg‘å—¦
-	static float graph_extender_ = 0.25f;
+	static float graph_extender_ = 0.4f;
 
 //  fps
 	static const int fps = 60;

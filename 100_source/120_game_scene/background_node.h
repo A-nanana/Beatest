@@ -26,6 +26,8 @@ protected:
 	void Update(float delta_time) override;
 	//描画(描画先)
 	void Draw(int screen_handle, Camera* camera) override;
+	//  準備
+	void SetUp() override;
 
 public:
 	//コンストラクタ
