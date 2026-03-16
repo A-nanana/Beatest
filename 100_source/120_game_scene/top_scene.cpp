@@ -12,6 +12,7 @@
 #include "..\110_drawing_tools\buttom_node.h"
 #include "..\110_drawing_tools\text_node.h"
 #include "..\110_drawing_tools\game_scene.h"
+#include "..\120_game_scene\config_scene.h"
 #include "..\130_data_manager\133_music\music_manager.h"
 #include "..\140_roading_from_other\file_roader.h"
 #include "..\110_drawing_tools\inputer.h"
@@ -103,6 +104,10 @@ void SelectScene::PushCheck() {
 	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_RETURN)) {
 		MusicManager::GetInstance()->SetPlayMusic(MusicManager::GetInstance()->operator[](selecter_).c_str());
 		next_scene_ = new GameScene();
+	}
+	//EscƒL[‚ÅÝ’è
+	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_ESCAPE)) {
+		next_scene_ = new ConfigScene();
 	}
 
 }

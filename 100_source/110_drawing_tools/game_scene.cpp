@@ -16,6 +16,7 @@
 #include "..\150_effect\field_effect.h"
 #include "..\130_data_manager\132_shots\shot_manager.h"
 #include "..\130_data_manager\133_music\music_manager.h"
+#include "..\130_data_manager\134_other\configs_manager.h"
 #include "..\130_data_manager\134_other\score_manager.h"
 #include "..\140_roading_from_other\file_roader.h"
 #include "..\120_game_scene\result_scene.h"
@@ -98,7 +99,7 @@ void GameScene::SetUp()
 {
 	root_->LoadResourceAll();
 	root_->SetUpAll();
-
+	ConfigsManager::GetInstance()->SetMusic();
 	MusicManager::GetInstance()->PlayMusic();
 }
 

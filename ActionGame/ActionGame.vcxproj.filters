@@ -126,6 +126,12 @@
     <ClCompile Include="..\100_source\120_game_scene\background_node.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="..\100_source\130_data_manager\134_other\configs_manager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="..\100_source\120_game_scene\config_scene.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\100_source\130_data_manager\131_character\object_common.h">
@@ -235,6 +241,12 @@
     </ClInclude>
     <ClInclude Include="..\100_source\140_roading_from_other\sqlite3ext.h">
       <Filter>ヘッダー ファイル\sqlite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\100_source\130_data_manager\134_other\configs_manager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\100_source\120_game_scene\config_scene.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -38,6 +38,5 @@ public:
 	void Draw(int screen_handle);
 //  シーンセット
 	void SetNextScene(Scene* scene);
-
 };
 

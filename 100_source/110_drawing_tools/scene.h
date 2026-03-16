@@ -3,7 +3,7 @@
 // @brief  シーン クラスの宣言部
 // @auther A.namami
 // @date   2026/2/18  新規作成
-// @memo   エラー型が来た場合は-1で返します
+// @memo   
 //
 //Copyright (c) 2026 A.nanami All rights reserved.
 //------------------------------
@@ -11,13 +11,22 @@
 #pragma once
 #include "defining.h"
 #include "camera.h"
+
+//操作順位としてどこに置くかのタグ
+enum PositionTag {
+	next_returner = 1 << 0,//元に戻す必要あり
+};
+
 class Scene
 {
 protected:
 	Camera* camera_;//描画の中心を保存する
+	Scene* to_return_scene_;// 戻る場合のシーン
+
+	PositionTag tag_;//位置タグ
 public:
 //  コンストラクタ
-	Scene() {};
+	Scene():to_return_scene_(nullptr) { tag_ = (PositionTag)NULL; };
 //  デストラクタ
 	virtual ~Scene() {};
 
@@ -31,6 +40,11 @@ public:
 	virtual Scene* Update(float delta_time) = 0;
 //  描画
 	virtual void Draw(int screen_handle) = 0;
-
+//  タグ取得
+	PositionTag GetTag() { return tag_; };
+//  戻すシーンの取り込み
+	void SetToReturnScene(Scene* scene_target) { to_return_scene_ = scene_target; };
+//  戻すシーンの取得
+	Scene* GetToReturnScene() { return to_return_scene_; };
 };
 

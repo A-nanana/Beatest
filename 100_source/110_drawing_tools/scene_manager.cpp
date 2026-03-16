@@ -37,12 +37,19 @@ void SceneManager::Update(float delta_time) {
 		}
 		break;
 	case Phase::kSwitch:
+		//次のシーンの後に戻るならポインタを移す
+		if ((next_scene_.get()->GetTag() & PositionTag::next_returner) == 1) {
+			next_scene_.get()->SetToReturnScene(now_scene_.release());
+			next_scene_.get()->GetToReturnScene()->Finalize();
+		}
 		//ポインタの有無
 		if (now_scene_ != nullptr) {
 			//古いシーンを解除
 			now_scene_->Finalize();
+
 			now_scene_.reset();
 		}
+		
 		//次のシーンを今のシーンに切り替え
 		now_scene_ = std::move(next_scene_);
 
@@ -86,3 +93,4 @@ void SceneManager::SetNextScene(Scene* scene) {
 
 	switch_scene_ = Phase::kSwitch; //状態切り替え
 }
+

@@ -48,6 +48,13 @@ namespace window_setting {
 //  255(DxLibの要素指定で最大値になりそう)
 	static const int max_dxlib_param = 255;
 
+//  パーセントの最大
+	static const int percent_max = 100;
+
+//  初期の音量の大きさ(%)
+	static const int first_music_vol_percent = 50;
+	static const int first_se_vol_percent = 25;
+
 //  ウィンドウの初期設定を一括でする関数
 	void WindowSettings();
 }
@@ -134,11 +141,18 @@ namespace string_set {
 //  動作系
 	static const char* push_to_start = "push Enter to start"; //開始
 	static const char* select_song = "Select To Play!";//選択
+	static const char* config_set = "Set Config";//設定
 	static const char* result = "Your Result"; //結果
 //  名詞
 	static const char* conbo = "C O N B O !"; //結果
 	static const char* score = "Score";//スコア
 	static const char* max_conbo = "Max Conbo";//最大コンボ
+
+	static const char* configs[4] =
+	{"Game Music",
+	"Game SE",
+	"Home Music",
+	"Home SE"};//調整項目
 }
 
 //-----------------------------
