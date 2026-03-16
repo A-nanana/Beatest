@@ -68,6 +68,8 @@ namespace file_set {
 //  楽曲データベースファイル
 	static const char* music_data_base_pass = "..\\200_resource\\music\\music.db";//相対パス
 	static const char* music_data_base_table = "GameMusicData";//テーブル名
+//  bgmファイルパス
+	static const char* bgm_data_pass = "..\\200_resource\\music\\bgm.mp3";//相対パス
 
 }
 
@@ -140,6 +142,7 @@ namespace string_set {
 	static const char* title = " Beatest ";
 //  動作系
 	static const char* push_to_start = "push Enter to start"; //開始
+	static const char* push_to_return = "push Enter to return"; //戻る(エンターで)
 	static const char* select_song = "Select To Play!";//選択
 	static const char* config_set = "Set Config";//設定
 	static const char* result = "Your Result"; //結果
@@ -231,7 +234,7 @@ namespace system_set {
 	static const int shot_max = 1000;
 //  弾の種類
 	static const enum ShotType {
-		ENEMY_NOMAL,
+		k_enemy_nomal,
 
 	};
 //  必須待機時間

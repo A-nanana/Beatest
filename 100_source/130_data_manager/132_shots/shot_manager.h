@@ -13,9 +13,8 @@
 #include <vector>
 #include "..\..\110_drawing_tools\node.h"
 #include "..\131_character\player_object.h"
-#include "..\131_character\enemy_object.h"
 
-class EnemyObject;
+class EnemyManager;
 class PlayerObject;
 class ShotObject;
 class Camera;
@@ -25,7 +24,7 @@ class ShotManager:public Node
 	std::vector<int> shot_graph_handle_;//弾画像のハンドル
 	int size_x_, size_y_;//弾画像のサイズ
 	PlayerObject* player_;//使うプレイヤー
-	EnemyObject* enemy_;//使う敵
+	EnemyManager* enemy_;//使う敵
 
 protected:
 	//ロード
@@ -41,7 +40,7 @@ public:
 	ShotManager();
 //  セッター
 	void SetPlayerObject(PlayerObject* player);
-	void SetEnemyObject(EnemyObject* enemy);
+	void SetEnemyManager(EnemyManager* enemy);
 //  ゲッター
 	Vector2D GetPlayerObjectPos();
 	Vector2D GetPlayerCenter() { return player_->GetCenter(); };

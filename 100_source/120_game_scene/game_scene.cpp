@@ -8,20 +8,24 @@
 //Copyright (c) 2026 A.nanami All rights reserved.
 //------------------------------
 #include <iostream>
+
 #include "game_scene.h"
-#include "text_node.h"
+
+#include "..\110_drawing_tools\text_node.h"
+#include "..\110_drawing_tools\inputer.h"
+#include "..\120_game_scene\result_scene.h"
+#include "..\120_game_scene\background_node.h"
 #include "..\130_data_manager\131_character\object_common.h"
 #include "..\130_data_manager\131_character\player_object.h"
 #include "..\130_data_manager\131_character\enemy_object.h"
-#include "..\150_effect\field_effect.h"
+#include "..\130_data_manager\131_character\enemy_manager.h"
 #include "..\130_data_manager\132_shots\shot_manager.h"
 #include "..\130_data_manager\133_music\music_manager.h"
 #include "..\130_data_manager\134_other\configs_manager.h"
 #include "..\130_data_manager\134_other\score_manager.h"
 #include "..\140_roading_from_other\file_roader.h"
-#include "..\120_game_scene\result_scene.h"
-#include "..\120_game_scene\background_node.h"
-#include "inputer.h"
+#include "..\150_effect\field_effect.h"
+
 
 void GameScene::SceneCheck() {
 	if (MusicManager::GetInstance()->GetMusicTime() * system_set::ms_per_s < last_time_) {
@@ -73,7 +77,8 @@ void GameScene::Init()
 
 	//ショットと敵
 	shot_manage_ = new ShotManager();
-	enemy_ = new EnemyObject(shot_manage_,FileRoader::GetInstance()->RoadHumen(MusicManager::GetInstance()->GetMusicData()));
+	enemy_ = new EnemyManager();
+	enemy_->AddChild(new EnemyObject(shot_manage_,FileRoader::GetInstance()->RoadHumen(MusicManager::GetInstance()->GetMusicData())));
 
 	//ルートノードに追加
 	root_->AddChild(new FieldEffect());
@@ -83,7 +88,7 @@ void GameScene::Init()
 
 	//ショット管理に要素追加
 	shot_manage_->SetPlayerObject(player_);
-	shot_manage_->SetEnemyObject(enemy_);
+	shot_manage_->SetEnemyManager(enemy_);
 
 	//固定テキストをそのまま追加
 	root_->AddChild(new TextNode(string_set::conbo, GetColor(255, 0, 255),
@@ -112,7 +117,7 @@ Scene* GameScene::Update(float delta_time) {
 	root_->UpdateAll(delta_time);
 	root_->SetWorldPositionAll();
 	shot_manage_->ShotIn(camera_);
-
+	enemy_->HitEnemies(player_);
 
 
 	SceneCheck();

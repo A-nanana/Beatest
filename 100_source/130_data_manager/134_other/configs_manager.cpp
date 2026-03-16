@@ -18,7 +18,7 @@ ConfigsManager* ConfigsManager::instance_ = nullptr;
 ConfigsManager::ConfigsManager() {
 
 	//‰¹—Ê‚Ì‰Šú‰»
-	for (int i = 0; i < scene_max; i++) {
+	for (int i = 0; i < k_scene_max; i++) {
 		vol_music_[i] = window_setting::first_music_vol_percent;
 		vol_se_[i] = window_setting::first_se_vol_percent;
 	}
@@ -45,17 +45,17 @@ int ConfigsManager::GetIt(Configs param)
 	//€–Ú‚Åˆ—•ªŠò
 	switch (param)
 	{
-	case scene_game_music:
-		return GetVolMusic(scene_game);
+	case k_scene_game_music:
+		return GetVolMusic(k_scene_game);
 		break;
-	case scene_game_se:
-		return GetVolSe(scene_game);
+	case k_scene_game_se:
+		return GetVolSe(k_scene_game);
 		break;
-	case scene_main_music:
-		return GetVolMusic(scene_main);
+	case k_scene_main_music:
+		return GetVolMusic(k_scene_main);
 		break;
-	case scene_main_se:
-		return GetVolSe(scene_main);
+	case k_scene_main_se:
+		return GetVolSe(k_scene_main);
 		break;
 	default:
 		break;
@@ -80,7 +80,7 @@ int ConfigsManager::SubVolMusic(SceneIf scene) {
 }
 int ConfigsManager::AddVolSe(SceneIf scene) {
 	//Å‘å‚Å‚È‚¯‚ê‚Î‘‰Á
-	if (vol_music_[scene] < window_setting::percent_max) {
+	if (vol_se_[scene] < window_setting::percent_max) {
 		vol_se_[scene]++;
 	}
 	return vol_se_[scene];
@@ -88,7 +88,7 @@ int ConfigsManager::AddVolSe(SceneIf scene) {
 }
 int ConfigsManager::SubVolSe(SceneIf scene) {
 	//Å¬‚Å‚È‚¯‚ê‚ÎŒ¸­
-	if (vol_music_[scene] > window_setting::null_param) {
+	if (vol_se_[scene] > window_setting::null_param) {
 		vol_se_[scene]--;
 	}
 	return vol_se_[scene];
@@ -101,17 +101,17 @@ int ConfigsManager::AddIt(Configs param)
 
 	switch (param)
 	{
-	case scene_game_music:
-		return AddVolMusic(scene_game);
+	case k_scene_game_music:
+		return AddVolMusic(k_scene_game);
 		break;
-	case scene_game_se:
-		return AddVolSe(scene_game);
+	case k_scene_game_se:
+		return AddVolSe(k_scene_game);
 		break;
-	case scene_main_music:
-		return AddVolMusic(scene_main);
+	case k_scene_main_music:
+		return AddVolMusic(k_scene_main);
 		break;
-	case scene_main_se:
-		return AddVolSe(scene_main);
+	case k_scene_main_se:
+		return AddVolSe(k_scene_main);
 		break;
 	default:
 		break;
@@ -124,17 +124,17 @@ int ConfigsManager::SubIt(Configs param)
 
 	switch (param)
 	{
-	case scene_game_music:
-		return SubVolMusic(scene_game);
+	case k_scene_game_music:
+		return SubVolMusic(k_scene_game);
 		break;
-	case scene_game_se:
-		return SubVolSe(scene_game);
+	case k_scene_game_se:
+		return SubVolSe(k_scene_game);
 		break;
-	case scene_main_music:
-		return SubVolMusic(scene_main);
+	case k_scene_main_music:
+		return SubVolMusic(k_scene_main);
 		break;
-	case scene_main_se:
-		return SubVolSe(scene_main);
+	case k_scene_main_se:
+		return SubVolSe(k_scene_main);
 		break;
 	default:
 		break;
@@ -148,5 +148,5 @@ void ConfigsManager::SetIt()
 
 void ConfigsManager::SetMusic()
 {
-	ChangeVolumeSoundMem(vol_music_[scene_game], MusicManager::GetInstance()->GetMusicData().handle_);
+	ChangeVolumeSoundMem(vol_music_[k_scene_game], MusicManager::GetInstance()->GetMusicData().handle_);
 }

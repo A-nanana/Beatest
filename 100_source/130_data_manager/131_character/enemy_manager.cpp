@@ -40,6 +40,25 @@ void EnemyManager::SetShotManager(ShotManager* shot_manage)
 	shot_manage_ = shot_manage;
 }
 
+bool EnemyManager::HitEnemies(ObjectCommon* object)
+{
+	bool returner = false;//返り値
+	//子の数繰り返す
+	for (Node* child : children_) {
+		ObjectCommon* object_other = dynamic_cast<ObjectCommon*>(child);
+		//オブジェクトかどうか
+		if (!object_other) {
+			continue;
+		}
+		//当たったか
+		if (object->HitCheckToBox(object_other)) {
+			
+			returner = true;
+		}
+	}
+	return returner;
+}
+
 //追加
 void EnemyManager::AddChild(EnemyObject* node)
 {

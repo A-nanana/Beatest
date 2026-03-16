@@ -13,7 +13,6 @@
 #include "..\100_source\110_drawing_tools\scene_manager.h"
 #include "..\100_source\110_drawing_tools\time.h"
 #include "..\100_source\140_roading_from_other\file_roader.h"
-#include "..\100_source\110_drawing_tools\game_scene.h"
 #include "..\100_source\120_game_scene\top_scene.h"
 #include "..\100_source\130_data_manager\133_music\music_manager.h"
 
@@ -21,7 +20,7 @@ int main(void) {
 	
 	
 	window_setting::WindowSettings();
-
+	SetMainWindowText(string_set::title);
 	if (DxLib_Init() == -1) {
 		return -1;
 	}

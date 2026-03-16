@@ -10,10 +10,10 @@
 
 #pragma once
 
-#include "node.h"
-#include "scene.h"
+#include "..\110_drawing_tools\node.h"
+#include "..\110_drawing_tools\scene.h"
 
-class EnemyObject;
+class EnemyManager;
 class PlayerObject;
 class ShotManager;
 class GameScene:public Scene
@@ -26,7 +26,7 @@ class GameScene:public Scene
 	Node* text_;//テキスト根ノード
 
 	//それぞれのオブジェクトのポインタ保存用
-	EnemyObject* enemy_;
+	EnemyManager* enemy_;
 	PlayerObject* player_;
 	ShotManager* shot_manage_;
 

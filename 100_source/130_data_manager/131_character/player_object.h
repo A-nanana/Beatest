@@ -13,12 +13,16 @@
 
 #include "object_common.h"
 #include "..\..\110_drawing_tools\defining.h"
+#include "..\..\110_drawing_tools\Vector2.h"
 
 class PlayerEffect;
 
 class PlayerObject:public ObjectCommon
 {
 	static PlayerObject* player_; //インスタンス
+
+	Vector2D last_pos_;//直前位置
+
 	PlayerEffect* effect_;//エフェクトの根
 
 	int is_effect_; //エフェクトが必要か
@@ -36,8 +40,11 @@ public:
 
 
 	//内容取得
-	static PlayerObject* GetInstance();
-	Vector2D GetCenter() { return { world_position_.x_ + size_x_ / 2,world_position_.y_ + size_y_ / 2 }; };
+	static PlayerObject* GetInstance();//インスタンス
+	Vector2D GetCenter() { return { world_position_.x_ + size_x_ / 2,world_position_.y_ + size_y_ / 2 }; }; //中心
+	
+	//直前位置に移動
+	void BackLastPos() { world_position_.Set(last_pos_);  }
 	//更新(更新するときの時間)
 	void Update(float delta_time);
 	//セットアップ

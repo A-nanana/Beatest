@@ -15,6 +15,7 @@
 
 class ShotManager;
 class EnemyObject;
+class ObjectCommon;
 
 class EnemyManager:public Node
 {
@@ -35,6 +36,8 @@ public:
 	EnemyManager();
 	//  セッター
 	void SetShotManager(ShotManager* shot_manage);
+	//  本体当たり判定
+	bool HitEnemies(ObjectCommon* object);
 
 	//  追加
 	void AddChild(EnemyObject* node);

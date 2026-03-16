@@ -14,7 +14,7 @@
 
 #include "shot_object.h"
 #include "..\131_character\player_object.h"
-#include "..\131_character\enemy_object.h"
+#include "..\131_character\enemy_manager.h"
 #include "..\..\110_drawing_tools\camera.h"
 #include "..\134_other\score_manager.h"
 
@@ -77,11 +77,14 @@ void ShotManager::Update(float delta_time) {
 		
 
 		}
-
-		
-		
 	
 	}
+	//位置確認
+	//敵と当たっていたら直前位置に移動
+	if (enemy_->HitEnemies(player_)) {
+		player_->BackLastPos();
+	}
+
 }
 void ShotManager::ShotIn(Camera* camera)
 {
@@ -117,7 +120,7 @@ void ShotManager::SetPlayerObject(PlayerObject* player)
 {
 	player_ = player;
 }
-void ShotManager::SetEnemyObject(EnemyObject* enemy)
+void ShotManager::SetEnemyManager(EnemyManager* enemy)
 {
 	enemy_ = enemy;
 }

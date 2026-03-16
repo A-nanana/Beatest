@@ -13,12 +13,11 @@
 #include "top_scene.h"
 #include "..\110_drawing_tools\buttom_node.h"
 #include "..\110_drawing_tools\text_node.h"
-#include "..\110_drawing_tools\game_scene.h"
+#include "..\110_drawing_tools\inputer.h"
+#include "..\110_drawing_tools\defining.h"
 #include "..\130_data_manager\133_music\music_manager.h"
 #include "..\130_data_manager\134_other\score_manager.h"
 #include "..\140_roading_from_other\file_roader.h"
-#include "..\110_drawing_tools\inputer.h"
-#include "..\110_drawing_tools\defining.h"
 
 //-----------------------------
 // @name   ResultScene

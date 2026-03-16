@@ -26,6 +26,11 @@ struct MusicData {
 	int handle_; //楽曲ハンドル
 };
 
+enum SeType {
+	k_select,
+	k_se_max
+};
+
 //------------------------------
 // @name   MusicManager
 // @brief  楽曲管理 クラス
@@ -37,6 +42,7 @@ class MusicManager
 	MusicData play_music_; //演奏中楽曲データ
 	std::vector<std::string> title_line_up_;//タイトルのラインナップ
 	int bgm_handle_;//bgmのハンドル
+	int se_handle_[k_se_max];//seのハンドル
 //  コンストラクタ
 	MusicManager();
 //  デストラクタ

@@ -17,19 +17,19 @@
 // @memo   
 //------------------------------
 enum SceneIf{
-	scene_main = 0, //選択シーン
-	scene_game ,//ゲームシーン
-	scene_max  //最大値
+	k_scene_main = 0, //選択シーン
+	k_scene_game ,//ゲームシーン
+	k_scene_max  //最大値
 	
 };
 
 //項目識別用
 enum Configs {
-	scene_game_music,//ゲームシーン曲
-	scene_game_se,//ゲームシーンSe
-	scene_main_music, //選択シーン曲
-	scene_main_se, //選択シーンSe
-	config_amount //最大値
+	k_scene_game_music,//ゲームシーン曲
+	k_scene_game_se,//ゲームシーンSe
+	k_scene_main_music, //選択シーン曲
+	k_scene_main_se, //選択シーンSe
+	k_config_amount //最大値
 };
 
 //------------------------------
@@ -41,8 +41,8 @@ class ConfigsManager
 {
 	static ConfigsManager* instance_;// 実体
 	
-	int vol_music_[scene_max];//曲音量
-	int vol_se_[scene_max];//SE音量
+	int vol_music_[k_scene_max];//曲音量
+	int vol_se_[k_scene_max];//SE音量
 
 
 //  コンストラクタ
