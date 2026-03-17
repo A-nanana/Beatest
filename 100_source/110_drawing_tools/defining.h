@@ -69,8 +69,10 @@ namespace file_set {
 	static const char* music_data_base_pass = "..\\200_resource\\music\\music.db";//相対パス
 	static const char* music_data_base_table = "GameMusicData";//テーブル名
 //  bgmファイルパス
-	static const char* bgm_data_pass = "..\\200_resource\\music\\bgm.mp3";//相対パス
-
+	static const char* bgm_data_pass = "..\\200_resource\\bgm.mp3";//相対パス
+//  Seファイルパス
+	static const char* cursol_se = "..\\200_resource\\se\\cursol_se.mp3";//カーソル音
+	static const char* critical_se = "..\\200_resource\\se\\critical_se.mp3";//ギリギリのとき
 }
 
 //-----------------------------

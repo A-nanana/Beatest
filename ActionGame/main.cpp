@@ -26,7 +26,11 @@ int main(void) {
 	}
 	
 	SetAlwaysRunFlag(TRUE);
-	
+	//Se“Ç‚Ýž‚Ý
+	MusicManager::GetInstance()->SetSe();
+	//bgm“Ç‚Ýž‚Ý
+	MusicManager::GetInstance()->SetBgm();
+
 	//ƒV[ƒ“Ý’è
 	SceneManager* scene_manage = new SceneManager();
 	scene_manage->SetNextScene(new TopScene());

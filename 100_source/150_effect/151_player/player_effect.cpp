@@ -9,6 +9,7 @@
 //------------------------------
 #include "player_effect.h"
 #include "..\..\130_data_manager\131_character\player_object.h"
+#include "..\..\130_data_manager\133_music\music_manager.h"
 #include "..\..\110_drawing_tools\alpha_node.h"
 #include "..\..\110_drawing_tools\box_node.h"
 #include "..\..\110_drawing_tools\defining.h"
@@ -118,6 +119,8 @@ void PlayerEffect::Create(int flg)
 	
 	if ((flg & effect_set::effect_critical)) {
 		AddChild(new HitLineEffect(effect_param::loop_hit, effect_param::time_per_loop, player_->GetCenter(), player_->GetSize()));
+		//Se再生
+		MusicManager::GetInstance()->PlaySe(k_play_critical);
 		//エフェクトのフラグを消す
 		player_->RestEffect(effect_set::effect_critical);
 	}

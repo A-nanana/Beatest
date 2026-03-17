@@ -12,6 +12,7 @@
 #include "..\110_drawing_tools\text_node.h"
 #include "..\110_drawing_tools\inputer.h"
 #include "..\130_data_manager\134_other\configs_manager.h"
+#include "..\130_data_manager\133_music\music_manager.h"
 
 //-----------------------------
 // @name   ConfigScene
@@ -49,6 +50,8 @@ void ConfigScene::PushCheck() {
 		ConfigsManager::GetInstance()->SetIt();
 		next_scene_ = GetToReturnScene();
 	}
+	MusicManager::GetInstance()->PlaySe(k_select);
+
 }
 
 

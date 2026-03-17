@@ -17,6 +17,7 @@
 #include "..\110_drawing_tools\defining.h"
 #include "..\120_game_scene\config_scene.h"
 #include "..\130_data_manager\133_music\music_manager.h"
+#include "..\130_data_manager\134_other\configs_manager.h"
 #include "..\140_roading_from_other\file_roader.h"
 
 //-----------------------------
@@ -35,6 +36,7 @@ void TopScene::PushCheck() {
 
 void TopScene::Init()
 {
+	ConfigsManager::GetInstance()->SetIt();
 	root_ = new Node();
 	camera_ = new Camera();
 	int string_size = GetDrawStringWidth(string_set::title, -1);
@@ -94,20 +96,25 @@ void TopScene::Finalize()
 void SelectScene::PushCheck() {
 	//W,Sキーで選択
 	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_W)) {
+		MusicManager::GetInstance()->PlaySe(k_select);
 		selecter_--;
 	}
 	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_S)) {
+		MusicManager::GetInstance()->PlaySe(k_select);
 		selecter_++;
 	}
 	//セレクターをループさせる
 	selecter_ = (selecter_ + MusicManager::GetInstance()->GetLineupSize()) % MusicManager::GetInstance()->GetLineupSize();
 	//エンターで決定
 	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_RETURN)) {
+		MusicManager::GetInstance()->PlaySe(k_select);
 		MusicManager::GetInstance()->SetPlayMusic(MusicManager::GetInstance()->operator[](selecter_).c_str());
 		next_scene_ = new GameScene();
 	}
 	//Escキーで設定
 	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_ESCAPE)) {
+		MusicManager::GetInstance()->PlaySe(k_select);
+
 		next_scene_ = new ConfigScene();
 	}
 
@@ -167,6 +174,9 @@ void SelectScene::Init() {
 void SelectScene::SetUp() {
 	root_->LoadResourceAll();
 	root_->SetUpAll();
+
+	//BGM再生
+	MusicManager::GetInstance()->PlayBgm();
 
 }
 

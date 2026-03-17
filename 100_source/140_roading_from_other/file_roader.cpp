@@ -171,6 +171,25 @@ void FileRoader::RoadMusic(MusicData* music_data)
 	music_data->ms_per_hyousi_ = system_set::ms_per_s * 60.0f / music_data->bpm_;
 }
 
+int FileRoader::RoadSe(int se_type)
+{
+	switch (se_type)
+	{
+	case k_play_critical:
+		return LoadSoundMem(file_set::critical_se);
+	case k_select:
+		return LoadSoundMem(file_set::cursol_se);
+	default:
+		break;
+	}
+	return -1;
+}
+
+int FileRoader::RoadBgmDef()
+{
+	return LoadSoundMem(file_set::bgm_data_pass);
+}
+
 std::vector<ShotBooker>* FileRoader::RoadHumen(const MusicData& music_data)
 {
 	//ƒ|ƒCƒ“ƒ^‚Â‚­‚é

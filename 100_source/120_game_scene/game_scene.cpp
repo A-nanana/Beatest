@@ -65,6 +65,9 @@ void GameScene::TextUpdate()
 
 void GameScene::Init()
 {
+	//bgm‚ðŽ~‚ß‚é
+	MusicManager::GetInstance()->StopBgm();
+
 	root_ = new Node();
 	root_->AddChild(new BackgroundNode("..\\200_resource\\back_tree.png", {NULL,NULL}));
 	camera_ = new Camera();

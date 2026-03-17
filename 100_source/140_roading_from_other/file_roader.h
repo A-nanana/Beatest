@@ -41,6 +41,11 @@ public:
 	void RoadLineup(std::vector<std::string>* title);
 	//‹È“Ç‚İ‚İ
 	void RoadMusic(MusicData* music_data);
+	//SE“Ç‚İ‚İ
+	int RoadSe(int se_type);
+	//bgm“Ç‚İ‚İ
+	int RoadBgmDef();
+
 	//•ˆ–Ê“Ç‚İ‚İ
 	std::vector<ShotBooker>* RoadHumen(const MusicData& music_data);
 };

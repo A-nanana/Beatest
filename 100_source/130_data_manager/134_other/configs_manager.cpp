@@ -144,9 +144,19 @@ int ConfigsManager::SubIt(Configs param)
 //適用
 void ConfigsManager::SetIt()
 {
+
+	ChangeVolumeSoundMem(vol_music_[k_scene_main] * window_setting::max_dxlib_param, MusicManager::GetInstance()->GetBgmHandle());
+
+	//楽曲再生時用以外のseのみ取り出して設定
+	ChangeVolumeSoundMem(vol_se_[k_scene_main] * window_setting::max_dxlib_param, MusicManager::GetInstance()->GetSeHandle(k_select));
 }
 
 void ConfigsManager::SetMusic()
 {
-	ChangeVolumeSoundMem(vol_music_[k_scene_game], MusicManager::GetInstance()->GetMusicData().handle_);
+	ChangeVolumeSoundMem(vol_music_[k_scene_game] * window_setting::max_dxlib_param, MusicManager::GetInstance()->GetMusicData().handle_);
+	
+	//楽曲再生時用のseのみ取り出して設定
+	ChangeVolumeSoundMem(vol_se_[k_scene_game] * window_setting::max_dxlib_param, MusicManager::GetInstance()->GetSeHandle(k_play_critical));
+
+
 }

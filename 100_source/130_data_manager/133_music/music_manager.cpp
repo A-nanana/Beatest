@@ -49,6 +49,18 @@ void MusicManager::SetLineUp()
 	title_line_up_.push_back(string_set::unknown);
 }
 
+void MusicManager::SetSe()
+{
+	for (int i = 0; i < k_se_max; i++) {
+		se_handle_[i] = FileRoader::GetInstance()->RoadSe(i);
+	}
+}
+
+void MusicManager::SetBgm()
+{
+	bgm_handle_ = FileRoader::GetInstance()->RoadBgmDef();
+}
+
 //Ä¶ŠÖŒW
 void MusicManager::PlayMusic()
 {
@@ -102,4 +114,31 @@ void MusicManager::EndBgm()
 		return;
 	}
 	DeleteSoundMem(bgm_handle_);
+}
+
+void MusicManager::PlaySe(int se_type)
+{
+	if (se_handle_[se_type] == -1) {
+		return;
+	}
+	PlaySoundMem(se_handle_[se_type], DX_PLAYTYPE_BACK);
+}
+
+void MusicManager::StopSe(int se_type)
+{
+	if (se_handle_[se_type] == -1) {
+		return;
+	}
+	//Ä¶’†‚©
+	if (CheckSoundMem(se_handle_[se_type])) {
+		StopSoundMem(se_handle_[se_type]);
+	}
+}
+
+void MusicManager::EndSe(int se_type)
+{
+	if (se_handle_[se_type] == -1) {
+		return;
+	}
+	DeleteSoundMem(se_handle_[se_type]);
 }

@@ -27,7 +27,8 @@ struct MusicData {
 };
 
 enum SeType {
-	k_select,
+	k_select,//選択時のse
+	k_play_critical,//クリティカル判定のse
 	k_se_max
 };
 
@@ -57,25 +58,37 @@ public:
 //  セッター
 	void SetPlayMusic(const char* title);//タイトルで設定
 	void SetLineUp();//ラインナップ設定
+	void SetSe();//Se設定
+	void SetBgm();//bgm設定
 
 //  ゲッター
 	int GetBpm() { return play_music_.bpm_; };//bpm取得
 	std::string GetTitle() { return play_music_.title_; };//タイトル取得
 	int GetMusicTime() { return play_music_.time_; };//時間(s)
+
 	MusicData GetMusicData() { return play_music_; };//データ取得
+
 	float GetMsPerHyousi() { return play_music_.ms_per_hyousi_; }; //1拍当たりの秒数(ms)
+
 	std::string operator[](int i) { return title_line_up_[i]; }; //ラインナップからタイトル取得
 	int GetLineupSize() { return title_line_up_.size(); };//リストサイズ
 
+	int GetSeHandle(int se_type) { return se_handle_[se_type]; };//seのハンドル
+
+	int GetBgmHandle() { return bgm_handle_; };//bgmのハンドル
 
 //  通常再生関係
-	void PlayMusic();
-	void StopMusic();
-	void DeleteMusic();
+	void PlayMusic();//再生
+	void StopMusic();//止め
+	void DeleteMusic();//ハンドル消去
 //  BGM再生関係
-	void PlayBgm();
-	void StopBgm();
-	void EndBgm();
+	void PlayBgm();//再生
+	void StopBgm();//止め
+	void EndBgm();//ハンドル消去
+//  Se再生関係
+	void PlaySe(int se_type);//再生
+	void StopSe(int se_type);//止め
+	void EndSe(int se_type);//ハンドル消去
 
 };
 
