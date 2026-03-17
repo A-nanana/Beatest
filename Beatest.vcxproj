@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{b59778b6-683f-459a-8d02-f92999fb1894}</ProjectGuid>
+    <RootNamespace>Beatest</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>DxLib_VC\プロジェクトに追加すべきファイル_VC用</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>DxLib_VC\プロジェクトに追加すべきファイル_VC用</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>DxLib_VC\プロジェクトに追加すべきファイル_VC用</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>DxLib_VC\プロジェクトに追加すべきファイル_VC用</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>DxLib_VC\プロジェクトに追加すべきファイル_VC用</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>DxLib_VC\プロジェクトに追加すべきファイル_VC用</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>DxLib_VC\プロジェクトに追加すべきファイル_VC用</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>DxLib_VC\プロジェクトに追加すべきファイル_VC用</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="100_source\110_drawing_tools\alpha_node.cpp" />
+    <ClCompile Include="100_source\110_drawing_tools\box_node.cpp" />
+    <ClCompile Include="100_source\110_drawing_tools\buttom_node.cpp" />
+    <ClCompile Include="100_source\110_drawing_tools\camera.cpp" />
+    <ClCompile Include="100_source\110_drawing_tools\circle_node.cpp" />
+    <ClCompile Include="100_source\110_drawing_tools\defining.cpp" />
+    <ClCompile Include="100_source\110_drawing_tools\graph_node.cpp" />
+    <ClCompile Include="100_source\110_drawing_tools\inputer.cpp" />
+    <ClCompile Include="100_source\110_drawing_tools\line_node.cpp" />
+    <ClCompile Include="100_source\110_drawing_tools\node.cpp" />
+    <ClCompile Include="100_source\110_drawing_tools\scene_manager.cpp" />
+    <ClCompile Include="100_source\110_drawing_tools\splite_node.cpp" />
+    <ClCompile Include="100_source\110_drawing_tools\text_node.cpp" />
+    <ClCompile Include="100_source\110_drawing_tools\time.cpp" />
+    <ClCompile Include="100_source\110_drawing_tools\tool.cpp" />
+    <ClCompile Include="100_source\110_drawing_tools\Vector2.cpp" />
+    <ClCompile Include="100_source\110_drawing_tools\vector3.cpp" />
+    <ClCompile Include="100_source\120_game_scene\background_node.cpp" />
+    <ClCompile Include="100_source\120_game_scene\config_scene.cpp" />
+    <ClCompile Include="100_source\120_game_scene\game_scene.cpp" />
+    <ClCompile Include="100_source\120_game_scene\result_scene.cpp" />
+    <ClCompile Include="100_source\120_game_scene\top_scene.cpp" />
+    <ClCompile Include="100_source\130_data_manager\131_character\enemy_manager.cpp" />
+    <ClCompile Include="100_source\130_data_manager\131_character\enemy_object.cpp" />
+    <ClCompile Include="100_source\130_data_manager\131_character\hit_box.cpp" />
+    <ClCompile Include="100_source\130_data_manager\131_character\object_common.cpp" />
+    <ClCompile Include="100_source\130_data_manager\131_character\player_object.cpp" />
+    <ClCompile Include="100_source\130_data_manager\132_shots\shot_manager.cpp" />
+    <ClCompile Include="100_source\130_data_manager\132_shots\shot_object.cpp" />
+    <ClCompile Include="100_source\130_data_manager\133_music\music_manager.cpp" />
+    <ClCompile Include="100_source\130_data_manager\134_other\configs_manager.cpp" />
+    <ClCompile Include="100_source\130_data_manager\134_other\score_manager.cpp" />
+    <ClCompile Include="100_source\140_roading_from_other\file_roader.cpp" />
+    <ClCompile Include="100_source\150_effect\151_player\player_effect.cpp" />
+    <ClCompile Include="100_source\150_effect\field_effect.cpp" />
+    <ClCompile Include="100_source\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="100_source\110_drawing_tools\alpha_node.h" />
+    <ClInclude Include="100_source\110_drawing_tools\box_node.h" />
+    <ClInclude Include="100_source\110_drawing_tools\buttom_node.h" />
+    <ClInclude Include="100_source\110_drawing_tools\camera.h" />
+    <ClInclude Include="100_source\110_drawing_tools\circle_node.h" />
+    <ClInclude Include="100_source\110_drawing_tools\defining.h" />
+    <ClInclude Include="100_source\110_drawing_tools\graph_node.h" />
+    <ClInclude Include="100_source\110_drawing_tools\inputer.h" />
+    <ClInclude Include="100_source\110_drawing_tools\line_node.h" />
+    <ClInclude Include="100_source\110_drawing_tools\node.h" />
+    <ClInclude Include="100_source\110_drawing_tools\scene.h" />
+    <ClInclude Include="100_source\110_drawing_tools\scene_manager.h" />
+    <ClInclude Include="100_source\110_drawing_tools\splite_node.h" />
+    <ClInclude Include="100_source\110_drawing_tools\text_node.h" />
+    <ClInclude Include="100_source\110_drawing_tools\time.h" />
+    <ClInclude Include="100_source\110_drawing_tools\tool.h" />
+    <ClInclude Include="100_source\110_drawing_tools\Vector2.h" />
+    <ClInclude Include="100_source\110_drawing_tools\vector3.h" />
+    <ClInclude Include="100_source\120_game_scene\background_node.h" />
+    <ClInclude Include="100_source\120_game_scene\config_scene.h" />
+    <ClInclude Include="100_source\120_game_scene\game_scene.h" />
+    <ClInclude Include="100_source\120_game_scene\result_scene.h" />
+    <ClInclude Include="100_source\120_game_scene\top_scene.h" />
+    <ClInclude Include="100_source\130_data_manager\131_character\enemy_manager.h" />
+    <ClInclude Include="100_source\130_data_manager\131_character\enemy_object.h" />
+    <ClInclude Include="100_source\130_data_manager\131_character\hit_box.h" />
+    <ClInclude Include="100_source\130_data_manager\131_character\object_common.h" />
+    <ClInclude Include="100_source\130_data_manager\131_character\player_object.h" />
+    <ClInclude Include="100_source\130_data_manager\132_shots\shot_booker.h" />
+    <ClInclude Include="100_source\130_data_manager\132_shots\shot_manager.h" />
+    <ClInclude Include="100_source\130_data_manager\132_shots\shot_object.h" />
+    <ClInclude Include="100_source\130_data_manager\133_music\music_manager.h" />
+    <ClInclude Include="100_source\130_data_manager\134_other\configs_manager.h" />
+    <ClInclude Include="100_source\130_data_manager\134_other\score_manager.h" />
+    <ClInclude Include="100_source\140_roading_from_other\file_roader.h" />
+    <ClInclude Include="100_source\140_roading_from_other\sqlite3.h" />
+    <ClInclude Include="100_source\140_roading_from_other\sqlite3ext.h" />
+    <ClInclude Include="100_source\150_effect\151_player\player_effect.h" />
+    <ClInclude Include="100_source\150_effect\field_effect.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="100_source\140_roading_from_other\SQLite3.lib" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

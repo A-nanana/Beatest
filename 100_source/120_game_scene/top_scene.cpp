@@ -8,6 +8,7 @@
 //Copyright (c) 2026 A.nanami All rights reserved.
 //------------------------------
 #include <iostream>
+
 #include "top_scene.h"
 #include "game_scene.h"
 
