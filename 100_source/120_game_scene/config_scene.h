@@ -11,6 +11,7 @@
 #ifndef __CONFIG_SCENE_H__
 #define __CONFIG_SCENE_H__ 
 
+#include <string>
 #include "..\110_drawing_tools\scene.h"
 
 class Node;
@@ -31,6 +32,7 @@ class ConfigScene :public Scene
 	Node* selecter_node_;//セレクター用ノード
 
 	int selecter_;//設定の選択カーソル
+	int last_select_;//直前の番号
 
 
 public:
@@ -71,7 +73,7 @@ class CreditScene :public Scene
 
 	Node* root_;//根ノード作成
 
-	Node* text_;//テキスト用根ノード
+	std::string text_;//テキスト
 	Node* selecter_node_;//セレクター用ノード
 
 	int selecter_;//設定の選択カーソル

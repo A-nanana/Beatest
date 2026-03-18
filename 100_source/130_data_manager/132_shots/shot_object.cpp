@@ -13,11 +13,11 @@
 #include "..\..\110_drawing_tools\defining.h"
 #include "..\133_music\music_manager.h"
 
-ShotObject::ShotObject(const int graph_handle, float x, float y, float speed, float angle, Vector2D target)
-	:used_(true),target_(target), ObjectCommon(graph_handle, x, y) {
+ShotObject::ShotObject(const int graph_handle, float x, float y, float speed, float angle, Vector2D target, int type)
+	:used_(true),target_(target), type_(type), ObjectCommon(graph_handle, x, y) {
 	
-	speed_.x_ = speed * cos(angle);
-	speed_.y_ = speed * sin(angle);
+	
+	speed_size_ = speed;
 	SetRotate(angle);
 	hit_use_ = true;
 }
@@ -48,44 +48,27 @@ int ShotObject::YBottom(void)
 	return  world_position_.y_ + size_y_;
 }
 
-//作成
-int ShotObject::Shoot(int _speed, double angle)
-{
-	{
-		//未使用品なら使用.
-		if (used_ == true) return 0;
-
-
-		//セット処理.
-		
-		SetPosition(NULL, NULL);
-		speed_.x_ = _speed * cos(angle);
-		speed_.y_ = _speed * sin(angle);
-		rotate_ = angle;
-		used_ = true;
-
-		return 1;
-	}
-}
 
 
 //更新
 void ShotObject::Update(float delta_time) {
 	
+	Vector2D speed_; //速度.
+
 	//今の位置がターゲット位置より奥か
-	if ((target_.x_ - world_position_.x_ < system_set::shot_speed_def) && (target_.y_ - world_position_.y_ < system_set::shot_speed_def)) {
+	if ((target_.x_ - world_position_.x_ < NULL) && (target_.y_ - world_position_.y_ < NULL)) {
 	}
-	else {
+	else if(type_ != system_set::k_enemy_all_renge) //全体に撒くものではないか
+	{
 		SetAngle(target_.x_, target_.y_);
 
 	}
 
 
 	// 速度変更
-	float last_length = speed_.Length();
 
-	speed_.x_ = cosf(rotate_) * last_length;
-	speed_.y_ = sin(rotate_) * last_length;
+	speed_.x_ = cosf(rotate_) * speed_size_;
+	speed_.y_ = sin(rotate_) * speed_size_;
 	
 
 	// 移動

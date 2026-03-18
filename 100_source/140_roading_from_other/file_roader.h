@@ -48,6 +48,9 @@ public:
 
 	//•ˆ–Ê“Ç‚İ‚İ
 	std::vector<ShotBooker>* RoadHumen(const MusicData& music_data);
+
+	//o“T“Ç‚İ‚İ
+	void RoadSyutten(std::string& syutten);
 };
 
 #endif // !__FILE_ROADER_H__

@@ -8,15 +8,16 @@
 //Copyright (c) 2026 A.nanami All rights reserved.
 //------------------------------
 
-#include "..\100_source\110_drawing_tools\defining.h"
-#include "..\100_source\110_drawing_tools\inputer.h"
-#include "..\100_source\110_drawing_tools\scene_manager.h"
-#include "..\100_source\110_drawing_tools\time.h"
-#include "..\100_source\140_roading_from_other\file_roader.h"
-#include "..\100_source\120_game_scene\top_scene.h"
-#include "..\100_source\130_data_manager\133_music\music_manager.h"
+#include "110_drawing_tools\defining.h"
+#include "110_drawing_tools\inputer.h"
+#include "110_drawing_tools\scene_manager.h"
+#include "110_drawing_tools\time.h"
+#include "140_roading_from_other\file_roader.h"
+#include "120_game_scene\top_scene.h"
+#include "130_data_manager\133_music\music_manager.h"
+#include "130_data_manager\134_other\configs_manager.h"
 
-int main(void) {
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 	
 	
 	window_setting::WindowSettings();
@@ -44,7 +45,7 @@ int main(void) {
 	float set_last = GetNowCount();
 
 	//メインループ
-	while (ProcessMessage() != -1) {
+	while ((ProcessMessage() != -1) && ConfigsManager::GetInstance()->GetDone()) {
 		//画面クリア
 		ClearDrawScreen();
 		//設定系更新

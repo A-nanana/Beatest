@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include "..\110_drawing_tools\node.h"
+#include "..\110_drawing_tools\alpha_node.h"
 #include "..\110_drawing_tools\scene.h"
 
 class EnemyManager;
@@ -24,11 +24,19 @@ class GameScene:public Scene
 
 	Node* root_;//根ノード作成
 	Node* text_;//テキスト根ノード
+	Node* end_game_;//ゲームセット用根ノード
 
 	//それぞれのオブジェクトのポインタ保存用
-	EnemyManager* enemy_;
-	PlayerObject* player_;
-	ShotManager* shot_manage_;
+	EnemyManager* enemy_;//敵
+	PlayerObject* player_;//プレイヤー
+	ShotManager* shot_manage_;//弾
+
+	//フェーズ切り替え
+	enum Fase {
+		k_play, //ゲーム中
+		k_end, //終了
+	};
+	Fase fase_;//今の状態
 
 	int last_time_;//時間計測用
 
@@ -39,7 +47,7 @@ public:
 	//テキスト確認
 	void TextUpdate();
 	//コンストラクタ
-	GameScene() {};
+	GameScene() { last_time_ = NULL; };
 	//  デストラクタ
 	~GameScene() {};
 

@@ -3,6 +3,8 @@
 // @brief  文字ノード クラスの宣言部
 // @auther A.namami
 // @date   2026/2/17  新規作成
+//		   2026/3/18  DrawStringをDrawFormatStringに変更
+// 
 // @memo   エラー型が来た場合は-1で返します
 //
 //Copyright (c) 2026 A.nanami All rights reserved.
@@ -60,7 +62,7 @@ void TextNode::Draw(int screen_handle,Camera* camera)
 {
 	//カメラ内か
 	if (camera->IsDraw(GetWorldPosition())) {
-		DrawString(camera->DrawPositionX(world_position_.x_), camera->DrawPositionY(world_position_.y_), text_.c_str(), text_color_);
+		DrawFormatString(camera->DrawPositionX(world_position_.x_), camera->DrawPositionY(world_position_.y_), text_color_, text_.c_str());
 	}
 }
 
@@ -179,6 +181,6 @@ void TextFormatNode::Release()
 
 void TextFormatNode::Draw(int screen_handle,Camera* camera)
 {
-	DrawStringToHandle(camera->DrawPositionX(world_position_.x_), camera->DrawPositionY(world_position_.y_), text_.c_str(), text_color_, font_handle_);
+	DrawFormatStringToHandle(camera->DrawPositionX(world_position_.x_), camera->DrawPositionY(world_position_.y_), text_color_, font_handle_, text_.c_str());
 }
 

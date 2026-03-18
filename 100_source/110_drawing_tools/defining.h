@@ -1,9 +1,10 @@
 //-----------------------------
-// @name   defining_drawing.h
-// @brief  描画で使う数を定義する場所
+// @name   defining.h
+// @brief  数を定義する場所
 // @auther A.namami
 // @date   2026/2/26 新規作成
-// @memo   TFはDXライブラリ準拠です
+// @memo   
+//         随時更新、
 //         項目ごとに名前空間で分けてます
 // 
 //Copyright (c) 2026 A.nanami All rights reserved.
@@ -66,13 +67,15 @@ namespace window_setting {
 //------------------------------
 namespace file_set {
 //  楽曲データベースファイル
-	static const char* music_data_base_pass = "..\\200_resource\\music\\music.db";//相対パス
+	static const char* music_data_base_pass = "200_resource/music/music.db";//相対パス
 	static const char* music_data_base_table = "GameMusicData";//テーブル名
 //  bgmファイルパス
-	static const char* bgm_data_pass = "..\\200_resource\\bgm.mp3";//相対パス
+	static const char* bgm_data_pass = "200_resource/bgm.mp3";//相対パス
 //  Seファイルパス
-	static const char* cursol_se = "..\\200_resource\\se\\cursol_se.mp3";//カーソル音
-	static const char* critical_se = "..\\200_resource\\se\\critical_se.mp3";//ギリギリのとき
+	static const char* cursol_se = "200_resource/se/cursol_se.mp3";//カーソル音
+	static const char* critical_se = "200_resource/se/critical_se.mp3";//ギリギリのとき
+//  出典について
+	static const char* syutten_memo = "200_resource/syutten.txt";
 }
 
 //-----------------------------
@@ -145,19 +148,34 @@ namespace string_set {
 //  動作系
 	static const char* push_to_start = "push Enter to start"; //開始
 	static const char* push_to_return = "push Enter to return"; //戻る(エンターで)
+	static const char* select_menu = "Menu";//選択
 	static const char* select_song = "Select To Play!";//選択
 	static const char* config_set = "Set Config";//設定
 	static const char* result = "Your Result"; //結果
+	static const char* game_finish = "Game Set !";//終了
 //  名詞
 	static const char* conbo = "C O N B O !"; //結果
 	static const char* score = "Score";//スコア
 	static const char* max_conbo = "Max Conbo";//最大コンボ
+
+	static const char* result_uchiwake[4] =
+	{ "Critical",
+	"Great",
+	"Miss",
+	"Good" };//コンボ内訳項目
 
 	static const char* configs[4] =
 	{"Game Music",
 	"Game SE",
 	"Home Music",
 	"Home SE"};//調整項目
+
+	static const char* menu[3] =
+	{
+		"Play",
+		"Config",
+		"Credit"
+	};//メニュー項目
 }
 
 //-----------------------------
@@ -222,21 +240,28 @@ namespace effect_param {
 namespace system_set {
 //  プレイヤーの速さ
 	static const float player_walk_speed = 10.0f;
+//  プレイヤーの当たり判定サイズ
+	static const float player_hit_size_x = 50.0f;//x
+	static const float player_hit_size_y = 70.0f;//y
+
 //  弾のデフォルトの速さ
 	static const float shot_speed_def = 10;
 //  角度が大きくなったときの修正角度
 	static const float repair_rad = M_PI * 270.0f / 180.0f;
-//  猶予時間
-	static const float border_time = 34.0f;
 //  1sをmsに直す
 	static const int ms_per_s = 1000;
+//  猶予時間
+	static const float border_time = 34.0f;
+//  終了後待機時間
+	static const int wait_end_time = 1.0 * ms_per_s;
 //  弾の角度修正単位
-	static const float angle_per_time = 15.0f * M_PI / 180.0f;
+	static const float angle_per_time = 20.0f * M_PI / 180.0f;
 //  画面上の弾数
-	static const int shot_max = 1000;
+	static const int shot_max = 10000;
 //  弾の種類
 	static const enum ShotType {
-		k_enemy_nomal,
+		k_enemy_nomal, //通常
+		k_enemy_all_renge, //全体に出す
 
 	};
 //  必須待機時間

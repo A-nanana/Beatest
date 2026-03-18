@@ -43,7 +43,7 @@ class ConfigsManager
 	
 	int vol_music_[k_scene_max];//曲音量
 	int vol_se_[k_scene_max];//SE音量
-
+	bool is_app_done_;//アプリケーション起動の有無
 
 //  コンストラクタ
 	ConfigsManager();
@@ -75,6 +75,9 @@ public:
 	void SetIt();//適用
 	void SetMusic();//ゲーム前に呼び出す方
 
+//  終了関係
+	void SetEnd() { is_app_done_ = false; };//アプリ終了を設定する
+	bool GetDone() { return is_app_done_; };//終了の有無を確認する()
 };
 
 

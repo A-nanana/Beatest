@@ -20,7 +20,7 @@
 
 //ロード
 void ShotManager::Load() {
-	shot_graph_handle_.push_back(LoadGraph("..\\200_resource\\bullet.png"));
+	shot_graph_handle_.push_back(LoadGraph("200_resource\\bullet.png"));
 }
 //リソース解放
 void ShotManager::Release() {
@@ -134,11 +134,16 @@ void ShotManager::AddChild(ShotObject* node)
 	Node::AddChild(node);
 }
 
-void ShotManager::AddShot(float x, float y, float speed, float angle)
+void ShotManager::AddShot(float x, float y, float speed, float angle, int type)
 {
 	//存在できるか
 	if (children_.size() < system_set::shot_max) {
-		//追加
-		Node::AddChild(new ShotObject(shot_graph_handle_.front(), x, y, speed, angle, GetPlayerCenter()));
+		//タイプで分けて追加
+		if (type == system_set::k_enemy_nomal) {
+			Node::AddChild(new ShotObject(shot_graph_handle_.front(), x, y, speed, angle, GetPlayerCenter(),type));
+		}
+		if (type == system_set::k_enemy_all_renge) {
+			Node::AddChild(new ShotObject(shot_graph_handle_.front(), x, y, speed, angle, { window_setting::length * cos(angle),window_setting::length * sin(angle) },type));
+		}
 	}
 }

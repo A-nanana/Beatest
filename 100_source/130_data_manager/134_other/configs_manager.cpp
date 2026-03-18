@@ -3,7 +3,7 @@
 // @brief  設定管理 クラス
 // @auther A.namami
 // @date   2026/3/16  新規作成
-// @memo   
+// @memo   保管データが%なので、設定時に 255 * (各種音量) / 100 で値に直してます
 //
 //Copyright (c) 2026 A.nanami All rights reserved.
 //------------------------------
@@ -16,7 +16,7 @@ ConfigsManager* ConfigsManager::instance_ = nullptr;
 
 //コンストラクタ
 ConfigsManager::ConfigsManager() {
-
+	is_app_done_ = true;
 	//音量の初期化
 	for (int i = 0; i < k_scene_max; i++) {
 		vol_music_[i] = window_setting::first_music_vol_percent;
@@ -145,18 +145,18 @@ int ConfigsManager::SubIt(Configs param)
 void ConfigsManager::SetIt()
 {
 
-	ChangeVolumeSoundMem(vol_music_[k_scene_main] * window_setting::max_dxlib_param, MusicManager::GetInstance()->GetBgmHandle());
+	ChangeVolumeSoundMem(vol_music_[k_scene_main] * window_setting::max_dxlib_param / 100, MusicManager::GetInstance()->GetBgmHandle());
 
 	//楽曲再生時用以外のseのみ取り出して設定
-	ChangeVolumeSoundMem(vol_se_[k_scene_main] * window_setting::max_dxlib_param, MusicManager::GetInstance()->GetSeHandle(k_select));
+	ChangeVolumeSoundMem(vol_se_[k_scene_main] * window_setting::max_dxlib_param / 100, MusicManager::GetInstance()->GetSeHandle(k_select));
 }
 
 void ConfigsManager::SetMusic()
 {
-	ChangeVolumeSoundMem(vol_music_[k_scene_game] * window_setting::max_dxlib_param, MusicManager::GetInstance()->GetMusicData().handle_);
-	
+	ChangeVolumeSoundMem(vol_music_[k_scene_game] * window_setting::max_dxlib_param / 100, MusicManager::GetInstance()->GetMusicData().handle_);
+	 
 	//楽曲再生時用のseのみ取り出して設定
-	ChangeVolumeSoundMem(vol_se_[k_scene_game] * window_setting::max_dxlib_param, MusicManager::GetInstance()->GetSeHandle(k_play_critical));
+	ChangeVolumeSoundMem(vol_se_[k_scene_game] * window_setting::max_dxlib_param / 100, MusicManager::GetInstance()->GetSeHandle(k_play_critical));
 
 
 }

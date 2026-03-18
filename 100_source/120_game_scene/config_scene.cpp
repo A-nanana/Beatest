@@ -8,11 +8,12 @@
 //Copyright (c) 2026 A.nanami All rights reserved.
 //------------------------------
 #include "config_scene.h"
-#include "..\110_drawing_tools\node.h"
-#include "..\110_drawing_tools\text_node.h"
-#include "..\110_drawing_tools\inputer.h"
-#include "..\130_data_manager\134_other\configs_manager.h"
-#include "..\130_data_manager\133_music\music_manager.h"
+#include "../110_drawing_tools/node.h"
+#include "../110_drawing_tools/text_node.h"
+#include "../110_drawing_tools/inputer.h"
+#include "../130_data_manager/134_other/configs_manager.h"
+#include "../130_data_manager/133_music/music_manager.h"
+#include "../140_roading_from_other/file_roader.h"
 
 //-----------------------------
 // @name   ConfigScene
@@ -20,14 +21,22 @@
 // @memo   セットしてから使うこと
 //------------------------------
 void ConfigScene::PushCheck() {
+	
+	//直前の選択を保管
+	last_select_ = selecter_;
+
 	//W,Sで項目変更
 	//Wなら上
 	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_W)) {
 		selecter_--;
+		MusicManager::GetInstance()->PlaySe(k_select);
+
 	}
 	//Sなら下
 	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_S)) {
 		selecter_++;
+		MusicManager::GetInstance()->PlaySe(k_select);
+
 	}
 	//ループさせる
 	selecter_ = (selecter_ + k_config_amount) % k_config_amount;
@@ -38,19 +47,28 @@ void ConfigScene::PushCheck() {
 	//Aなら減少
 	if (Inputer::GetInstance()->GetHitKey(KEY_INPUT_A)) {
 		ConfigsManager::GetInstance()->SubIt((Configs)selecter_);
+		MusicManager::GetInstance()->PlaySe(k_select);
+
 	}
 	//Dなら増加
 	if (Inputer::GetInstance()->GetHitKey(KEY_INPUT_D)) {
 		ConfigsManager::GetInstance()->AddIt((Configs)selecter_);
+		MusicManager::GetInstance()->PlaySe(k_select);
 
 	}
 
 	//エンターで戻す
 	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_RETURN)) {
 		ConfigsManager::GetInstance()->SetIt();
+		MusicManager::GetInstance()->PlaySe(k_select);
+
 		next_scene_ = GetToReturnScene();
 	}
-	MusicManager::GetInstance()->PlaySe(k_select);
+	//エスケープキーで終了
+	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_ESCAPE)) {
+		MusicManager::GetInstance()->PlaySe(k_select);
+		ConfigsManager::GetInstance()->SetEnd();
+	}
 
 }
 
@@ -110,7 +128,10 @@ void ConfigScene::Init()
 	root_->AddChild(selecter_node_);
 
 
-	TextUpdate();
+	//直前の選択が今の選択と違うならテキストを更新
+	if (last_select_ != selecter_) {
+		TextUpdate();
+	}
 	next_scene_ = this;
 }
 
@@ -171,8 +192,12 @@ void CreditScene::Init()
 {
 	root_ = new Node();
 	camera_ = new Camera();
+	root_->AddChild(new TextNode(string_set::push_to_return, GetColor(255, 255, 255), window_setting::center_x, window_setting::size_y - line_set::brank_y * 3));
 
-	
+	//テキストを設定
+	FileRoader::GetInstance()->RoadSyutten(text_);
+
+	root_->AddChild(new TextNode(text_.c_str(), GetColor(255, 255, 255), line_set::brank_x + ege_set::brank_x, line_set::brank_y + ege_set::brank_y));
 
 	next_scene_ = this;
 }

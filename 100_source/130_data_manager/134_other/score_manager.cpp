@@ -80,7 +80,6 @@ void ScoreManager::ScoreUpdate(HitType type)
 	case k_none:
 		score_.good++;
 		score_.score += score_set::per_none;
-		ComboUpdate(true);
 
 		break;
 	default:

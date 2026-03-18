@@ -103,7 +103,7 @@ void MusicManager::StopBgm()
 		return;
 	}
 	//Ä¶’†‚©
-	if (CheckSoundMem(play_music_.handle_)) {
+	if (CheckSoundMem(bgm_handle_)) {
 		StopSoundMem(bgm_handle_);
 	}
 }

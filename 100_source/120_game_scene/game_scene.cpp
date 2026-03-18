@@ -13,8 +13,8 @@
 
 #include "..\110_drawing_tools\text_node.h"
 #include "..\110_drawing_tools\inputer.h"
-#include "..\120_game_scene\result_scene.h"
-#include "..\120_game_scene\background_node.h"
+#include "result_scene.h"
+#include "background_node.h"
 #include "..\130_data_manager\131_character\object_common.h"
 #include "..\130_data_manager\131_character\player_object.h"
 #include "..\130_data_manager\131_character\enemy_object.h"
@@ -28,10 +28,18 @@
 
 
 void GameScene::SceneCheck() {
-	if (MusicManager::GetInstance()->GetMusicTime() * system_set::ms_per_s < last_time_) {
-		next_scene_ = new ResultScene();
+	//playフェーズで曲を流す時間を過ぎたら曲を止める
+	if ((fase_ == k_play) && (MusicManager::GetInstance()->GetMusicTime() * system_set::ms_per_s < last_time_)) {
 		ScoreManager::GetInstance()->ResultLock();
+		MusicManager::GetInstance()->StopMusic();
+		fase_ = k_end;
+		last_time_ = NULL;
+		root_->AddChild(end_game_);
+	}
+	//endフェーズで一定時間になったら結果を出す
+	if ((fase_ == k_end) && (system_set::wait_end_time < last_time_)) {
 
+		next_scene_ = new ResultScene();
 	}
 }
 
@@ -65,11 +73,13 @@ void GameScene::TextUpdate()
 
 void GameScene::Init()
 {
-	//bgmを止める
-	MusicManager::GetInstance()->StopBgm();
+	
+	//フェーズの切り替え
+	fase_ = k_play;
 
 	root_ = new Node();
-	root_->AddChild(new BackgroundNode("..\\200_resource\\back_tree.png", {NULL,NULL}));
+	end_game_ = new Node();
+	root_->AddChild(new BackgroundNode("200_resource\\back_tree.png", {NULL,NULL}));
 	camera_ = new Camera();
 	
 	//中身の設定
@@ -99,29 +109,46 @@ void GameScene::Init()
 
 	//テキスト更新
 	TextUpdate();
+	end_game_->AddChild(new TextNode(string_set::game_finish, GetColor(255, 255, 255),
+		window_setting::center_x, window_setting::center_y));
 
 	next_scene_ = this;
 }
 
 void GameScene::SetUp()
 {
+	//bgmを止める
+	MusicManager::GetInstance()->StopBgm();
 	root_->LoadResourceAll();
 	root_->SetUpAll();
+	end_game_->LoadResourceAll();
+	end_game_->SetUpAll();
 	ConfigsManager::GetInstance()->SetMusic();
 	MusicManager::GetInstance()->PlayMusic();
 }
 
 Scene* GameScene::Update(float delta_time) {
+	//プレイ中の更新処理
+	//時間更新
 	last_time_ += delta_time;
 	camera_->Update();
-	
-	TextUpdate();
+	//プレイ中か
+	if (fase_ == k_play) {
+		
 
-	root_->UpdateAll(delta_time);
-	root_->SetWorldPositionAll();
-	shot_manage_->ShotIn(camera_);
-	enemy_->HitEnemies(player_);
+		TextUpdate();
+		root_->UpdateAll(delta_time);
+		
+		root_->SetWorldPositionAll();
+		shot_manage_->ShotIn(camera_);
+		enemy_->HitEnemies(player_);
 
+	}
+	//プレイ終了か
+	if (fase_ == k_end) {
+		end_game_->UpdateAll(delta_time);
+		end_game_->SetWorldPositionAll();
+	}
 
 	SceneCheck();
 
@@ -142,6 +169,6 @@ void GameScene::Finalize()
 {
 	root_->ReleaseResourceAll();
 	MusicManager::GetInstance()->DeleteMusic();
+
 }
 
-//ここから下はテスト用!

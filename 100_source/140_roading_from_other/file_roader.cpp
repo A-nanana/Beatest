@@ -10,6 +10,7 @@
 #include <fstream>
 #include <iostream>
 #include <functional>
+#include <iterator>
 #include "DxLib.h"
 // SQLite用ヘッダー
 #include "sqlite3.h" 
@@ -108,7 +109,7 @@ void FileRoader::RoadLineup(std::vector<std::string>* title)
 	}
 	else {
 		//ポインタつくる
-		std::ifstream lineup_p("..\\200_resource\\music\\Lineup.txt");
+		std::ifstream lineup_p("200_resource\\music\\Lineup.txt");
 		//ファイルが開くか
 		if (lineup_p.is_open()) {
 			std::string name;
@@ -125,11 +126,11 @@ void FileRoader::RoadLineup(std::vector<std::string>* title)
 void FileRoader::RoadMusic(MusicData* music_data)
 {
 	//曲ハンドル
-	std::string file_name = "..\\200_resource\\music\\" + music_data->title_ + "\\" + music_data->title_ + ".wav";
+	std::string file_name = "200_resource\\music\\" + music_data->title_ + "\\" + music_data->title_ + ".wav";
 	music_data->handle_ = LoadSoundMem(file_name.c_str());
 	//wavファイルでエラーならmp3に
 	if (music_data->handle_ == -1) {
-		std::string file_name = "..\\200_resource\\music\\" + music_data->title_ + "\\" + music_data->title_ + ".mp3";
+		std::string file_name = "200_resource\\music\\" + music_data->title_ + "\\" + music_data->title_ + ".mp3";
 		music_data->handle_ = LoadSoundMem(file_name.c_str());
 	}
 
@@ -157,7 +158,7 @@ void FileRoader::RoadMusic(MusicData* music_data)
 
 	}
 	else {
-		file_name = "..\\200_resource\\music\\" + music_data->title_ + "\\propaty.txt";
+		file_name = "200_resource\\music\\" + music_data->title_ + "\\propaty.txt";
 		std::ifstream propaty_p(file_name.c_str());
 		if (propaty_p.is_open()) {
 			propaty_p >> music_data->bpm_;
@@ -194,7 +195,7 @@ std::vector<ShotBooker>* FileRoader::RoadHumen(const MusicData& music_data)
 {
 	//ポインタつくる
 	std::string title = music_data.title_;
-	std::string file_name = "..\\200_resource\\music\\" + title + "\\humen.txt";
+	std::string file_name = "200_resource\\music\\" + title + "\\humen.txt";
 	
 	std::ifstream humen_p(file_name.c_str());
 	//譜面
@@ -231,11 +232,24 @@ std::vector<ShotBooker>* FileRoader::RoadHumen(const MusicData& music_data)
 			for (int j = 0; j <= retu; j++) {
 				ShotBooker booked = booked_def;//予約カード
 
-				if (humen_2[i - retu + j] == '1') {
+				if (humen_2[i - retu + j] == '1') //通常
+				{
 					float in_time = (float)(((setu + j / retu) + 1.0f) * music_data.hyousi_ * music_data.ms_per_hyousi_); //時間
 
 					booked.bool_time = in_time;//差分時間で予約
-					booked.type = 0;
+					booked.type = system_set::k_enemy_nomal;
+
+					booker->push_back(booked);
+				}
+				else if (humen_2[i - retu + j] == '3') //全体に撒く
+				{
+					float in_time = (float)(((setu + j / retu) + 1.0f) * music_data.hyousi_ * music_data.ms_per_hyousi_); //時間
+
+					booked.bool_time = in_time;
+					booked.type = system_set::k_enemy_all_renge;
+					//角度計算
+					booked.rooper = M_PI * 2/ system_set::angle_per_time;
+
 					booker->push_back(booked);
 				}
 			}
@@ -260,4 +274,25 @@ std::vector<ShotBooker>* FileRoader::RoadHumen(const MusicData& music_data)
 	humen_p.close();
 
 	return booker;
+}
+
+void FileRoader::RoadSyutten(std::string& syutten)
+{
+	//ファイル読み込み
+	std::ifstream file_p(file_set::syutten_memo, std::ios::binary);
+
+	//ファイルを開いているか
+	if (!file_p.is_open()) {
+		return;
+	}
+
+	//ファイルから取り出す
+	std::istreambuf_iterator<char> top(file_p.rdbuf());//はじめ
+	std::istreambuf_iterator<char> last;//おわり
+	//一気に初期化
+	syutten = std::string(top, last);
+
+	//終了
+	file_p.close();
+
 }

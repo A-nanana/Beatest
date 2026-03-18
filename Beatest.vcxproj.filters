@@ -183,6 +183,9 @@
     <ClCompile Include="100_source\150_effect\field_effect.cpp">
       <Filter>ソース ファイル\150_effect</Filter>
     </ClCompile>
+    <ClCompile Include="100_source\120_game_scene\menu_scene.cpp">
+      <Filter>ソース ファイル\120_game_scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="100_source\110_drawing_tools\alpha_node.h">
@@ -198,9 +201,6 @@
       <Filter>ヘッダー ファイル\110_drawing_tool</Filter>
     </ClInclude>
     <ClInclude Include="100_source\110_drawing_tools\circle_node.h">
-      <Filter>ヘッダー ファイル\110_drawing_tool</Filter>
-    </ClInclude>
-    <ClInclude Include="100_source\110_drawing_tools\defining.h">
       <Filter>ヘッダー ファイル\110_drawing_tool</Filter>
     </ClInclude>
     <ClInclude Include="100_source\110_drawing_tools\graph_node.h">
@@ -238,9 +238,6 @@
     </ClInclude>
     <ClInclude Include="100_source\110_drawing_tools\vector3.h">
       <Filter>ヘッダー ファイル\110_drawing_tool</Filter>
-    </ClInclude>
-    <ClInclude Include="100_source\120_game_scene\background_node.h">
-      <Filter>ヘッダー ファイル\120_game_scene</Filter>
     </ClInclude>
     <ClInclude Include="100_source\120_game_scene\config_scene.h">
       <Filter>ヘッダー ファイル\120_game_scene</Filter>
@@ -301,6 +298,15 @@
     </ClInclude>
     <ClInclude Include="100_source\150_effect\field_effect.h">
       <Filter>ヘッダー ファイル\150_effect</Filter>
+    </ClInclude>
+    <ClInclude Include="100_source\120_game_scene\background_node.h">
+      <Filter>ヘッダー ファイル\120_game_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="100_source\110_drawing_tools\defining.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="100_source\120_game_scene\menu_scene.h">
+      <Filter>ヘッダー ファイル\120_game_scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

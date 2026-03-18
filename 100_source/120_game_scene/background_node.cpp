@@ -14,11 +14,12 @@ void BackgroundNode::Update(float delta_time)
 {
 	scroll_pos_.Add(scroll_.x_, scroll_.y_);
 	//ˆÊ’uƒ‹[ƒv
-	
-	scroll_pos_.x_ = (int)scroll_pos_.x_ %(size_x_ );
-
-	scroll_pos_.y_ = (int)scroll_pos_.y_ % (size_y_ );
-
+	if (size_x_ > 0) {
+		scroll_pos_.x_ = (int)scroll_pos_.x_ % (size_x_);
+	}
+	if (size_y_ > 0) {
+		scroll_pos_.y_ = (int)scroll_pos_.y_ % (size_y_);
+	}
 }
 
 void BackgroundNode::Draw(int screen_handle, Camera* camera)

@@ -10,7 +10,7 @@
 
 #include <iostream>
 #include "result_scene.h"
-#include "top_scene.h"
+#include "menu_scene.h"
 #include "..\110_drawing_tools\buttom_node.h"
 #include "..\110_drawing_tools\text_node.h"
 #include "..\110_drawing_tools\inputer.h"
@@ -114,15 +114,23 @@ void ResultScene::Init() {
 
 	root_res_[k_fase_critical_] = new TextNode(ScoreManager::GetInstance()->GetCritical().c_str(), GetColor(255, 255, 255),
 		window_setting::center_x, line_set::midasi_y + line_set::selecter_y + line_set::brank_y * 2);
+	root_res_[k_fase_critical_]->AddChild(new TextNode(string_set::result_uchiwake[k_critical], GetColor(255, 255, 255),
+		-string_size, window_setting::null_param));
 
 	root_res_[k_fase_great_] = new TextNode(ScoreManager::GetInstance()->GetGreat().c_str(), GetColor(255, 255, 255),
 		window_setting::center_x, line_set::midasi_y + line_set::selecter_y + line_set::brank_y * 3);
+	root_res_[k_fase_great_]->AddChild(new TextNode(string_set::result_uchiwake[k_great], GetColor(255, 255, 255),
+		-string_size, window_setting::null_param));
 
 	root_res_[k_fase_good_] = new TextNode(ScoreManager::GetInstance()->GetGood().c_str(), GetColor(255, 255, 255),
 		window_setting::center_x, line_set::midasi_y + line_set::selecter_y + line_set::brank_y * 4);
+	root_res_[k_fase_good_]->AddChild(new TextNode(string_set::result_uchiwake[k_none], GetColor(255, 255, 255),
+		-string_size, window_setting::null_param));
 
 	root_res_[k_fase_miss_] = new TextNode(ScoreManager::GetInstance()->GetMiss().c_str(), GetColor(255, 255, 255),
 		window_setting::center_x, line_set::midasi_y + line_set::selecter_y + line_set::brank_y * 5);
+	root_res_[k_fase_miss_]->AddChild(new TextNode(string_set::result_uchiwake[k_miss], GetColor(255, 255, 255),
+		-string_size, window_setting::null_param));
 
 
 	next_scene_ = this;
@@ -137,7 +145,8 @@ void ResultScene::SetUp() {
 void ResultScene::Finalize() {
 	root_->ReleaseResourceAll();
 	ScoreManager::GetInstance()->Reset();
-
+	//BGMÄ¶
+	MusicManager::GetInstance()->PlayBgm();
 }
 //  XV
 Scene* ResultScene::Update(float delta_time) {

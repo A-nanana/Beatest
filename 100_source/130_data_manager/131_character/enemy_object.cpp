@@ -18,9 +18,9 @@
 #include "..\..\110_drawing_tools\tool.h"
 
 EnemyObject::EnemyObject(ShotManager* shot_manager, std::vector<ShotBooker>* shot_booker)
-	:shot_manager_(shot_manager),shot_booker_(shot_booker),ObjectCommon("..\\200_resource\\enemy.png", 1.0f, 1.0f, 90.0f, 120.0f)
+	:shot_manager_(shot_manager),shot_booker_(shot_booker),ObjectCommon("200_resource\\enemy.png", 1.0f, 1.0f, 90.0f, 120.0f)
 {
-	time_ = 0.0f;
+	time_ = NULL;
 }
 
 void EnemyObject::Update(float delta_time) {
@@ -47,14 +47,21 @@ void EnemyObject::Update(float delta_time) {
 	if (shot_booker_->size() <= n) return;
 	//‚»‚êˆÈŠO‚È‚ç‘Å‚¿o‚·
 	for (int i = 0; i < shot_booker_->operator[](n).rooper; i++) {
-		float angle = rotate_ + (system_set::angle_per_time * i /shot_booker_->operator[](n).rooper);
-
-
-		shot_manager_->AddShot(world_position_.x_ + size_x_/2, world_position_.y_ + size_y_ / 2,
-			shot_booker_->operator[](n).speed, angle);
-		shot_booker_->operator[](n).shooted = true;
+		float angle = rotate_ + (system_set::angle_per_time * i );
+		//Šp“x³‹K‰»
+		//2PI‚±‚¦‚½‚ç–ß‚·
+		if (angle > M_PI * 2) {
+			angle -= M_PI * 2;
+		}
+		//0‚±‚¦‚½‚ç–ß‚·
+		if (angle < NULL) {
+			angle += M_PI * 2;
+		}
+		shot_manager_->AddShot(world_position_.x_ + size_x_ / 2, world_position_.y_ + size_y_ / 2,
+			shot_booker_->operator[](n).speed, angle, shot_booker_->operator[](n).type);
 
 	}
+	shot_booker_->operator[](n).shooted = true;
 
 }
 

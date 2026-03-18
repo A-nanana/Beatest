@@ -47,7 +47,7 @@ public:
 
 //  追加
 	void AddChild(ShotObject* node);
-	void AddShot(float x, float y, float speed, float angle);
+	void AddShot(float x, float y, float speed, float angle,int type);
 //  ショット更新
 	void ShotIn(Camera* camera);
 

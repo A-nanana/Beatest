@@ -14,13 +14,14 @@
 #include "..\131_character\object_common.h"
 class ShotObject:public ObjectCommon
 {
-	Vector2D speed_; //速度.
+	float speed_size_;//速度ベクトルの長さ
+	int type_;//タイプデータ
 	Vector2D target_;//対象方向
 	bool used_; //有効か
 public:
 //  コンストラクタ
-	ShotObject(const int graph_handle, float x, float y) :used_(false), ObjectCommon(graph_handle, x, y) {};
-	ShotObject(const int graph_handle, float x, float y, float speed, float angle,Vector2D target);
+	ShotObject(const int graph_handle, float x, float y,int type) :used_(false), type_(type),ObjectCommon(graph_handle, x, y) {};
+	ShotObject(const int graph_handle, float x, float y, float speed, float angle,Vector2D target, int type);
 //  デストラクタ
 	~ShotObject();
 
@@ -35,8 +36,9 @@ public:
 	//YTop 下端版
 	int YBottom(void);
 
-	//弾を打つ(作成で1を返す)
-	int Shoot(int _speed, double angle);
+	//タイプを取得する
+	int GetType() { return type_; }
+
 	//有効か返す
 	bool IsUsed() { return used_; };
 	//有効かの切り替え
