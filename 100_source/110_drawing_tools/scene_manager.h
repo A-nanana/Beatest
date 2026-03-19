@@ -10,6 +10,7 @@
 
 #pragma once
 #include "scene.h"
+#include "graph_node.h"
 #include <memory> //ダブり回避用
 #include <vector>
 
@@ -25,6 +26,8 @@ class SceneManager
 	std::unique_ptr<Scene> now_scene_;//今のシーン
 	std::unique_ptr<Scene> next_scene_;//次のシーン
 	Phase switch_scene_;//シーン切り替え状態
+	GraphNode* wait_load_;//ロード待ち画面
+
 public:
 //  コンストラクタ
 	SceneManager();

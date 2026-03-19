@@ -7,3 +7,7 @@ insert into GameMusicData( Title , Bpm , time , Hyousi ) values ("初詣" , 150 
 //閲覧
 
 select * from GameMusicData;
+
+//列挿入
+
+ALTER TABLE GameMusicData ADD COLUMN HighScore INT DEFAULT 0;

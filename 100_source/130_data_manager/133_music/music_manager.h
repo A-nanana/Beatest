@@ -22,10 +22,24 @@ struct MusicData {
 	int bpm_;//bpm
 	float time_;//時間
 	int hyousi_;//拍子
+	int high_score_;//最高スコア
+
 	float ms_per_hyousi_;//1拍当たりの秒数
 	int handle_; //楽曲ハンドル
 };
 
+//------------------------------
+// @name   LineUp
+// @brief  ラインナップデータ 構造体
+// @memo   
+//------------------------------
+struct LineUp
+{
+	std::string title; //タイトル
+	int high_score;//最高スコア
+};
+
+//Se指定用
 enum SeType {
 	k_select,//選択時のse
 	k_play_critical,//クリティカル判定のse
@@ -41,7 +55,7 @@ class MusicManager
 {
 	static MusicManager* music_manager_; // 楽曲管理インスタンス
 	MusicData play_music_; //演奏中楽曲データ
-	std::vector<std::string> title_line_up_;//タイトルのラインナップ
+	std::vector<LineUp> title_line_up_;//タイトルのラインナップ
 	int bgm_handle_;//bgmのハンドル
 	int se_handle_[k_se_max];//seのハンドル
 //  コンストラクタ
@@ -60,17 +74,19 @@ public:
 	void SetLineUp();//ラインナップ設定
 	void SetSe();//Se設定
 	void SetBgm();//bgm設定
+	void SetHighScore(int score);//スコア設定
 
 //  ゲッター
 	int GetBpm() { return play_music_.bpm_; };//bpm取得
 	std::string GetTitle() { return play_music_.title_; };//タイトル取得
 	int GetMusicTime() { return play_music_.time_; };//時間(s)
+	int GetMusicHighScore() { return play_music_.high_score_; };//最高スコア
 
 	MusicData GetMusicData() { return play_music_; };//データ取得
 
 	float GetMsPerHyousi() { return play_music_.ms_per_hyousi_; }; //1拍当たりの秒数(ms)
 
-	std::string operator[](int i) { return title_line_up_[i]; }; //ラインナップからタイトル取得
+	LineUp operator[](int i) { return title_line_up_[i]; }; //ラインナップから1作品取得
 	int GetLineupSize() { return title_line_up_.size(); };//リストサイズ
 
 	int GetSeHandle(int se_type) { return se_handle_[se_type]; };//seのハンドル

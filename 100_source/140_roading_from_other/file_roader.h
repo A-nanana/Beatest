@@ -15,7 +15,8 @@
 #include "./sqlite3.h" 
 
 
-class MusicData;
+struct MusicData;
+struct LineUp;
 class ShotBooker;
 class FileRoader
 {
@@ -38,9 +39,12 @@ public:
 	//インスタンスアクセス
 	static FileRoader* GetInstance();
 	//ラインナップ読み込み
-	void RoadLineup(std::vector<std::string>* title);
+	void RoadLineup(std::vector<LineUp>* title);
 	//曲読み込み
 	void RoadMusic(MusicData* music_data);
+	//スコア書き込み
+	void WriteScore(const MusicData& music_data);
+
 	//SE読み込み
 	int RoadSe(int se_type);
 	//bgm読み込み

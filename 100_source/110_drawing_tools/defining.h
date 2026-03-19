@@ -163,6 +163,7 @@ namespace string_set {
 //  名詞
 	static const char* conbo = "C O N B O !"; //結果
 	static const char* score = "Score";//スコア
+	static const char* high_score = "HighScore";//最高スコア
 	static const char* max_conbo = "Max Conbo";//最大コンボ
 
 	static const char* result_uchiwake[4] =

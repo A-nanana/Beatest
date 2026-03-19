@@ -40,13 +40,17 @@ void MusicManager::SetPlayMusic(const char* title)
 
 void MusicManager::SetLineUp()
 {
+	//Šù‚É‚ ‚é‚È‚ç“Ç‚İ‚Ü‚È‚¢
+	if (!title_line_up_.empty()) {
+		return;
+	}
 	FileRoader::GetInstance()->RoadLineup(&title_line_up_);
 	//‰½‚©‚ ‚é‚©
 	if (title_line_up_.size() > NULL) {
 		return;
 	}
 	//“ü‚Á‚Ä‚È‚¢‚±‚Æ‚ğ‹³‚¦‚é
-	title_line_up_.push_back(string_set::unknown);
+	title_line_up_.push_back({ string_set::unknown ,NULL});
 }
 
 void MusicManager::SetSe()
@@ -59,6 +63,11 @@ void MusicManager::SetSe()
 void MusicManager::SetBgm()
 {
 	bgm_handle_ = FileRoader::GetInstance()->RoadBgmDef();
+}
+
+void MusicManager::SetHighScore(int score)
+{
+	play_music_.high_score_ = score;
 }
 
 //Ä¶ŠÖŒW

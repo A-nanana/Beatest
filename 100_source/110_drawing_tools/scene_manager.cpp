@@ -10,12 +10,16 @@
 
 #include "DxLib.h"
 #include "scene_manager.h"
+#include "defining.h"
 
 SceneManager::SceneManager()
 {
 	now_scene_ = nullptr;
 	next_scene_ = nullptr;
 	switch_scene_ = kRun;
+	wait_load_ = new GraphNode(file_set::enemy, window_setting::size_x * 3 / 4, window_setting::size_y * 3 / 4);
+	wait_load_->LoadResourceAll();
+	wait_load_->SetWorldPositionAll();
 }
 
 SceneManager::~SceneManager()
@@ -80,8 +84,8 @@ void SceneManager::Draw(int screen_handle) {
 		break;
 	case Phase::kSwitch:
 	case Phase::kWaitLoad:
-		break;
 	default:
+		wait_load_->Draw(screen_handle);
 		break;
 	}
 }

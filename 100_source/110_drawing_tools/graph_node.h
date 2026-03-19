@@ -36,7 +36,8 @@ public:
 	//ƒŠƒŠ[ƒX
 	void Release() override;
 	//•`‰æ
-	void Draw(int screen_handle,Camera* camera) override;
+	void Draw(int screen_handle, Camera* camera) override;
+	void Draw(int screen_handle);
 
 };
 

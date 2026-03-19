@@ -9,6 +9,8 @@
 //------------------------------
 
 #include "score_manager.h"
+#include "../133_music/music_manager.h"
+#include "../../140_roading_from_other/file_roader.h"
 #include "..\..\110_drawing_tools\defining.h"
 
 //------------------------------
@@ -95,6 +97,13 @@ void ScoreManager::ResultLock()
 	if (score_.max_conbo < count_conbo_)
 	{
 		score_.max_conbo = count_conbo_;
+	}
+	//Å‘åƒXƒRƒA‚©
+	if (MusicManager::GetInstance()->GetMusicHighScore() < score_.score) {
+
+		MusicManager::GetInstance()->SetHighScore(score_.score);
+		FileRoader::GetInstance()->WriteScore(MusicManager::GetInstance()->GetMusicData());
+		
 	}
 
 }

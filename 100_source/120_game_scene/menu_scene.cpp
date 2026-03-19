@@ -12,14 +12,14 @@
 #include "menu_scene.h"
 #include "game_scene.h"
 
-#include "..\110_drawing_tools\buttom_node.h"
-#include "..\110_drawing_tools\text_node.h"
-#include "..\110_drawing_tools\inputer.h"
-#include "..\110_drawing_tools\defining.h"
-#include "..\120_game_scene\config_scene.h"
-#include "..\130_data_manager\133_music\music_manager.h"
-#include "..\130_data_manager\134_other\configs_manager.h"
-#include "..\140_roading_from_other\file_roader.h"
+#include "../110_drawing_tools/buttom_node.h"
+#include "../110_drawing_tools/text_node.h"
+#include "../110_drawing_tools/inputer.h"
+#include "../110_drawing_tools/defining.h"
+#include "../120_game_scene/config_scene.h"
+#include "../130_data_manager/133_music/music_manager.h"
+#include "../130_data_manager/134_other/configs_manager.h"
+#include "../140_roading_from_other/file_roader.h"
 
 //-----------------------------
 // @name   MenuScene
@@ -190,7 +190,7 @@ void SelectScene::PushCheck() {
 	//エンターで決定
 	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_RETURN)) {
 		MusicManager::GetInstance()->PlaySe(k_select);
-		MusicManager::GetInstance()->SetPlayMusic(MusicManager::GetInstance()->operator[](selecter_).c_str());
+		MusicManager::GetInstance()->SetPlayMusic(MusicManager::GetInstance()->operator[](selecter_).title.c_str());
 		next_scene_ = new GameScene();
 	}
 	//Escキーで設定
@@ -213,13 +213,16 @@ void SelectScene::TextUpdate()
 	for (int i = 0; i < line_set::amount_y_max; i++) {
 		//表示番号の式　：　(選択している番号 - (表示上限の半分(偶数ずれ防止で-1)) + (ループ用の要素数) + 何列目に配置かの番号 - (実際の番号にするために-1)) % (ループ用の要素数)
 		std::string text =
-			MusicManager::GetInstance()->operator[]((selecter_ - ((line_set::amount_y_max - 1) / 2) + MusicManager::GetInstance()->GetLineupSize() + i) % MusicManager::GetInstance()->GetLineupSize());
+			MusicManager::GetInstance()->operator[]((selecter_ - ((line_set::amount_y_max - 1) / 2) + MusicManager::GetInstance()->GetLineupSize() + i) % MusicManager::GetInstance()->GetLineupSize()).title;
 		int string_size = GetDrawStringWidth(text.c_str(), -1);
 
 		new_text_->AddChild(new TextNode(text.c_str(), GetColor(255, 255, 255),
 			line_set::brank_x, line_set::brank_y * i));
 
 	}
+	//ハイスコアの表示
+	new_text_->AddChild(new TextNode(std::to_string(MusicManager::GetInstance()->operator[](selecter_).high_score).c_str(), GetColor(255, 255, 255),
+		window_setting::center_x, line_set::brank_y * (line_set::amount_y_max - 1)));
 
 	//元々根ノードがあるなら削除
 	if (text_ != nullptr) {
@@ -241,8 +244,9 @@ void SelectScene::Init() {
 	int string_size = GetDrawStringWidth(string_set::select_song, -1);
 	selecter_ = window_setting::null_param;
 
-	root_->AddChild(new TextNode(string_set::select_song, GetColor(255, 255, 255), window_setting::center_x - string_size / 2, line_set::midasi_y));
-	root_->AddChild(new TextNode("->", GetColor(255, 255, 255), line_set::selecter_x, line_set::selecter_y + line_set::brank_y * 2));
+	root_->AddChild(new TextNode(string_set::select_song, GetColor(255, 255, 255), window_setting::center_x - string_size / ((line_set::amount_y_max - 1) / 2), line_set::midasi_y));
+	root_->AddChild(new TextNode(string_set::high_score, GetColor(255, 255, 255), window_setting::center_x + line_set::selecter_x, line_set::selecter_y + line_set::brank_y * (line_set::amount_y_max - 2)));
+	root_->AddChild(new TextNode("->", GetColor(255, 255, 255), line_set::selecter_x, line_set::selecter_y + line_set::brank_y * ((line_set::amount_y_max - 1) / 2)));
 
 
 	TextUpdate();
@@ -284,5 +288,5 @@ void SelectScene::Draw(int screen_handle) {
 
 void SelectScene::Finalize() {
 	root_->ReleaseResourceAll();
-
+	
 }

@@ -77,12 +77,13 @@ FileRoader* FileRoader::GetInstance() {
 	return roader_;
 }
 
-void FileRoader::RoadLineup(std::vector<std::string>* title)
+void FileRoader::RoadLineup(std::vector<LineUp>* title)
 {
 	std::string table_name = file_set::music_data_base_table;//stringに変換
 	std::string inser_msg = "select * from "+ table_name +" ;"; //クエリ文
-	std::string DBresult;// データ入れの箱
+	LineUp DBresult;// データ入れの箱
 	sqlite3_stmt* stmt = NULL; //状態格納ハンドル.
+
 	//確認できるか
 	if (use_lib_
 		&&(sqlite3_prepare_v2(db_,inser_msg.c_str(),inser_msg.size(),&stmt,NULL) != SQLITE_OK)) {
@@ -99,9 +100,11 @@ void FileRoader::RoadLineup(std::vector<std::string>* title)
 			const unsigned char* name = sqlite3_column_text(stmt, 0);
 			//存在確認
 			if (name != NULL) {
-				DBresult = std::string((char*)name);
+				DBresult.title = std::string((char*)name);
 			}
-			else DBresult = string_set::unknown;
+			else DBresult.title = string_set::unknown;
+			DBresult.high_score = sqlite3_column_int(stmt, 4);
+
 			title->push_back(DBresult);
 		}
 		sqlite3_finalize(stmt);
@@ -115,7 +118,7 @@ void FileRoader::RoadLineup(std::vector<std::string>* title)
 			std::string name;
 			//取得できる間繰り返す
 			while (std::getline(lineup_p, name)) {
-				title->push_back(name);
+				title->push_back({ name ,NULL});
 			}
 		}
 
@@ -136,7 +139,7 @@ void FileRoader::RoadMusic(MusicData* music_data)
 
 	//プロパティ読み込み
 	std::string table_name = file_set::music_data_base_table;//stringに変換
-	std::string inser_msg = "select * from " + table_name + " WHERE Title =" +music_data->title_+";"; //クエリ文
+	std::string inser_msg = "select * from " + table_name + " WHERE Title = ? ;"; //クエリ文
 	sqlite3_stmt* stmt = NULL; //状態格納ハンドル.
 	//確認できるか
 	if (use_lib_
@@ -146,6 +149,8 @@ void FileRoader::RoadMusic(MusicData* music_data)
 	}
 	//ライブラリ使用確認
 	if (use_lib_) {
+		sqlite3_bind_text(stmt, 1, music_data->title_.c_str(), -1, SQLITE_TRANSIENT);
+
 		//Sqliteが動く間は処理
 		while (SQLITE_ROW == sqlite3_step(stmt) ){
 
@@ -153,6 +158,7 @@ void FileRoader::RoadMusic(MusicData* music_data)
 
 			music_data->time_ = sqlite3_column_int(stmt, 2);
 			music_data->hyousi_ = sqlite3_column_int(stmt, 3);
+			music_data->high_score_ = sqlite3_column_int(stmt, 4);
 		}
 		sqlite3_finalize(stmt);
 
@@ -170,6 +176,34 @@ void FileRoader::RoadMusic(MusicData* music_data)
 	}
 	//1拍当たりの秒数計算
 	music_data->ms_per_hyousi_ = system_set::ms_per_s * 60.0f / music_data->bpm_;
+}
+
+void FileRoader::WriteScore(const MusicData& music_data)
+{
+	//プロパティ読み込み
+	std::string table_name = file_set::music_data_base_table;//stringに変換
+	std::string inser_msg = "update " + table_name + " set HighScore = ? WHERE Title = ? ;"; //クエリ文
+	sqlite3_stmt* stmt = NULL; //状態格納ハンドル.
+	//確認できるか
+	if (use_lib_
+		&& (sqlite3_prepare_v2(db_, inser_msg.c_str(), inser_msg.size(), &stmt, NULL) != SQLITE_OK)) {
+		use_lib_ = false;
+		sqlite3_close(db_);
+		return;
+	}
+	//ライブラリ使用確認
+	if (use_lib_) {
+		sqlite3_bind_int(stmt, 1, music_data.high_score_);
+		sqlite3_bind_text(stmt, 2, music_data.title_.c_str(), -1, SQLITE_TRANSIENT);
+
+		//Sqliteが動く間は処理
+		while (SQLITE_ROW == sqlite3_step(stmt)) {
+
+		}
+		sqlite3_finalize(stmt);
+
+	}
+	
 }
 
 int FileRoader::RoadSe(int se_type)

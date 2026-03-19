@@ -74,3 +74,8 @@ void GraphNode::Draw(int screen_handle,Camera* camera)
 	}
 }
 
+void GraphNode::Draw(int screen_handle) {
+	DrawRotaGraph(world_position_.x_ + size_x_ / 2, world_position_.y_ + size_y_ / 2, window_setting::graph_extender_
+		, rotate_, graph_handle_, TRUE);
+}
+
