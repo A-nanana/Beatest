@@ -97,13 +97,13 @@ void FileRoader::RoadLineup(std::vector<LineUp>* title)
 		while (SQLITE_ROW ==(r = sqlite3_step(stmt)))
 		{
 			//•¶ŽšŒ^‚É•ÏŠ·
-			const unsigned char* name = sqlite3_column_text(stmt, 0);
+			const unsigned char* name = sqlite3_column_text(stmt, 1);
 			//‘¶ÝŠm”F
 			if (name != NULL) {
 				DBresult.title = std::string((char*)name);
 			}
 			else DBresult.title = string_set::unknown;
-			DBresult.high_score = sqlite3_column_int(stmt, 4);
+			DBresult.high_score = sqlite3_column_int(stmt, 5);
 
 			title->push_back(DBresult);
 		}
@@ -154,11 +154,11 @@ void FileRoader::RoadMusic(MusicData* music_data)
 		//Sqlite‚ª“®‚­ŠÔ‚Íˆ—
 		while (SQLITE_ROW == sqlite3_step(stmt) ){
 
-			music_data->bpm_ = sqlite3_column_int(stmt, 1);
+			music_data->bpm_ = sqlite3_column_int(stmt, 2);
 
-			music_data->time_ = sqlite3_column_int(stmt, 2);
-			music_data->hyousi_ = sqlite3_column_int(stmt, 3);
-			music_data->high_score_ = sqlite3_column_int(stmt, 4);
+			music_data->time_ = sqlite3_column_int(stmt, 3);
+			music_data->hyousi_ = sqlite3_column_int(stmt, 4);
+			music_data->high_score_ = sqlite3_column_int(stmt, 5);
 		}
 		sqlite3_finalize(stmt);
 

@@ -37,6 +37,7 @@ struct LineUp
 {
 	std::string title; //タイトル
 	int high_score;//最高スコア
+	std::uint8_t defficalt_flg_;//難易度フラグ
 };
 
 //Se指定用
@@ -95,6 +96,8 @@ public:
 
 //  通常再生関係
 	void PlayMusic();//再生
+	void RePlayMusic();//途中再生
+
 	void StopMusic();//止め
 	void DeleteMusic();//ハンドル消去
 //  BGM再生関係

@@ -282,7 +282,13 @@ namespace system_set {
 
 //  再開カウント数(ms)
 	static const int restart_count_up = 3 * ms_per_s;
-
+//  難易度ビットチェック用
+	static const enum Defficulter {
+		k_music_easy = 1 << 0, //簡単
+		k_music_nomal = 1 << 1, //普通
+		k_music_hard = 1 << 2, //難しい
+		k_music_beyond = 1 << 3, //凄く難しい
+	};
 }
 
 #endif // !__DEFINING_DRAWING_H__

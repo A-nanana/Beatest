@@ -79,6 +79,14 @@ void MusicManager::PlayMusic()
 	PlaySoundMem(play_music_.handle_, DX_PLAYTYPE_BACK);
 }
 
+void MusicManager::RePlayMusic()
+{
+	if (play_music_.handle_ == -1) {
+		return;
+	}
+	PlaySoundMem(play_music_.handle_, DX_PLAYTYPE_BACK,FALSE);
+}
+
 void MusicManager::StopMusic()
 {
 	if (play_music_.handle_ == -1) {
