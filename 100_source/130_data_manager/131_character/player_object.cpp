@@ -8,7 +8,7 @@
 
 
 PlayerObject* PlayerObject::player_ = nullptr;
-PlayerObject::PlayerObject():ObjectCommon("200_resource\\aruku.png", window_setting::center_x, window_setting::center_y,system_set::player_hit_size_x, system_set::player_hit_size_y)
+PlayerObject::PlayerObject():ObjectCommon(file_set::player, window_setting::center_x, window_setting::center_y,system_set::player_hit_size_x, system_set::player_hit_size_y)
 {
 	effect_ = new PlayerEffect(this);
 	AddChild(effect_);

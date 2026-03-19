@@ -197,7 +197,7 @@ void SelectScene::PushCheck() {
 	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_ESCAPE)) {
 		MusicManager::GetInstance()->PlaySe(k_select);
 
-		next_scene_ = new ConfigScene();
+		next_scene_ = new MenuScene();
 	}
 
 }

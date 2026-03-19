@@ -107,12 +107,17 @@ void ConfigScene::Init()
 	root_ = new Node();
 	camera_ = new Camera();
 
+	//中身の設定
 	int string_size = GetDrawStringWidth(string_set::config_set, -1);
 
 	selecter_node_ = new TextNode("->", GetColor(255, 255, 255), line_set::selecter_x, line_set::selecter_y);
 
 	root_->AddChild(new TextNode(string_set::config_set, GetColor(255, 255, 255), window_setting::center_x - string_size / 2, line_set::midasi_y));
-	root_->AddChild(new TextNode(string_set::push_to_return, GetColor(255, 255, 255), window_setting::center_x , window_setting::size_y - line_set::brank_y * 3));
+	
+	string_size = GetDrawStringWidth(string_set::push_to_return, -1);
+	root_->AddChild(new TextNode(string_set::push_to_return, GetColor(255, 255, 255), window_setting::size_x - string_size - ege_set::brank_x, window_setting::size_y - line_set::brank_y * 3));
+	
+	root_->AddChild(new TextNode(string_set::push_to_end, GetColor(255, 255, 255), ege_set::brank_x, window_setting::size_y - line_set::brank_y * 3));
 	
 	//固定テキスト関係
 	Node* new_text_ = new Node();
@@ -192,7 +197,9 @@ void CreditScene::Init()
 {
 	root_ = new Node();
 	camera_ = new Camera();
-	root_->AddChild(new TextNode(string_set::push_to_return, GetColor(255, 255, 255), window_setting::center_x, window_setting::size_y - line_set::brank_y * 3));
+
+	int string_size = GetDrawStringWidth(string_set::push_to_return, -1);
+	root_->AddChild(new TextNode(string_set::push_to_return, GetColor(255, 255, 255), window_setting::size_x - string_size - ege_set::brank_x, window_setting::size_y - line_set::brank_y * 3));
 
 	//テキストを設定
 	FileRoader::GetInstance()->RoadSyutten(text_);

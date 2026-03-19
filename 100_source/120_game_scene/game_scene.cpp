@@ -28,8 +28,28 @@
 
 
 void GameScene::SceneCheck() {
+
+	//playフェーズでPボタンが押されたら一時停止
+	if ((fase_ == k_play) && Inputer::GetInstance()->GetDownKey(KEY_INPUT_P))
+	{
+		MusicManager::GetInstance()->StopMusic();
+		fase_ = k_stop;
+
+	}
+	else if ((fase_ == k_stop) && Inputer::GetInstance()->GetDownKey(KEY_INPUT_P))//stopフェーズでPボタンが押されたら再開
+	{
+		fase_ = k_restart;
+	}
+	//restartフェーズでカウントが終われば再開
+	if ((fase_ == k_restart) && restart_count_ <= window_setting::null_param) {
+		fase_ = k_play;
+		restart_count_ = system_set::restart_count_up; //再開用のカウントをリセット
+		MusicManager::GetInstance()->PlayMusic();
+	}
+
 	//playフェーズで曲を流す時間を過ぎたら曲を止める
-	if ((fase_ == k_play) && (MusicManager::GetInstance()->GetMusicTime() * system_set::ms_per_s < last_time_)) {
+	if ((fase_ == k_play) && (MusicManager::GetInstance()->GetMusicTime() * system_set::ms_per_s < last_time_))
+	{
 		ScoreManager::GetInstance()->ResultLock();
 		MusicManager::GetInstance()->StopMusic();
 		fase_ = k_end;
@@ -45,7 +65,6 @@ void GameScene::SceneCheck() {
 
 void GameScene::TextUpdate()
 {
-
 
 	Node* new_text_ = new Node();
 
@@ -70,6 +89,30 @@ void GameScene::TextUpdate()
 
 }
 
+void GameScene::RestartTextUpdate()
+{
+
+	Node* new_text_ = new Node();
+
+	//テキストデータ作成
+	std::string txts = std::to_string(restart_count_ / system_set::ms_per_s + 1);
+	//サイズ確認
+	int text_length = GetDrawStringWidth(txts.c_str(), -1);
+
+	new_text_->AddChild(new TextNode(txts.c_str(), GetColor(255, 0, 255),
+		window_setting::center_x - text_length / 2 , window_setting::center_y));
+
+	//元々根ノードがあるなら削除
+	if (restart_text_ != nullptr) {
+
+		delete restart_text_;
+
+	}
+
+	restart_text_ = new_text_;
+
+}
+
 
 void GameScene::Init()
 {
@@ -79,6 +122,8 @@ void GameScene::Init()
 
 	root_ = new Node();
 	end_game_ = new Node();
+	restart_text_ = new Node();
+
 	root_->AddChild(new BackgroundNode("200_resource\\back_tree.png", {NULL,NULL}));
 	camera_ = new Camera();
 	
@@ -130,7 +175,16 @@ void GameScene::SetUp()
 Scene* GameScene::Update(float delta_time) {
 	//プレイ中の更新処理
 	//時間更新
-	last_time_ += delta_time;
+	//再開フェーズで再開用カウントを加算
+	if (fase_ == k_restart)
+	{
+		restart_count_ -= delta_time;
+	}
+	else if (fase_ != k_stop) //停止と再開以外で通常のカウントを加算
+	{
+		last_time_ += delta_time;
+	}
+
 	camera_->Update();
 	//プレイ中か
 	if (fase_ == k_play) {
@@ -144,6 +198,13 @@ Scene* GameScene::Update(float delta_time) {
 		enemy_->HitEnemies(player_);
 
 	}
+	// 再開中か
+	if (fase_ == k_restart) {
+		RestartTextUpdate();
+		restart_text_->UpdateAll(delta_time);
+		restart_text_->SetWorldPositionAll();
+	}
+
 	//プレイ終了か
 	if (fase_ == k_end) {
 		end_game_->UpdateAll(delta_time);
@@ -160,7 +221,10 @@ Scene* GameScene::Update(float delta_time) {
 void GameScene::Draw(int screen_handle) {
 
 	root_->DrawAll(screen_handle,camera_);
-	
+	// 再開中か
+	if (fase_ == k_restart) {
+		restart_text_->DrawAll(screen_handle, camera_);
+	}
 
 }
 

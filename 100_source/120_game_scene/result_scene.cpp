@@ -99,19 +99,21 @@ void ResultScene::Init() {
 	camera_ = new Camera();
 	int string_size = GetDrawStringWidth(string_set::result, -1);
 
-	Node* ko2 = new TextNode(string_set::result, GetColor(255, 255, 255), window_setting::center_x - string_size / 2, line_set::midasi_y);
 
-	root_->AddChild(ko2);
+	root_->AddChild(new TextNode(string_set::result, GetColor(255, 255, 255), window_setting::center_x - string_size / 2, line_set::midasi_y));
 	root_->AddChild(new TextNode(string_set::score, GetColor(255, 255, 255), window_setting::center_x / 2 - line_set::brank_x, line_set::midasi_y + line_set::selecter_y));
 	root_->AddChild(new TextNode(string_set::max_conbo, GetColor(255, 255, 255), window_setting::center_x / 2 - line_set::brank_x, line_set::midasi_y + line_set::selecter_y + line_set::brank_y));
 
 	//ここからフェーズ切り替え用
+	//最終結果
 	root_res_[k_fase_all_res_] = new TextNode(ScoreManager::GetInstance()->GetScore().c_str(), GetColor(255, 255, 255),
 		window_setting::center_x , line_set::midasi_y + line_set::selecter_y);
 
+	//最大コンボ
 	root_res_[k_fase_conbo_] = new TextNode(ScoreManager::GetInstance()->GetMaxConbo().c_str(), GetColor(255, 255, 255),
 		window_setting::center_x , line_set::midasi_y + line_set::selecter_y + line_set::brank_y);
 
+	//コンボ内訳
 	root_res_[k_fase_critical_] = new TextNode(ScoreManager::GetInstance()->GetCritical().c_str(), GetColor(255, 255, 255),
 		window_setting::center_x, line_set::midasi_y + line_set::selecter_y + line_set::brank_y * 2);
 	root_res_[k_fase_critical_]->AddChild(new TextNode(string_set::result_uchiwake[k_critical], GetColor(255, 255, 255),
@@ -131,6 +133,8 @@ void ResultScene::Init() {
 		window_setting::center_x, line_set::midasi_y + line_set::selecter_y + line_set::brank_y * 5);
 	root_res_[k_fase_miss_]->AddChild(new TextNode(string_set::result_uchiwake[k_miss], GetColor(255, 255, 255),
 		-string_size, window_setting::null_param));
+	string_size = GetDrawStringWidth(string_set::push_to_return, -1);
+	root_res_[k_fase_miss_]->AddChild(new TextNode(string_set::push_to_return, GetColor(255, 255, 255), window_setting::size_x - string_size - ege_set::brank_x, window_setting::size_y - line_set::brank_y * 3));
 
 
 	next_scene_ = this;

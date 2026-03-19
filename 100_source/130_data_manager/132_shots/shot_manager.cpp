@@ -20,7 +20,7 @@
 
 //ロード
 void ShotManager::Load() {
-	shot_graph_handle_.push_back(LoadGraph("200_resource\\bullet.png"));
+	shot_graph_handle_.push_back(LoadGraph(file_set::shot));
 }
 //リソース解放
 void ShotManager::Release() {

@@ -6,6 +6,7 @@
 // @memo   
 //         随時更新、
 //         項目ごとに名前空間で分けてます
+//         時間単位はms
 // 
 //Copyright (c) 2026 A.nanami All rights reserved.
 //------------------------------
@@ -76,6 +77,11 @@ namespace file_set {
 	static const char* critical_se = "200_resource/se/critical_se.mp3";//ギリギリのとき
 //  出典について
 	static const char* syutten_memo = "200_resource/syutten.txt";
+//  画像ファイルパス
+	static const char* player = "200_resource/aruku.png"; //プレイヤー
+	static const char* enemy = "200_resource/enemy.png"; //敵
+	static const char* shot = "200_resource/bullet.png"; //弾
+
 }
 
 //-----------------------------
@@ -148,6 +154,7 @@ namespace string_set {
 //  動作系
 	static const char* push_to_start = "push Enter to start"; //開始
 	static const char* push_to_return = "push Enter to return"; //戻る(エンターで)
+	static const char* push_to_end = "push Escape to end"; //終了する(Escで)
 	static const char* select_menu = "Menu";//選択
 	static const char* select_song = "Select To Play!";//選択
 	static const char* config_set = "Set Config";//設定
@@ -174,7 +181,7 @@ namespace string_set {
 	{
 		"Play",
 		"Config",
-		"Credit"
+		"Credit (or End Game)"
 	};//メニュー項目
 }
 
@@ -264,13 +271,16 @@ namespace system_set {
 		k_enemy_all_renge, //全体に出す
 
 	};
-//  必須待機時間
+//  必須待機時間(ms)
 	static const int need_wait_time_ = 0.2 * ms_per_s;
 
 //  判定開始距離
 	static const float start_hit_check = 70.0f;
 //  クリティカルチェック基準距離
 	static const float critical_hit_check = 35.0f;
+
+//  再開カウント数(ms)
+	static const int restart_count_up = 3 * ms_per_s;
 
 }
 
