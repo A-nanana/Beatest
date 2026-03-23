@@ -23,6 +23,7 @@ struct MusicData {
 	float time_;//時間
 	int hyousi_;//拍子
 	int high_score_;//最高スコア
+	unsigned int defficult;//難易度
 
 	float ms_per_hyousi_;//1拍当たりの秒数
 	int handle_; //楽曲ハンドル
@@ -76,6 +77,7 @@ public:
 	void SetSe();//Se設定
 	void SetBgm();//bgm設定
 	void SetHighScore(int score);//スコア設定
+	void SetDefficult(int nanido);//難易度設定
 
 //  ゲッター
 	int GetBpm() { return play_music_.bpm_; };//bpm取得

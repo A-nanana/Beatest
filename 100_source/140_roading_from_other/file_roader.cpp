@@ -20,6 +20,7 @@
 #include "..\130_data_manager\133_music\music_manager.h"
 #include "..\130_data_manager\132_shots\shot_booker.h"
 #include "..\110_drawing_tools\defining.h"
+#include "..\110_drawing_tools\tool.h"
 #include "file_roader.h"
 
 FileRoader* FileRoader::roader_ = nullptr;
@@ -93,26 +94,50 @@ void FileRoader::RoadLineup(std::vector<LineUp>* title)
 	//ライブラリ使用確認
 	if (use_lib_) {
 		int r = window_setting::null_param;//行設定用
+		int serch_id = NULL;//楽曲id
 		//Sqliteが動く間の処理
 		while (SQLITE_ROW ==(r = sqlite3_step(stmt)))
 		{
+			serch_id = sqlite3_column_int(stmt, 0);
+
 			//文字型に変換
 			const unsigned char* name = sqlite3_column_text(stmt, 1);
 			//存在確認
 			if (name != NULL) {
-				DBresult.title = std::string((char*)name);
+				DBresult.title = ToShiftJis((const char*)name);
 			}
 			else DBresult.title = string_set::unknown;
 			DBresult.high_score = sqlite3_column_int(stmt, 5);
 
+			//今度は難易度情報の処理
+			table_name = file_set::defficult_data_base_table;
+			inser_msg = "select * from " + table_name + "where MusicKey = " + std::to_string(serch_id) + " ;"; //クエリ文
+
+			//それぞれの真偽値をとる
+			if (sqlite3_column_int(stmt, 1)) {
+				DBresult.defficalt_flg_ |= system_set::k_music_easy;
+			}
+			if (sqlite3_column_int(stmt, 2)) {
+				DBresult.defficalt_flg_ |= system_set::k_music_nomal;
+			}
+			if (sqlite3_column_int(stmt, 3)) {
+				DBresult.defficalt_flg_ |= system_set::k_music_hard;
+			}
+			if (sqlite3_column_int(stmt, 4)) {
+				DBresult.defficalt_flg_ |= system_set::k_music_beyond;
+			}
 			title->push_back(DBresult);
 		}
+		
+		
+
+
 		sqlite3_finalize(stmt);
 
 	}
 	else {
 		//ポインタつくる
-		std::ifstream lineup_p("200_resource\\music\\Lineup.txt");
+		std::ifstream lineup_p("200_resource/music/Lineup.txt");
 		//ファイルが開くか
 		if (lineup_p.is_open()) {
 			std::string name;
@@ -129,11 +154,11 @@ void FileRoader::RoadLineup(std::vector<LineUp>* title)
 void FileRoader::RoadMusic(MusicData* music_data)
 {
 	//曲ハンドル
-	std::string file_name = "200_resource\\music\\" + music_data->title_ + "\\" + music_data->title_ + ".wav";
+	std::string file_name = "200_resource/music/" + music_data->title_ + "/" + music_data->title_ + ".wav";
 	music_data->handle_ = LoadSoundMem(file_name.c_str());
 	//wavファイルでエラーならmp3に
 	if (music_data->handle_ == -1) {
-		std::string file_name = "200_resource\\music\\" + music_data->title_ + "\\" + music_data->title_ + ".mp3";
+		std::string file_name = "200_resource/music/" + music_data->title_ + "/" + music_data->title_ + ".mp3";
 		music_data->handle_ = LoadSoundMem(file_name.c_str());
 	}
 
@@ -164,7 +189,7 @@ void FileRoader::RoadMusic(MusicData* music_data)
 
 	}
 	else {
-		file_name = "200_resource\\music\\" + music_data->title_ + "\\propaty.txt";
+		file_name = "200_resource/music/" + music_data->title_ + "/propaty.txt";
 		std::ifstream propaty_p(file_name.c_str());
 		if (propaty_p.is_open()) {
 			propaty_p >> music_data->bpm_;
@@ -229,7 +254,7 @@ std::vector<ShotBooker>* FileRoader::RoadHumen(const MusicData& music_data)
 {
 	//ポインタつくる
 	std::string title = music_data.title_;
-	std::string file_name = "200_resource\\music\\" + title + "\\humen.txt";
+	std::string file_name = "200_resource/music/" + title + "/" + string_set::defficult[music_data.defficult] + ".txt";
 	
 	std::ifstream humen_p(file_name.c_str());
 	//譜面

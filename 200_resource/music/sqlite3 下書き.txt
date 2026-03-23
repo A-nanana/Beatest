@@ -2,7 +2,7 @@ sqlite3 下書き
 
 //挿入
 
-insert into GameMusicData( Title , Bpm , time , Hyousi, DeffKey ) values ('Reverator_in_Vavel' , 160 , 77 , 4, 5);
+insert into GameMusicData( Title , Bpm , time , Hyousi) values ('初詣' , 150 , 30 , 4);
 insert into Defficult(Easy, Nomal, Hard, Beyond) values(false, false, false, true);
 
 //更新
@@ -11,7 +11,7 @@ update GameMusicData set Bpm = 200 , time = 134 WHERE Title = 'Reverator_in_Vave
 
 //閲覧
 
-select * from GameMusicData;
+select title = '曲の名前' from GameMusicData;
 
 //列挿入
 ALTER TABLE GameMusicData ADD COLUMN HighScore INT DEFAULT 0;
@@ -25,10 +25,10 @@ ALTER TABLE GameMusicData ADD PRIMARY KEY(KeyCode);
 
 
 //作成
-create table GameMusicData( MusicKey Integer Not Null PRIMARY KEY AUTOINCREMENT,Title NCHER, Bpm Int, time Int, Hyousi Int, HighScore INT DEFAULT 0, DeffKey ,FOREIGN KEY (DeffKey) REFERENCES Defficult( DeffKey));
+create table GameMusicData( MusicKey Integer Not Null PRIMARY KEY AUTOINCREMENT,Title NCHER, Bpm Int, time Int, Hyousi Int, HighScore INT DEFAULT 0);
 
 
-create table Defficult( DeffKey Int Not Null PRIMARY KEY AUTOINCREMENT,Easy Boolen DEFAULT false, Nomal Boolen DEFAULT false, Hard Boolen DEFAULT false, Beyond Boolen DEFAULT false);
+create table Defficult( MusicKey Intager ,Easy Boolen DEFAULT false, Nomal Boolen DEFAULT true, Hard Boolen DEFAULT false, Beyond Boolen DEFAULT false,FOREIGN KEY (MusicKey) REFERENCES GameMusicData( Musickey));
 
 
 

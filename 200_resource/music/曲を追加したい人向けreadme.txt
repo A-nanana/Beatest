@@ -9,9 +9,23 @@ Music->曲名ファイル->humen.txt
 追加の仕方
 
 1.データベース music.db の GameMusicData に タイトル , BPM , 時間 , 譜面の1小節に係る拍子 を入れる
-	sql文  insert into GameMusicData( Title , Bpm , time , Hyousi , DeffKey) values (タイトル , BPM , 時間 , 譜面の1小節に係る拍子 , 譜面の難易度);
+	sql定型文  insert into GameMusicData( Title , Bpm , time , Hyousi ) values (タイトル , BPM , 時間 , 譜面の1小節に係る拍子 );
 
-2.ファイルネストに従ってファイルを追加する(propaty.txtは任意、入れるとデータベースが開かなかったときもできるようになる)
+        その後、次のsql文で楽曲idを確認してください.
+        sql定型文　select MusicKey, title from GameMusicData WHERE title = '曲の名前';
+        
+	左の列の出てくるのが楽曲idです。
+
+
+2.データベース music.db の GameMusicData に タイトル , BPM , 時間 , 譜面の1小節に係る拍子 を入れる
+	sql定型文  insert into Defficult(MusicKey, Easy, Nomal, Hard, Beyond) values(割り振られたid, 譜面の存在フラグ, 譜面の存在フラグ, 譜面の存在フラグ, 譜面の存在フラグ);
+
+        また、こちらはデフォルトでNomal難易度のみ認識するようになっています。
+　　　　それで十分であるならこちら。
+        sql定型文  insert into Defficult(MusicKey) values(割り振られたid);
+
+
+3.ファイルネストに従ってファイルを追加する(propaty.txtは任意、入れるとデータベースが開かなかったときもできるようになる)
 	propaty.txtの中身(先頭の文字は開けない,改行で区切る)
 		Bpm
 		時間
@@ -26,23 +40,5 @@ Music->曲名ファイル->humen.txt
  4:時差うち(未実装)
  5:時計回りに分割(未実装)
 
-譜面の難易度指定方法
 
-　下の表から対応番号入力
-
-  0 -> なし  i -> あり
-
-    Easy | Nomal | Hard | Beyond
- 1: i       0      0      0
- 2: i       i      0      0
- 3: i       i      i      0
- 4: i       i      i      i
  
- 5: 0       i      0      0
- 6: 0       i      i      0
- 7: 0       i      i      i
-
- 8: 0       0      i      0
- 9: 0       0      i      i
-
-10: 0       0      0      i

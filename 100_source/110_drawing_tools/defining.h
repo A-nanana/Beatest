@@ -69,7 +69,8 @@ namespace window_setting {
 namespace file_set {
 //  楽曲データベースファイル
 	static const char* music_data_base_pass = "200_resource/music/music.db";//相対パス
-	static const char* music_data_base_table = "GameMusicData";//テーブル名
+	static const char* music_data_base_table = "GameMusicData";//曲内容テーブル名
+	static const char* defficult_data_base_table = "Defficult"; //難易度探索用テーブル
 //  bgmファイルパス
 	static const char* bgm_data_pass = "200_resource/bgm.mp3";//相対パス
 //  Seファイルパス
@@ -184,6 +185,14 @@ namespace string_set {
 		"Config",
 		"Credit (or End Game)"
 	};//メニュー項目
+
+	static const char* defficult[4] =
+	{
+		"Easy",
+		"Nomal",
+		"Hard",
+		"Beyond"
+	};//難易度
 }
 
 //-----------------------------
@@ -289,6 +298,9 @@ namespace system_set {
 		k_music_hard = 1 << 2, //難しい
 		k_music_beyond = 1 << 3, //凄く難しい
 	};
+//  難易度の個数
+	static const int defficulter_max = 4;
+
 }
 
 #endif // !__DEFINING_DRAWING_H__

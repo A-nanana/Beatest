@@ -11,6 +11,7 @@
 #ifndef __MENU_SCENE_H__
 #define __MENU_SCENE_H__
 
+#include "../110_drawing_tools/defining.h"
 #include "..\110_drawing_tools\scene.h"
 
 class Node;
@@ -47,7 +48,7 @@ public:
 	//テキストの更新
 	void TextUpdate();
 	//コンストラクタ
-	MenuScene() :selecter_(0), last_select_(0), text_(nullptr) {};
+	MenuScene() :selecter_(NULL), last_select_(NULL), text_(nullptr) {};
 	//  デストラクタ
 	~MenuScene() {};
 
@@ -75,9 +76,15 @@ class SelectScene :public Scene
 	Node* root_;//根ノード作成
 
 	Node* text_;//テキストノード(テキスト親ノード)
+	Node* defficult_[system_set::defficulter_max];//難易度毎のノード
 
-	int selecter_;//選択番号
-	int last_select_;//直前の番号
+	enum Selecters {
+		k_music, //
+		k_defficult,
+		k_max
+	};//選択番号の保存配列
+	int selecter_[k_max];//選択番号
+	int last_select_[k_max];//直前の番号
 
 public:
 
@@ -86,7 +93,7 @@ public:
 	//テキストの更新
 	void TextUpdate();
 	//コンストラクタ
-	SelectScene() :selecter_(0), last_select_(0), text_(nullptr) {};
+	SelectScene();
 	//  デストラクタ
 	~SelectScene() {};
 

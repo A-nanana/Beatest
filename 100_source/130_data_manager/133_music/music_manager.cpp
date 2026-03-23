@@ -70,10 +70,20 @@ void MusicManager::SetHighScore(int score)
 	play_music_.high_score_ = score;
 }
 
+void MusicManager::SetDefficult(int nanido)
+{
+	play_music_.defficult = nanido;
+}
+
 //再生関係
 void MusicManager::PlayMusic()
 {
+	//ハンドルの有無
 	if (play_music_.handle_ == -1) {
+		return;
+	}
+	//再生中か
+	if (CheckSoundMem(play_music_.handle_)) {
 		return;
 	}
 	PlaySoundMem(play_music_.handle_, DX_PLAYTYPE_BACK);
@@ -81,7 +91,12 @@ void MusicManager::PlayMusic()
 
 void MusicManager::RePlayMusic()
 {
+	//ハンドルの有無
 	if (play_music_.handle_ == -1) {
+		return;
+	}
+	//再生中か
+	if (CheckSoundMem(play_music_.handle_)) {
 		return;
 	}
 	PlaySoundMem(play_music_.handle_, DX_PLAYTYPE_BACK,FALSE);
@@ -89,6 +104,7 @@ void MusicManager::RePlayMusic()
 
 void MusicManager::StopMusic()
 {
+	//ハンドルの有無
 	if (play_music_.handle_ == -1) {
 		return;
 	}
@@ -100,6 +116,7 @@ void MusicManager::StopMusic()
 
 void MusicManager::DeleteMusic()
 {
+	//ハンドルの有無
 	if (play_music_.handle_ == -1) {
 		return;
 	}
@@ -108,7 +125,12 @@ void MusicManager::DeleteMusic()
 
 void MusicManager::PlayBgm()
 {
+	//ハンドルの有無
 	if (bgm_handle_ == -1) {
+		return;
+	}
+	//再生中か
+	if (CheckSoundMem(bgm_handle_)) {
 		return;
 	}
 	PlaySoundMem(bgm_handle_, DX_PLAYTYPE_BACK | DX_PLAYTYPE_LOOP);
@@ -116,6 +138,7 @@ void MusicManager::PlayBgm()
 
 void MusicManager::StopBgm()
 {
+	//ハンドルの有無
 	if (bgm_handle_ == -1) {
 		return;
 	}
@@ -135,6 +158,7 @@ void MusicManager::EndBgm()
 
 void MusicManager::PlaySe(int se_type)
 {
+	//ハンドルの有無
 	if (se_handle_[se_type] == -1) {
 		return;
 	}
@@ -143,6 +167,7 @@ void MusicManager::PlaySe(int se_type)
 
 void MusicManager::StopSe(int se_type)
 {
+	//ハンドルの有無
 	if (se_handle_[se_type] == -1) {
 		return;
 	}
@@ -154,6 +179,7 @@ void MusicManager::StopSe(int se_type)
 
 void MusicManager::EndSe(int se_type)
 {
+	//ハンドルの有無
 	if (se_handle_[se_type] == -1) {
 		return;
 	}

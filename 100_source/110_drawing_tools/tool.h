@@ -3,12 +3,16 @@
 // @brief  ツール系関数の宣言部
 // @auther A.namami
 // @date   2026/2/4  新規作成
+// 　　　　2026/3/23 UTF-8からShift-JIS変換を追加
+// 
 // @memo   エラー型が来た場合は-1で返します
 //
 //Copyright (c) 2026 A.nanami All rights reserved.
 //------------------------------
 
 #pragma once
+#include <string>
+
 
 //-----------------------------
 // @brief 簡単な計算系
@@ -53,3 +57,15 @@ bool AlmostEqual(double a, double b, double epsilon = 1e-8);
 // @in int flg 調べるフラグ
 // @out int 番号
 int ChangeBitToNum(int flg);
+
+//-----------------------------
+// @brief コード変換系
+// @      クランプとか
+// @memo  調べたものが多いです。
+// 　　　 そのため、メモおおめ
+//-----------------------------
+
+// @UTF-8からShift-JISに変える
+// @in const char* utf8 UTF-8	の文字
+// @out std::string Shift-JISの文字
+std::string ToShiftJis(const char* utf8);

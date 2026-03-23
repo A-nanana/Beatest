@@ -15,7 +15,7 @@
 #include "../110_drawing_tools/buttom_node.h"
 #include "../110_drawing_tools/text_node.h"
 #include "../110_drawing_tools/inputer.h"
-#include "../110_drawing_tools/defining.h"
+#include "../110_drawing_tools/tool.h"
 #include "../120_game_scene/config_scene.h"
 #include "../130_data_manager/133_music/music_manager.h"
 #include "../130_data_manager/134_other/configs_manager.h"
@@ -174,23 +174,36 @@ void MenuScene::Draw(int screen_handle)
 void SelectScene::PushCheck() {
 
 	//直前の選択を保管
-	last_select_ = selecter_;
+	last_select_[k_music] = selecter_[k_music];
+	last_select_[k_defficult] = selecter_[k_defficult];
 
-	//W,Sキーで選択
+	//W,Sキーで曲選択
 	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_W)) {
 		MusicManager::GetInstance()->PlaySe(k_select);
-		selecter_--;
+		selecter_[k_music]--;
 	}
 	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_S)) {
 		MusicManager::GetInstance()->PlaySe(k_select);
-		selecter_++;
+		selecter_[k_music]++;
+	}
+	//A,Dキーで難易度選択
+	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_A)) {
+		MusicManager::GetInstance()->PlaySe(k_select);
+		selecter_[k_defficult]--;
+	}
+	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_D)) {
+		MusicManager::GetInstance()->PlaySe(k_select);
+		selecter_[k_defficult]++;
 	}
 	//セレクターをループさせる
-	selecter_ = (selecter_ + MusicManager::GetInstance()->GetLineupSize()) % MusicManager::GetInstance()->GetLineupSize();
+	selecter_[k_music] = (selecter_[k_music] + MusicManager::GetInstance()->GetLineupSize()) % MusicManager::GetInstance()->GetLineupSize();
+	//難易度に関しても同じ
+	selecter_[k_defficult] = (selecter_[k_defficult] + system_set::defficulter_max) % system_set::defficulter_max;
+	
 	//エンターで決定
 	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_RETURN)) {
 		MusicManager::GetInstance()->PlaySe(k_select);
-		MusicManager::GetInstance()->SetPlayMusic(MusicManager::GetInstance()->operator[](selecter_).title.c_str());
+		MusicManager::GetInstance()->SetPlayMusic(MusicManager::GetInstance()->operator[](selecter_[k_music]).title.c_str());
 		next_scene_ = new GameScene();
 	}
 	//Escキーで設定
@@ -213,7 +226,7 @@ void SelectScene::TextUpdate()
 	for (int i = 0; i < line_set::amount_y_max; i++) {
 		//表示番号の式　：　(選択している番号 - (表示上限の半分(偶数ずれ防止で-1)) + (ループ用の要素数) + 何列目に配置かの番号 - (実際の番号にするために-1)) % (ループ用の要素数)
 		std::string text =
-			MusicManager::GetInstance()->operator[]((selecter_ - ((line_set::amount_y_max - 1) / 2) + MusicManager::GetInstance()->GetLineupSize() + i) % MusicManager::GetInstance()->GetLineupSize()).title;
+			MusicManager::GetInstance()->operator[]((selecter_[k_music] - ((line_set::amount_y_max - 1) / 2) + MusicManager::GetInstance()->GetLineupSize() + i) % MusicManager::GetInstance()->GetLineupSize()).title;
 		int string_size = GetDrawStringWidth(text.c_str(), -1);
 
 		new_text_->AddChild(new TextNode(text.c_str(), GetColor(255, 255, 255),
@@ -221,7 +234,7 @@ void SelectScene::TextUpdate()
 
 	}
 	//ハイスコアの表示
-	new_text_->AddChild(new TextNode(std::to_string(MusicManager::GetInstance()->operator[](selecter_).high_score).c_str(), GetColor(255, 255, 255),
+	new_text_->AddChild(new TextNode(std::to_string(MusicManager::GetInstance()->operator[](selecter_[k_music]).high_score).c_str(), GetColor(255, 255, 255),
 		window_setting::center_x, line_set::brank_y * (line_set::amount_y_max - 1)));
 
 	//元々根ノードがあるなら削除
@@ -236,18 +249,31 @@ void SelectScene::TextUpdate()
 
 }
 
+SelectScene::SelectScene()
+	:text_(nullptr) {
+	selecter_[k_music] = NULL; selecter_[k_defficult] = NULL;
+	last_select_[k_music] = NULL; last_select_[k_defficult] = NULL;
+}
 void SelectScene::Init() {
 	MusicManager::GetInstance()->SetLineUp();
 
 	root_ = new Node();
 	camera_ = new Camera();
 	int string_size = GetDrawStringWidth(string_set::select_song, -1);
-	selecter_ = window_setting::null_param;
 
 	root_->AddChild(new TextNode(string_set::select_song, GetColor(255, 255, 255), window_setting::center_x - string_size / ((line_set::amount_y_max - 1) / 2), line_set::midasi_y));
 	root_->AddChild(new TextNode(string_set::high_score, GetColor(255, 255, 255), window_setting::center_x + line_set::selecter_x, line_set::selecter_y + line_set::brank_y * (line_set::amount_y_max - 2)));
 	root_->AddChild(new TextNode("->", GetColor(255, 255, 255), line_set::selecter_x, line_set::selecter_y + line_set::brank_y * ((line_set::amount_y_max - 1) / 2)));
+	
+	defficult_[ChangeBitToNum(system_set::k_music_easy)] = new TextNode("Easy", GetColor(255, 255, 255), ege_set::brank_x, line_set::selecter_y - line_set::brank_y);
+	defficult_[ChangeBitToNum(system_set::k_music_nomal)] = new TextNode("Nomal", GetColor(255, 255, 255), ege_set::brank_x, line_set::selecter_y - line_set::brank_y);
+	defficult_[ChangeBitToNum(system_set::k_music_hard)] = new TextNode("Hard", GetColor(255, 255, 255), ege_set::brank_x, line_set::selecter_y - line_set::brank_y);
+	defficult_[ChangeBitToNum(system_set::k_music_beyond)] = new TextNode("Beyond", GetColor(255, 255, 255), ege_set::brank_x , line_set::selecter_y - line_set::brank_y );
 
+	//位置初期化
+	for (int i = 0; i < system_set::defficulter_max; i++) {
+		defficult_[i]->SetWorldPositionAll();
+	}
 
 	TextUpdate();
 
@@ -283,7 +309,7 @@ Scene* SelectScene::Update(float delta_time) {
 
 void SelectScene::Draw(int screen_handle) {
 	root_->DrawAll(screen_handle, camera_);
-
+	defficult_[selecter_[k_defficult]]->DrawAll(screen_handle, camera_);
 }
 
 void SelectScene::Finalize() {

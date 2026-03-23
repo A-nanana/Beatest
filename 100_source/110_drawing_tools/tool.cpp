@@ -9,6 +9,7 @@
 //------------------------------
 
 #include <cmath>
+#include <windows.h>
 #include "tool.h"
 
 void CrampInt(int& param, int low, int max)
@@ -107,4 +108,32 @@ int ChangeBitToNum(int flg)
 		i++;
 	}
 	return i;
+}
+
+// UTF-8 -> Shift-JIS 
+std::string ToShiftJis(const char* utf8) {
+//  存在しなければ空白で返す
+	if (!utf8) return "";
+
+	//変換に必要なバイナリサイズの計測
+	int wlen = MultiByteToWideChar(CP_UTF8, 0, utf8, -1, NULL, 0);
+//  なければ空白で返す
+	if (wlen == NULL) return "";
+
+	//初期化（バイナリファイル保管用）
+	std::wstring wstr(wlen, 0);
+	//utf-16を経由
+	MultiByteToWideChar(CP_UTF8, 0, utf8, -1, &wstr[0], wlen);
+	
+	//変換に必要なバイナリサイズの計測
+	int slen = WideCharToMultiByte(932, 0, wstr.c_str(), -1, NULL, 0, NULL, NULL);
+//  なければ空白で返す
+	if (slen == NULL) return "";
+
+	//結果保管用
+	std::string result(slen, 0);
+	//Shift-Jisに
+	WideCharToMultiByte(932, 0, wstr.c_str(), -1, &result[0], slen, NULL, NULL);
+	
+	return result.c_str(); // const char*化して返す
 }
