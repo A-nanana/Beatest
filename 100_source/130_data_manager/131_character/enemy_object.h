@@ -22,6 +22,7 @@ protected:
 	ShotManager* shot_manager_;//弾の管理
 	std::vector<ShotBooker>* shot_booker_;//弾の予約
 	float time_;//直前の更新時間
+	int ms_per_hyousi_;//発射タイミング計測用
 public:
 //  コンストラクタ
 	EnemyObject(ShotManager* shot_manager, std::vector<ShotBooker>* shot_booker);

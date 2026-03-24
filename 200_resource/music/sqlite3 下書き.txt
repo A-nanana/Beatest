@@ -11,7 +11,7 @@ update GameMusicData set Bpm = 200 , time = 134 WHERE Title = 'Reverator_in_Vave
 
 //閲覧
 
-select title = '曲の名前' from GameMusicData;
+select * from GameMusicData;
 
 //列挿入
 ALTER TABLE GameMusicData ADD COLUMN HighScore INT DEFAULT 0;
@@ -30,6 +30,8 @@ create table GameMusicData( MusicKey Integer Not Null PRIMARY KEY AUTOINCREMENT,
 
 create table Defficult( MusicKey Intager ,Easy Boolen DEFAULT false, Nomal Boolen DEFAULT true, Hard Boolen DEFAULT false, Beyond Boolen DEFAULT false,FOREIGN KEY (MusicKey) REFERENCES GameMusicData( Musickey));
 
+
+SELECT * FROM GameMusicData LEFT OUTER JOIN Defficult ON GameMusicData.MusicKey = Defficult.MusicKey;
 
 
 ALTER TABLE GameMusicData ADD COLUMN KeyCode Int AUTOINCREMENT;

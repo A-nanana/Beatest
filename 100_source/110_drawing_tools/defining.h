@@ -262,7 +262,7 @@ namespace system_set {
 	static const float player_hit_size_y = 70.0f;//y
 
 //  ’e‚ÌƒfƒtƒHƒ‹ƒg‚Ì‘¬‚³
-	static const float shot_speed_def = 10;
+	static const float shot_speed_def = 5;
 //  Šp“x‚ª‘å‚«‚­‚È‚Á‚½‚Æ‚«‚ÌC³Šp“x
 	static const float repair_rad = M_PI * 270.0f / 180.0f;
 //  1s‚ğms‚É’¼‚·

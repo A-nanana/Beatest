@@ -198,12 +198,22 @@ void SelectScene::PushCheck() {
 	//セレクターをループさせる
 	selecter_[k_music] = (selecter_[k_music] + MusicManager::GetInstance()->GetLineupSize()) % MusicManager::GetInstance()->GetLineupSize();
 	//難易度に関しても同じ
-	selecter_[k_defficult] = (selecter_[k_defficult] + system_set::defficulter_max) % system_set::defficulter_max;
+	for (int i = 0; i < system_set::defficulter_max; i++) {
+		selecter_[k_defficult] = (selecter_[k_defficult] + system_set::defficulter_max) % system_set::defficulter_max;
+		//その難易度が存在するか
+		if (((1 << selecter_[k_defficult] ) & (MusicManager::GetInstance()->operator[](selecter_[k_music]).defficalt_flg_)) == 1) {
+			break;
+		}
+		//そうでなければセレクターを次に
+		selecter_[k_defficult]++;
+	}
 	
+
 	//エンターで決定
 	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_RETURN)) {
 		MusicManager::GetInstance()->PlaySe(k_select);
 		MusicManager::GetInstance()->SetPlayMusic(MusicManager::GetInstance()->operator[](selecter_[k_music]).title.c_str());
+		MusicManager::GetInstance()->SetDefficult(selecter_[k_defficult]);
 		next_scene_ = new GameScene();
 	}
 	//Escキーで設定

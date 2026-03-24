@@ -82,23 +82,22 @@ void FileRoader::RoadLineup(std::vector<LineUp>* title)
 {
 	std::string table_name = file_set::music_data_base_table;//stringに変換
 	std::string inser_msg = "select * from "+ table_name +" ;"; //クエリ文
-	LineUp DBresult;// データ入れの箱
+	std::string inser_msg_f = "SELECT * FROM " + table_name + " LEFT OUTER JOIN " + file_set::defficult_data_base_table
+		+ " ON " + table_name + ".MusicKey =" + file_set::defficult_data_base_table + ".MusicKey;";
 	sqlite3_stmt* stmt = NULL; //状態格納ハンドル.
 
 	//確認できるか
 	if (use_lib_
-		&&(sqlite3_prepare_v2(db_,inser_msg.c_str(),inser_msg.size(),&stmt,NULL) != SQLITE_OK)) {
+		&&(sqlite3_prepare_v2(db_,inser_msg_f.c_str(),inser_msg_f.size(),&stmt,NULL) != SQLITE_OK)) {
 		use_lib_ = false;
 		sqlite3_close(db_);
 	}
 	//ライブラリ使用確認
 	if (use_lib_) {
 		int r = window_setting::null_param;//行設定用
-		int serch_id = NULL;//楽曲id
-		//Sqliteが動く間の処理
-		while (SQLITE_ROW ==(r = sqlite3_step(stmt)))
-		{
-			serch_id = sqlite3_column_int(stmt, 0);
+		//JOIN中
+		while (SQLITE_ROW == (r = sqlite3_step(stmt))) {
+			LineUp DBresult;// データ入れの箱
 
 			//文字型に変換
 			const unsigned char* name = sqlite3_column_text(stmt, 1);
@@ -110,32 +109,30 @@ void FileRoader::RoadLineup(std::vector<LineUp>* title)
 			DBresult.high_score = sqlite3_column_int(stmt, 5);
 
 			//今度は難易度情報の処理
-			table_name = file_set::defficult_data_base_table;
-			inser_msg = "select * from " + table_name + "where MusicKey = " + std::to_string(serch_id) + " ;"; //クエリ文
 
 			//それぞれの真偽値をとる
-			if (sqlite3_column_int(stmt, 1)) {
+			if (sqlite3_column_int(stmt, 7) != 0) {
 				DBresult.defficalt_flg_ |= system_set::k_music_easy;
 			}
-			if (sqlite3_column_int(stmt, 2)) {
+			if (sqlite3_column_int(stmt, 8) != 0) {
 				DBresult.defficalt_flg_ |= system_set::k_music_nomal;
 			}
-			if (sqlite3_column_int(stmt, 3)) {
+			if (sqlite3_column_int(stmt, 9) != 0) {
 				DBresult.defficalt_flg_ |= system_set::k_music_hard;
 			}
-			if (sqlite3_column_int(stmt, 4)) {
+			if (sqlite3_column_int(stmt, 10) != 0) {
 				DBresult.defficalt_flg_ |= system_set::k_music_beyond;
 			}
 			title->push_back(DBresult);
-		}
+		};
 		
-		
-
-
 		sqlite3_finalize(stmt);
 
+			
+		
+
 	}
-	else {
+	if(!use_lib_) {
 		//ポインタつくる
 		std::ifstream lineup_p("200_resource/music/Lineup.txt");
 		//ファイルが開くか
@@ -293,18 +290,18 @@ std::vector<ShotBooker>* FileRoader::RoadHumen(const MusicData& music_data)
 
 				if (humen_2[i - retu + j] == '1') //通常
 				{
-					float in_time = (float)(((setu + j / retu) + 1.0f) * music_data.hyousi_ * music_data.ms_per_hyousi_); //時間
+					float in_time = (((setu + (float)j / retu) + 1.0f) * music_data.hyousi_ ); //時間
 
-					booked.bool_time = in_time;//差分時間で予約
+					booked.bool_time = in_time * music_data.ms_per_hyousi_;//差分時間で予約
 					booked.type = system_set::k_enemy_nomal;
 
 					booker->push_back(booked);
 				}
 				else if (humen_2[i - retu + j] == '3') //全体に撒く
 				{
-					float in_time = (float)(((setu + j / retu) + 1.0f) * music_data.hyousi_ * music_data.ms_per_hyousi_); //時間
+					float in_time = (((setu + (float)j / retu) + 1.0f) * music_data.hyousi_ ); //時間
 
-					booked.bool_time = in_time;
+					booked.bool_time = in_time * music_data.ms_per_hyousi_;
 					booked.type = system_set::k_enemy_all_renge;
 					//角度計算
 					booked.rooper = M_PI * 2/ system_set::angle_per_time;
