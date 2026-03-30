@@ -36,7 +36,6 @@ public:
 //------------------------------
 class Camera;
 class Node
-
 {
 protected:
 	Node* parent_; //親ノードのポインタ

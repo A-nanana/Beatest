@@ -110,7 +110,7 @@ void MenuScene::Init()
 	camera_ = new Camera();
 	int string_size = GetDrawStringWidth(string_set::select_menu, -1);
 
-	selecter_node_ = new TextNode("->", GetColor(255, 255, 255), line_set::selecter_x, line_set::selecter_y);
+	selecter_node_ = new TextNode(string_set::cursol, GetColor(255, 255, 255), line_set::selecter_x, line_set::selecter_y);
 
 	root_->AddChild(new TextNode(string_set::select_menu, GetColor(255, 255, 255), window_setting::center_x - string_size / 2, line_set::midasi_y));
 	root_->AddChild(selecter_node_);
@@ -199,20 +199,21 @@ void SelectScene::PushCheck() {
 	selecter_[k_music] = (selecter_[k_music] + MusicManager::GetInstance()->GetLineupSize()) % MusicManager::GetInstance()->GetLineupSize();
 	//難易度に関しても同じ
 	for (int i = 0; i < system_set::defficulter_max; i++) {
-		selecter_[k_defficult] = (selecter_[k_defficult] + system_set::defficulter_max) % system_set::defficulter_max;
 		//その難易度が存在するか
-		if (((1 << selecter_[k_defficult] ) & (MusicManager::GetInstance()->operator[](selecter_[k_music]).defficalt_flg_)) == 1) {
+		if (((1 << selecter_[k_defficult] ) & (MusicManager::GetInstance()->operator[](selecter_[k_music]).defficalt_flg_))) {
 			break;
 		}
 		//そうでなければセレクターを次に
 		selecter_[k_defficult]++;
+		selecter_[k_defficult] = (selecter_[k_defficult] + system_set::defficulter_max) % system_set::defficulter_max;
+
 	}
 	
 
 	//エンターで決定
 	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_RETURN)) {
 		MusicManager::GetInstance()->PlaySe(k_select);
-		MusicManager::GetInstance()->SetPlayMusic(MusicManager::GetInstance()->operator[](selecter_[k_music]).title.c_str());
+		MusicManager::GetInstance()->SetPlayMusic(MusicManager::GetInstance()->operator[](selecter_[k_music]));
 		MusicManager::GetInstance()->SetDefficult(selecter_[k_defficult]);
 		next_scene_ = new GameScene();
 	}
@@ -244,7 +245,7 @@ void SelectScene::TextUpdate()
 
 	}
 	//ハイスコアの表示
-	new_text_->AddChild(new TextNode(std::to_string(MusicManager::GetInstance()->operator[](selecter_[k_music]).high_score).c_str(), GetColor(255, 255, 255),
+	new_text_->AddChild(new TextNode(std::to_string(MusicManager::GetInstance()->operator[](selecter_[k_music]).high_score[selecter_[k_defficult]].value_or(window_setting::null_param)).c_str(), GetColor(255, 255, 255),
 		window_setting::center_x, line_set::brank_y * (line_set::amount_y_max - 1)));
 
 	//元々根ノードがあるなら削除
@@ -261,28 +262,37 @@ void SelectScene::TextUpdate()
 
 SelectScene::SelectScene()
 	:text_(nullptr) {
+	root_ = new Node();
+	camera_ = new Camera();
 	selecter_[k_music] = NULL; selecter_[k_defficult] = NULL;
 	last_select_[k_music] = NULL; last_select_[k_defficult] = NULL;
+
+	//ポインタ初期化
+	for (int i = 0; i < system_set::defficulter_max; i++) {
+		
+		defficult_[i] = nullptr;
+		
+	}
 }
 void SelectScene::Init() {
 	MusicManager::GetInstance()->SetLineUp();
 
-	root_ = new Node();
-	camera_ = new Camera();
+	
 	int string_size = GetDrawStringWidth(string_set::select_song, -1);
 
 	root_->AddChild(new TextNode(string_set::select_song, GetColor(255, 255, 255), window_setting::center_x - string_size / ((line_set::amount_y_max - 1) / 2), line_set::midasi_y));
 	root_->AddChild(new TextNode(string_set::high_score, GetColor(255, 255, 255), window_setting::center_x + line_set::selecter_x, line_set::selecter_y + line_set::brank_y * (line_set::amount_y_max - 2)));
-	root_->AddChild(new TextNode("->", GetColor(255, 255, 255), line_set::selecter_x, line_set::selecter_y + line_set::brank_y * ((line_set::amount_y_max - 1) / 2)));
-	
-	defficult_[ChangeBitToNum(system_set::k_music_easy)] = new TextNode("Easy", GetColor(255, 255, 255), ege_set::brank_x, line_set::selecter_y - line_set::brank_y);
-	defficult_[ChangeBitToNum(system_set::k_music_nomal)] = new TextNode("Nomal", GetColor(255, 255, 255), ege_set::brank_x, line_set::selecter_y - line_set::brank_y);
-	defficult_[ChangeBitToNum(system_set::k_music_hard)] = new TextNode("Hard", GetColor(255, 255, 255), ege_set::brank_x, line_set::selecter_y - line_set::brank_y);
-	defficult_[ChangeBitToNum(system_set::k_music_beyond)] = new TextNode("Beyond", GetColor(255, 255, 255), ege_set::brank_x , line_set::selecter_y - line_set::brank_y );
-
+	root_->AddChild(new TextNode(string_set::cursol, GetColor(255, 255, 255), line_set::selecter_x, line_set::selecter_y + line_set::brank_y * ((line_set::amount_y_max - 1) / 2)));
+	//	難易度
+	for (int i = 0; i < system_set::defficulter_max; i++) {
+		defficult_[i] = new TextNode(string_set::defficult[i], GetColor(255, 255, 255), ege_set::brank_x, line_set::selecter_y - line_set::brank_y);
+	}
 	//位置初期化
 	for (int i = 0; i < system_set::defficulter_max; i++) {
-		defficult_[i]->SetWorldPositionAll();
+		//存在するか
+		if (defficult_[i] != nullptr) {
+			defficult_[i]->SetWorldPositionAll();
+		}
 	}
 
 	TextUpdate();

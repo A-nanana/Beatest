@@ -69,3 +69,8 @@ int ChangeBitToNum(int flg);
 // @in const char* utf8 UTF-8	‚Ì•¶Žš
 // @out std::string Shift-JIS‚Ì•¶Žš
 std::string ToShiftJis(const char* utf8);
+
+// @Shift-JIS‚©‚çUTF-8‚É•Ï‚¦‚é
+// @in const char* sift_jis Shift-JIS	‚Ì•¶Žš
+// @out std::string UTF-8‚Ì•¶Žš
+std::string ToUtf8(const char* sift_jis);

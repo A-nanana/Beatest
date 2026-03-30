@@ -137,3 +137,33 @@ std::string ToShiftJis(const char* utf8) {
 	
 	return result.c_str(); // const char*化して返す
 }
+
+std::string ToUtf8(const char* sift_jis)
+{
+
+	//  存在しなければ空白で返す
+	if (!sift_jis) return "";
+
+	//変換に必要なバイナリサイズの計測
+	int wlen = MultiByteToWideChar(932, 0, sift_jis, -1, NULL, 0);
+	//  なければ空白で返す
+	if (wlen == NULL) return "";
+
+	//初期化（バイナリファイル保管用）
+	std::wstring wstr(wlen, 0);
+	//utf-16を経由
+	MultiByteToWideChar(932, 0, sift_jis, -1, &wstr[0], wlen);
+
+	//変換に必要なバイナリサイズの計測
+	int slen = WideCharToMultiByte(CP_UTF8, 0, wstr.c_str(), -1, NULL, 0, NULL, NULL);
+	//  なければ空白で返す
+	if (slen == NULL) return "";
+
+	//結果保管用
+	std::string result(slen, 0);
+	//Shift-Jisに
+	WideCharToMultiByte(CP_UTF8, 0, wstr.c_str(), -1, &result[0], slen, NULL, NULL);
+
+	return result.c_str(); // const char*化して返す
+
+}

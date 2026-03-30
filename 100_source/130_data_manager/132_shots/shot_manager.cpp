@@ -139,11 +139,14 @@ void ShotManager::AddShot(float x, float y, float speed, float angle, int type)
 	//‘¶İ‚Å‚«‚é‚©
 	if (children_.size() < system_set::shot_max) {
 		//ƒ^ƒCƒv‚Å•ª‚¯‚Ä’Ç‰Á
-		if (type == system_set::k_enemy_nomal) {
+		//·‘Å‚¿‚©’Êí 
+		if ((type == system_set::k_enemy_nomal) || (type == system_set::k_enemy_later_renge)) {
 			Node::AddChild(new ShotObject(shot_graph_handle_.front(), x, y, speed, angle, GetPlayerCenter(),type));
 		}
+		//ˆêü‘Å‚¿
 		if (type == system_set::k_enemy_all_renge) {
 			Node::AddChild(new ShotObject(shot_graph_handle_.front(), x, y, speed, angle, { window_setting::length * cos(angle),window_setting::length * sin(angle) },type));
 		}
+		
 	}
 }

@@ -71,6 +71,7 @@ namespace file_set {
 	static const char* music_data_base_pass = "200_resource/music/music.db";//相対パス
 	static const char* music_data_base_table = "GameMusicData";//曲内容テーブル名
 	static const char* defficult_data_base_table = "Defficult"; //難易度探索用テーブル
+	static const char* score_data_base_table = "Score"; //スコア探索用テーブル
 //  bgmファイルパス
 	static const char* bgm_data_pass = "200_resource/bgm.mp3";//相対パス
 //  Seファイルパス
@@ -166,6 +167,7 @@ namespace string_set {
 	static const char* score = "Score";//スコア
 	static const char* high_score = "HighScore";//最高スコア
 	static const char* max_conbo = "Max Conbo";//最大コンボ
+	static const char* cursol = "->"; //カーソル
 
 	static const char* result_uchiwake[4] =
 	{ "Critical",
@@ -263,6 +265,8 @@ namespace system_set {
 
 //  弾のデフォルトの速さ
 	static const float shot_speed_def = 5;
+//  速度の減少幅
+	static const float shot_speed_down = 0.5;
 //  角度が大きくなったときの修正角度
 	static const float repair_rad = M_PI * 270.0f / 180.0f;
 //  1sをmsに直す
@@ -273,12 +277,15 @@ namespace system_set {
 	static const int wait_end_time = 1.0 * ms_per_s;
 //  弾の角度修正単位
 	static const float angle_per_time = 20.0f * M_PI / 180.0f;
+//  時間差到達弾の数
+	static const int shot_later_roop_param = 5;
 //  画面上の弾数
 	static const int shot_max = 10000;
 //  弾の種類
 	static const enum ShotType {
 		k_enemy_nomal, //通常
 		k_enemy_all_renge, //全体に出す
+		k_enemy_later_renge,// 時差うち
 
 	};
 //  必須待機時間(ms)

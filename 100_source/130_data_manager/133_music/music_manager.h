@@ -12,6 +12,9 @@
 
 #include <vector>
 #include <string>
+#include <optional> //空白がサポートされているのでこちらを使用
+
+#include "..\..\110_drawing_tools\defining.h"
 //------------------------------
 // @name   MusicData
 // @brief  楽曲データ 構造体
@@ -24,6 +27,7 @@ struct MusicData {
 	int hyousi_;//拍子
 	int high_score_;//最高スコア
 	unsigned int defficult;//難易度
+	int music_key_;//楽曲キー(ファイル探索用)
 
 	float ms_per_hyousi_;//1拍当たりの秒数
 	int handle_; //楽曲ハンドル
@@ -37,8 +41,10 @@ struct MusicData {
 struct LineUp
 {
 	std::string title; //タイトル
-	int high_score;//最高スコア
+	std::optional<int> high_score[system_set::defficulter_max];//最高スコア
 	std::uint8_t defficalt_flg_;//難易度フラグ
+	int music_key;//楽曲キー
+
 };
 
 //Se指定用
@@ -72,7 +78,7 @@ public:
 	MusicManager& operator= (MusicManager&) = delete;
 
 //  セッター
-	void SetPlayMusic(const char* title);//タイトルで設定
+	void SetPlayMusic(const LineUp& line_up);//ラインナップ情報から設定
 	void SetLineUp();//ラインナップ設定
 	void SetSe();//Se設定
 	void SetBgm();//bgm設定

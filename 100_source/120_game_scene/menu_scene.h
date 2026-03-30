@@ -15,6 +15,7 @@
 #include "..\110_drawing_tools\scene.h"
 
 class Node;
+class TextNode;
 
 //-----------------------------
 // @name   MenuScene
@@ -76,7 +77,7 @@ class SelectScene :public Scene
 	Node* root_;//根ノード作成
 
 	Node* text_;//テキストノード(テキスト親ノード)
-	Node* defficult_[system_set::defficulter_max];//難易度毎のノード
+	TextNode* defficult_[system_set::defficulter_max];//難易度毎のノード
 
 	enum Selecters {
 		k_music, //

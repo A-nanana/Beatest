@@ -45,6 +45,7 @@ void EnemyObject::Update(float delta_time) {
 	}
 	//譜面なしで終了
 	if (shot_booker_->size() <= n) return;
+	float speed = shot_booker_->operator[](n).speed; //速度
 	//それ以外なら打ち出す
 	for (int i = 0; i < shot_booker_->operator[](n).rooper; i++) {
 		float angle = rotate_ + (system_set::angle_per_time * i );
@@ -57,8 +58,12 @@ void EnemyObject::Update(float delta_time) {
 		if (angle < NULL) {
 			angle += M_PI * 2;
 		}
+		//もし時差打ちが必要なら速度を変える
+		if (shot_booker_->operator[](n).type == system_set::k_enemy_later_renge) {
+			speed -= system_set::shot_speed_down;
+		}
 		shot_manager_->AddShot(world_position_.x_ + size_x_ / 2, world_position_.y_ + size_y_ / 2,
-			shot_booker_->operator[](n).speed, angle, shot_booker_->operator[](n).type);
+			speed, angle, shot_booker_->operator[](n).type);
 
 	}
 	shot_booker_->operator[](n).shooted = true;

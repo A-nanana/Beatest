@@ -30,6 +30,10 @@ create table GameMusicData( MusicKey Integer Not Null PRIMARY KEY AUTOINCREMENT,
 
 create table Defficult( MusicKey Intager ,Easy Boolen DEFAULT false, Nomal Boolen DEFAULT true, Hard Boolen DEFAULT false, Beyond Boolen DEFAULT false,FOREIGN KEY (MusicKey) REFERENCES GameMusicData( Musickey));
 
+create table Score( MusicKey Intager ,Easy Int DEFAULT 0, Nomal Int DEFAULT 0, Hard Int DEFAULT 0, Beyond Int DEFAULT 0,FOREIGN KEY (MusicKey) REFERENCES GameMusicData( Musickey));
+
+
+
 
 SELECT * FROM GameMusicData LEFT OUTER JOIN Defficult ON GameMusicData.MusicKey = Defficult.MusicKey;
 

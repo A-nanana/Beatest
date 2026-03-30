@@ -10,6 +10,7 @@
 #include "DxLib.h"
 #include "..\..\140_roading_from_other\file_roader.h"
 #include "..\..\110_drawing_tools\defining.h"
+#include "..\..\110_drawing_tools\tool.h"
 #include "music_manager.h"
 
 MusicManager* MusicManager::music_manager_ = nullptr;
@@ -32,9 +33,10 @@ MusicManager* MusicManager::GetInstance() {
 	return music_manager_;
 }
 
-void MusicManager::SetPlayMusic(const char* title)
+void MusicManager::SetPlayMusic(const LineUp& line_up)
 {
-	play_music_.title_ = title;
+	play_music_.title_ = line_up.title;
+	play_music_.music_key_ = line_up.music_key;
 	FileRoader::GetInstance()->RoadMusic(&play_music_);
 }
 
@@ -68,6 +70,13 @@ void MusicManager::SetBgm()
 void MusicManager::SetHighScore(int score)
 {
 	play_music_.high_score_ = score;
+	//ラインナップも書き換え
+	for (int i = 0;i < title_line_up_.size();i++) {
+		//キーの一致を確認する
+		if (title_line_up_[i].music_key == play_music_.music_key_) {
+			title_line_up_[i].high_score[ChangeBitToNum(play_music_.defficult)] = score;
+		}
+	}
 }
 
 void MusicManager::SetDefficult(int nanido)
