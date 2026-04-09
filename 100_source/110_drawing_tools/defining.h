@@ -30,6 +30,10 @@ namespace window_setting {
 //  ウィンドウの中央位置
 	static int center_x = 400; // x
 	static int center_y = 200; // y
+//  ポップアップの大きさ
+	static const float pop_up_size_x = size_x * 3 / 4; //x
+	static const float pop_up_size_y = size_y * 3 / 4; //y
+
 //  ウィンドウの表示猶予
 	static int offset_shown = 100;
 
@@ -120,6 +124,22 @@ namespace line_set {
 }
 
 //-----------------------------
+// @name   font_set
+// @brief  フォント関係
+// @memo   
+//------------------------------
+namespace font_set {
+//  見出しのフォントサイズ
+	static const int midasi_size_1 = 32;
+	static const int midasi_size_2 = 20;
+//  フォントの名前
+	static const char* midasi_font_name_1 = "UDゴシック";
+//  フォントの太さ
+	static const int midasi_thick_1 = 2;
+
+}
+
+//-----------------------------
 // @name   buttom_set
 // @brief  ボタン関係
 // @memo   
@@ -168,6 +188,9 @@ namespace string_set {
 	static const char* high_score = "HighScore";//最高スコア
 	static const char* max_conbo = "Max Conbo";//最大コンボ
 	static const char* cursol = "->"; //カーソル
+//  フォント設定用
+	static const char* font_midasi1 = "Midasi1";
+	static const char* font_midasi2 = "Midasi2";
 
 	static const char* result_uchiwake[4] =
 	{ "Critical",
@@ -195,6 +218,13 @@ namespace string_set {
 		"Hard",
 		"Beyond"
 	};//難易度
+
+	static const char* continue_check[2] =
+	{
+		"P:このまま続ける",
+		"Q:選択画面に戻る",
+	};//確認用
+	
 }
 
 //-----------------------------

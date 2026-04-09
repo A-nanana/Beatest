@@ -25,6 +25,7 @@ class GameScene:public Scene
 	Node* root_;//根ノード作成
 	Node* text_;//テキスト根ノード
 	Node* restart_text_;//再開用の根ノード
+	Node* check_text_;//確認用の根ノード
 	Node* end_game_;//ゲームセット用根ノード
 
 	//それぞれのオブジェクトのポインタ保存用

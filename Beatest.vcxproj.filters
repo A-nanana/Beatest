@@ -186,6 +186,9 @@
     <ClCompile Include="100_source\120_game_scene\menu_scene.cpp">
       <Filter>ソース ファイル\120_game_scene</Filter>
     </ClCompile>
+    <ClCompile Include="100_source\130_data_manager\134_other\txt_font_manager.cpp">
+      <Filter>ソース ファイル\130_data_manager\134_other</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="100_source\110_drawing_tools\alpha_node.h">
@@ -307,6 +310,9 @@
     </ClInclude>
     <ClInclude Include="100_source\120_game_scene\menu_scene.h">
       <Filter>ヘッダー ファイル\120_game_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="100_source\130_data_manager\134_other\txt_font_manager.h">
+      <Filter>ヘッダー ファイル\130_data_manager\134_other</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

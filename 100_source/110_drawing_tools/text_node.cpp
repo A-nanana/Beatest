@@ -81,6 +81,12 @@ FontSet::FontSet(const char* font_name, int size, int thick, int type)
 	thick_ = thick;
 	type_ = type;
 	handle_ = NULL;
+	Load();
+}
+
+FontSet::~FontSet()
+{
+	Release();
 }
 
 //セッター
@@ -112,6 +118,7 @@ int FontSet::GetFontHandle()
 
 //ロード
 void FontSet::Load() {
+	//ハンドルの確認
 	if (handle_ != NULL) {
 		DeleteFontToHandle(handle_);
 		handle_ = NULL;
@@ -121,6 +128,7 @@ void FontSet::Load() {
 
 //解放
 void FontSet::Release() {
+	//ハンドルの確認
 	if (handle_ != NULL) {
 		DeleteFontToHandle(handle_);
 		handle_ = NULL;

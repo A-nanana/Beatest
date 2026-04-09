@@ -10,9 +10,11 @@
 #include <iostream>
 
 #include "game_scene.h"
+#include "menu_scene.h"
 
 #include "..\110_drawing_tools\text_node.h"
 #include "..\110_drawing_tools\inputer.h"
+#include "..\110_drawing_tools\box_node.h"
 #include "result_scene.h"
 #include "background_node.h"
 #include "..\130_data_manager\131_character\object_common.h"
@@ -23,6 +25,7 @@
 #include "..\130_data_manager\133_music\music_manager.h"
 #include "..\130_data_manager\134_other\configs_manager.h"
 #include "..\130_data_manager\134_other\score_manager.h"
+#include "..\130_data_manager\134_other\txt_font_manager.h"
 #include "..\140_roading_from_other\file_roader.h"
 #include "..\150_effect\field_effect.h"
 
@@ -40,11 +43,20 @@ void GameScene::SceneCheck() {
 	{
 		fase_ = k_restart;
 	}
+	else if ((fase_ == k_stop) && Inputer::GetInstance()->GetDownKey(KEY_INPUT_Q))//stopフェーズでQボタンが押されたら終了
+	{
+		//曲を止めてスコアリセット
+		MusicManager::GetInstance()->StopMusic();
+		ScoreManager::GetInstance()->Reset();
+		next_scene_ = new SelectScene();
+		MusicManager::GetInstance()->PlayBgm();
+
+	}
 	//restartフェーズでカウントが終われば再開
 	if ((fase_ == k_restart) && restart_count_ <= window_setting::null_param) {
 		fase_ = k_play;
 		restart_count_ = system_set::restart_count_up; //再開用のカウントをリセット
-		MusicManager::GetInstance()->PlayMusic();
+		MusicManager::GetInstance()->RePlayMusic();
 	}
 
 	//playフェーズで曲を流す時間を過ぎたら曲を止める
@@ -99,7 +111,7 @@ void GameScene::RestartTextUpdate()
 	//サイズ確認
 	int text_length = GetDrawStringWidth(txts.c_str(), -1);
 
-	new_text_->AddChild(new TextNode(txts.c_str(), GetColor(255, 0, 255),
+	new_text_->AddChild(new TextFormatNode(txts.c_str(), GetColor(255, 0, 255), TxtFontManager::GetInstance()->SerchFont(string_set::font_midasi1),
 		window_setting::center_x - text_length / 2 , window_setting::center_y));
 
 	//元々根ノードがあるなら削除
@@ -123,6 +135,7 @@ void GameScene::Init()
 	root_ = new Node();
 	end_game_ = new Node();
 	restart_text_ = new Node();
+	check_text_ = new Node();
 
 	root_->AddChild(new BackgroundNode("200_resource\\back_tree.png", {NULL,NULL}));
 	camera_ = new Camera();
@@ -152,6 +165,17 @@ void GameScene::Init()
 	root_->AddChild(new TextNode(string_set::conbo, GetColor(255, 0, 255),
 		window_setting::center_x, window_setting::center_y - line_set::brank_y));
 
+	//確認ポップアップ作成
+	BoxNode* back_box = new BoxNode({ window_setting::center_x-window_setting::pop_up_size_x/2,window_setting::center_y - window_setting::pop_up_size_y / 2 }, 
+		{ window_setting::pop_up_size_x ,window_setting::pop_up_size_y },GetColor(230,230,250),NULL,true);
+	int i = 0;//個数カウント
+	for (auto txt : string_set::continue_check) {
+		i++;
+		back_box->AddChild(new TextNode(txt, GetColor(0, 0, 0),
+			window_setting::pop_up_size_x / 4, line_set::brank_y*i - ege_set::brank_y+window_setting::pop_up_size_y/3));
+	}
+	check_text_->AddChild(back_box);
+
 	//テキスト更新
 	TextUpdate();
 	end_game_->AddChild(new TextNode(string_set::game_finish, GetColor(255, 255, 255),
@@ -168,6 +192,7 @@ void GameScene::SetUp()
 	root_->SetUpAll();
 	end_game_->LoadResourceAll();
 	end_game_->SetUpAll();
+	//楽曲再生
 	ConfigsManager::GetInstance()->SetMusic();
 	MusicManager::GetInstance()->PlayMusic();
 }
@@ -198,6 +223,12 @@ Scene* GameScene::Update(float delta_time) {
 		enemy_->HitEnemies(player_);
 
 	}
+	//停止中か
+	if (fase_ == k_stop)
+	{
+		check_text_->UpdateAll(delta_time);
+		check_text_->SetWorldPositionAll();
+	}
 	// 再開中か
 	if (fase_ == k_restart) {
 		RestartTextUpdate();
@@ -224,6 +255,11 @@ void GameScene::Draw(int screen_handle) {
 	// 再開中か
 	if (fase_ == k_restart) {
 		restart_text_->DrawAll(screen_handle, camera_);
+	}
+	//停止中か
+	if (fase_ == k_stop)
+	{
+		check_text_->DrawAll(screen_handle, camera_);
 	}
 
 }

@@ -17,6 +17,7 @@
 #include "..\110_drawing_tools\defining.h"
 #include "..\130_data_manager\133_music\music_manager.h"
 #include "..\130_data_manager\134_other\score_manager.h"
+#include "..\130_data_manager\134_other\txt_font_manager.h"
 #include "..\140_roading_from_other\file_roader.h"
 
 //-----------------------------
@@ -97,10 +98,10 @@ void ResultScene::Init() {
 
 	root_ = new Node();
 	camera_ = new Camera();
-	int string_size = GetDrawStringWidth(string_set::result, -1);
+	int string_size = GetDrawFormatStringWidthToHandle(TxtFontManager::GetInstance()->SerchFont(string_set::font_midasi2), string_set::result);
 
 
-	root_->AddChild(new TextNode(string_set::result, GetColor(255, 255, 255), window_setting::center_x - string_size / 2, line_set::midasi_y));
+	root_->AddChild(new TextFormatNode(string_set::result, GetColor(255, 255, 255), TxtFontManager::GetInstance()->SerchFont(string_set::font_midasi2),window_setting::center_x - string_size / 2, line_set::midasi_y));
 	root_->AddChild(new TextNode(string_set::score, GetColor(255, 255, 255), window_setting::center_x / 2 - line_set::brank_x, line_set::midasi_y + line_set::selecter_y));
 	root_->AddChild(new TextNode(string_set::max_conbo, GetColor(255, 255, 255), window_setting::center_x / 2 - line_set::brank_x, line_set::midasi_y + line_set::selecter_y + line_set::brank_y));
 

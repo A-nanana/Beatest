@@ -65,6 +65,8 @@ protected:
 public:
 	//  コンストラクタ
 	FontSet(const char* font_name, int size, int thick, int type);
+	//  デストラクタ
+	~FontSet();
 
 	//  セッター
 	void SetFontName(const char* font_name); //フォントの名前

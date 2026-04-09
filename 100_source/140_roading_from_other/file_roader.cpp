@@ -194,7 +194,6 @@ void FileRoader::RoadMusic(MusicData* music_data)
 
 			music_data->time_ = sqlite3_column_int(stmt, 3);
 			music_data->hyousi_ = sqlite3_column_int(stmt, 4);
-			music_data->high_score_ = sqlite3_column_int(stmt, 5);
 		}
 		sqlite3_finalize(stmt);
 

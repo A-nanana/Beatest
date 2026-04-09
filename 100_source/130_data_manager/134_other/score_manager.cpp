@@ -54,7 +54,7 @@ void ScoreManager::ComboUpdate(bool is_conbo)
 			score_.max_conbo = count_conbo_;
 		}
 
-		//コンボなし
+		//コンボリセット
 		count_conbo_ = window_setting::null_param;
 	}
 	count_conbo_max_++;

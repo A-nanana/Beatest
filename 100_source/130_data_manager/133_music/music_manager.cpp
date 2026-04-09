@@ -37,6 +37,7 @@ void MusicManager::SetPlayMusic(const LineUp& line_up)
 {
 	play_music_.title_ = line_up.title;
 	play_music_.music_key_ = line_up.music_key;
+	play_music_.high_score_ = line_up.high_score[play_music_.defficult].value_or(window_setting::null_param);
 	FileRoader::GetInstance()->RoadMusic(&play_music_);
 }
 
@@ -74,7 +75,7 @@ void MusicManager::SetHighScore(int score)
 	for (int i = 0;i < title_line_up_.size();i++) {
 		//ƒL[‚Ìˆê’v‚ðŠm”F‚·‚é
 		if (title_line_up_[i].music_key == play_music_.music_key_) {
-			title_line_up_[i].high_score[ChangeBitToNum(play_music_.defficult)] = score;
+			title_line_up_[i].high_score[play_music_.defficult] = score;
 		}
 	}
 }
@@ -82,6 +83,7 @@ void MusicManager::SetHighScore(int score)
 void MusicManager::SetDefficult(int nanido)
 {
 	play_music_.defficult = nanido;
+
 }
 
 //Ä¶ŠÖŒW
