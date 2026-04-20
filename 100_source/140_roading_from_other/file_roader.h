@@ -18,6 +18,12 @@
 struct MusicData;
 struct LineUp;
 class ShotBooker;
+
+//-----------------------------
+// @name   FileRoader
+// @brief  ファイル読み込み
+// @memo   
+//------------------------------
 class FileRoader
 {
 	static FileRoader* roader_; //インスタンス確認用
@@ -56,5 +62,6 @@ public:
 	//出典読み込み
 	void RoadSyutten(std::string& syutten);
 };
+
 
 #endif // !__FILE_ROADER_H__

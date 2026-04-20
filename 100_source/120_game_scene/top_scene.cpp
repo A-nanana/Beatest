@@ -45,11 +45,11 @@ void TopScene::Init()
 	int string_size = GetDrawStringWidth(string_set::title, -1);
 
 	
-	root_->AddChild(new TextNode(string_set::title, GetColor(255, 255, 255), window_setting::center_x - string_size / 2, window_setting::center_y));
+	root_->AddChild(new TextNode(string_set::title, GetColor(255, 255, 255), window_setting::center_x - string_size / 2, line_set::title_y));
 	
 	string_size = GetDrawStringWidth(string_set::push_to_start, -1);
 
-	root_->AddChild(new TextNode(string_set::push_to_start, GetColor(255, 255, 255), window_setting::center_x - string_size / 2, window_setting::center_y + line_set::brank_y * 2));
+	root_->AddChild(new TextNode(string_set::push_to_start, GetColor(255, 255, 255), window_setting::center_x - string_size / 2, line_set::title_y + line_set::brank_y * 2 ));
 	
 
 

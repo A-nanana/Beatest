@@ -29,26 +29,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v145</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v145</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v145</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v145</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -170,6 +170,7 @@
     <ClCompile Include="100_source\150_effect\151_player\player_effect.cpp" />
     <ClCompile Include="100_source\150_effect\field_effect.cpp" />
     <ClCompile Include="100_source\main.cpp" />
+    <ClCompile Include="graph_roader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="100_source\110_drawing_tools\alpha_node.h" />
@@ -213,6 +214,7 @@
     <ClInclude Include="100_source\140_roading_from_other\sqlite3ext.h" />
     <ClInclude Include="100_source\150_effect\151_player\player_effect.h" />
     <ClInclude Include="100_source\150_effect\field_effect.h" />
+    <ClInclude Include="graph_roader.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="100_source\140_roading_from_other\SQLite3.lib" />

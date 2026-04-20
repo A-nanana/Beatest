@@ -33,6 +33,7 @@ int FileRoader::CallbackTableCheck(void* param, int col_int, char** row_text, ch
 	return 0;
 }
 
+
 FileRoader::FileRoader()
 {
 	db_ = nullptr;
@@ -410,3 +411,4 @@ void FileRoader::RoadSyutten(std::string& syutten)
 	file_p.close();
 
 }
+

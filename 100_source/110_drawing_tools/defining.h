@@ -28,8 +28,8 @@ namespace window_setting {
 //  カラービット
 	static int color_bit = 32;
 //  ウィンドウの中央位置
-	static int center_x = 400; // x
-	static int center_y = 200; // y
+	static int center_x = size_x / 2; // x
+	static int center_y = size_y / 2; // y
 //  ポップアップの大きさ
 	static const float pop_up_size_x = size_x * 3 / 4; //x
 	static const float pop_up_size_y = size_y * 3 / 4; //y
@@ -120,7 +120,9 @@ namespace line_set {
 	static const int selecter_x = window_setting::center_x / 3;//x
 	static const int selecter_y = window_setting::size_y / 3;//y
 //  見出しの初期配置
-	static const int midasi_y = window_setting::center_y / 2;//y
+	static const int midasi_y = 100;//y
+//  トップ画面の初期位置
+	static const int title_y = 200; //y
 }
 
 //-----------------------------
