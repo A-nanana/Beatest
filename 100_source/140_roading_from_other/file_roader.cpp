@@ -148,7 +148,7 @@ void FileRoader::RoadLineup(std::vector<LineUp>* title)
 	}
 	if(!use_lib_) {
 		//ポインタつくる
-		std::ifstream lineup_p("200_resource/music/Lineup.txt");
+		std::ifstream lineup_p("200_resource/220_music/Lineup.txt");
 		//ファイルが開くか
 		if (lineup_p.is_open()) {
 			std::string name;
@@ -166,11 +166,11 @@ void FileRoader::RoadLineup(std::vector<LineUp>* title)
 void FileRoader::RoadMusic(MusicData* music_data)
 {
 	//曲ハンドル
-	std::string file_name = "200_resource/music/" + music_data->title_ + "/" + music_data->title_ + ".wav";
+	std::string file_name = file_set::music_data_file_pass + music_data->title_ + "/" + music_data->title_ + ".wav";
 	music_data->handle_ = LoadSoundMem(file_name.c_str());
 	//wavファイルでエラーならmp3に
 	if (music_data->handle_ == -1) {
-		std::string file_name = "200_resource/music/" + music_data->title_ + "/" + music_data->title_ + ".mp3";
+		std::string file_name = file_set::music_data_file_pass + music_data->title_ + "/" + music_data->title_ + ".mp3";
 		music_data->handle_ = LoadSoundMem(file_name.c_str());
 	}
 
@@ -200,7 +200,7 @@ void FileRoader::RoadMusic(MusicData* music_data)
 
 	}
 	else {
-		file_name = "200_resource/music/" + music_data->title_ + "/propaty.txt";
+		file_name = file_set::music_data_file_pass + music_data->title_ + "/propaty.txt";
 		std::ifstream propaty_p(file_name.c_str());
 		if (propaty_p.is_open()) {
 			propaty_p >> music_data->bpm_;
@@ -299,7 +299,7 @@ std::vector<ShotBooker>* FileRoader::RoadHumen(const MusicData& music_data)
 {
 	//ポインタつくる
 	std::string title = music_data.title_;
-	std::string file_name = "200_resource/music/" + title + "/" + string_set::defficult[music_data.defficult] + ".txt";
+	std::string file_name = file_set::music_data_file_pass + title + "/" + string_set::defficult[music_data.defficult] + ".txt";
 	
 	std::ifstream humen_p(file_name.c_str());
 	//譜面
@@ -391,10 +391,10 @@ std::vector<ShotBooker>* FileRoader::RoadHumen(const MusicData& music_data)
 	return booker;
 }
 
-void FileRoader::RoadSyutten(std::string& syutten)
+void FileRoader::RoadSyutten(std::string& syutten, const char* file_name)
 {
 	//ファイル読み込み
-	std::ifstream file_p(file_set::syutten_memo, std::ios::binary);
+	std::ifstream file_p(file_name, std::ios::binary);
 
 	//ファイルを開いているか
 	if (!file_p.is_open()) {

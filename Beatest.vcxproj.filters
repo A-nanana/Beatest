@@ -189,7 +189,7 @@
     <ClCompile Include="100_source\130_data_manager\134_other\txt_font_manager.cpp">
       <Filter>ソース ファイル\130_data_manager\134_other</Filter>
     </ClCompile>
-    <ClCompile Include="graph_roader.cpp">
+    <ClCompile Include="100_source\140_roading_from_other\graph_roader.cpp">
       <Filter>ソース ファイル\140_roading_from_other</Filter>
     </ClCompile>
   </ItemGroup>
@@ -317,7 +317,7 @@
     <ClInclude Include="100_source\130_data_manager\134_other\txt_font_manager.h">
       <Filter>ヘッダー ファイル\130_data_manager\134_other</Filter>
     </ClInclude>
-    <ClInclude Include="graph_roader.h">
+    <ClInclude Include="100_source\140_roading_from_other\graph_roader.h">
       <Filter>ヘッダー ファイル\140_roading_from_other</Filter>
     </ClInclude>
   </ItemGroup>

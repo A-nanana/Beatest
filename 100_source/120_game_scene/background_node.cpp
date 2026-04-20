@@ -44,6 +44,7 @@ void BackgroundNode::SetUp()
 BackgroundNode::BackgroundNode(const char* name, Vector2D scroll)
 	:GraphNode(name,window_setting::null_param, window_setting::null_param)
 {
+	
 	scroll_.Set(scroll);
 	scroll_pos_.Set(window_setting::null_param, window_setting::null_param);
 }

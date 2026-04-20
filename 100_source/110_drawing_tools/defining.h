@@ -72,21 +72,25 @@ namespace window_setting {
 //------------------------------
 namespace file_set {
 //  楽曲データベースファイル
-	static const char* music_data_base_pass = "200_resource/music/music.db";//相対パス
+	static const char* music_data_file_pass = "200_resource/220_music/";//ファイルパス
+	static const char* music_data_base_pass = "200_resource/220_music/music.db";//相対パス
 	static const char* music_data_base_table = "GameMusicData";//曲内容テーブル名
 	static const char* defficult_data_base_table = "Defficult"; //難易度探索用テーブル
 	static const char* score_data_base_table = "Score"; //スコア探索用テーブル
+//  チュートリアル文章パス
+	static const char* tutorial_memo = "200_resource/tutorial_memo.txt";
 //  bgmファイルパス
 	static const char* bgm_data_pass = "200_resource/bgm.mp3";//相対パス
 //  Seファイルパス
-	static const char* cursol_se = "200_resource/se/cursol_se.mp3";//カーソル音
-	static const char* critical_se = "200_resource/se/critical_se.mp3";//ギリギリのとき
+	static const char* cursol_se = "200_resource/240_se/cursol_se.mp3";//カーソル音
+	static const char* critical_se = "200_resource/240_se/critical_se.mp3";//ギリギリのとき
 //  出典について
 	static const char* syutten_memo = "200_resource/syutten.txt";
 //  画像ファイルパス
-	static const char* player = "200_resource/aruku.png"; //プレイヤー
-	static const char* enemy = "200_resource/enemy.png"; //敵
-	static const char* shot = "200_resource/bullet.png"; //弾
+	static const char* player = "200_resource/230_object/aruku.png"; //プレイヤー
+	static const char* enemy = "200_resource/230_object/enemy.png"; //敵
+	static const char* shot = "200_resource/230_object/bullet.png"; //弾
+	static const char* play_back_defalt = "200_resource/210_back_grounds/back_def.png";//ゲーム中のデフォルト背景
 
 }
 
@@ -121,6 +125,8 @@ namespace line_set {
 	static const int selecter_y = window_setting::size_y / 3;//y
 //  見出しの初期配置
 	static const int midasi_y = 100;//y
+//  結果の位置
+	static const int reslt_y = 50; //y
 //  トップ画面の初期位置
 	static const int title_y = 200; //y
 }
@@ -206,11 +212,12 @@ namespace string_set {
 	"Home Music",
 	"Home SE"};//調整項目
 
-	static const char* menu[3] =
+	static const char* menu[4] =
 	{
-		"Play",
-		"Config",
-		"Credit (or End Game)"
+		"Play (ゲームプレイ！)",
+		"Config (設定)",
+		"Credit (or End Game)",
+		"About (説明はココ！)"
 	};//メニュー項目
 
 	static const char* defficult[4] =
@@ -340,6 +347,8 @@ namespace system_set {
 //  難易度の個数
 	static const int defficulter_max = 4;
 
+//  背景透明度
+	static const float alpha_back = 0.8f;
 }
 
 #endif // !__DEFINING_DRAWING_H__

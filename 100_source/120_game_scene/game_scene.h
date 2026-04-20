@@ -16,6 +16,11 @@
 class EnemyManager;
 class PlayerObject;
 class ShotManager;
+//-----------------------------
+// @name   GameScene
+// @brief  ÉQÅ[ÉÄÉVÅ[Éì
+// @memo   
+//------------------------------
 class GameScene:public Scene
 {
 	
@@ -71,5 +76,4 @@ public:
 
 
 };
-
 

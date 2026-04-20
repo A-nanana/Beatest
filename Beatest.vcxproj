@@ -167,10 +167,10 @@
     <ClCompile Include="100_source\130_data_manager\134_other\score_manager.cpp" />
     <ClCompile Include="100_source\130_data_manager\134_other\txt_font_manager.cpp" />
     <ClCompile Include="100_source\140_roading_from_other\file_roader.cpp" />
+    <ClCompile Include="100_source\140_roading_from_other\graph_roader.cpp" />
     <ClCompile Include="100_source\150_effect\151_player\player_effect.cpp" />
     <ClCompile Include="100_source\150_effect\field_effect.cpp" />
     <ClCompile Include="100_source\main.cpp" />
-    <ClCompile Include="graph_roader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="100_source\110_drawing_tools\alpha_node.h" />
@@ -210,11 +210,11 @@
     <ClInclude Include="100_source\130_data_manager\134_other\score_manager.h" />
     <ClInclude Include="100_source\130_data_manager\134_other\txt_font_manager.h" />
     <ClInclude Include="100_source\140_roading_from_other\file_roader.h" />
+    <ClInclude Include="100_source\140_roading_from_other\graph_roader.h" />
     <ClInclude Include="100_source\140_roading_from_other\sqlite3.h" />
     <ClInclude Include="100_source\140_roading_from_other\sqlite3ext.h" />
     <ClInclude Include="100_source\150_effect\151_player\player_effect.h" />
     <ClInclude Include="100_source\150_effect\field_effect.h" />
-    <ClInclude Include="graph_roader.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="100_source\140_roading_from_other\SQLite3.lib" />

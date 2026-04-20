@@ -59,6 +59,9 @@ void MenuScene::PushCheck() {
 			break;
 		case k_credit:
 			next_scene_ = new CreditScene();
+			break; 
+		case k_about:
+			next_scene_ = new AboutScene();
 			break;
 		default:
 			next_scene_ = new ConfigScene();
@@ -176,6 +179,7 @@ void SelectScene::PushCheck() {
 	//直前の選択を保管
 	last_select_[k_music] = selecter_[k_music];
 	last_select_[k_defficult] = selecter_[k_defficult];
+	int upper = 1; //難易度ループ用増加幅
 
 	//W,Sキーで曲選択
 	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_W)) {
@@ -190,10 +194,13 @@ void SelectScene::PushCheck() {
 	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_A)) {
 		MusicManager::GetInstance()->PlaySe(k_select);
 		selecter_[k_defficult]--;
+		upper = -1;
 	}
 	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_D)) {
 		MusicManager::GetInstance()->PlaySe(k_select);
 		selecter_[k_defficult]++;
+		upper = +1;
+
 	}
 	//セレクターをループさせる
 	selecter_[k_music] = (selecter_[k_music] + MusicManager::GetInstance()->GetLineupSize()) % MusicManager::GetInstance()->GetLineupSize();
@@ -204,7 +211,8 @@ void SelectScene::PushCheck() {
 			break;
 		}
 		//そうでなければセレクターを次に
-		selecter_[k_defficult]++;
+		selecter_[k_defficult] += upper;
+
 		selecter_[k_defficult] = (selecter_[k_defficult] + system_set::defficulter_max) % system_set::defficulter_max;
 
 	}
@@ -286,7 +294,7 @@ void SelectScene::Init() {
 	root_->AddChild(new TextNode(string_set::cursol, GetColor(255, 255, 255), line_set::selecter_x, line_set::selecter_y + line_set::brank_y * ((line_set::amount_y_max - 1) / 2)));
 	//	難易度
 	for (int i = 0; i < system_set::defficulter_max; i++) {
-		defficult_[i] = new TextNode(string_set::defficult[i], GetColor(255, 255, 255), ege_set::brank_x, line_set::selecter_y - line_set::brank_y);
+		defficult_[i] = new TextNode(string_set::defficult[i], GetColor(255, 255, 255), line_set::selecter_x, window_setting::center_y + line_set::selecter_y - line_set::brank_y);
 	}
 	//位置初期化
 	for (int i = 0; i < system_set::defficulter_max; i++) {

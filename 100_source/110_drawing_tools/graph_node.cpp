@@ -12,6 +12,8 @@
 #include "tool.h"
 #include "camera.h"
 #include "defining.h"
+#include "../140_roading_from_other/graph_roader.h"
+
 GraphNode::GraphNode(const char* name, float x, float y)
 {
 	graph_handle_ = NULL;
@@ -40,13 +42,8 @@ void GraphNode::SetName(const char* name)
 //ロード
 void GraphNode::Load()
 {
-	//既にあるか判定
-	if (graph_handle_ != NULL) {
-		//メモリ解放のため削除
-		DeleteGraph(graph_handle_);
-	}
-
-	 graph_handle_ = LoadGraph(name_.c_str());
+	
+	 graph_handle_ = GraphRoader::GetInstance()->RoadingGraph(name_);
 	//既にサイズが設定されているか
 	 if (size_x_ > NULL && size_y_ > NULL) {
 		 return;
@@ -59,7 +56,7 @@ void GraphNode::Load()
 //リリース
 void GraphNode::Release()
 {
-	DeleteGraph(graph_handle_);
+	
 }
 //描画
 void GraphNode::Draw(int screen_handle,Camera* camera)
@@ -77,5 +74,15 @@ void GraphNode::Draw(int screen_handle,Camera* camera)
 void GraphNode::Draw(int screen_handle) {
 	DrawRotaGraph(world_position_.x_ + size_x_ / 2, world_position_.y_ + size_y_ / 2, window_setting::graph_extender_
 		, rotate_, graph_handle_, TRUE);
+}
+
+int GraphNode::GetSizeX()
+{
+	return size_x_;
+}
+
+int GraphNode::GetSizeY()
+{
+	return size_y_;
 }
 

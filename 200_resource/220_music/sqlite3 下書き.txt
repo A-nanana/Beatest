@@ -7,6 +7,7 @@ insert into Defficult(Easy, Nomal, Hard, Beyond) values(false, false, false, tru
 
 //更新
 update GameMusicData set Bpm = 200 , time = 134 WHERE Title = 'Reverator_in_Vavel' 
+update Defficult set Beyond = true , WHERE MusicKey = 1 
 
 
 //閲覧

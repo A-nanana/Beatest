@@ -39,5 +39,9 @@ public:
 	void Draw(int screen_handle, Camera* camera) override;
 	void Draw(int screen_handle);
 
+//  ÉQÉbÉ^Å[
+	int GetSizeX();//x
+	int GetSizeY();//y
+
 };
 

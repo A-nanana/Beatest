@@ -29,7 +29,11 @@
 #include "..\140_roading_from_other\file_roader.h"
 #include "..\150_effect\field_effect.h"
 
-
+//-----------------------------
+// @name   GameScene
+// @brief  ゲームシーン
+// @memo   
+//------------------------------
 void GameScene::SceneCheck() {
 
 	//playフェーズでPボタンが押されたら一時停止
@@ -82,7 +86,7 @@ void GameScene::TextUpdate()
 
 	//テキストデータ作成
 	new_text_->AddChild(new TextNode(ScoreManager::GetInstance()->GetNowConbo().c_str(), GetColor(255, 0, 255),
-		window_setting::center_x , window_setting::center_y));
+		window_setting::center_x , line_set::title_y));
 	//サイズ確認
 	int text_length = GetDrawStringWidth(ScoreManager::GetInstance()->GetScore().c_str(), -1);
 
@@ -112,7 +116,7 @@ void GameScene::RestartTextUpdate()
 	int text_length = GetDrawStringWidth(txts.c_str(), -1);
 
 	new_text_->AddChild(new TextFormatNode(txts.c_str(), GetColor(255, 0, 255), TxtFontManager::GetInstance()->SerchFont(string_set::font_midasi1),
-		window_setting::center_x - text_length / 2 , window_setting::center_y));
+		window_setting::center_x - text_length / 2 , line_set::title_y));
 
 	//元々根ノードがあるなら削除
 	if (restart_text_ != nullptr) {
@@ -137,7 +141,7 @@ void GameScene::Init()
 	restart_text_ = new Node();
 	check_text_ = new Node();
 
-	root_->AddChild(new BackgroundNode("200_resource\\back_tree.png", {NULL,NULL}));
+	root_->AddChild(new BackgroundNode(file_set::play_back_defalt, {NULL,NULL}));
 	camera_ = new Camera();
 	
 	//中身の設定

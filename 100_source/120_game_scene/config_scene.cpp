@@ -203,7 +203,7 @@ void CreditScene::Init()
 	root_->AddChild(new TextNode(string_set::push_to_return, GetColor(255, 255, 255), window_setting::size_x - string_size - ege_set::brank_x, window_setting::size_y - line_set::brank_y * 3));
 
 	//テキストを設定
-	FileRoader::GetInstance()->RoadSyutten(text_);
+	FileRoader::GetInstance()->RoadSyutten(text_,file_set::syutten_memo);
 
 	root_->AddChild(new TextNode(text_.c_str(), GetColor(255, 255, 255), line_set::brank_x + ege_set::brank_x, line_set::brank_y + ege_set::brank_y));
 
@@ -233,6 +233,63 @@ Scene* CreditScene::Update(float delta_time)
 }
 
 void CreditScene::Draw(int screen_handle)
+{
+	root_->DrawAll(screen_handle, camera_);
+
+}
+
+
+//-----------------------------
+// @name   AboutScene
+// @brief  説明
+// @memo   セットしてから使うこと
+//------------------------------
+void AboutScene::PushCheck() {
+	//エンターで戻る
+	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_RETURN)) {
+		next_scene_ = GetToReturnScene();
+	}
+}
+
+void AboutScene::Init()
+{
+	root_ = new Node();
+	camera_ = new Camera();
+
+	int string_size = GetDrawStringWidth(string_set::push_to_return, -1);
+	root_->AddChild(new TextNode(string_set::push_to_return, GetColor(255, 255, 255), window_setting::size_x - string_size - ege_set::brank_x, window_setting::size_y - line_set::brank_y * 3));
+
+	//テキストを設定
+	FileRoader::GetInstance()->RoadSyutten(text_, file_set::tutorial_memo);
+
+	root_->AddChild(new TextNode(text_.c_str(), GetColor(255, 255, 255), line_set::brank_x + ege_set::brank_x, line_set::brank_y + ege_set::brank_y));
+
+	next_scene_ = this;
+}
+
+void AboutScene::SetUp()
+{
+	root_->LoadResourceAll();
+	root_->SetUpAll();
+}
+
+void AboutScene::Finalize()
+{
+	root_->ReleaseResourceAll();
+}
+
+Scene* AboutScene::Update(float delta_time)
+{
+	root_->UpdateAll(delta_time);
+
+	root_->SetWorldPositionAll();
+
+	AboutScene::PushCheck();
+
+	return next_scene_;
+}
+
+void AboutScene::Draw(int screen_handle)
 {
 	root_->DrawAll(screen_handle, camera_);
 
