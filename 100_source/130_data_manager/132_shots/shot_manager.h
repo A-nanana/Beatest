@@ -21,7 +21,7 @@ class Camera;
 
 class ShotManager:public Node
 {
-	std::vector<int> shot_graph_handle_;//弾画像のハンドル
+
 	int size_x_, size_y_;//弾画像のサイズ
 	PlayerObject* player_;//使うプレイヤー
 	EnemyManager* enemy_;//使う敵

@@ -17,7 +17,7 @@ void EnemyManager::Load() {
 }
 //リソース解放
 void EnemyManager::Release() {
-
+	
 }
 //更新(更新するときの時間)
 void EnemyManager::Update(float delta_time) {

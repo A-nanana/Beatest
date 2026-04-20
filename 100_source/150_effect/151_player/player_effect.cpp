@@ -103,6 +103,7 @@ void PlayerEffect::Update(float delta_time) {
 			//I—¹‚µ‚Ä‚¢‚é‚©
 			if (eff_line->IsEnd()) {
 				DeleteChild(eff_line);
+				
 			}
 		}
 	}

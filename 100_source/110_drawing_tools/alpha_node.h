@@ -14,22 +14,22 @@
 class AlphaNode:public Node
 {
 	float alpha_;//アルファチャンネル
-	
+	int to_get_alpha_;//入力用アルファ
 	
 	//描画(描画先)
 	void Draw(int screen_handle, Camera* camera) override;
 
 public:
 //  コンストラクタ
-	AlphaNode(float alpha) :alpha_(alpha) {};
+	AlphaNode(float alpha) :alpha_(alpha) { to_get_alpha_ = alpha * 255; };
 //  セッター
-	void SetAlpha(float alpha) { alpha_ = alpha; }; //アルファ値
+	void SetAlpha(float alpha) { alpha_ = alpha; to_get_alpha_ = alpha * 255; }; //アルファ値
 //  ゲッター
 	float GetAlpha() { return alpha_; };//アルファ値
 
 //  加減算
-	void Add(float param) { alpha_ += param; };// 加算
-	void Sub(float param) { alpha_ -= param; };// 減算
+	void Add(float param) { alpha_ += param; to_get_alpha_ = alpha_ * 255;};// 加算
+	void Sub(float param) { alpha_ -= param; to_get_alpha_ = alpha_ * 255;};// 減算
 
 //  追加系
 	void DrawAll(int screen_handle, Camera* camera) override;

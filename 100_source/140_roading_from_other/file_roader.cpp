@@ -323,6 +323,7 @@ std::vector<ShotBooker>* FileRoader::RoadHumen(const MusicData& music_data)
 	int retu = 0;//ファイルの列
 	int setu = 0;//曲の節数
 	int i = 0;//ループカウント
+	int lazer_count = 0; //レーザーのトップ判定
 
 	while (humen_2.size() > i) {
 		switch (humen_2[i])
@@ -357,6 +358,17 @@ std::vector<ShotBooker>* FileRoader::RoadHumen(const MusicData& music_data)
 					booker->push_back(booked);
 				}
 				else if (humen_2[i - retu + j] == '4') //時間差でまく
+				{
+					float in_time = (((setu + (float)j / retu) + 1.0f) * music_data.hyousi_); //時間
+
+					booked.bool_time = in_time * music_data.ms_per_hyousi_;
+					booked.type = system_set::k_enemy_later_renge;
+					//角度計算
+					booked.rooper = system_set::shot_later_roop_param;
+
+					booker->push_back(booked);
+				}
+				else if (humen_2[i - retu + j] == '5') //レーザー
 				{
 					float in_time = (((setu + (float)j / retu) + 1.0f) * music_data.hyousi_); //時間
 

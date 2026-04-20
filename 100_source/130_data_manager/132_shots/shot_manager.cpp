@@ -13,20 +13,18 @@
 #include "shot_manager.h"
 
 #include "shot_object.h"
-#include "..\131_character\player_object.h"
-#include "..\131_character\enemy_manager.h"
-#include "..\..\110_drawing_tools\camera.h"
-#include "..\134_other\score_manager.h"
+#include "../131_character/player_object.h"
+#include "../131_character/enemy_manager.h"
+#include "../../110_drawing_tools/camera.h"
+#include "../134_other/score_manager.h"
+#include "../133_music/music_manager.h"
 
 //ロード
 void ShotManager::Load() {
-	shot_graph_handle_.push_back(LoadGraph(file_set::shot));
 }
 //リソース解放
 void ShotManager::Release() {
-	for (int i = 0; i < shot_graph_handle_.size(); i++) {
-		DeleteGraph(shot_graph_handle_[i]);
-	}
+	
 }
 //更新(更新するときの時間)
 void ShotManager::Update(float delta_time) {
@@ -141,11 +139,17 @@ void ShotManager::AddShot(float x, float y, float speed, float angle, int type)
 		//タイプで分けて追加
 		//時差打ちか通常 
 		if ((type == system_set::k_enemy_nomal) || (type == system_set::k_enemy_later_renge)) {
-			Node::AddChild(new ShotObject(shot_graph_handle_.front(), x, y, speed, angle, GetPlayerCenter(),type));
+			Node::AddChild(new ShotObject(file_set::shot, x, y, speed, angle, GetPlayerCenter(),type));
 		}
 		//一周打ち
 		if (type == system_set::k_enemy_all_renge) {
-			Node::AddChild(new ShotObject(shot_graph_handle_.front(), x, y, speed, angle, { window_setting::length * cos(angle),window_setting::length * sin(angle) },type));
+			Node::AddChild(new ShotObject(file_set::shot, x, y, speed, angle, { window_setting::length * cos(angle),window_setting::length * sin(angle) },type));
+		}
+		//レーザー
+		if (type == system_set::k_enemy_lazer) {
+
+			Node::AddChild(new LongShot(file_set::lazer, speed, angle, GetPlayerCenter(), type));
+
 		}
 		
 	}

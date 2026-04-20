@@ -12,8 +12,14 @@
 
 #include "..\..\110_drawing_tools\Vector2.h"
 #include "..\131_character\object_common.h"
+//-----------------------------
+// @name   ShotObject
+// @brief  通常弾
+// @memo   
+//------------------------------
 class ShotObject:public ObjectCommon
 {
+protected:
 	float speed_size_;//速度ベクトルの長さ
 	int type_;//タイプデータ
 	Vector2D target_;//対象方向
@@ -21,7 +27,7 @@ class ShotObject:public ObjectCommon
 public:
 //  コンストラクタ
 	ShotObject(const int graph_handle, float x, float y,int type) :used_(false), type_(type),ObjectCommon(graph_handle, x, y) {};
-	ShotObject(const int graph_handle, float x, float y, float speed, float angle,Vector2D target, int type);
+	ShotObject(const char* graph_, float x, float y, float speed, float angle,Vector2D target, int type);
 //  デストラクタ
 	~ShotObject();
 
@@ -51,6 +57,32 @@ public:
 	
 	
 };
+
+//-----------------------------
+// @name   LongShot
+// @brief  ビーム弾
+// @memo   
+//------------------------------
+class LongShot :public ShotObject {
+protected:
+	int pre_count_;//表示前カウント
+	int inner_count_;//表示カウント
+public:
+	//  コンストラクタ
+	LongShot(const int graph_handle, float x, float y, int type) :ShotObject(graph_handle,x,y,type) {};
+	LongShot(const  char* graph_, float keep, float angle, Vector2D target, int type);
+	//  デストラクタ
+	~LongShot() {};
+
+	//有効かの切り替え(判定しないようにする)
+	void ChangeUsed() { };
+
+	//更新(更新するときの時間)
+	void Update(float delta_time)override;
+	//解放
+	void Release() override;
+};
+
 #endif // !__SHOT_OBJECT_H__
 
 

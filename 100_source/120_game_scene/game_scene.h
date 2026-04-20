@@ -15,6 +15,7 @@
 
 class EnemyManager;
 class PlayerObject;
+class AlphaNode;
 class ShotManager;
 //-----------------------------
 // @name   GameScene
@@ -28,6 +29,8 @@ class GameScene:public Scene
 	Scene* next_scene_;//次のシーン
 
 	Node* root_;//根ノード作成
+	AlphaNode* back_;//背景ノード
+
 	Node* text_;//テキスト根ノード
 	Node* restart_text_;//再開用の根ノード
 	Node* check_text_;//確認用の根ノード

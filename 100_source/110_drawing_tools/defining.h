@@ -31,8 +31,8 @@ namespace window_setting {
 	static int center_x = size_x / 2; // x
 	static int center_y = size_y / 2; // y
 //  ポップアップの大きさ
-	static const float pop_up_size_x = size_x * 3 / 4; //x
-	static const float pop_up_size_y = size_y * 3 / 4; //y
+	static const float pop_up_size_x = size_x * 1 / 2; //x
+	static const float pop_up_size_y = size_y * 1 / 2; //y
 
 //  ウィンドウの表示猶予
 	static int offset_shown = 100;
@@ -90,6 +90,7 @@ namespace file_set {
 	static const char* player = "200_resource/230_object/aruku.png"; //プレイヤー
 	static const char* enemy = "200_resource/230_object/enemy.png"; //敵
 	static const char* shot = "200_resource/230_object/bullet.png"; //弾
+	static const char* lazer = "200_resource/230_object/bullet.png"; //レーザー
 	static const char* play_back_defalt = "200_resource/210_back_grounds/back_def.png";//ゲーム中のデフォルト背景
 
 }
@@ -320,12 +321,15 @@ namespace system_set {
 	static const int shot_later_roop_param = 5;
 //  画面上の弾数
 	static const int shot_max = 10000;
+//  画面上のエフェクト数
+	static const int eff_max = 10;
+
 //  弾の種類
 	static const enum ShotType {
 		k_enemy_nomal, //通常
 		k_enemy_all_renge, //全体に出す
 		k_enemy_later_renge,// 時差うち
-
+		k_enemy_lazer, //レーザー
 	};
 //  必須待機時間(ms)
 	static const int need_wait_time_ = 0.2 * ms_per_s;

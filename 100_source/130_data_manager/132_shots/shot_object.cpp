@@ -13,13 +13,14 @@
 #include "..\..\110_drawing_tools\defining.h"
 #include "..\133_music\music_manager.h"
 
-ShotObject::ShotObject(const int graph_handle, float x, float y, float speed, float angle, Vector2D target, int type)
-	:used_(true),target_(target), type_(type), ObjectCommon(graph_handle, x, y) {
+ShotObject::ShotObject(const char* graph_, float x, float y, float speed, float angle, Vector2D target, int type)
+	:used_(true),target_(target), type_(type), ObjectCommon(graph_, x, y) {
 	
 	
 	speed_size_ = speed;
 	SetRotate(angle);
 	hit_use_ = true;
+	GraphNode::Load();
 }
 
 ShotObject::~ShotObject()
@@ -83,4 +84,24 @@ void ShotObject::Release()
 
 }
 
+LongShot::LongShot(const char* graph_, float keep, float angle, Vector2D target, int type)
+	:ShotObject(graph_, NULL, NULL, keep, angle, target, type)
+{
+	inner_count_ = keep;
+	SetAngle(target_.x_, target_.y_);
 
+}
+
+void LongShot::Update(float delta_time)
+{
+	//カウント減らす
+	inner_count_ -= delta_time;
+	//カウントが切れているか
+	if (inner_count_ < NULL) {
+		used_ = false;
+	}
+}
+
+void LongShot::Release()
+{
+}

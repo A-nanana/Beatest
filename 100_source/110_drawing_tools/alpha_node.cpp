@@ -12,13 +12,19 @@
 
 void AlphaNode::Draw(int screen_handle,Camera* camera)
 {
-	//ブレンドモードを変えて描画
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha_ * 255);
+	//乗算の必要があるか
+	if (alpha_ > NULL) {
+		//ブレンドモードを変えて描画
+		SetDrawBlendMode(DX_BLENDMODE_PMA_ALPHA, to_get_alpha_);
+	}
 }
 
 void AlphaNode::DrawAll(int screen_handle,Camera* camera)
 {
 	Node::DrawAll(screen_handle,camera);
-	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, alpha_ * 255);
+	//戻す必要があるか
+	if (alpha_ > NULL) {
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, NULL);
+	}
 
 }

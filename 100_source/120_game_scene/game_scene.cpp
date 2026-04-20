@@ -137,11 +137,13 @@ void GameScene::Init()
 	fase_ = k_play;
 
 	root_ = new Node();
+	back_ = new AlphaNode(system_set::alpha_back);
 	end_game_ = new Node();
 	restart_text_ = new Node();
 	check_text_ = new Node();
 
-	root_->AddChild(new BackgroundNode(file_set::play_back_defalt, {NULL,NULL}));
+	back_->AddChild(new BackgroundNode(file_set::play_back_defalt, {NULL,NULL}));
+	root_->AddChild(back_);
 	camera_ = new Camera();
 	
 	//中身の設定
@@ -167,7 +169,7 @@ void GameScene::Init()
 
 	//固定テキストをそのまま追加
 	root_->AddChild(new TextNode(string_set::conbo, GetColor(255, 0, 255),
-		window_setting::center_x, window_setting::center_y - line_set::brank_y));
+		window_setting::center_x, line_set::title_y - line_set::brank_y));
 
 	//確認ポップアップ作成
 	BoxNode* back_box = new BoxNode({ window_setting::center_x-window_setting::pop_up_size_x/2,window_setting::center_y - window_setting::pop_up_size_y / 2 }, 

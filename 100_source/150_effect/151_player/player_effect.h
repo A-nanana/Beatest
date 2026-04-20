@@ -50,7 +50,7 @@ public:
 class PlayerEffect:public Node
 {
 protected:
-	
+	int amount_;//エフェクト数
 	PlayerObject* player_; //プレイヤー
 
 

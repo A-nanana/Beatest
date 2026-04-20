@@ -24,6 +24,7 @@ void BackgroundNode::Update(float delta_time)
 
 void BackgroundNode::Draw(int screen_handle, Camera* camera)
 {
+
 	int draw_pos_y = world_position_.y_ - scroll_pos_.y_+ size_y_;
 	int draw_pos_x = world_position_.x_ - scroll_pos_.x_ + size_x_;
 	//ˆÊ’u–ˆ‚É•`‰æ
@@ -32,6 +33,7 @@ void BackgroundNode::Draw(int screen_handle, Camera* camera)
 	DrawGraph(draw_pos_x - size_x_, draw_pos_y, graph_handle_, false);
 	DrawGraph(draw_pos_x, draw_pos_y - size_y_, graph_handle_, false);
 	DrawGraph(draw_pos_x, draw_pos_y, graph_handle_, false);
+
 
 }
 
