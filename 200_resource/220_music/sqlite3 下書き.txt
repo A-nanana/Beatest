@@ -9,6 +9,8 @@ insert into Defficult(Easy, Nomal, Hard, Beyond) values(false, false, false, tru
 update GameMusicData set Bpm = 200 , time = 134 WHERE Title = 'Reverator_in_Vavel' 
 update Defficult set Beyond = true , WHERE MusicKey = 1 
 
+//削除
+delete from Score where MusicKey = 1
 
 //閲覧
 

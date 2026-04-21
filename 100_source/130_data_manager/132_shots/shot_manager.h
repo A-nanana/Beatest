@@ -10,7 +10,7 @@
 #ifndef __SHOT_MANAGER_H__
 #define __SHOT_MANAGER_H__
 
-#include <vector>
+#include <unordered_map>
 #include "..\..\110_drawing_tools\node.h"
 #include "..\131_character\player_object.h"
 
@@ -22,12 +22,12 @@ class Camera;
 class ShotManager:public Node
 {
 
-	int size_x_, size_y_;//弾画像のサイズ
 	PlayerObject* player_;//使うプレイヤー
 	EnemyManager* enemy_;//使う敵
 	// 読み込み済画像 
 	static std::unordered_map<std::string, int> graph_;
-
+	int long_time_;//スコア加算用カウント
+	int per_time_; //スコア加算単位時間
 
 protected:
 	//ロード

@@ -20,13 +20,14 @@
 #include "../133_music/music_manager.h"
 #include "../../140_roading_from_other/graph_roader.h"
 
-std::unordered_map<std::string, int> ShotManager::graph_;
+std::unordered_map<std::string, int>  ShotManager::graph_;
 //ロード
 void ShotManager::Load() {
 	//画像読み込み
-	GraphRoader::GetInstance()->RoadingGraph(file_set::lazer);
-	
-	GraphRoader::GetInstance()->RoadingGraph(file_set::shot);
+	graph_.insert({ file_set::lazer, GraphRoader::GetInstance()->RoadingGraph(file_set::lazer) });
+	graph_.insert({ file_set::shot, GraphRoader::GetInstance()->RoadingGraph(file_set::shot) });
+	per_time_ = MusicManager::GetInstance()->GetMsPerHyousi();
+	long_time_ = 0;
 }
 //リソース解放
 void ShotManager::Release() {
@@ -34,15 +35,28 @@ void ShotManager::Release() {
 }
 //更新(更新するときの時間)
 void ShotManager::Update(float delta_time) {
-	
+	//レーザー判定か
+	bool is_lazer = false;
 	for (Node* node : children_) {
+
 		ShotObject* shot = dynamic_cast<ShotObject*>(node);
 		//オブジェクトがあるか
 		if (!shot) {
 			continue;
 		}
+		//レーザーか
+		if ((shot->GetType() & system_set::k_enemy_lazer)) {
+			is_lazer = true;
+		}
+		else {
+			is_lazer = false;
+		}
 		//オブジェクトが有効か
 		if (!(shot->IsUsed())) {
+			//レーザーならカウント
+			if (is_lazer) {
+				ScoreManager::GetInstance()->ScoreUpdate(k_lazer_none);
+			}
 			//有効でないならとり除く
 			DeleteChild(shot);
 			continue;
@@ -58,8 +72,8 @@ void ShotManager::Update(float delta_time) {
 		}
 		
 		//判定距離で分岐
-		else if( (player_->GetDistance() < system_set::critical_hit_check*system_set::critical_hit_check)
-			&& shot->GetCenter().Length_2zyou() >= player_->GetCenter().Length_2zyou())//クリティカルの範囲かつ弾がプレイヤーの距離を超える
+		if( (player_->GetDistance() < system_set::critical_hit_check*system_set::critical_hit_check)
+			&&((shot->GetCenter().Length_2zyou() > player_->GetCenter().Length_2zyou()) || !is_lazer))//クリティカルの範囲かつ弾がプレイヤーの奥にある(レーザーは参照しない)
 		{
 			//エフェクトのフラグを立てる
 			player_->SetEffect(effect_set::effect_critical);
@@ -69,8 +83,8 @@ void ShotManager::Update(float delta_time) {
 			shot->ChangeUsed();
 			
 		}
-		else if (player_->GetDistance() < system_set::start_hit_check* system_set::start_hit_check &&
-			shot->GetCenter().Length_2zyou() >= player_->GetCenter().Length_2zyou()) //判定開始ライン かつ　弾が奥にある
+		else if ((player_->GetDistance() < system_set::start_hit_check* system_set::start_hit_check) &&
+			((shot->GetCenter().Length_2zyou() > player_->GetCenter().Length_2zyou()) || !is_lazer)) //判定開始ライン かつ　弾が奥にある(レーザーは参照しない)
 		{
 			//エフェクトのフラグを立てる
 			player_->SetEffect(effect_set::effect_avoid);
@@ -93,6 +107,8 @@ void ShotManager::Update(float delta_time) {
 void ShotManager::ShotIn(Camera* camera)
 {
 	for (Node* node : children_) {
+		
+		//弾のキャスト
 		ShotObject* shot = dynamic_cast<ShotObject*>(node);
 		//オブジェクトがあるか
 		if (!shot) {
@@ -104,8 +120,7 @@ void ShotManager::ShotIn(Camera* camera)
 			ScoreManager::GetInstance()->ScoreUpdate(k_none);
 			//存在フラグ切り替え
 			shot->ChangeUsed();
-			
-
+			continue;
 		}
 	}
 }

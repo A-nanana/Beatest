@@ -38,7 +38,7 @@ namespace window_setting {
 	static int offset_shown = 100;
 
 //  ウィンドウの端直線距離
-	static int length = 400;
+	static int length = 1000;
 
 //  画像拡大率
 	static float graph_extender_ = 0.4f;
@@ -249,7 +249,8 @@ namespace score_set {
 	static const int per_avoiding = 500;
 //  がっつり回避
 	static const int per_none = 100;
-
+//  レーザー回避
+	static const int per_lazer = 600;
 }
 
 //-----------------------------
@@ -321,8 +322,6 @@ namespace system_set {
 	static const int shot_later_roop_param = 5;
 //  画面上の弾数
 	static const int shot_max = 10000;
-//  画面上のエフェクト数
-	static const int eff_max = 10;
 
 //  弾の種類
 	static const enum ShotType {

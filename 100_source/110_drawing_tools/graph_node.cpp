@@ -17,7 +17,7 @@
 GraphNode::GraphNode(const char* name, float x, float y)
 {
 	graph_handle_ = NULL;
-	name_ = name;
+	name_ = new std::string(name);
 	SetPosition(x, y);
 	rotate_ = 0.0f;
 	size_x_ = NULL;
@@ -27,7 +27,7 @@ GraphNode::GraphNode(const char* name, float x, float y)
 GraphNode::GraphNode(const int graph_handle, float x, float y)
 {
 	graph_handle_ = graph_handle;
-	name_ = "UseHandleOnly";
+	name_ = nullptr;
 	SetPosition(x, y);
 	rotate_ = 0.0f;
 	size_x_ = NULL;
@@ -36,14 +36,20 @@ GraphNode::GraphNode(const int graph_handle, float x, float y)
 
 void GraphNode::SetName(const char* name)
 {
-	name_ = name;
+	//既にあるなら破棄
+	if (name_ != nullptr) {
+		delete name_;
+	}
+
+	name_ = new std::string(name);
 }
 
 //ロード
 void GraphNode::Load()
 {
-	
-	 graph_handle_ = GraphRoader::GetInstance()->RoadingGraph(name_);
+	//画像読み込みが必要か
+	if(name_ )
+	 graph_handle_ = GraphRoader::GetInstance()->RoadingGraph(name_->c_str());
 	//既にサイズが設定されているか
 	 if (size_x_ > NULL && size_y_ > NULL) {
 		 return;

@@ -82,7 +82,9 @@ void ScoreManager::ScoreUpdate(HitType type)
 	case k_none:
 		score_.good++;
 		score_.score += score_set::per_none;
-
+		break;
+	case k_lazer_none:
+		score_.score += score_set::per_lazer;
 		break;
 	default:
 		break;

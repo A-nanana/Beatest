@@ -10,7 +10,10 @@
 //------------------------------
 #include "defining.h"
 
+#include <math.h> //数学ライブラリ
+
 #include "DxLib.h"
+#include "Vector2.h"
 
 //-----------------------------
 // @name   window_setting
@@ -27,9 +30,5 @@ void window_setting::WindowSettings()
 	SetWindowSizeChangeEnableFlag(FALSE, FALSE);
 	SetUsePremulAlphaConvertLoad(TRUE);
 	
-	//中央位置計算
-	center_x = size_x / 2;
-	center_y = size_y / 2;
-	//長さ計算
-	length = sqrt(size_x * size_x + size_y * size_y);
+	
 }

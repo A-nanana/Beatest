@@ -26,7 +26,7 @@ protected:
 	bool used_; //有効か
 public:
 //  コンストラクタ
-	ShotObject(const int graph_handle, float x, float y,int type) :used_(false), type_(type),ObjectCommon(graph_handle, x, y) {};
+	ShotObject(const int graph_handle, float x, float y, float speed, float angle, Vector2D target, int type) ;
 	ShotObject(const char* graph_, float x, float y, float speed, float angle,Vector2D target, int type);
 //  デストラクタ
 	~ShotObject();
@@ -72,11 +72,13 @@ protected:
 	float extender_; //専用のx拡大率
 public:
 	//  コンストラクタ
-	LongShot(const int graph_handle, float x, float y, int type) :ShotObject(graph_handle,x,y,type) {};
+	LongShot(const int graph_handle, float x, float y, float keep, float angle, Vector2D target, int type) ;
 	LongShot(const  char* graph_, float x, float y, float keep, float angle, Vector2D target, int type);
 	//  デストラクタ
 	~LongShot() {};
 
+	//位置計算が替わるので使用
+	void SetWorldPosition();
 	//有効かの切り替え(判定しないようにする)
 	void ChangeUsed() { };
 

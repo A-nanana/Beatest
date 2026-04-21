@@ -224,9 +224,10 @@ Scene* GameScene::Update(float delta_time) {
 		
 
 		TextUpdate();
+
 		root_->UpdateAll(delta_time);
-		
 		root_->SetWorldPositionAll();
+
 		shot_manage_->ShotIn(camera_);
 		enemy_->HitEnemies(player_);
 

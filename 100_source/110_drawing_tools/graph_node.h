@@ -18,7 +18,7 @@ class GraphNode:public Node
 {
 protected:
 	int graph_handle_; //‰æ‘œƒnƒ“ƒhƒ‹
-	std::string name_; //‰æ‘œ–¼
+	std::string* name_; //‰æ‘œ–¼
 	float rotate_; //‰ñ“]
 	int size_x_,size_y_;//‘å‚«‚³
 

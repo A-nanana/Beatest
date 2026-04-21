@@ -225,14 +225,10 @@ void FileRoader::WriteScore(const MusicData& music_data)
 	//確認できるか
 	if (use_lib_
 		&& (sqlite3_prepare_v2(db_, inser_msg.c_str(), inser_msg.size(), &stmt, NULL) != SQLITE_OK)) {
-		use_lib_ = false;
-		sqlite3_close(db_);
-		return;
 	}
-	//ライブラリ使用確認
-	if (use_lib_) {
+	else {
 		sqlite3_bind_int(stmt, 1, music_data.high_score_);
-		sqlite3_bind_int(stmt, 2, music_data.music_key_ );
+		sqlite3_bind_int(stmt, 2, music_data.music_key_);
 
 		//処理確認用
 		int r = NULL;
@@ -245,8 +241,7 @@ void FileRoader::WriteScore(const MusicData& music_data)
 
 			sqlite3_finalize(stmt);
 		}
-
-
+		return;
 	}
 	
 	//文章確認
@@ -375,7 +370,7 @@ std::vector<ShotBooker>* FileRoader::RoadHumen(const MusicData& music_data)
 					
 					//偶数カウントならレーザーの終了端
 					if (is_lazer_bottom) {
-						booked.bool_time = lazer_top_time;
+						booked.bool_time = lazer_top_time - music_data.ms_per_hyousi_;
 						booked.speed =	in_time * music_data.ms_per_hyousi_ - lazer_top_time;
 						booked.type = system_set::k_enemy_lazer;
 						//角度計算

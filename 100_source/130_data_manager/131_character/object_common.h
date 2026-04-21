@@ -25,7 +25,7 @@ protected:
 public:
 //  コンストラクタ
 	ObjectCommon(const char* name, float x, float y, float hit_size_x, float hit_size_y);
-	ObjectCommon(const char* name, float x, float y) :GraphNode(name, x, y), hit_use_(false) { };
+	ObjectCommon(const char* name, float x, float y) :GraphNode(name, x, y), hit_use_(false) {};
 	ObjectCommon(const int graph_handle, float x, float y);
 
 //  セッター
