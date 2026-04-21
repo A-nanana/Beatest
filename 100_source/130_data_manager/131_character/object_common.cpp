@@ -78,9 +78,10 @@ void ObjectCommon::SetWorldPosition()
 
 void ObjectCommon::SetAngle(float to_x, float to_y)
 {
+
     //算出用座標
-    float dy = to_y + size_y_ - world_position_.y_;
-    float dx = to_x + size_x_ - world_position_.x_;
+    float dy = to_y  - world_position_.y_;
+    float dx = to_x  - world_position_.x_;
     //算出用角度
     float angle;
     //0がらみの安定化

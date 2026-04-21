@@ -43,6 +43,13 @@ int GraphRoader::RoadingGraph(std::string& name)
 	return graph_[name];
 }
 
+int GraphRoader::RoadingGraph(const char* name)
+{
+	std::string in_name = name;
+
+	return RoadingGraph(in_name);
+}
+
 void GraphRoader::DeletingGraph(std::string& name)
 {
 	//‘¶İ‚Ì—L–³‚ÌŠm”F

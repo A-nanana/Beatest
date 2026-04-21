@@ -50,6 +50,8 @@ public:
 	//有効かの切り替え
 	void ChangeUsed() { used_ = false; };
 
+	//ロード
+	void Load() override;
 	//更新(更新するときの時間)
 	void Update(float delta_time)override;
 	//解放
@@ -67,10 +69,11 @@ class LongShot :public ShotObject {
 protected:
 	int pre_count_;//表示前カウント
 	int inner_count_;//表示カウント
+	float extender_; //専用のx拡大率
 public:
 	//  コンストラクタ
 	LongShot(const int graph_handle, float x, float y, int type) :ShotObject(graph_handle,x,y,type) {};
-	LongShot(const  char* graph_, float keep, float angle, Vector2D target, int type);
+	LongShot(const  char* graph_, float x, float y, float keep, float angle, Vector2D target, int type);
 	//  デストラクタ
 	~LongShot() {};
 
@@ -79,6 +82,10 @@ public:
 
 	//更新(更新するときの時間)
 	void Update(float delta_time)override;
+	//ロード
+	void Load() override;
+	//描画
+	void Draw(int screen_handle, Camera* camera) override;
 	//解放
 	void Release() override;
 };

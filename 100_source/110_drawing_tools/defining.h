@@ -90,7 +90,7 @@ namespace file_set {
 	static const char* player = "200_resource/230_object/aruku.png"; //プレイヤー
 	static const char* enemy = "200_resource/230_object/enemy.png"; //敵
 	static const char* shot = "200_resource/230_object/bullet.png"; //弾
-	static const char* lazer = "200_resource/230_object/bullet.png"; //レーザー
+	static const char* lazer = "200_resource/230_object/lazer.png"; //レーザー
 	static const char* play_back_defalt = "200_resource/210_back_grounds/back_def.png";//ゲーム中のデフォルト背景
 
 }
@@ -308,7 +308,7 @@ namespace system_set {
 //  速度の減少幅
 	static const float shot_speed_down = 0.5;
 //  角度が大きくなったときの修正角度
-	static const float repair_rad = M_PI * 270.0f / 180.0f;
+	static const float repair_rad = M_PI * 350.0f / 180.0f;
 //  1sをmsに直す
 	static const int ms_per_s = 1000;
 //  猶予時間

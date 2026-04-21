@@ -38,14 +38,7 @@ void HitLineEffect::Update(float delta_time) {
 	}
 
 
-	//奇数か偶数かで処理切り替え
-	if ((looper_count_ % 2) == 0) {
-		Add((float)(delta_time / time_per_loop_harf_));
-	}
-	else {
-		Sub((float)(delta_time / time_per_loop_harf_));
-
-	}
+	
 
 //  子の分繰り返し
 	for (Node* child : children_) {
@@ -59,7 +52,7 @@ void HitLineEffect::Update(float delta_time) {
 	
 }
 
-HitLineEffect::HitLineEffect(int loop_max, int time_per_loop, Vector2D vector_point, Vector2D size)
+HitLineEffect::HitLineEffect(int loop_max, int time_per_loop, Vector2D vector_point, Vector2D size,int type )
 	:AlphaNode(window_setting::null_param)
 {
 	SetWorldPosition();
@@ -68,6 +61,8 @@ HitLineEffect::HitLineEffect(int loop_max, int time_per_loop, Vector2D vector_po
 	looper_count_ = 0;
 	time_count_ = 0.0f;
 	time_per_loop_harf_ = time_per_loop / 2;
+	eff_type_ = type;
+
 }
 
 void HitLineEffect::SetEffPositon(Vector2D player_point, Vector2D graph_size)
@@ -102,6 +97,9 @@ void PlayerEffect::Update(float delta_time) {
 		if (eff_line != nullptr) {
 			//終了しているか
 			if (eff_line->IsEnd()) {
+				//存在フラグを倒す
+				flg_ &= ~eff_line->GetFlg();
+				player_->RestEffect(eff_line->GetFlg());
 				DeleteChild(eff_line);
 				
 			}
@@ -111,27 +109,34 @@ void PlayerEffect::Update(float delta_time) {
 
 PlayerEffect::PlayerEffect(PlayerObject* player)
 {
+	flg_ = NULL;
 	player_ = player;
 }
 
 void PlayerEffect::Create(int flg)
 {
-	//フラグで切り替え
 	
-	if ((flg & effect_set::effect_critical)) {
-		AddChild(new HitLineEffect(effect_param::loop_hit, effect_param::time_per_loop, player_->GetCenter(), player_->GetSize()));
+
+	//フラグで各種切り替え
+	//クリティカル判定 & 画面上にエフェクトがない
+	if ((flg & effect_set::effect_critical) & ~(flg_ & effect_set::effect_critical)) {
+		
+		AddChild(new HitLineEffect(effect_param::loop_hit, effect_param::time_per_loop, player_->GetCenter(), player_->GetSize(), effect_set::effect_critical));
 		//Se再生
 		MusicManager::GetInstance()->PlaySe(k_play_critical);
-		//エフェクトのフラグを消す
-		player_->RestEffect(effect_set::effect_critical);
 	}
-	if ((flg & effect_set::effect_avoid)) {
-		AddChild(new HitLineEffect(effect_param::loop_hit, effect_param::time_per_loop, player_->GetCenter(), player_->GetSize()));
-		//エフェクトのフラグを消す
-		player_->RestEffect(effect_set::effect_avoid);
+	
+	//回避判定 & 画面上にエフェクトがない
+	if ((flg & effect_set::effect_avoid) & ~(flg_ & effect_set::effect_avoid)) {
+		
+		AddChild(new HitLineEffect(effect_param::loop_hit, effect_param::time_per_loop, player_->GetCenter(), player_->GetSize(), effect_set::effect_avoid));
+		
 	}
-	if ((flg & effect_set::effect_none)) {
-		//エフェクトのフラグを消す
-		player_->RestEffect(effect_set::effect_none);
+
+	//通常判定 & 画面上にエフェクトがない
+	if ((flg & effect_set::effect_none) & ~(flg_ & effect_set::effect_none)) {
+		
 	}
+	//フラグを立てる
+	flg_ |= flg;
 }

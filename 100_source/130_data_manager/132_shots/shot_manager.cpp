@@ -18,9 +18,15 @@
 #include "../../110_drawing_tools/camera.h"
 #include "../134_other/score_manager.h"
 #include "../133_music/music_manager.h"
+#include "../../140_roading_from_other/graph_roader.h"
 
+std::unordered_map<std::string, int> ShotManager::graph_;
 //ロード
 void ShotManager::Load() {
+	//画像読み込み
+	GraphRoader::GetInstance()->RoadingGraph(file_set::lazer);
+	
+	GraphRoader::GetInstance()->RoadingGraph(file_set::shot);
 }
 //リソース解放
 void ShotManager::Release() {
@@ -148,7 +154,7 @@ void ShotManager::AddShot(float x, float y, float speed, float angle, int type)
 		//レーザー
 		if (type == system_set::k_enemy_lazer) {
 
-			Node::AddChild(new LongShot(file_set::lazer, speed, angle, GetPlayerCenter(), type));
+			Node::AddChild(new LongShot(file_set::lazer,NULL,NULL, speed, angle, GetPlayerCenter(), type));
 
 		}
 		

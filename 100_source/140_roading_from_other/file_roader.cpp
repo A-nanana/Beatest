@@ -219,7 +219,7 @@ void FileRoader::WriteScore(const MusicData& music_data)
 	//プロパティ読み込み
 	std::string table_name = file_set::score_data_base_table;//stringに変換
 	std::string inser_msg = "update " + table_name + " set " + string_set::defficult[ChangeBitToNum(music_data.defficult)] + " = ? WHERE MusicKey = ? ;"; //クエリ文
-	std::string inser_msg_2 = "insert to " + table_name + "(MusicKey ,"+ string_set::defficult[ChangeBitToNum(music_data.defficult)]  +") values( ? , ? );"; //クエリ文
+	std::string inser_msg_2 = "insert into " + table_name + "(MusicKey ,"+ string_set::defficult[ChangeBitToNum(music_data.defficult)]  +") values( ? , ? );"; //クエリ文
 	
 	sqlite3_stmt* stmt = NULL; //状態格納ハンドル.
 	//確認できるか
@@ -249,7 +249,6 @@ void FileRoader::WriteScore(const MusicData& music_data)
 
 	}
 	
-	//ここまできた場合そもそもデータがないので挿入する
 	//文章確認
 	if (use_lib_
 		&& (sqlite3_prepare_v2(db_, inser_msg_2.c_str(), inser_msg_2.size(), &stmt, NULL) != SQLITE_OK)) {
@@ -257,6 +256,7 @@ void FileRoader::WriteScore(const MusicData& music_data)
 		sqlite3_close(db_);
 		return;
 	}
+	//ここまできた場合そもそもデータがないので挿入する
 	//ライブラリ使用確認
 	if (use_lib_) {
 		sqlite3_bind_int(stmt, 2, music_data.high_score_);
@@ -323,7 +323,8 @@ std::vector<ShotBooker>* FileRoader::RoadHumen(const MusicData& music_data)
 	int retu = 0;//ファイルの列
 	int setu = 0;//曲の節数
 	int i = 0;//ループカウント
-	int lazer_count = 0; //レーザーのトップ判定
+	bool is_lazer_bottom = false; //レーザーのトップ判定
+	int lazer_top_time = NULL; //レーザーのトップの時間
 
 	while (humen_2.size() > i) {
 		switch (humen_2[i])
@@ -371,13 +372,22 @@ std::vector<ShotBooker>* FileRoader::RoadHumen(const MusicData& music_data)
 				else if (humen_2[i - retu + j] == '5') //レーザー
 				{
 					float in_time = (((setu + (float)j / retu) + 1.0f) * music_data.hyousi_); //時間
+					
+					//偶数カウントならレーザーの終了端
+					if (is_lazer_bottom) {
+						booked.bool_time = lazer_top_time;
+						booked.speed =	in_time * music_data.ms_per_hyousi_ - lazer_top_time;
+						booked.type = system_set::k_enemy_lazer;
+						//角度計算
+						booked.rooper = system_set::shot_later_roop_param;
+						booker->push_back(booked);
+						is_lazer_bottom ^= 1;
 
-					booked.bool_time = in_time * music_data.ms_per_hyousi_;
-					booked.type = system_set::k_enemy_later_renge;
-					//角度計算
-					booked.rooper = system_set::shot_later_roop_param;
-
-					booker->push_back(booked);
+					}
+					else {
+						lazer_top_time = in_time * music_data.ms_per_hyousi_;
+						is_lazer_bottom ^= 1;
+					}
 				}
 			}
 			setu++;
@@ -396,7 +406,8 @@ std::vector<ShotBooker>* FileRoader::RoadHumen(const MusicData& music_data)
 		i++;
 
 	}
-	
+	//もしレーザーが残っているなら処理
+
 
 	humen_p.close();
 

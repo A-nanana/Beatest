@@ -25,6 +25,9 @@ class ShotManager:public Node
 	int size_x_, size_y_;//弾画像のサイズ
 	PlayerObject* player_;//使うプレイヤー
 	EnemyManager* enemy_;//使う敵
+	// 読み込み済画像 
+	static std::unordered_map<std::string, int> graph_;
+
 
 protected:
 	//ロード

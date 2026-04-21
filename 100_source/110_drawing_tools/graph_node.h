@@ -28,7 +28,7 @@ public:
 	GraphNode(const int graph_handle, float x, float y);
 
 //  セッター
-	void SetName(const char* name);
+	void SetName(const char* name);//名前
 
 //  オーバーライド系列
 	//ロード

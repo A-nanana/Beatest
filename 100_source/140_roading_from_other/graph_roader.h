@@ -41,6 +41,7 @@ public:
 
 	//‰æ‘œ“Ç‚İ‚İ
 	int RoadingGraph(std::string& name);
+	int RoadingGraph(const char* name);
 	//‰æ‘œ‚Ìíœ
 	void DeletingGraph(std::string& name);
 

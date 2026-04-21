@@ -26,19 +26,22 @@ protected:
 	int looper_count_;//ループカウント(最大はループ最大数の二倍であることに注意)
 	float time_per_loop_harf_;//0.5ループあたりの時間
 	float time_count_;//時間カウント
-
+	
+	int eff_type_;//エフェクト種類
 
 	//更新(更新するときの時間)
 	void Update(float delta_time);
 public:
 //  コンストラクタ
-	HitLineEffect(int loop_max,int time_per_loop, Vector2D vector_point, Vector2D size);
+	HitLineEffect(int loop_max,int time_per_loop, Vector2D vector_point, Vector2D size,int type);
 
 //  位置設定(第一引数で中心を渡すこと)
 	void SetEffPositon(Vector2D player_point, Vector2D graph_size);
 //  終了確認
 	bool IsEnd() { return looper_count_ > looper_max_; };
 
+//  フラグ取得
+	int GetFlg() { return eff_type_; };
 };
 
 
@@ -50,7 +53,7 @@ public:
 class PlayerEffect:public Node
 {
 protected:
-	int amount_;//エフェクト数
+	int flg_;//今あるエフェクト
 	PlayerObject* player_; //プレイヤー
 
 

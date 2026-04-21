@@ -194,8 +194,10 @@ void GameScene::SetUp()
 {
 	//bgmを止める
 	MusicManager::GetInstance()->StopBgm();
+	//ロードとセット
 	root_->LoadResourceAll();
 	root_->SetUpAll();
+
 	end_game_->LoadResourceAll();
 	end_game_->SetUpAll();
 	//楽曲再生

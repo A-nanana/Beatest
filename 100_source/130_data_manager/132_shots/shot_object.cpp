@@ -9,9 +9,10 @@
 //------------------------------
 #include <iostream>
 #include "shot_object.h"
-#include "..\131_character\player_object.h"
-#include "..\..\110_drawing_tools\defining.h"
-#include "..\133_music\music_manager.h"
+#include "../131_character/player_object.h"
+#include "../../110_drawing_tools/camera.h"
+#include "../../110_drawing_tools/defining.h"
+#include "../133_music/music_manager.h"
 
 ShotObject::ShotObject(const char* graph_, float x, float y, float speed, float angle, Vector2D target, int type)
 	:used_(true),target_(target), type_(type), ObjectCommon(graph_, x, y) {
@@ -51,6 +52,10 @@ int ShotObject::YBottom(void)
 
 
 
+void ShotObject::Load()
+{
+}
+
 //更新
 void ShotObject::Update(float delta_time) {
 	
@@ -61,7 +66,6 @@ void ShotObject::Update(float delta_time) {
 	}
 	else if(type_ != system_set::k_enemy_all_renge) //全体に撒くものではないか
 	{
-		SetAngle(target_.x_, target_.y_);
 
 	}
 
@@ -84,12 +88,17 @@ void ShotObject::Release()
 
 }
 
-LongShot::LongShot(const char* graph_, float keep, float angle, Vector2D target, int type)
-	:ShotObject(graph_, NULL, NULL, keep, angle, target, type)
+LongShot::LongShot(const char* graph_, float x, float y, float keep, float angle, Vector2D target, int type)
+	:ShotObject(graph_, x, y, keep, angle, target, type)
 {
+	pre_count_ = NULL;
 	inner_count_ = keep;
+	
 	SetAngle(target_.x_, target_.y_);
 
+	
+	extender_ = size_x_ / window_setting::length;
+	
 }
 
 void LongShot::Update(float delta_time)
@@ -99,6 +108,27 @@ void LongShot::Update(float delta_time)
 	//カウントが切れているか
 	if (inner_count_ < NULL) {
 		used_ = false;
+	}
+	ObjectCommon::SetWorldPosition();
+
+}
+
+void LongShot::Load()
+{
+	size_x_ = window_setting::length;
+	SetHitSize(size_x_, size_y_ * window_setting::graph_extender_);
+}
+
+void LongShot::Draw(int screen_handle, Camera* camera)
+{
+	//カメラ内か
+	if (camera->IsDraw(GetWorldPosition(), size_x_, size_y_)) {
+		Vector2D draw_pos_;
+		draw_pos_.x_ = camera->DrawPositionX(world_position_.x_) ;
+		draw_pos_.y_ = camera->DrawPositionY(world_position_.y_) - size_y_ / 2;
+		DrawRotaGraph3(draw_pos_.x_, draw_pos_.y_, NULL, size_y_ / 2,extender_,window_setting::graph_extender_
+			, rotate_, graph_handle_, TRUE);
+		DrawLine(draw_pos_.x_, draw_pos_.y_, target_.x_,target_.y_, GetColor(255,0,255));
 	}
 }
 
