@@ -48,8 +48,9 @@ void GraphNode::SetName(const char* name)
 void GraphNode::Load()
 {
 	//画像読み込みが必要か
-	if(name_ )
-	 graph_handle_ = GraphRoader::GetInstance()->RoadingGraph(name_->c_str());
+	if (name_) {
+		graph_handle_ = GraphRoader::GetInstance()->RoadingGraph(name_->c_str());
+	}
 	//既にサイズが設定されているか
 	 if (size_x_ > NULL && size_y_ > NULL) {
 		 return;

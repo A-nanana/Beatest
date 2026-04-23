@@ -305,7 +305,7 @@ namespace system_set {
 	static const float player_hit_size_y = 70.0f;//y
 
 //  弾のデフォルトの速さ
-	static const float shot_speed_def = 5;
+	static const float shot_speed_def = 2.0f;
 //  速度の減少幅
 	static const float shot_speed_down = 0.5;
 //  角度が大きくなったときの修正角度

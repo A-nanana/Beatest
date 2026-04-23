@@ -160,16 +160,16 @@ void ShotManager::AddShot(float x, float y, float speed, float angle, int type)
 		//タイプで分けて追加
 		//時差打ちか通常 
 		if ((type == system_set::k_enemy_nomal) || (type == system_set::k_enemy_later_renge)) {
-			Node::AddChild(new ShotObject(file_set::shot, x, y, speed, angle, GetPlayerCenter(),type));
+			Node::AddChild(new ShotObject(graph_[file_set::shot], x, y, speed, angle, GetPlayerCenter(), type));
 		}
 		//一周打ち
 		if (type == system_set::k_enemy_all_renge) {
-			Node::AddChild(new ShotObject(file_set::shot, x, y, speed, angle, { window_setting::length * cos(angle),window_setting::length * sin(angle) },type));
+			Node::AddChild(new ShotObject(graph_[file_set::shot], x, y, speed, angle, { window_setting::length * cos(angle),window_setting::length * sin(angle) },type));
 		}
 		//レーザー
 		if (type == system_set::k_enemy_lazer) {
 
-			Node::AddChild(new LongShot(file_set::lazer,NULL,NULL, speed, angle, GetPlayerCenter(), type));
+			Node::AddChild(new LongShot(graph_[file_set::lazer],NULL,NULL, speed, angle, GetPlayerCenter(), type));
 
 		}
 		

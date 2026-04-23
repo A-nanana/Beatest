@@ -320,6 +320,9 @@
     <ClInclude Include="100_source\140_roading_from_other\graph_roader.h">
       <Filter>ヘッダー ファイル\140_roading_from_other</Filter>
     </ClInclude>
+    <ClInclude Include="200_resource\250_other\resource.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="100_source\140_roading_from_other\SQLite3.lib">
@@ -327,8 +330,13 @@
     </Library>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="200_resource\250_other\Resource.rc">
+    <ResourceCompile Include="200_resource\250_other\resource.rc">
       <Filter>リソース ファイル</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="200_resource\250_other\icon.ico">
+      <Filter>リソース ファイル</Filter>
+    </Image>
   </ItemGroup>
 </Project>

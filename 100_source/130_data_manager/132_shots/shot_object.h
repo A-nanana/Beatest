@@ -50,8 +50,7 @@ public:
 	//有効かの切り替え
 	void ChangeUsed() { used_ = false; };
 
-	//ロード
-	void Load() override;
+	
 	//更新(更新するときの時間)
 	void Update(float delta_time)override;
 	//解放
@@ -84,8 +83,7 @@ public:
 
 	//更新(更新するときの時間)
 	void Update(float delta_time)override;
-	//ロード
-	void Load() override;
+	
 	//描画
 	void Draw(int screen_handle, Camera* camera) override;
 	//解放

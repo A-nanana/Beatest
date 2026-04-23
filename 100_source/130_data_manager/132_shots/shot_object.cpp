@@ -62,10 +62,6 @@ int ShotObject::YBottom(void)
 
 
 
-void ShotObject::Load()
-{
-}
-
 //çXêV
 void ShotObject::Update(float delta_time) {
 	
@@ -161,10 +157,7 @@ void LongShot::Update(float delta_time)
 
 }
 
-void LongShot::Load()
-{
-	
-}
+
 
 void LongShot::Draw(int screen_handle, Camera* camera)
 {

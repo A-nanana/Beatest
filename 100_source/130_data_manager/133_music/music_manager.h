@@ -41,7 +41,7 @@ struct MusicData {
 struct LineUp
 {
 	std::string title; //タイトル
-	std::optional<int> high_score[system_set::defficulter_max];//最高スコア
+	std::optional<int> high_score[system_set::defficulter_max]; //最高スコア
 	std::uint8_t defficalt_flg_;//難易度フラグ
 	int music_key;//楽曲キー
 

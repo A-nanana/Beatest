@@ -16,12 +16,14 @@
 #include "120_game_scene\top_scene.h"
 #include "130_data_manager\133_music\music_manager.h"
 #include "130_data_manager\134_other\configs_manager.h"
+#include "../200_resource/250_other/resource.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 	
 	
 	window_setting::WindowSettings();
 	SetMainWindowText(string_set::title);
+	SetWindowIconID(IDI_ICON1);
 	if (DxLib_Init() == -1) {
 		return -1;
 	}
