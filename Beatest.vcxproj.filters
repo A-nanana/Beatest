@@ -326,4 +326,9 @@
       <Filter>ソース ファイル\140_roading_from_other</Filter>
     </Library>
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="200_resource\250_other\Resource.rc">
+      <Filter>リソース ファイル</Filter>
+    </ResourceCompile>
+  </ItemGroup>
 </Project>
