@@ -161,10 +161,8 @@ bool ObjectCommon::IsHit(ObjectCommon* other)
     //当たり判定を扱えるか
     if (hit_use_ && other->IsObject()) {
 
-        return HitCheckToBox(other) || other->HitCheckToBox(this);
+        return HitCheckToBox(other);
         
-
-
     }
     return false;
     

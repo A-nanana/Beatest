@@ -224,10 +224,10 @@
     <Library Include="100_source\140_roading_from_other\SQLite3.lib" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="200_resource\250_other\resource.rc" />
+    <Image Include="200_resource\250_other\icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="200_resource\250_other\icon.ico" />
+    <ResourceCompile Include="200_resource\250_other\resource.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

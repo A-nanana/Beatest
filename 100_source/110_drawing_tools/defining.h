@@ -91,7 +91,12 @@ namespace file_set {
 	static const char* enemy = "200_resource/230_object/enemy.png"; //敵
 	static const char* shot = "200_resource/230_object/bullet.png"; //弾
 	static const char* lazer = "200_resource/230_object/lazer.png"; //レーザー
+	static const char* selecter = "200_resource/230_object/selecter.png"; //選択のカーソル
+
 	static const char* play_back_defalt = "200_resource/210_back_grounds/back_def.png";//ゲーム中のデフォルト背景
+	static const char* menu_back_defalt = "200_resource/210_back_grounds/main_back_def.png";//メニューのデフォルト背景
+	
+	static const char* title_top = "200_resource/250_other/title_top.png"; //タイトル
 
 }
 
@@ -129,7 +134,9 @@ namespace line_set {
 //  結果の位置
 	static const int reslt_y = 50; //y
 //  トップ画面の初期位置
-	static const int title_y = 200; //y
+	static const int title_y = 250; //y
+	static const int push_txt_y = 350; //y
+
 }
 
 //-----------------------------
@@ -305,7 +312,7 @@ namespace system_set {
 	static const float player_hit_size_y = 70.0f;//y
 
 //  弾のデフォルトの速さ
-	static const float shot_speed_def = 2.0f;
+	static const float shot_speed_def = 5.0f;
 //  速度の減少幅
 	static const float shot_speed_down = 0.5;
 //  角度が大きくなったときの修正角度

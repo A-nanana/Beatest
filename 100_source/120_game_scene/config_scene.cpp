@@ -8,6 +8,8 @@
 //Copyright (c) 2026 A.nanami All rights reserved.
 //------------------------------
 #include "config_scene.h"
+
+#include "background_node.h"
 #include "../110_drawing_tools/node.h"
 #include "../110_drawing_tools/text_node.h"
 #include "../110_drawing_tools/inputer.h"
@@ -43,6 +45,7 @@ void ConfigScene::PushCheck() {
 	selecter_ = (selecter_ + k_config_amount) % k_config_amount;
 	//‘I‘ðˆÊ’u‚ÌC³
 	selecter_node_->SetPosition(line_set::selecter_x, line_set::selecter_y + selecter_ * line_set::brank_y * 2);
+	selecter_node_->SetCenter();
 
 	//A,D‚Å—Ê’²®
 	//A‚È‚çŒ¸­
@@ -110,8 +113,9 @@ void ConfigScene::Init()
 
 	//’†g‚ÌÝ’è
 	int string_size = GetDrawFormatStringWidthToHandle(TxtFontManager::GetInstance()->SerchFont(string_set::font_midasi1), string_set::config_set);
+	root_->AddChild(new BackgroundNode(file_set::menu_back_defalt, { window_setting::null_param,window_setting::null_param }));
 
-	selecter_node_ = new TextNode("->", GetColor(255, 255, 255), line_set::selecter_x, line_set::selecter_y);
+	selecter_node_ = new GraphNode(file_set::selecter, line_set::selecter_x, line_set::selecter_y, true);
 
 	root_->AddChild(new TextFormatNode(string_set::config_set, GetColor(255, 255, 255), TxtFontManager::GetInstance()->SerchFont(string_set::font_midasi1), window_setting::center_x - string_size / 2, line_set::midasi_y));
 	
@@ -198,6 +202,7 @@ void CreditScene::Init()
 {
 	root_ = new Node();
 	camera_ = new Camera();
+	root_->AddChild(new BackgroundNode(file_set::menu_back_defalt, { window_setting::null_param,window_setting::null_param }));
 
 	int string_size = GetDrawStringWidth(string_set::push_to_return, -1);
 	root_->AddChild(new TextNode(string_set::push_to_return, GetColor(255, 255, 255), window_setting::size_x - string_size - ege_set::brank_x, window_setting::size_y - line_set::brank_y * 3));
@@ -255,6 +260,7 @@ void AboutScene::Init()
 {
 	root_ = new Node();
 	camera_ = new Camera();
+	root_->AddChild(new BackgroundNode(file_set::menu_back_defalt, { window_setting::null_param,window_setting::null_param }));
 
 	int string_size = GetDrawStringWidth(string_set::push_to_return, -1);
 	root_->AddChild(new TextNode(string_set::push_to_return, GetColor(255, 255, 255), window_setting::size_x - string_size - ege_set::brank_x, window_setting::size_y - line_set::brank_y * 3));

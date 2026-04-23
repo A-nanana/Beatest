@@ -330,13 +330,13 @@
     </Library>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="200_resource\250_other\resource.rc">
-      <Filter>リソース ファイル</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
     <Image Include="200_resource\250_other\icon.ico">
       <Filter>リソース ファイル</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="200_resource\250_other\resource.rc">
+      <Filter>リソース ファイル</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

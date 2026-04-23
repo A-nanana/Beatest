@@ -16,6 +16,7 @@
 
 class Node;
 class TextNode;
+class GraphNode;
 //-----------------------------
 // @name   ConfigScene
 // @brief  設定
@@ -29,7 +30,7 @@ class ConfigScene :public Scene
 	Node* root_;//根ノード作成
 
 	Node* text_;//テキスト用根ノード
-	Node* selecter_node_;//セレクター用ノード
+	GraphNode* selecter_node_;//セレクター用ノード
 
 	int selecter_;//設定の選択カーソル
 	int last_select_;//直前の番号

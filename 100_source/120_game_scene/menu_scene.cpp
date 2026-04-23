@@ -15,7 +15,8 @@
 #include "../110_drawing_tools/text_node.h"
 #include "../110_drawing_tools/inputer.h"
 #include "../110_drawing_tools/tool.h"
-#include "../120_game_scene/config_scene.h"
+#include "config_scene.h"
+#include "background_node.h"
 #include "../130_data_manager/133_music/music_manager.h"
 #include "../130_data_manager/134_other/configs_manager.h"
 #include "../130_data_manager/134_other/txt_font_manager.h"
@@ -44,6 +45,7 @@ void MenuScene::PushCheck() {
 	selecter_ = (selecter_ + k_menu_item_max) % k_menu_item_max;
 	//選択位置の修正
 	selecter_node_->SetPosition(line_set::selecter_x, line_set::selecter_y + selecter_ * line_set::brank_y * 2);
+	selecter_node_->SetCenter();
 	//エンターで決定
 	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_RETURN)) {
 		MusicManager::GetInstance()->PlaySe(k_select);
@@ -111,9 +113,12 @@ void MenuScene::Init()
 	//中身の設定
 	root_ = new Node();
 	camera_ = new Camera();
+
+	//メニュー画面の背景画像設定
+	root_->AddChild(new BackgroundNode(file_set::menu_back_defalt, { window_setting::null_param,window_setting::null_param }));
 	int string_size = GetDrawFormatStringWidthToHandle(TxtFontManager::GetInstance()->SerchFont(string_set::font_midasi1),string_set::select_menu);
 
-	selecter_node_ = new TextNode(string_set::cursol, GetColor(255, 255, 255), line_set::selecter_x, line_set::selecter_y);
+	selecter_node_ = new GraphNode(file_set::selecter, line_set::selecter_x, line_set::selecter_y,true);
 
 	root_->AddChild(new TextFormatNode(string_set::select_menu, GetColor(255, 255, 255), TxtFontManager::GetInstance()->SerchFont(string_set::font_midasi1), window_setting::center_x - string_size / 2, line_set::midasi_y));
 	root_->AddChild(selecter_node_);
@@ -286,12 +291,13 @@ SelectScene::SelectScene()
 void SelectScene::Init() {
 	MusicManager::GetInstance()->SetLineUp();
 
-	
+	root_->AddChild(new BackgroundNode(file_set::menu_back_defalt, { window_setting::null_param,window_setting::null_param }));
+
 	int string_size = GetDrawFormatStringWidthToHandle(TxtFontManager::GetInstance()->SerchFont(string_set::font_midasi1), string_set::select_song);
 
 	root_->AddChild(new TextFormatNode(string_set::select_song, GetColor(255, 255, 255), TxtFontManager::GetInstance()->SerchFont(string_set::font_midasi1), window_setting::center_x - string_size / ((line_set::amount_y_max - 1) / 2), line_set::midasi_y));
 	root_->AddChild(new TextNode(string_set::high_score, GetColor(255, 255, 255), window_setting::center_x + line_set::selecter_x, line_set::selecter_y + line_set::brank_y * (line_set::amount_y_max - 2)));
-	root_->AddChild(new TextNode(string_set::cursol, GetColor(255, 255, 255), line_set::selecter_x, line_set::selecter_y + line_set::brank_y * ((line_set::amount_y_max - 1) / 2)));
+	root_->AddChild(new GraphNode(file_set::selecter, line_set::selecter_x, line_set::selecter_y + line_set::brank_y * 2,true));
 	//	難易度
 	for (int i = 0; i < system_set::defficulter_max; i++) {
 		defficult_[i] = new TextNode(string_set::defficult[i], GetColor(255, 255, 255), line_set::selecter_x, window_setting::center_y + line_set::selecter_y - line_set::brank_y);

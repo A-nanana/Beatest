@@ -12,7 +12,7 @@
 #include "top_scene.h"
 #include "menu_scene.h"
 
-#include "..\110_drawing_tools\buttom_node.h"
+#include "..\110_drawing_tools\graph_node.h"
 #include "..\110_drawing_tools\text_node.h"
 #include "..\110_drawing_tools\inputer.h"
 #include "..\110_drawing_tools\defining.h"
@@ -42,14 +42,15 @@ void TopScene::Init()
 	//中身作成
 	root_ = new Node();
 	camera_ = new Camera();
-	int string_size = GetDrawStringWidth(string_set::title, -1);
 
-	
-	root_->AddChild(new TextNode(string_set::title, GetColor(255, 255, 255), window_setting::center_x - string_size / 2, line_set::title_y));
-	
-	string_size = GetDrawStringWidth(string_set::push_to_start, -1);
+	//タイトル
+	GraphNode* nodes = new GraphNode(file_set::title_top, window_setting::center_x, line_set::title_y,true);
 
-	root_->AddChild(new TextNode(string_set::push_to_start, GetColor(255, 255, 255), window_setting::center_x - string_size / 2, line_set::title_y + line_set::brank_y * 2 ));
+	root_->AddChild(nodes);
+	
+	int string_size = GetDrawStringWidth(string_set::push_to_start, -1);
+
+	root_->AddChild(new TextNode(string_set::push_to_start, GetColor(255, 255, 255), window_setting::center_x - string_size / 2, line_set::push_txt_y));
 	
 
 

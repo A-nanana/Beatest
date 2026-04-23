@@ -14,24 +14,27 @@
 #include "defining.h"
 #include "../140_roading_from_other/graph_roader.h"
 
-GraphNode::GraphNode(const char* name, float x, float y)
+GraphNode::GraphNode(const char* name, float x, float y, bool center_option)
 {
 	graph_handle_ = NULL;
 	name_ = new std::string(name);
-	SetPosition(x, y);
+	Node::SetPosition(x, y);
 	rotate_ = 0.0f;
 	size_x_ = NULL;
 	size_y_ = NULL;
+	is_center_option_ = center_option;
 }
 
 GraphNode::GraphNode(const int graph_handle, float x, float y)
 {
 	graph_handle_ = graph_handle;
 	name_ = nullptr;
-	SetPosition(x, y);
+	Node::SetPosition(x, y);
 	rotate_ = 0.0f;
 	size_x_ = NULL;
 	size_y_ = NULL;
+	
+
 }
 
 void GraphNode::SetName(const char* name)
@@ -44,11 +47,21 @@ void GraphNode::SetName(const char* name)
 	name_ = new std::string(name);
 }
 
+void GraphNode::SetCenter()
+{
+	//中央に揃えるか
+	if (is_center_option_) {
+		SetPosition({ position_.x_ - size_x_ / 2,position_.y_ - size_y_ / 2 });
+	}
+}
+
 //ロード
 void GraphNode::Load()
 {
+	
+
 	//画像読み込みが必要か
-	if (name_) {
+	if (name_ != nullptr) {
 		graph_handle_ = GraphRoader::GetInstance()->RoadingGraph(name_->c_str());
 	}
 	//既にサイズが設定されているか
@@ -58,6 +71,7 @@ void GraphNode::Load()
 	 GetGraphSize(graph_handle_, &size_x_, &size_y_);
 	 size_x_ *= window_setting::graph_extender_;
 	 size_y_ *= window_setting::graph_extender_;
+	
 }
 
 //リリース
@@ -65,6 +79,12 @@ void GraphNode::Release()
 {
 	
 }
+
+void GraphNode::SetUp()
+{
+	SetCenter();
+}
+
 //描画
 void GraphNode::Draw(int screen_handle,Camera* camera)
 {

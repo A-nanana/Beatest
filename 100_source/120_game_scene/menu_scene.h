@@ -16,7 +16,7 @@
 
 class Node;
 class TextNode;
-
+class GraphNode;
 //-----------------------------
 // @name   MenuScene
 // @brief  メニューシーン
@@ -30,7 +30,7 @@ class MenuScene:public Scene
 	Node* root_;//根ノード作成
 
 	Node* text_;//テキストノード(テキスト親ノード)
-	Node* selecter_node_;//選択用のノード
+	GraphNode* selecter_node_;//選択用のノード
 
 	int selecter_;//選択番号
 	int last_select_;//直前の番号

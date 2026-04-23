@@ -20,7 +20,7 @@ ShotObject::ShotObject(const int graph_handle, float x, float y, float speed, fl
 
 	speed_size_ = speed;
 	SetRotate(angle);
-	hit_use_ = true;
+	hit_use_ = false;
 	GraphNode::Load();
 }
 
@@ -30,7 +30,7 @@ ShotObject::ShotObject(const char* graph_, float x, float y, float speed, float 
 	
 	speed_size_ = speed;
 	SetRotate(angle);
-	hit_use_ = true;
+	hit_use_ = false;
 	GraphNode::Load();
 }
 
@@ -96,7 +96,8 @@ LongShot::LongShot(const int graph_handle, float x, float y, float keep, float a
 	SetAngle(target_.x_, target_.y_);
 
 
-	extender_ = size_x_ / window_setting::length;
+	extender_ = (float)window_setting::length / size_x_;
+
 	size_x_ = window_setting::length;
 	SetHitSize(size_x_, size_y_ * window_setting::graph_extender_);
 }
@@ -109,7 +110,7 @@ LongShot::LongShot(const char* graph_, float x, float y, float keep, float angle
 	
 	SetAngle(target_.x_, target_.y_);
 	
-	extender_ = window_setting::length / size_x_;
+	extender_ = (float)window_setting::length / size_x_;
 	size_x_ = window_setting::length;
 	SetHitSize(size_x_ , size_y_ * window_setting::graph_extender_);
 }
@@ -117,7 +118,7 @@ LongShot::LongShot(const char* graph_, float x, float y, float keep, float angle
 void LongShot::SetWorldPosition()
 {
 
-	 Node::SetWorldPosition();
+	 ObjectCommon::SetWorldPosition();
     //頂点(回転の中心と図形の中心を合わせる)設定
     point_[0].Set(0.0f, -hit_size_.y_ / 2);
     point_[1].Set(+hit_size_.x_ , -hit_size_.y_ / 2);
@@ -175,7 +176,6 @@ void LongShot::Draw(int screen_handle, Camera* camera)
 			DrawRotaGraph3(draw_pos_.x_, draw_pos_.y_, NULL, size_y_ / 2, extender_, window_setting::graph_extender_
 				, rotate_, graph_handle_, TRUE);
 		}
-		DrawLine(point_[0].x_, point_[0].y_, point_[2].x_, point_[2].y_, GetColor(0, 255, 255));
 
 	}
 }

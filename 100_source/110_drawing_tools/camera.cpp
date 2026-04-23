@@ -41,8 +41,8 @@ void Camera::Update()
 bool Camera::IsDraw(Vector2D world_pos, int size_x, int size_y)
 {
 	//描画領域の外にあるなら描画しないとする
-	if ((position_.x_ - size_x> world_pos.x_) || ((position_.x_ + size_.x_) < world_pos.x_)
-		|| (position_.y_ - size_y > world_pos.y_) || ((position_.y_ + size_.y_ ) < world_pos.y_)) {
+	if ((position_.x_ - size_x> world_pos.x_) || ((position_.x_ + size_.x_+ size_x) < world_pos.x_)
+		|| (position_.y_ - size_y > world_pos.y_) || ((position_.y_ + size_.y_ + size_y) < world_pos.y_)) {
 		return false;
 	}
 	return true;

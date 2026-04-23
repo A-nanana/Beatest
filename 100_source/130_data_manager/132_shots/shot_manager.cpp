@@ -62,8 +62,10 @@ void ShotManager::Update(float delta_time) {
 			continue;
 		}
 
-		//当たっているか
-		if (player_->IsHit(shot)) {
+		//当たっているか(レーザーのみ取りこぼし防止のため双方向判定)
+		if (player_->IsHit(shot) || (is_lazer && shot->IsHit(player_))) {
+			player_->SetEffect(effect_set::effect_critical);
+
 			//コンボの消去
 			ScoreManager::GetInstance()->ScoreUpdate(k_miss);
 			//存在フラグ切り替え
@@ -73,7 +75,7 @@ void ShotManager::Update(float delta_time) {
 		
 		//判定距離で分岐
 		if( (player_->GetDistance() < system_set::critical_hit_check*system_set::critical_hit_check)
-			&&((shot->GetCenter().Length_2zyou() > player_->GetCenter().Length_2zyou()) || !is_lazer))//クリティカルの範囲かつ弾がプレイヤーの奥にある(レーザーは参照しない)
+			&&(shot->GetCenter().Length_2zyou() > player_->GetCenter().Length_2zyou()) )//クリティカルの範囲かつ弾がプレイヤーの奥にある(レーザーは参照しない)
 		{
 			//エフェクトのフラグを立てる
 			player_->SetEffect(effect_set::effect_critical);
@@ -84,7 +86,7 @@ void ShotManager::Update(float delta_time) {
 			
 		}
 		else if ((player_->GetDistance() < system_set::start_hit_check* system_set::start_hit_check) &&
-			((shot->GetCenter().Length_2zyou() > player_->GetCenter().Length_2zyou()) || !is_lazer)) //判定開始ライン かつ　弾が奥にある(レーザーは参照しない)
+			(shot->GetCenter().Length_2zyou() > player_->GetCenter().Length_2zyou())) //判定開始ライン かつ　弾が奥にある(レーザーは参照しない)
 		{
 			//エフェクトのフラグを立てる
 			player_->SetEffect(effect_set::effect_avoid);
@@ -169,7 +171,7 @@ void ShotManager::AddShot(float x, float y, float speed, float angle, int type)
 		//レーザー
 		if (type == system_set::k_enemy_lazer) {
 
-			Node::AddChild(new LongShot(graph_[file_set::lazer],NULL,NULL, speed, angle, GetPlayerCenter(), type));
+			Node::AddChild(new LongShot(graph_[file_set::lazer],window_setting::null_param,window_setting::null_param, speed, angle, GetPlayerCenter(), type));
 
 		}
 		

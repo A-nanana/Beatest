@@ -21,20 +21,23 @@ protected:
 	std::string* name_; //画像名
 	float rotate_; //回転
 	int size_x_,size_y_;//大きさ
+	bool is_center_option_; //中央に揃えるか
 
 public:
 //  コンストラクタ(x,yは相対位置)
-	GraphNode(const char* name, float x,float y);
+	GraphNode(const char* name, float x, float y, bool center_option =false );
 	GraphNode(const int graph_handle, float x, float y);
 
 //  セッター
 	void SetName(const char* name);//名前
-
+	void SetCenter();//中央に揃える
 //  オーバーライド系列
 	//ロード
 	void Load() override;
 	//リリース
 	void Release() override;
+	//設定
+	void SetUp() override;
 	//描画
 	void Draw(int screen_handle, Camera* camera) override;
 	void Draw(int screen_handle);
