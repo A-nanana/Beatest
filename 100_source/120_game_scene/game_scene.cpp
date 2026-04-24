@@ -12,22 +12,23 @@
 #include "game_scene.h"
 #include "menu_scene.h"
 
-#include "..\110_drawing_tools\text_node.h"
-#include "..\110_drawing_tools\inputer.h"
-#include "..\110_drawing_tools\box_node.h"
+#include "../110_drawing_tools/text_node.h"
+#include "../110_drawing_tools/inputer.h"
+#include "../110_drawing_tools/box_node.h"
 #include "result_scene.h"
 #include "background_node.h"
-#include "..\130_data_manager\131_character\object_common.h"
-#include "..\130_data_manager\131_character\player_object.h"
-#include "..\130_data_manager\131_character\enemy_object.h"
-#include "..\130_data_manager\131_character\enemy_manager.h"
-#include "..\130_data_manager\132_shots\shot_manager.h"
-#include "..\130_data_manager\133_music\music_manager.h"
-#include "..\130_data_manager\134_other\configs_manager.h"
-#include "..\130_data_manager\134_other\score_manager.h"
-#include "..\130_data_manager\134_other\txt_font_manager.h"
-#include "..\140_roading_from_other\file_roader.h"
-#include "..\150_effect\field_effect.h"
+#include "../130_data_manager/131_character/object_common.h"
+#include "../130_data_manager/131_character/player_object.h"
+#include "../130_data_manager/131_character/enemy_object.h"
+#include "../130_data_manager/131_character/enemy_manager.h"
+#include "../130_data_manager/132_shots/shot_manager.h"
+#include "../130_data_manager/133_music/music_manager.h"
+#include "../130_data_manager/134_other/configs_manager.h"
+#include "../130_data_manager/134_other/score_manager.h"
+#include "../130_data_manager/134_other/txt_font_manager.h"
+#include "../130_data_manager/134_other/window_manager.h"
+#include "../140_roading_from_other/file_roader.h"
+#include "../150_effect/field_effect.h"
 
 //-----------------------------
 // @name   GameScene
@@ -86,12 +87,12 @@ void GameScene::TextUpdate()
 
 	//テキストデータ作成
 	new_text_->AddChild(new TextNode(ScoreManager::GetInstance()->GetNowConbo().c_str(), GetColor(255, 0, 255),
-		window_setting::center_x , line_set::title_y));
+		WindowManager::GetInstance()->GetWindowCenterX() , line_set::title_y));
 	//サイズ確認
 	int text_length = GetDrawStringWidth(ScoreManager::GetInstance()->GetScore().c_str(), -1);
 
 	new_text_->AddChild(new TextNode(ScoreManager::GetInstance()->GetScore().c_str(), GetColor(255, 0, 255),
-		window_setting::size_x - text_length - line_set::brank_x, window_setting::size_y - line_set::brank_y));
+		WindowManager::GetInstance()->GetWindowSize().x_ - text_length - line_set::brank_x, WindowManager::GetInstance()->GetWindowSize().y_ - line_set::brank_y));
 
 	//元々根ノードがあるなら削除
 	if (text_ != nullptr) {
@@ -116,7 +117,7 @@ void GameScene::RestartTextUpdate()
 	int text_length = GetDrawStringWidth(txts.c_str(), -1);
 
 	new_text_->AddChild(new TextFormatNode(txts.c_str(), GetColor(255, 0, 255), TxtFontManager::GetInstance()->SerchFont(string_set::font_midasi1),
-		window_setting::center_x - text_length / 2 , line_set::title_y));
+		WindowManager::GetInstance()->GetWindowCenterX() - text_length / 2 , line_set::title_y));
 
 	//元々根ノードがあるなら削除
 	if (restart_text_ != nullptr) {
@@ -150,7 +151,7 @@ void GameScene::Init()
 	
 	//プレイヤー
 	player_ = PlayerObject::GetInstance();
-	player_->SetPosition(window_setting::center_x , window_setting::center_y + line_set::brank_y);
+	player_->SetPosition(WindowManager::GetInstance()->GetWindowCenterX() , WindowManager::GetInstance()->GetWindowCenterY() + line_set::brank_y);
 
 	//ショットと敵
 	shot_manage_ = new ShotManager();
@@ -169,23 +170,23 @@ void GameScene::Init()
 
 	//固定テキストをそのまま追加
 	root_->AddChild(new TextNode(string_set::conbo, GetColor(255, 0, 255),
-		window_setting::center_x, line_set::title_y - line_set::brank_y));
+		WindowManager::GetInstance()->GetWindowCenterX(), line_set::title_y - line_set::brank_y));
 
 	//確認ポップアップ作成
-	BoxNode* back_box = new BoxNode({ window_setting::center_x-window_setting::pop_up_size_x/2,window_setting::center_y - window_setting::pop_up_size_y / 2 }, 
-		{ window_setting::pop_up_size_x ,window_setting::pop_up_size_y },GetColor(230,230,250),NULL,true);
+	BoxNode* back_box = new BoxNode({ WindowManager::GetInstance()->GetWindowCenterX() - (WindowManager::GetInstance()->GetPopUpSize().x_/2),WindowManager::GetInstance()->GetWindowCenterY() -( WindowManager::GetInstance()->GetPopUpSize().y_ / 2) }, 
+		 WindowManager::GetInstance()->GetPopUpSize(),GetColor(230,230,250),NULL,true);
 	int i = 0;//個数カウント
 	for (auto txt : string_set::continue_check) {
 		i++;
 		back_box->AddChild(new TextNode(txt, GetColor(0, 0, 0),
-			window_setting::pop_up_size_x / 4, line_set::brank_y*i - ege_set::brank_y+window_setting::pop_up_size_y/3));
+			WindowManager::GetInstance()->GetPopUpSize().x_ / 4, line_set::brank_y*i - ege_set::brank_y+WindowManager::GetInstance()->GetPopUpSize().y_/3));
 	}
 	check_text_->AddChild(back_box);
 
 	//テキスト更新
 	TextUpdate();
 	end_game_->AddChild(new TextNode(string_set::game_finish, GetColor(255, 255, 255),
-		window_setting::center_x, window_setting::center_y));
+		WindowManager::GetInstance()->GetWindowCenterX(), WindowManager::GetInstance()->GetWindowCenterY()));
 
 	next_scene_ = this;
 }

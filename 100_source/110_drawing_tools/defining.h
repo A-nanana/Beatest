@@ -19,7 +19,7 @@
 //-----------------------------
 // @name   window_setting
 // @brief  ウィンドウ関係
-// @memo   
+// @memo   初期値管理用
 //------------------------------
 namespace window_setting {
 //  ウィンドウサイズ
@@ -27,21 +27,16 @@ namespace window_setting {
 	static int size_y = 600; // y
 //  カラービット
 	static int color_bit = 32;
-//  ウィンドウの中央位置
-	static int center_x = size_x / 2; // x
-	static int center_y = size_y / 2; // y
-//  ポップアップの大きさ
-	static const float pop_up_size_x = size_x * 1 / 2; //x
-	static const float pop_up_size_y = size_y * 1 / 2; //y
+//  ポップアップの大きさ(ウィンドウとの相対倍率)
+	static const float pop_up_extend_x = 0.5f; //x
+	static const float pop_up_extend_y = 0.5f; //y
 
 //  ウィンドウの表示猶予
 	static int offset_shown = 100;
 
-//  ウィンドウの端直線距離
-	static int length = 1000;
-
 //  画像拡大率
 	static float graph_extender_ = 0.4f;
+	static float selecter_extender_ = 0.15f;
 
 //  fps
 	static const int fps = 60;
@@ -61,8 +56,7 @@ namespace window_setting {
 	static const int first_music_vol_percent = 50;
 	static const int first_se_vol_percent = 25;
 
-//  ウィンドウの初期設定を一括でする関数
-	void WindowSettings();
+
 }
 
 //-----------------------------
@@ -122,13 +116,13 @@ namespace ege_set {
 namespace line_set {
 //  間の空白
 	static const int brank_x = 32; // x
-	static const int brank_y = 32; // y
+	static const int brank_y = 48; // y
 //  最大で並べられる数
 	static const int amount_x_max = 4; // x
 	static const int amount_y_max = 5; // y
-//  セレクター系の初期位置
-	static const int selecter_x = window_setting::center_x / 3;//x
-	static const int selecter_y = window_setting::size_y / 3;//y
+//  セレクター系の位置補正値
+	static const int selecter_pos_x = 0;//x
+	static const int selecter_pos_y = 65;//y
 //  見出しの初期配置
 	static const int midasi_y = 100;//y
 //  結果の位置

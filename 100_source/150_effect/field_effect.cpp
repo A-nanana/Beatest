@@ -9,9 +9,10 @@
 //Copyright (c) 2026 A.nanami All rights reserved.
 //------------------------------
 #include "field_effect.h"
-#include "..\110_drawing_tools\circle_node.h"
-#include "..\110_drawing_tools\defining.h"
-#include "..\130_data_manager\133_music\music_manager.h"
+#include "../110_drawing_tools/circle_node.h"
+#include "../110_drawing_tools/defining.h"
+#include "../130_data_manager/133_music/music_manager.h"
+#include "../130_data_manager/134_other/window_manager.h"
 
 //------------------------------
 // @name   BackBeatEffect
@@ -48,7 +49,7 @@ BackBeatEffect::BackBeatEffect(int time_per_loop, int beat_time,Vector2D vector_
 {
 	SetPosition(vector_point);
 	time_per_loop_ = time_per_loop;
-	max_size_ = window_setting::length;
+	max_size_ = WindowManager::GetInstance()->GetWindowLength();
 	beat_time_ = beat_time;
 	time_count_ = 0.0f;
 

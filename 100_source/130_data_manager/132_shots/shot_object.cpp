@@ -13,6 +13,7 @@
 #include "../../110_drawing_tools/camera.h"
 #include "../../110_drawing_tools/defining.h"
 #include "../133_music/music_manager.h"
+#include "../134_other/window_manager.h"
 
 ShotObject::ShotObject(const int graph_handle, float x, float y, float speed, float angle, Vector2D target, int type)
 	:used_(true), target_(target), type_(type), ObjectCommon(graph_handle, x, y) {
@@ -20,7 +21,7 @@ ShotObject::ShotObject(const int graph_handle, float x, float y, float speed, fl
 
 	speed_size_ = speed;
 	SetRotate(angle);
-	hit_use_ = false;
+	hit_use_ = true;
 	GraphNode::Load();
 }
 
@@ -30,7 +31,7 @@ ShotObject::ShotObject(const char* graph_, float x, float y, float speed, float 
 	
 	speed_size_ = speed;
 	SetRotate(angle);
-	hit_use_ = false;
+	hit_use_ = true;
 	GraphNode::Load();
 }
 
@@ -96,9 +97,9 @@ LongShot::LongShot(const int graph_handle, float x, float y, float keep, float a
 	SetAngle(target_.x_, target_.y_);
 
 
-	extender_ = (float)window_setting::length / size_x_;
+	extender_ = WindowManager::GetInstance()->GetWindowLength() / size_x_;
 
-	size_x_ = window_setting::length;
+	size_x_ = WindowManager::GetInstance()->GetWindowLength();
 	SetHitSize(size_x_, size_y_ * window_setting::graph_extender_);
 }
 
@@ -110,8 +111,8 @@ LongShot::LongShot(const char* graph_, float x, float y, float keep, float angle
 	
 	SetAngle(target_.x_, target_.y_);
 	
-	extender_ = (float)window_setting::length / size_x_;
-	size_x_ = window_setting::length;
+	extender_ = WindowManager::GetInstance()->GetWindowLength() / size_x_;
+	size_x_ = WindowManager::GetInstance()->GetWindowLength();
 	SetHitSize(size_x_ , size_y_ * window_setting::graph_extender_);
 }
 
@@ -145,13 +146,13 @@ void LongShot::Update(float delta_time)
 	//予備動作カウントを減らす
 	pre_count_ -= delta_time;
 	//予備動作カウントを確認
-	if (pre_count_ < NULL) {
+	if (pre_count_ < 0) {
 		hit_use_ = true;
 		//カウント減らす
 		inner_count_ -= delta_time;
 	}
 	//カウントが切れているか
-	if (inner_count_ < NULL) {
+	if (inner_count_ < 0) {
 		used_ = false;
 	}
 	SetWorldPosition();
@@ -168,8 +169,8 @@ void LongShot::Draw(int screen_handle, Camera* camera)
 		Vector2D draw_pos_;
 		draw_pos_.x_ = camera->DrawPositionX(world_position_.x_) ;
 		draw_pos_.y_ = camera->DrawPositionY(world_position_.y_) - size_y_ / 2;
-		//カウントで切り替え
-		if (pre_count_ >= NULL) {
+		//カウントが切れるまでは予告線のみ出す
+		if (pre_count_ >= 0) {
 			DrawLine(draw_pos_.x_, draw_pos_.y_, target_.x_, target_.y_,GetColor(0,255,255));
 		}
 		else {

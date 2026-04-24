@@ -11,14 +11,15 @@
 #include <iostream>
 #include "result_scene.h"
 #include "menu_scene.h"
-#include "..\110_drawing_tools\buttom_node.h"
-#include "..\110_drawing_tools\text_node.h"
-#include "..\110_drawing_tools\inputer.h"
-#include "..\110_drawing_tools\defining.h"
-#include "..\130_data_manager\133_music\music_manager.h"
-#include "..\130_data_manager\134_other\score_manager.h"
-#include "..\130_data_manager\134_other\txt_font_manager.h"
-#include "..\140_roading_from_other\file_roader.h"
+#include "../110_drawing_tools/buttom_node.h"
+#include "../110_drawing_tools/text_node.h"
+#include "../110_drawing_tools/inputer.h"
+#include "../110_drawing_tools/defining.h"
+#include "../130_data_manager/133_music/music_manager.h"
+#include "../130_data_manager/134_other/score_manager.h"
+#include "../130_data_manager/134_other/txt_font_manager.h"
+#include "../130_data_manager/134_other/window_manager.h"
+#include "../140_roading_from_other/file_roader.h"
 
 //-----------------------------
 // @name   ResultScene
@@ -101,37 +102,37 @@ void ResultScene::Init() {
 	int string_size = GetDrawFormatStringWidthToHandle(TxtFontManager::GetInstance()->SerchFont(string_set::font_midasi2), string_set::result);
 
 
-	root_->AddChild(new TextFormatNode(string_set::result, GetColor(255, 255, 255), TxtFontManager::GetInstance()->SerchFont(string_set::font_midasi2),window_setting::center_x - string_size / 2, line_set::midasi_y));
-	root_->AddChild(new TextNode(string_set::score, GetColor(255, 255, 255), window_setting::center_x / 2 - line_set::brank_x, line_set::reslt_y + line_set::selecter_y));
-	root_->AddChild(new TextNode(string_set::max_conbo, GetColor(255, 255, 255), window_setting::center_x / 2 - line_set::brank_x, line_set::reslt_y + line_set::selecter_y + line_set::brank_y));
+	root_->AddChild(new TextFormatNode(string_set::result, GetColor(255, 255, 255), TxtFontManager::GetInstance()->SerchFont(string_set::font_midasi2),WindowManager::GetInstance()->GetWindowCenterX() - string_size / 2, line_set::midasi_y));
+	root_->AddChild(new TextNode(string_set::score, GetColor(255, 255, 255), WindowManager::GetInstance()->GetWindowCenterX() / 2 - line_set::brank_x, line_set::reslt_y + WindowManager::GetInstance()->GetSelecterCenter().y_));
+	root_->AddChild(new TextNode(string_set::max_conbo, GetColor(255, 255, 255), WindowManager::GetInstance()->GetWindowCenterX() / 2 - line_set::brank_x, line_set::reslt_y + WindowManager::GetInstance()->GetSelecterCenter().y_ + line_set::brank_y));
 
 	//ここからフェーズ切り替え用
 	//最終結果
 	root_res_[k_fase_all_res_] = new TextNode(ScoreManager::GetInstance()->GetScore().c_str(), GetColor(255, 255, 255),
-		window_setting::center_x , line_set::reslt_y + line_set::selecter_y);
+		WindowManager::GetInstance()->GetWindowCenterX() , line_set::reslt_y + WindowManager::GetInstance()->GetSelecterCenter().y_);
 
 	//最大コンボ
 	root_res_[k_fase_conbo_] = new TextNode(ScoreManager::GetInstance()->GetMaxConbo().c_str(), GetColor(255, 255, 255),
-		window_setting::center_x , line_set::reslt_y + line_set::selecter_y + line_set::brank_y);
+		WindowManager::GetInstance()->GetWindowCenterX() , line_set::reslt_y + WindowManager::GetInstance()->GetSelecterCenter().y_ + line_set::brank_y);
 
 	//コンボ内訳
 	root_res_[k_fase_critical_] = new TextNode(ScoreManager::GetInstance()->GetCritical().c_str(), GetColor(255, 255, 255),
-		window_setting::center_x, line_set::reslt_y + line_set::selecter_y + line_set::brank_y * 2);
+		WindowManager::GetInstance()->GetWindowCenterX(), line_set::reslt_y + WindowManager::GetInstance()->GetSelecterCenter().y_ + line_set::brank_y * 2);
 	root_res_[k_fase_critical_]->AddChild(new TextNode(string_set::result_uchiwake[k_critical], GetColor(255, 255, 255),
 		-string_size, window_setting::null_param));
 
 	root_res_[k_fase_great_] = new TextNode(ScoreManager::GetInstance()->GetGreat().c_str(), GetColor(255, 255, 255),
-		window_setting::center_x, line_set::reslt_y + line_set::selecter_y + line_set::brank_y * 3);
+		WindowManager::GetInstance()->GetWindowCenterX(), line_set::reslt_y + WindowManager::GetInstance()->GetSelecterCenter().y_ + line_set::brank_y * 3);
 	root_res_[k_fase_great_]->AddChild(new TextNode(string_set::result_uchiwake[k_great], GetColor(255, 255, 255),
 		-string_size, window_setting::null_param));
 
 	root_res_[k_fase_good_] = new TextNode(ScoreManager::GetInstance()->GetGood().c_str(), GetColor(255, 255, 255),
-		window_setting::center_x, line_set::reslt_y + line_set::selecter_y + line_set::brank_y * 4);
+		WindowManager::GetInstance()->GetWindowCenterX(), line_set::reslt_y + WindowManager::GetInstance()->GetSelecterCenter().y_ + line_set::brank_y * 4);
 	root_res_[k_fase_good_]->AddChild(new TextNode(string_set::result_uchiwake[k_none], GetColor(255, 255, 255),
 		-string_size, window_setting::null_param));
 
 	root_res_[k_fase_miss_] = new TextNode(ScoreManager::GetInstance()->GetMiss().c_str(), GetColor(255, 255, 255),
-		window_setting::center_x, line_set::reslt_y + line_set::selecter_y + line_set::brank_y * 5);
+		WindowManager::GetInstance()->GetWindowCenterX(), line_set::reslt_y + WindowManager::GetInstance()->GetSelecterCenter().y_ + line_set::brank_y * 5);
 	root_res_[k_fase_miss_]->AddChild(new TextNode(string_set::result_uchiwake[k_miss], GetColor(255, 255, 255),
 		-string_size, window_setting::null_param));
 	string_size = GetDrawStringWidth(string_set::push_to_return, -1);

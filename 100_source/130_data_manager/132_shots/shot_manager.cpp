@@ -17,6 +17,7 @@
 #include "../131_character/enemy_manager.h"
 #include "../../110_drawing_tools/camera.h"
 #include "../134_other/score_manager.h"
+#include "../134_other/window_manager.h"
 #include "../133_music/music_manager.h"
 #include "../../140_roading_from_other/graph_roader.h"
 
@@ -45,7 +46,7 @@ void ShotManager::Update(float delta_time) {
 			continue;
 		}
 		//レーザーか
-		if ((shot->GetType() & system_set::k_enemy_lazer)) {
+		if ((shot->GetType() == system_set::k_enemy_lazer)) {
 			is_lazer = true;
 		}
 		else {
@@ -62,7 +63,7 @@ void ShotManager::Update(float delta_time) {
 			continue;
 		}
 
-		//当たっているか(レーザーのみ取りこぼし防止のため双方向判定)
+		//当たっているか
 		if (player_->IsHit(shot) || (is_lazer && shot->IsHit(player_))) {
 			player_->SetEffect(effect_set::effect_critical);
 
@@ -166,7 +167,7 @@ void ShotManager::AddShot(float x, float y, float speed, float angle, int type)
 		}
 		//一周打ち
 		if (type == system_set::k_enemy_all_renge) {
-			Node::AddChild(new ShotObject(graph_[file_set::shot], x, y, speed, angle, { window_setting::length * cos(angle),window_setting::length * sin(angle) },type));
+			Node::AddChild(new ShotObject(graph_[file_set::shot], x, y, speed, angle, { WindowManager::GetInstance()->GetWindowLength() * cos(angle), WindowManager::GetInstance()->GetWindowLength() * sin(angle) },type));
 		}
 		//レーザー
 		if (type == system_set::k_enemy_lazer) {

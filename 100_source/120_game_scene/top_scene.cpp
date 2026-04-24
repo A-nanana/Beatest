@@ -12,14 +12,15 @@
 #include "top_scene.h"
 #include "menu_scene.h"
 
-#include "..\110_drawing_tools\graph_node.h"
-#include "..\110_drawing_tools\text_node.h"
-#include "..\110_drawing_tools\inputer.h"
-#include "..\110_drawing_tools\defining.h"
-#include "..\120_game_scene\config_scene.h"
-#include "..\130_data_manager\133_music\music_manager.h"
-#include "..\130_data_manager\134_other\configs_manager.h"
-#include "..\140_roading_from_other\file_roader.h"
+#include "../110_drawing_tools/graph_node.h"
+#include "../110_drawing_tools/text_node.h"
+#include "../110_drawing_tools/inputer.h"
+#include "../110_drawing_tools/defining.h"
+#include "../120_game_scene/config_scene.h"
+#include "../130_data_manager/133_music/music_manager.h"
+#include "../130_data_manager/134_other/configs_manager.h"
+#include "../130_data_manager/134_other/window_manager.h"
+#include "../140_roading_from_other/file_roader.h"
 
 //-----------------------------
 // @name   TopScene
@@ -44,13 +45,13 @@ void TopScene::Init()
 	camera_ = new Camera();
 
 	//ƒ^ƒCƒgƒ‹
-	GraphNode* nodes = new GraphNode(file_set::title_top, window_setting::center_x, line_set::title_y,true);
+	GraphNode* nodes = new GraphNode(file_set::title_top, WindowManager::GetInstance()->GetWindowCenterX(), line_set::title_y,true);
 
 	root_->AddChild(nodes);
 	
 	int string_size = GetDrawStringWidth(string_set::push_to_start, -1);
 
-	root_->AddChild(new TextNode(string_set::push_to_start, GetColor(255, 255, 255), window_setting::center_x - string_size / 2, line_set::push_txt_y));
+	root_->AddChild(new TextNode(string_set::push_to_start, GetColor(255, 255, 255), WindowManager::GetInstance()->GetWindowCenterX() - string_size / 2, line_set::push_txt_y));
 	
 
 

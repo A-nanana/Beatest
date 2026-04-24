@@ -1,14 +1,15 @@
 #include <iostream>
 #include "player_object.h"
-#include "..\..\110_drawing_tools\line_node.h"
-#include "..\..\110_drawing_tools\inputer.h"
-#include "..\..\110_drawing_tools\defining.h"
-#include "..\..\110_drawing_tools\tool.h"
-#include "..\..\150_effect\151_player\player_effect.h"
+#include "../../110_drawing_tools/line_node.h"
+#include "../../110_drawing_tools/inputer.h"
+#include "../../110_drawing_tools/defining.h"
+#include "../../110_drawing_tools/tool.h"
+#include "../134_other/window_manager.h"
+#include "../../150_effect/151_player/player_effect.h"
 
 
 PlayerObject* PlayerObject::player_ = nullptr;
-PlayerObject::PlayerObject():ObjectCommon(file_set::player, window_setting::center_x, window_setting::center_y,system_set::player_hit_size_x, system_set::player_hit_size_y)
+PlayerObject::PlayerObject():ObjectCommon(file_set::player, WindowManager::GetInstance()->GetWindowCenterX(), WindowManager::GetInstance()->GetWindowCenterY(),system_set::player_hit_size_x, system_set::player_hit_size_y)
 {
 	effect_ = new PlayerEffect(this);
 	AddChild(effect_);

@@ -93,9 +93,6 @@
     <ClCompile Include="100_source\110_drawing_tools\circle_node.cpp">
       <Filter>ソース ファイル\110_drawing_tool</Filter>
     </ClCompile>
-    <ClCompile Include="100_source\110_drawing_tools\defining.cpp">
-      <Filter>ソース ファイル\110_drawing_tool</Filter>
-    </ClCompile>
     <ClCompile Include="100_source\110_drawing_tools\graph_node.cpp">
       <Filter>ソース ファイル\110_drawing_tool</Filter>
     </ClCompile>
@@ -191,6 +188,9 @@
     </ClCompile>
     <ClCompile Include="100_source\140_roading_from_other\graph_roader.cpp">
       <Filter>ソース ファイル\140_roading_from_other</Filter>
+    </ClCompile>
+    <ClCompile Include="100_source\130_data_manager\134_other\window_manager.cpp">
+      <Filter>ソース ファイル\130_data_manager\134_other</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -322,6 +322,9 @@
     </ClInclude>
     <ClInclude Include="200_resource\250_other\resource.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="100_source\130_data_manager\134_other\window_manager.h">
+      <Filter>ヘッダー ファイル\130_data_manager\134_other</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

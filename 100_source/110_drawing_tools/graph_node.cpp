@@ -23,6 +23,20 @@ GraphNode::GraphNode(const char* name, float x, float y, bool center_option)
 	size_x_ = NULL;
 	size_y_ = NULL;
 	is_center_option_ = center_option;
+	extender_ = window_setting::graph_extender_;
+
+}
+
+GraphNode::GraphNode(const char* name, float x, float y, float extend, bool center_option)
+{
+	graph_handle_ = NULL;
+	name_ = new std::string(name);
+	Node::SetPosition(x, y);
+	rotate_ = 0.0f;
+	size_x_ = NULL;
+	size_y_ = NULL;
+	is_center_option_ = center_option;
+	extender_ = extend;
 }
 
 GraphNode::GraphNode(const int graph_handle, float x, float y)
@@ -33,7 +47,7 @@ GraphNode::GraphNode(const int graph_handle, float x, float y)
 	rotate_ = 0.0f;
 	size_x_ = NULL;
 	size_y_ = NULL;
-	
+	extender_ = window_setting::graph_extender_;
 
 }
 
@@ -69,8 +83,8 @@ void GraphNode::Load()
 		 return;
 	}
 	 GetGraphSize(graph_handle_, &size_x_, &size_y_);
-	 size_x_ *= window_setting::graph_extender_;
-	 size_y_ *= window_setting::graph_extender_;
+	 size_x_ *= extender_;
+	 size_y_ *= extender_;
 	
 }
 
@@ -93,13 +107,13 @@ void GraphNode::Draw(int screen_handle,Camera* camera)
 		Vector2D draw_pos_;
 		draw_pos_.x_ = camera->DrawPositionX(world_position_.x_) + size_x_ / 2;
 		draw_pos_.y_ = camera->DrawPositionY(world_position_.y_) + size_y_ / 2;
-		DrawRotaGraph(draw_pos_.x_, draw_pos_.y_, window_setting::graph_extender_
+		DrawRotaGraph(draw_pos_.x_, draw_pos_.y_, extender_
 			,rotate_,graph_handle_, TRUE);
 	}
 }
 
 void GraphNode::Draw(int screen_handle) {
-	DrawRotaGraph(world_position_.x_ + size_x_ / 2, world_position_.y_ + size_y_ / 2, window_setting::graph_extender_
+	DrawRotaGraph(world_position_.x_ + size_x_ / 2, world_position_.y_ + size_y_ / 2, extender_
 		, rotate_, graph_handle_, TRUE);
 }
 

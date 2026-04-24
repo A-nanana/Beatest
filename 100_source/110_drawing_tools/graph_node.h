@@ -20,12 +20,14 @@ protected:
 	int graph_handle_; //画像ハンドル
 	std::string* name_; //画像名
 	float rotate_; //回転
+	float extender_;//拡大率
 	int size_x_,size_y_;//大きさ
 	bool is_center_option_; //中央に揃えるか
 
 public:
 //  コンストラクタ(x,yは相対位置)
-	GraphNode(const char* name, float x, float y, bool center_option =false );
+	GraphNode(const char* name, float x, float y, bool center_option = false);
+	GraphNode(const char* name, float x, float y,float extend ,bool center_option = false );
 	GraphNode(const int graph_handle, float x, float y);
 
 //  セッター
