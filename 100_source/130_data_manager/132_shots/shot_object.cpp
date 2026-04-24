@@ -1,9 +1,9 @@
 //-----------------------------
 // @name   shot_object.cpp
-// @brief  ’eƒIƒuƒWƒFƒNƒg ƒNƒ‰ƒX
+// @brief  ?e?I?u?W?F?N?g ?N???X
 // @auther A.namami
-// @date   2026/3/5  V‹Kì¬
-// @memo   ƒGƒ‰[Œ^‚ª—ˆ‚½ê‡‚Í-1‚Å•Ô‚µ‚Ü‚·
+// @date   2026/3/5  ?V?K??
+// @memo   ?G???[?^??????????-1???????
 //
 //Copyright (c) 2026 A.nanami All rights reserved.
 //------------------------------
@@ -40,7 +40,7 @@ ShotObject::~ShotObject()
 	
 }
 
-//’[‚Á‚±•Ô‚·Œn
+//?[????????n
 int ShotObject::XLeft(void)
 {
 	return world_position_.x_;
@@ -63,19 +63,19 @@ int ShotObject::YBottom(void)
 
 
 
-//XV
+//?X?V
 void ShotObject::Update(float delta_time) {
 	
-	Vector2D speed_; //‘¬“x.
+	Vector2D speed_; //???x.
 
 
-	// ‘¬“x•ÏX
+	// ???x??X
 
 	speed_.x_ = cosf(rotate_) * speed_size_;
 	speed_.y_ = sin(rotate_) * speed_size_;
 	
 
-	// ˆÚ“®
+	// ???
 	SetPosition(position_.x_ + speed_.x_, position_.y_ + speed_.y_);
 	ObjectCommon::SetWorldPosition();
 	
@@ -90,9 +90,10 @@ void ShotObject::Release()
 LongShot::LongShot(const int graph_handle, float x, float y, float keep, float angle, Vector2D target, int type)
 	:ShotObject(graph_handle, x, y, keep, angle, target, type)
 {
-	//ƒJƒEƒ“ƒgƒZƒbƒg
+	//?J?E???g?Z?b?g
 	pre_count_ = MusicManager::GetInstance()->GetMsPerHyousi();
 	inner_count_ = keep;
+	hit_use_ = false;
 
 	SetAngle(target_.x_, target_.y_);
 
@@ -108,6 +109,7 @@ LongShot::LongShot(const char* graph_, float x, float y, float keep, float angle
 {
 	pre_count_ = MusicManager::GetInstance()->GetMsPerHyousi();
 	inner_count_ = keep;
+	hit_use_ = false;
 	
 	SetAngle(target_.x_, target_.y_);
 	
@@ -120,20 +122,20 @@ void LongShot::SetWorldPosition()
 {
 
 	 ObjectCommon::SetWorldPosition();
-    //’¸“_(‰ñ“]‚Ì’†S‚Æ}Œ`‚Ì’†S‚ğ‡‚í‚¹‚é)İ’è
+    //???_(??]????S??}?`????S????????)???
     point_[0].Set(0.0f, -hit_size_.y_ / 2);
     point_[1].Set(+hit_size_.x_ , -hit_size_.y_ / 2);
     point_[2].Set(+hit_size_.x_ , +hit_size_.y_ / 2);
     point_[3].Set(0.0f, +hit_size_.y_ / 2);
-    //‰ñ“]s—ñ‚Å•ÏŠ·
-    Matrix2 mat;//•ÏŠ·—pƒ}ƒgƒŠƒNƒX
+    //??]?s?????
+    Matrix2 mat;//????p?}?g???N?X
     mat.SetMatrixRotate(rotate_);
     for (int i = 0; i < hit_set::squair_point; i++) {
         point_[i].ChangeForMatrix(mat);
-        point_[i].Add(GetWorldPosition().x_ , GetWorldPosition().y_ + hit_size_.y_ / 2.0f); //ƒ[ƒ‹ƒhÀ•W‚É•ÏŠ·
+        point_[i].Add(GetWorldPosition().x_ , GetWorldPosition().y_ + hit_size_.y_ / 2.0f); //???[???h???W????
     }
 
-    //ƒxƒNƒgƒ‹ŒvZ
+    //?x?N?g???v?Z
     for (int i = 0; i < hit_set::squair_point; i++) {
         vectol_[i].Set(point_[(i + 1) % hit_set::squair_point]);
         vectol_[i].Sub(point_[i]);
@@ -141,18 +143,26 @@ void LongShot::SetWorldPosition()
 
 }
 
+void LongShot::ChangeUsed()
+{
+}
+
 void LongShot::Update(float delta_time)
 {
-	//—\”õ“®ìƒJƒEƒ“ƒg‚ğŒ¸‚ç‚·
+	// äºˆå‘Šç·šã‚«ã‚¦ãƒ³ãƒˆ
 	pre_count_ -= delta_time;
-	//—\”õ“®ìƒJƒEƒ“ƒg‚ğŠm”F
-	if (pre_count_ < 0) {
-		hit_use_ = true;
-		//ƒJƒEƒ“ƒgŒ¸‚ç‚·
-		inner_count_ -= delta_time;
+	// äºˆå‘Šä¸­ã¯å¸¸ã«ç„¡åˆ¤å®š
+	if (pre_count_ > 0.0f) {
+		hit_use_ = false;
 	}
-	//ƒJƒEƒ“ƒg‚ªØ‚ê‚Ä‚¢‚é‚©
+	else {
+		// ãƒ¬ãƒ¼ã‚¶ãƒ¼æœ¬ä½“ã‚«ã‚¦ãƒ³ãƒˆ
+		inner_count_ -= delta_time;
+		hit_use_ = true;
+	}
+	//?J?E???g?????????
 	if (inner_count_ < 0) {
+		hit_use_ = false;
 		used_ = false;
 	}
 	SetWorldPosition();
@@ -163,15 +173,18 @@ void LongShot::Update(float delta_time)
 
 void LongShot::Draw(int screen_handle, Camera* camera)
 {
-	//ƒJƒƒ‰“à‚©
+	//?J????????
 	if (camera->IsDraw(GetWorldPosition(), size_x_, size_y_)) {
-		//ˆÊ’u‘ª’è
+		//??u????
 		Vector2D draw_pos_;
 		draw_pos_.x_ = camera->DrawPositionX(world_position_.x_) ;
-		draw_pos_.y_ = camera->DrawPositionY(world_position_.y_) - size_y_ / 2;
-		//ƒJƒEƒ“ƒg‚ªØ‚ê‚é‚Ü‚Å‚Í—\ü‚Ì‚İo‚·
-		if (pre_count_ >= 0) {
-			DrawLine(draw_pos_.x_, draw_pos_.y_, target_.x_, target_.y_,GetColor(0,255,255));
+		draw_pos_.y_ = camera->DrawPositionY(world_position_.y_) + size_y_ / 2;
+		Vector2D target_draw_pos_;
+		target_draw_pos_.x_ = camera->DrawPositionX(target_.x_);
+		target_draw_pos_.y_ = camera->DrawPositionY(target_.y_);
+		// äºˆå‘Šç·šã‚«ã‚¦ãƒ³ãƒˆã«åˆã‚ã›ã¦è¡¨ç¤ºã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹
+		if (pre_count_ > 0.0f) {
+			DrawLine(draw_pos_.x_, draw_pos_.y_, target_draw_pos_.x_, target_draw_pos_.y_, GetColor(0,255,255));
 		}
 		else {
 			DrawRotaGraph3(draw_pos_.x_, draw_pos_.y_, NULL, size_y_ / 2, extender_, window_setting::graph_extender_

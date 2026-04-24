@@ -48,7 +48,7 @@ public:
 	//有効か返す
 	bool IsUsed() { return used_; };
 	//有効かの切り替え
-	void ChangeUsed() { used_ = false; };
+	virtual void ChangeUsed() { used_ = false; };
 
 	
 	//更新(更新するときの時間)
@@ -66,8 +66,8 @@ public:
 //------------------------------
 class LongShot :public ShotObject {
 protected:
-	int pre_count_;//表示前カウント
-	int inner_count_;//表示カウント
+	float pre_count_;//表示前カウント
+	float inner_count_;//表示カウント
 	float extender_; //専用のx拡大率
 public:
 	//  コンストラクタ
@@ -79,7 +79,7 @@ public:
 	//位置計算が替わるので使用
 	void SetWorldPosition();
 	//有効かの切り替え(判定しないようにする)
-	void ChangeUsed() { };
+	void ChangeUsed() override;
 
 	//更新(更新するときの時間)
 	void Update(float delta_time)override;
