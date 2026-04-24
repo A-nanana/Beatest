@@ -36,8 +36,7 @@ void ShotManager::Release() {
 }
 //更新(更新するときの時間)
 void ShotManager::Update(float delta_time) {
-	//レーザー判定か
-	bool is_lazer = false;
+	//ノード分繰り返す
 	for (Node* node : children_) {
 
 		ShotObject* shot = dynamic_cast<ShotObject*>(node);
@@ -46,12 +45,9 @@ void ShotManager::Update(float delta_time) {
 			continue;
 		}
 		//レーザーか
-		if ((shot->GetType() == system_set::k_enemy_lazer)) {
-			is_lazer = true;
-		}
-		else {
-			is_lazer = false;
-		}
+		
+		bool is_lazer = (shot->GetType() == system_set::k_enemy_lazer);
+		
 		//オブジェクトが有効か
 		if (!(shot->IsUsed())) {
 			//レーザーならカウント
@@ -62,21 +58,25 @@ void ShotManager::Update(float delta_time) {
 			DeleteChild(shot);
 			continue;
 		}
+		//当たり判定が必要ないか
+		if (!shot->IsObject()) {
+			continue;
+		}
 
 		//当たっているか
 		if (player_->IsHit(shot) || (is_lazer && shot->IsHit(player_))) {
+				//エフェクトのフラグを立てる
 			player_->SetEffect(effect_set::effect_critical);
-
 			//コンボの消去
 			ScoreManager::GetInstance()->ScoreUpdate(k_miss);
-			//存在フラグ切り替え
+			//存在フラグ切り替え(レーザーは除く)
 			shot->ChangeUsed();
 			
 		}
 		
 		//判定距離で分岐
 		if( (player_->GetDistance() < system_set::critical_hit_check*system_set::critical_hit_check)
-			&&(shot->GetCenter().Length_2zyou() > player_->GetCenter().Length_2zyou()) )//クリティカルの範囲かつ弾がプレイヤーの奥にある(レーザーは参照しない)
+			&&(shot->GetCenter().Length_2zyou() > player_->GetCenter().Length_2zyou()))//クリティカルの範囲かつ弾がプレイヤーの奥にある
 		{
 			//エフェクトのフラグを立てる
 			player_->SetEffect(effect_set::effect_critical);
@@ -87,7 +87,7 @@ void ShotManager::Update(float delta_time) {
 			
 		}
 		else if ((player_->GetDistance() < system_set::start_hit_check* system_set::start_hit_check) &&
-			(shot->GetCenter().Length_2zyou() > player_->GetCenter().Length_2zyou())) //判定開始ライン かつ　弾が奥にある(レーザーは参照しない)
+			(shot->GetCenter().Length_2zyou() > player_->GetCenter().Length_2zyou()) ) //判定開始ライン かつ　弾が奥にある
 		{
 			//エフェクトのフラグを立てる
 			player_->SetEffect(effect_set::effect_avoid);
@@ -95,7 +95,6 @@ void ShotManager::Update(float delta_time) {
 			ScoreManager::GetInstance()->ScoreUpdate(k_great);
 			//存在フラグ切り替え
 			shot->ChangeUsed();
-		
 
 		}
 	

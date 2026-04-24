@@ -91,11 +91,11 @@ LongShot::LongShot(const int graph_handle, float x, float y, float keep, float a
 	:ShotObject(graph_handle, x, y, keep, angle, target, type)
 {
 	//カウントセット
-	pre_count_ = MusicManager::GetInstance()->GetMsPerHyousi();
+	pre_count_ = system_set::border_time;
 	inner_count_ = keep;
 
 	SetAngle(target_.x_, target_.y_);
-
+	hit_use_ = false;
 
 	extender_ = WindowManager::GetInstance()->GetWindowLength() / size_x_;
 
@@ -106,9 +106,10 @@ LongShot::LongShot(const int graph_handle, float x, float y, float keep, float a
 LongShot::LongShot(const char* graph_, float x, float y, float keep, float angle, Vector2D target, int type)
 	:ShotObject(graph_, x, y, keep, angle, target, type)
 {
-	pre_count_ = MusicManager::GetInstance()->GetMsPerHyousi();
+	pre_count_ = system_set::border_time;
 	inner_count_ = keep;
-	
+	hit_use_ = false;
+
 	SetAngle(target_.x_, target_.y_);
 	
 	extender_ = WindowManager::GetInstance()->GetWindowLength() / size_x_;
@@ -141,18 +142,27 @@ void LongShot::SetWorldPosition()
 
 }
 
+void LongShot::ChangeUsed()
+{
+}
+
 void LongShot::Update(float delta_time)
 {
 	//予備動作カウントを減らす
 	pre_count_ -= delta_time;
 	//予備動作カウントを確認
-	if (pre_count_ < 0) {
+	if (pre_count_ > 0.0f) {
+		hit_use_ = false;
+		
+	}
+	else {
 		hit_use_ = true;
 		//カウント減らす
 		inner_count_ -= delta_time;
 	}
 	//カウントが切れているか
-	if (inner_count_ < 0) {
+	if (inner_count_ < 0.0f) {
+		hit_use_ = false;
 		used_ = false;
 	}
 	SetWorldPosition();
@@ -170,8 +180,8 @@ void LongShot::Draw(int screen_handle, Camera* camera)
 		draw_pos_.x_ = camera->DrawPositionX(world_position_.x_) ;
 		draw_pos_.y_ = camera->DrawPositionY(world_position_.y_) - size_y_ / 2;
 		//カウントが切れるまでは予告線のみ出す
-		if (pre_count_ >= 0) {
-			DrawLine(draw_pos_.x_, draw_pos_.y_, target_.x_, target_.y_,GetColor(0,255,255));
+		if (!hit_use_) {
+			DrawLine(draw_pos_.x_, draw_pos_.y_, camera->DrawPositionX(target_.x_), camera->DrawPositionY(target_.y_),GetColor(0,255,255));
 		}
 		else {
 			DrawRotaGraph3(draw_pos_.x_, draw_pos_.y_, NULL, size_y_ / 2, extender_, window_setting::graph_extender_

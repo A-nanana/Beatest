@@ -370,7 +370,7 @@ std::vector<ShotBooker>* FileRoader::RoadHumen(const MusicData& music_data)
 					
 					//偶数カウントならレーザーの終了端
 					if (is_lazer_bottom) {
-						booked.bool_time = lazer_top_time - music_data.ms_per_hyousi_;
+						booked.bool_time = lazer_top_time - system_set::border_time;
 						booked.speed =	in_time * music_data.ms_per_hyousi_ - lazer_top_time;
 						booked.type = system_set::k_enemy_lazer;
 						//角度計算

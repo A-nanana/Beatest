@@ -313,8 +313,8 @@ namespace system_set {
 	static const float repair_rad = M_PI * 350.0f / 180.0f;
 //  1s‚ğms‚É’¼‚·
 	static const int ms_per_s = 1000;
-//  —P—\ŠÔ
-	static const float border_time = 34.0f;
+//  —P—\ŠÔ(ms)
+	static const float border_time = 1000.0f;
 //  I—¹Œã‘Ò‹@ŠÔ
 	static const int wait_end_time = 1.0 * ms_per_s;
 //  ’e‚ÌŠp“xC³’PˆÊ
