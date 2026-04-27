@@ -1,0 +1,11 @@
+diff a/100_source/130_data_manager/132_shots/shot_manager.cpp b/100_source/130_data_manager/132_shots/shot_manager.cpp	(rejected hunks)
+@@ -36,8 +36,7 @@
+ }
+ //�X�V(�X�V����Ƃ��̎���)
+ void ShotManager::Update(float delta_time) {
+-	//���[�U�[���肩
+-	bool is_lazer = false;
++	//�m�[�h���J��Ԃ�
+ 	for (Node* node : children_) {
+ 
+ 		ShotObject* shot = dynamic_cast<ShotObject*>(node);
