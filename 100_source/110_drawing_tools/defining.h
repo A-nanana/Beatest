@@ -124,7 +124,7 @@ namespace line_set {
 	static const int selecter_pos_x = 0;//x
 	static const int selecter_pos_y = 65;//y
 //  見出しの初期配置
-	static const int midasi_y = 100;//y
+	static const int midasi_y = 60;//y
 //  結果の位置
 	static const int reslt_y = 50; //y
 //  トップ画面の初期位置

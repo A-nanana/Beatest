@@ -218,56 +218,77 @@ void FileRoader::WriteScore(const MusicData& music_data)
 {
 	//プロパティ読み込み
 	std::string table_name = file_set::score_data_base_table;//stringに変換
-	std::string inser_msg = "update " + table_name + " set " + string_set::defficult[ChangeBitToNum(music_data.defficult)] + " = ? WHERE MusicKey = ? ;"; //クエリ文
-	std::string inser_msg_2 = "insert into " + table_name + "(MusicKey ,"+ string_set::defficult[ChangeBitToNum(music_data.defficult)]  +") values( ? , ? );"; //クエリ文
+	std::string inser_msg = "SELECT COUNT(*) FROM " + table_name + " WHERE MusicKey = ?;"; //クエリ文(存在確認)
+	std::string inser_msg_2 = "UPDATE " + table_name + " SET " + string_set::defficult[ChangeBitToNum(music_data.defficult)] + " = ? WHERE MusicKey = ? ;"; //クエリ文(更新)
+	std::string inser_msg_3 = "INSERT INTO " + table_name + "(MusicKey ,"+ string_set::defficult[ChangeBitToNum(music_data.defficult)]  +") VALUES( ? , ? );"; //クエリ文(入力)
 	
 	sqlite3_stmt* stmt = NULL; //状態格納ハンドル.
+	bool can_update = false;//データ更新できるか
+
 	//確認できるか
 	if (use_lib_
 		&& (sqlite3_prepare_v2(db_, inser_msg.c_str(), inser_msg.size(), &stmt, NULL) != SQLITE_OK)) {
 	}
 	else {
-		sqlite3_bind_int(stmt, 1, music_data.high_score_);
-		sqlite3_bind_int(stmt, 2, music_data.music_key_);
-
+		sqlite3_bind_int(stmt, 1, music_data.music_key_);
 		//処理確認用
 		int r = NULL;
 		//Sqliteが動く間は処理
 		while (SQLITE_ROW == (r = sqlite3_step(stmt))) {
-
+			//最初の結果を見る
+			if (sqlite3_column_int(stmt, 0) != 0) {
+				can_update = true;
+			}
 		}
-		//存在の確認
-		if (r != NULL) {
+		sqlite3_finalize(stmt);
+
+	}
+	//アップデートか確認
+	if (can_update) {
+		//確認できるか
+		if (use_lib_
+			&& (sqlite3_prepare_v2(db_, inser_msg_2.c_str(), inser_msg_2.size(), &stmt, NULL) != SQLITE_OK)) {
+		}
+		else {
+			sqlite3_bind_int(stmt, 1, music_data.high_score_);
+			sqlite3_bind_int(stmt, 2, music_data.music_key_);
+
+			//処理確認用
+			int r = NULL;
+			//Sqliteが動く間は処理
+			while (SQLITE_DONE != (r = sqlite3_step(stmt))) {
+
+			}
+			
+			sqlite3_finalize(stmt);
+			
+			return;
+		}
+	}
+	else {
+		//文章確認
+		if (use_lib_
+			&& (sqlite3_prepare_v2(db_, inser_msg_3.c_str(), inser_msg_3.size(), &stmt, NULL) != SQLITE_OK)) {
+			use_lib_ = false;
+			sqlite3_close(db_);
+			return;
+		}
+		//ここまできた場合そもそもデータがないので挿入する
+		//ライブラリ使用確認
+		if (use_lib_) {
+			sqlite3_bind_int(stmt, 2, music_data.high_score_);
+			sqlite3_bind_int(stmt, 1, music_data.music_key_);
+
+			//処理確認用
+			int r = NULL;
+			//Sqliteが動く間は処理
+			while (SQLITE_DONE != (r = sqlite3_step(stmt))) {
+
+			}
 
 			sqlite3_finalize(stmt);
-		}
-		return;
-	}
-	
-	//文章確認
-	if (use_lib_
-		&& (sqlite3_prepare_v2(db_, inser_msg_2.c_str(), inser_msg_2.size(), &stmt, NULL) != SQLITE_OK)) {
-		use_lib_ = false;
-		sqlite3_close(db_);
-		return;
-	}
-	//ここまできた場合そもそもデータがないので挿入する
-	//ライブラリ使用確認
-	if (use_lib_) {
-		sqlite3_bind_int(stmt, 2, music_data.high_score_);
-		sqlite3_bind_int(stmt, 1, music_data.music_key_);
-
-		//処理確認用
-		int r = NULL;
-		//Sqliteが動く間は処理
-		while (SQLITE_ROW == (r = sqlite3_step(stmt))) {
 
 		}
-		
-		sqlite3_finalize(stmt);
-		
-
-
 	}
 }
 
