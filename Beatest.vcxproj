@@ -137,7 +137,6 @@
   <ItemGroup>
     <ClCompile Include="100_source\110_drawing_tools\alpha_node.cpp" />
     <ClCompile Include="100_source\110_drawing_tools\box_node.cpp" />
-    <ClCompile Include="100_source\110_drawing_tools\buttom_node.cpp" />
     <ClCompile Include="100_source\110_drawing_tools\camera.cpp" />
     <ClCompile Include="100_source\110_drawing_tools\circle_node.cpp" />
     <ClCompile Include="100_source\110_drawing_tools\graph_node.cpp" />
@@ -159,7 +158,6 @@
     <ClCompile Include="100_source\120_game_scene\top_scene.cpp" />
     <ClCompile Include="100_source\130_data_manager\131_character\enemy_manager.cpp" />
     <ClCompile Include="100_source\130_data_manager\131_character\enemy_object.cpp" />
-    <ClCompile Include="100_source\130_data_manager\131_character\hit_box.cpp" />
     <ClCompile Include="100_source\130_data_manager\131_character\object_common.cpp" />
     <ClCompile Include="100_source\130_data_manager\131_character\player_object.cpp" />
     <ClCompile Include="100_source\130_data_manager\132_shots\shot_manager.cpp" />
@@ -178,7 +176,6 @@
   <ItemGroup>
     <ClInclude Include="100_source\110_drawing_tools\alpha_node.h" />
     <ClInclude Include="100_source\110_drawing_tools\box_node.h" />
-    <ClInclude Include="100_source\110_drawing_tools\buttom_node.h" />
     <ClInclude Include="100_source\110_drawing_tools\camera.h" />
     <ClInclude Include="100_source\110_drawing_tools\circle_node.h" />
     <ClInclude Include="100_source\110_drawing_tools\defining.h" />
@@ -202,7 +199,6 @@
     <ClInclude Include="100_source\120_game_scene\top_scene.h" />
     <ClInclude Include="100_source\130_data_manager\131_character\enemy_manager.h" />
     <ClInclude Include="100_source\130_data_manager\131_character\enemy_object.h" />
-    <ClInclude Include="100_source\130_data_manager\131_character\hit_box.h" />
     <ClInclude Include="100_source\130_data_manager\131_character\object_common.h" />
     <ClInclude Include="100_source\130_data_manager\131_character\player_object.h" />
     <ClInclude Include="100_source\130_data_manager\132_shots\shot_booker.h" />

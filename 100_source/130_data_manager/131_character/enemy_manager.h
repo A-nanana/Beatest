@@ -24,13 +24,13 @@ class EnemyManager:public Node
 
 protected:
 	//ロード
-	void Load();
+	void Load()override;
 	//リソース解放
-	void Release();
+	void Release()override;
 	//更新(更新するときの時間)
-	void Update(float delta_time);
+	void Update(float delta_time)override;
 	//セット
-	void SetUp();
+	void SetUp()override;
 public:
 	//  コンストラクタ
 	EnemyManager();

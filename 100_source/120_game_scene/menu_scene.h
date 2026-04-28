@@ -81,7 +81,7 @@ class SelectScene :public Scene
 	TextNode* defficult_[system_set::defficulter_max];//難易度毎のノード
 
 	enum Selecters {
-		k_music, //
+		k_music,
 		k_defficult,
 		k_max
 	};//選択番号の保存配列

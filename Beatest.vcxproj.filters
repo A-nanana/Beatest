@@ -81,16 +81,7 @@
     <ClCompile Include="100_source\110_drawing_tools\alpha_node.cpp">
       <Filter>ソース ファイル\110_drawing_tool</Filter>
     </ClCompile>
-    <ClCompile Include="100_source\110_drawing_tools\box_node.cpp">
-      <Filter>ソース ファイル\110_drawing_tool</Filter>
-    </ClCompile>
-    <ClCompile Include="100_source\110_drawing_tools\buttom_node.cpp">
-      <Filter>ソース ファイル\110_drawing_tool</Filter>
-    </ClCompile>
     <ClCompile Include="100_source\110_drawing_tools\camera.cpp">
-      <Filter>ソース ファイル\110_drawing_tool</Filter>
-    </ClCompile>
-    <ClCompile Include="100_source\110_drawing_tools\circle_node.cpp">
       <Filter>ソース ファイル\110_drawing_tool</Filter>
     </ClCompile>
     <ClCompile Include="100_source\110_drawing_tools\graph_node.cpp">
@@ -147,9 +138,6 @@
     <ClCompile Include="100_source\130_data_manager\131_character\enemy_object.cpp">
       <Filter>ソース ファイル\130_data_manager\131_character</Filter>
     </ClCompile>
-    <ClCompile Include="100_source\130_data_manager\131_character\hit_box.cpp">
-      <Filter>ソース ファイル\130_data_manager\131_character</Filter>
-    </ClCompile>
     <ClCompile Include="100_source\130_data_manager\131_character\object_common.cpp">
       <Filter>ソース ファイル\130_data_manager\131_character</Filter>
     </ClCompile>
@@ -192,21 +180,18 @@
     <ClCompile Include="100_source\130_data_manager\134_other\window_manager.cpp">
       <Filter>ソース ファイル\130_data_manager\134_other</Filter>
     </ClCompile>
+    <ClCompile Include="100_source\110_drawing_tools\circle_node.cpp">
+      <Filter>ソース ファイル\110_drawing_tool</Filter>
+    </ClCompile>
+    <ClCompile Include="100_source\110_drawing_tools\box_node.cpp">
+      <Filter>ソース ファイル\110_drawing_tool</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="100_source\110_drawing_tools\alpha_node.h">
       <Filter>ヘッダー ファイル\110_drawing_tool</Filter>
     </ClInclude>
-    <ClInclude Include="100_source\110_drawing_tools\box_node.h">
-      <Filter>ヘッダー ファイル\110_drawing_tool</Filter>
-    </ClInclude>
-    <ClInclude Include="100_source\110_drawing_tools\buttom_node.h">
-      <Filter>ヘッダー ファイル\110_drawing_tool</Filter>
-    </ClInclude>
     <ClInclude Include="100_source\110_drawing_tools\camera.h">
-      <Filter>ヘッダー ファイル\110_drawing_tool</Filter>
-    </ClInclude>
-    <ClInclude Include="100_source\110_drawing_tools\circle_node.h">
       <Filter>ヘッダー ファイル\110_drawing_tool</Filter>
     </ClInclude>
     <ClInclude Include="100_source\110_drawing_tools\graph_node.h">
@@ -261,9 +246,6 @@
       <Filter>ヘッダー ファイル\130_data_manager\131_character</Filter>
     </ClInclude>
     <ClInclude Include="100_source\130_data_manager\131_character\enemy_object.h">
-      <Filter>ヘッダー ファイル\130_data_manager\131_character</Filter>
-    </ClInclude>
-    <ClInclude Include="100_source\130_data_manager\131_character\hit_box.h">
       <Filter>ヘッダー ファイル\130_data_manager\131_character</Filter>
     </ClInclude>
     <ClInclude Include="100_source\130_data_manager\131_character\object_common.h">
@@ -325,6 +307,12 @@
     </ClInclude>
     <ClInclude Include="100_source\130_data_manager\134_other\window_manager.h">
       <Filter>ヘッダー ファイル\130_data_manager\134_other</Filter>
+    </ClInclude>
+    <ClInclude Include="100_source\110_drawing_tools\circle_node.h">
+      <Filter>ヘッダー ファイル\110_drawing_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="100_source\110_drawing_tools\box_node.h">
+      <Filter>ヘッダー ファイル\110_drawing_tool</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
