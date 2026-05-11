@@ -98,15 +98,15 @@ LongShot::LongShot(const int graph_handle, float x, float y, float keep, float a
 	//初期設定
 	pre_count_ = MusicManager::GetInstance()->GetMsPerHyousi();
 	inner_count_ = keep;
-	hit_use_ = false;
 
 	SetAngle(target_.x_, target_.y_);
-	hit_use_ = false;
 
 	extender_ = WindowManager::GetInstance()->GetWindowLength() / size_x_;
 
 	size_x_ = WindowManager::GetInstance()->GetWindowLength();
 	SetHitSize(size_x_, size_y_ * window_setting::graph_extender_);
+	hit_use_ = false;
+
 }
 
 LongShot::LongShot(const char* graph_, float x, float y, float keep, float angle, Vector2D target, int type)
@@ -157,7 +157,7 @@ void LongShot::Update(float delta_time)
 	pre_count_ -= delta_time;
 
 	//予備動作カウントを確認
-	if (pre_count_ > 0.0f) {
+	if (pre_count_ >= 0.0f) {
 		hit_use_ = false;
 		
 	}

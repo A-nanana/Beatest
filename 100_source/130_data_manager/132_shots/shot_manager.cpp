@@ -36,6 +36,9 @@ void ShotManager::Release() {
 }
 //更新(更新するときの時間)
 void ShotManager::Update(float delta_time) {
+	//プレイヤーの位置だけ確定させる
+	player_->SetWorldPositionAll();
+
 	//ノード分繰り返す
 	for (Node* node : children_) {
 
@@ -74,8 +77,8 @@ void ShotManager::Update(float delta_time) {
 		}
 		
 		//判定距離で分岐
-		if( (player_->GetDistance() < system_set::critical_hit_check*system_set::critical_hit_check)
-			&&(shot->GetCenter().Length_2zyou() > player_->GetCenter().Length_2zyou()))//クリティカルの範囲かつ弾がプレイヤーの奥にある
+		if( (player_->GetDistance() < system_set::critical_hit_check*system_set::critical_hit_check)//クリティカルの範囲かつ
+			&&((shot->GetCenter().Length_2zyou() > player_->GetCenter().Length_2zyou()) || is_lazer))//(弾がプレイヤーの奥にあるかレーザー)
 		{
 			//エフェクトのフラグを立てる
 			player_->SetEffect(effect_set::effect_critical);
@@ -86,7 +89,7 @@ void ShotManager::Update(float delta_time) {
 			
 		}
 		else if ((player_->GetDistance() < system_set::start_hit_check* system_set::start_hit_check) &&
-			(shot->GetCenter().Length_2zyou() > player_->GetCenter().Length_2zyou()) ) //判定開始ライン かつ　弾が奥にある
+			((shot->GetCenter().Length_2zyou() > player_->GetCenter().Length_2zyou()) || is_lazer)) //判定開始ライン かつ　(弾がプレイヤーの奥にあるかレーザー)
 		{
 			//エフェクトのフラグを立てる
 			player_->SetEffect(effect_set::effect_avoid);

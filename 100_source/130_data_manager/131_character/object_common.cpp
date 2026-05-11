@@ -122,6 +122,7 @@ bool ObjectCommon::HitCheckToPoint(Vector2D* other, Vector2D* dist_)
 
         //頂点へのベクトル
         Vector2D to_point_(other->x_ - point_[i].x_, other->y_ - point_[i].y_);
+
         //計算結果用
         float result_ = vectol_[i].x_ * to_point_.y_ - vectol_[i].y_ * to_point_.x_;
 
