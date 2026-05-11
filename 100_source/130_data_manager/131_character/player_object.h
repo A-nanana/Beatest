@@ -27,7 +27,6 @@ class PlayerObject:public ObjectCommon
 
 	int is_effect_; //エフェクトが必要か
 
-protected:
 	//コンストラクタ
 	PlayerObject();
 	//デストラクタ
@@ -46,7 +45,7 @@ public:
 	//直前位置に移動
 	void BackLastPos() { world_position_.Set(last_pos_);  }
 	//更新(更新するときの時間)
-	void Update(float delta_time);
+	void Update(float delta_time)override;
 	//セットアップ
 	void SetUp() override;
 	//エフェクトフラグを立てる

@@ -30,7 +30,7 @@ protected:
 	int eff_type_;//エフェクト種類
 
 	//更新(更新するときの時間)
-	void Update(float delta_time);
+	void Update(float delta_time)override;
 public:
 //  コンストラクタ
 	HitLineEffect(int loop_max,int time_per_loop, Vector2D vector_point, Vector2D size,int type);
@@ -56,17 +56,11 @@ protected:
 	int flg_;//今あるエフェクト
 	PlayerObject* player_; //プレイヤー
 
-
-	//ロード
-	void Load() {};
-	//リソース解放
-	void Release() {};
 	//セット
-	void SetUp();
+	void SetUp()override;
 	//更新(更新するときの時間)
-	void Update(float delta_time);
-	//描画(描画先)
-	void Draw(int screen_handle, Camera* camera) {};
+	void Update(float delta_time)override;
+	
 public:
 //  コンストラクタ
 	PlayerEffect(PlayerObject* player);

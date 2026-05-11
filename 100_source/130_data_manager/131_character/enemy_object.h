@@ -28,7 +28,7 @@ public:
 	EnemyObject(ShotManager* shot_manager, std::vector<ShotBooker>* shot_booker);
 	
 	//更新(更新するときの時間)
-	void Update(float delta_time);
+	void Update(float delta_time)override;
 };
 #endif // !__ENEMY_OBJECT_H__
 

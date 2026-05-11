@@ -1,3 +1,13 @@
+//-----------------------------
+// @name   Vector3.cpp
+// @brief  3次元ベクトル クラス
+// @auther A.namami
+// @date   2026/3/2 新規作成
+// 
+// @memo   エラー型が来た場合は-1で返します
+//
+//Copyright (c) 2026 A.nanami All rights reserved.
+//------------------------------
 #include "vector3.h"
 //  セッター
 void Vector3D::Set(const Vector2D& other)

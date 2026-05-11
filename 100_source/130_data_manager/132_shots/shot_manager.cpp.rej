@@ -1,11 +1,14 @@
 diff a/100_source/130_data_manager/132_shots/shot_manager.cpp b/100_source/130_data_manager/132_shots/shot_manager.cpp	(rejected hunks)
-@@ -36,8 +36,7 @@
- }
- //�X�V(�X�V����Ƃ��̎���)
- void ShotManager::Update(float delta_time) {
--	//���[�U�[���肩
--	bool is_lazer = false;
-+	//�m�[�h���J��Ԃ�
- 	for (Node* node : children_) {
+@@ -65,8 +65,12 @@
  
- 		ShotObject* shot = dynamic_cast<ShotObject*>(node);
+ 		//�������Ă��邩
+ 		if (player_->IsHit(shot) || (is_lazer && shot->IsHit(player_))) {
++<<<<<<< HEAD
+ 				//�G�t�F�N�g�̃t���O�𗧂Ă�
+ 			player_->SetEffect(effect_set::effect_critical);
++=======
++
++>>>>>>> origin/deffculter
+ 			//�R���{�̏���
+ 			ScoreManager::GetInstance()->ScoreUpdate(k_miss);
+ 			//���݃t���O�؂�ւ�(���[�U�[�͏���)

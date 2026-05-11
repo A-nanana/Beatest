@@ -77,7 +77,7 @@ public:
 
 //  終了関係
 	void SetEnd() { is_app_done_ = false; };//アプリ終了を設定する
-	bool GetDone() { return is_app_done_; };//終了の有無を確認する()
+	bool GetDone() { return is_app_done_; };//終了の有無を確認する
 };
 
 

@@ -75,9 +75,7 @@ class CreditScene :public Scene
 	Node* root_;//根ノード作成
 
 	std::string text_;//テキスト
-	Node* selecter_node_;//セレクター用ノード
-
-	int selecter_;//設定の選択カーソル
+	
 
 
 public:
@@ -117,9 +115,7 @@ class AboutScene :public Scene
 	Node* root_;//根ノード作成
 
 	std::string text_;//テキスト
-	Node* selecter_node_;//セレクター用ノード
-
-	int selecter_;//設定の選択カーソル
+	
 
 
 public:

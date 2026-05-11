@@ -1,3 +1,13 @@
+//-----------------------------
+// @name   player_object.cpp
+// @brief  プレイヤーオブジェクト クラス
+// @auther A.namami
+// @date   2026/3/2  新規作成
+// @memo   エラー型が来た場合は-1で返します
+//
+//Copyright (c) 2026 A.nanami All rights reserved.
+//------------------------------
+
 #include <iostream>
 #include "player_object.h"
 #include "../../110_drawing_tools/line_node.h"
@@ -59,13 +69,16 @@ void PlayerObject::Update(float delta_time)
 	//ノルム化
 	move_vector.Normalize();
 	move_vector.Scale(system_set::player_walk_speed);
+	
 	//端の場合はクランプ
 	CrampDouble(move_vector.x_, -last_pos_.x_, window_setting::size_x - size_x_ - last_pos_.x_);
 	CrampDouble(move_vector.y_, -last_pos_.y_, window_setting::size_y -size_y_ - last_pos_.y_);
+	
 	//位置の加算
 	SetPosition(position_.x_ + move_vector.x_, position_.y_ + move_vector.y_);
 	ObjectCommon::SetWorldPosition();
-
+	
+	//エフェクト作成
 	effect_->Create(is_effect_);
 
 }

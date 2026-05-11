@@ -11,8 +11,8 @@
 #ifndef __OBJECT_COMMON_H__
 #define __OBJECT_COMMON_H__
 
-#include "..\..\110_drawing_tools\graph_node.h"
-#include "hit_box.h"
+#include "../../110_drawing_tools/graph_node.h"
+#include "../../110_drawing_tools/defining.h"
 
 class ObjectCommon:public GraphNode
 {

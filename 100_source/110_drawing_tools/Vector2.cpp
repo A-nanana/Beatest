@@ -1,3 +1,15 @@
+//-----------------------------
+// @name   Vector2.cpp
+// @brief  2次元ベクトル クラス
+// @auther A.namami
+// @date   2025(ゲーム数学の授業時)  新規作成
+//		   2026/3/2 回転行列用のクラスを追加
+// 
+// @memo   エラー型が来た場合は-1で返します
+//
+//Copyright (c) 2026 A.nanami All rights reserved.
+//------------------------------
+
 #include"Vector2.h"
 #include<iostream>
 

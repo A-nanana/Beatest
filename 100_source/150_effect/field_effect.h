@@ -26,10 +26,7 @@ protected:
 	float max_size_;//最大の大きさ
 	int beat_time_;//拍数
 
-	//ロード
-	void Load() {};
-	//リソース解放
-	void Release() {};
+	
 	//更新(更新するときの時間)
 	void Update(float delta_time)override;
 public:

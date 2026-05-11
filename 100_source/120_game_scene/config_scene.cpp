@@ -121,9 +121,9 @@ void ConfigScene::Init()
 	root_->AddChild(new TextFormatNode(string_set::config_set, GetColor(255, 255, 255), TxtFontManager::GetInstance()->SerchFont(string_set::font_midasi1), WindowManager::GetInstance()->GetWindowCenterX() - string_size / 2, line_set::midasi_y));
 	
 	string_size = GetDrawStringWidth(string_set::push_to_return, -1);
-	root_->AddChild(new TextNode(string_set::push_to_return, GetColor(255, 255, 255), WindowManager::GetInstance()->GetWindowSize().x_ - string_size - ege_set::brank_x, WindowManager::GetInstance()->GetWindowSize().y_ - line_set::brank_y * 3));
+	root_->AddChild(new TextNode(string_set::push_to_return, GetColor(255, 255, 255), WindowManager::GetInstance()->GetWindowSize().x_ - string_size - ege_set::brank_x, WindowManager::GetInstance()->GetWindowSize().y_ - line_set::brank_y ));
 	
-	root_->AddChild(new TextNode(string_set::push_to_end, GetColor(255, 255, 255), ege_set::brank_x, WindowManager::GetInstance()->GetWindowSize().y_ - line_set::brank_y * 3));
+	root_->AddChild(new TextNode(string_set::push_to_end, GetColor(255, 255, 255), ege_set::brank_x, WindowManager::GetInstance()->GetWindowSize().y_ - line_set::brank_y ));
 	
 	//固定テキスト関係
 	Node* new_text_ = new Node();
