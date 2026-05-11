@@ -1,9 +1,9 @@
 //-----------------------------
 // @name   shot_object.cpp
-// @brief  ?e?I?u?W?F?N?g ?N???X
+// @brief  弾オブジェクトクラス
 // @auther A.namami
-// @date   2026/3/5  ?V?K??
-// @memo   ?G???[?^??????????-1???????
+// @date   2026/3/5  新規作成
+// @memo   
 //
 //Copyright (c) 2026 A.nanami All rights reserved.
 //------------------------------
@@ -85,7 +85,7 @@ void ShotObject::Update(float delta_time) {
 
 void ShotObject::Release()
 {
-
+	
 }
 
 LongShot::LongShot(const int graph_handle, float x, float y, float keep, float angle, Vector2D target, int type)
@@ -166,9 +166,7 @@ void LongShot::Update(float delta_time)
 		//カウント減らす
 		inner_count_ -= delta_time;
 	}
-	//カウントが切れているか
-	if (inner_count_ < 0.0f) {
-	}
+	
 	// カウントを確認
 	if (pre_count_ > 0.0f) {
 		hit_use_ = false;
@@ -179,7 +177,7 @@ void LongShot::Update(float delta_time)
 		hit_use_ = true;
 	}
 	//表示カウントが負か
-	if (inner_count_ < 0) {
+	if (inner_count_ <= 0.0f) {
 
 		hit_use_ = false;
 		used_ = false;
@@ -202,7 +200,6 @@ void LongShot::Draw(int screen_handle, Camera* camera)
 		draw_pos_.y_ = camera->DrawPositionY(world_position_.y_) - size_y_ / 2;
 		//カウントが切れるまでは予告線のみ出す
 		if (!hit_use_) {
-			DrawLine(draw_pos_.x_, draw_pos_.y_, camera->DrawPositionX(target_.x_), camera->DrawPositionY(target_.y_), GetColor(0, 255, 255));
 			draw_pos_.y_ = camera->DrawPositionY(world_position_.y_) + size_y_ / 2;
 			
 			target_draw_pos_.x_ = camera->DrawPositionX(target_.x_);

@@ -394,15 +394,14 @@ std::vector<ShotBooker>* FileRoader::RoadHumen(const MusicData& music_data)
 						booked.bool_time = lazer_top_time - system_set::border_time;
 						booked.speed =	in_time * music_data.ms_per_hyousi_ - lazer_top_time;
 						booked.type = system_set::k_enemy_lazer;
-						//Šp“xŒvŽZ
-						booked.rooper = system_set::shot_later_roop_param;
+						
 						booker->push_back(booked);
-						is_lazer_bottom ^= 1;
+						is_lazer_bottom = false;
 
 					}
 					else {
 						lazer_top_time = in_time * music_data.ms_per_hyousi_;
-						is_lazer_bottom ^= 1;
+						is_lazer_bottom = true;
 					}
 				}
 			}

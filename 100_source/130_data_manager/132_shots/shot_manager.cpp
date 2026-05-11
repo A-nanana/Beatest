@@ -65,9 +65,7 @@ void ShotManager::Update(float delta_time) {
 
 		//当たっているか
 		if (player_->IsHit(shot) || (is_lazer && shot->IsHit(player_))) {
-				//エフェクトのフラグを立てる
-			player_->SetEffect(effect_set::effect_critical);
-
+			
 			//コンボの消去
 			ScoreManager::GetInstance()->ScoreUpdate(k_miss);
 			//存在フラグ切り替え(レーザーは除く)
