@@ -71,7 +71,7 @@ void ResultScene::PushCheck() {
 		break;
 	case k_fase_end_:
 		//‘Ò‹@ŽžŠÔ‚ð–ž‚½‚µ‚½‚©
-		if (time_hold_ > system_set::need_wait_time_) {
+		if (time_hold_ > system_set::need_wait_time) {
 			MusicManager::GetInstance()->PlaySe(k_select);
 			next_scene_ = new SelectScene();
 		}

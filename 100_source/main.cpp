@@ -19,7 +19,8 @@
 #include "130_data_manager\134_other/window_manager.h"
 #include "../200_resource/250_other/resource.h"
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
+//int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) 
+int main(){
 	
 	
 	WindowManager::GetInstance()->WindowSettings();

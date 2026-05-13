@@ -50,6 +50,25 @@ bool InRenge(int param, int low, int max)
 	return true;
 }
 
+bool InRenge2(float param, float a, float b)
+{
+	float low, max;
+	//¬‚³‚¢•û‚ðlow,‘å‚«‚¢•û‚ðmax‚É
+	if (a > b) {
+		max = a;
+		low = b;
+	}
+	else {
+		max = b;
+		low = a;
+	}
+
+	//”ÍˆÍŠO‚©
+	if (param < low || max < param) { return false; }
+
+	return true;
+}
+
 int Abs(int param)
 {
 	int returner = param;

@@ -32,6 +32,11 @@ void CrampDouble(double& param, double low, double max);
 // @in  int param 値, int low 下限, int max 上限
 // @out bool T/F 入っている/入っていない
 bool InRenge(int param, int low, int max);
+// @範囲判定(限度区別なし)
+// @in  float param 値, float a , b 範囲値
+// @out bool T/F 入っている/入っていない
+bool InRenge2(float param, float a, float b);
+
 
 // @絶対値の取得
 // @in  int param 値

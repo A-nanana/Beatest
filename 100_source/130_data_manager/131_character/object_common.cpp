@@ -18,7 +18,7 @@ ObjectCommon::ObjectCommon(const char* name, float x, float y, float hit_size_x,
     rotate_ = 0.0f;
     hit_size_.Set(hit_size_x, hit_size_y);
     hit_use_ = true;
-    distance_.Set(system_set::start_hit_check, window_setting::null_param);
+    distance_ = window_setting::null_param;
 
 }
 
@@ -32,7 +32,7 @@ ObjectCommon::ObjectCommon(const int graph_handle, float x, float y)
 
     rotate_ = 0.0f;
     hit_use_ = true;
-    distance_.Set(system_set::start_hit_check, window_setting::null_param);
+    distance_= window_setting::null_param;
 
 }
 
@@ -115,28 +115,36 @@ void ObjectCommon::Load()
     hit_size_.Set(size_x_, size_y_);
 }
 
-bool ObjectCommon::HitCheckToPoint(Vector2D* other, Vector2D* dist_)
+bool ObjectCommon::HitCheckToPoint(Vector2D* other, int* dist_)
 {
     bool returner = true;//当たり判定の返り値
     for (int i = 0; i < hit_set::squair_point; i++) {
-
+        
+      
         //頂点へのベクトル
         Vector2D to_point_(other->x_ - point_[i].x_, other->y_ - point_[i].y_);
 
         //計算結果用
-        float result_ = vectol_[i].x_ * to_point_.y_ - vectol_[i].y_ * to_point_.x_;
-
+        int result_ = vectol_[i].x_ * to_point_.y_ - vectol_[i].y_ * to_point_.x_;
+        int length = (result_ * result_) / vectol_[i].Length_2zyou(); //外積の絶対値が2ベクトルが作る平行四辺形であることを利用
         //外積が0未満(ベクトルの右側)なら当たり判定の外
         if (result_ < 0) {
-
-            //近い距離であるか
-            if (dist_->Length_2zyou() > to_point_.Length_2zyou()) {
-                dist_->Set(to_point_);
-            }
             returner = false;
         }
 
+        //距離
+        int naiseki = vectol_[i].x_ * to_point_.x_ + vectol_[i].y_ * to_point_.y_;//角が近いかの判定用
 
+        //斜め位置の場合は角からの距離をとる
+        //内積が負の値か範囲内最大距離の内積より大きい
+        if (naiseki< 0.0f || naiseki > vectol_[i].Length_2zyou()) {
+            length = to_point_.Length_2zyou();
+        }
+
+        //近い距離かつ外側であるか
+        if ( *dist_ > length || *dist_< 0) {
+            *dist_ = length;
+        }
 
     }
     return returner;
@@ -144,7 +152,7 @@ bool ObjectCommon::HitCheckToPoint(Vector2D* other, Vector2D* dist_)
 
 bool ObjectCommon::HitCheckToBox(ObjectCommon* other )
 {
-    distance_.Set(system_set::start_hit_check,window_setting::null_param);
+    distance_ = -1;
     bool returner = false;//当たり判定の返り値
 
     //頂点分繰り返す
@@ -154,6 +162,7 @@ bool ObjectCommon::HitCheckToBox(ObjectCommon* other )
             returner = true;
         }
     }
+   
     return returner;
 }
 

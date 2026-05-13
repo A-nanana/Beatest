@@ -26,8 +26,7 @@ class ShotManager:public Node
 	EnemyManager* enemy_;//使う敵
 	// 読み込み済画像 
 	static std::unordered_map<std::string, int> graph_;
-	int long_time_;//スコア加算用カウント
-	int per_time_; //スコア加算単位時間
+	int per_get_score_;//スコア加算間隔
 
 protected:
 	//ロード
