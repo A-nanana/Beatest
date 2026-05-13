@@ -16,23 +16,26 @@
 #include "../134_other/window_manager.h"
 
 ShotObject::ShotObject(const int graph_handle, float x, float y, float speed, float angle, Vector2D target, int type)
-	:used_(true), target_(target), type_(type), ObjectCommon(graph_handle, x, y) {
+	:used_(true), target_(target), type_(type),cool_time_(0), ObjectCommon(graph_handle, x, y) {
 
 
 	speed_size_ = speed;
 	SetRotate(angle);
 	hit_use_ = true;
 	GraphNode::Load();
+	SetWorldPosition();
 }
 
 ShotObject::ShotObject(const char* graph_, float x, float y, float speed, float angle, Vector2D target, int type)
-	:used_(true),target_(target), type_(type), ObjectCommon(graph_, x, y) {
+	:used_(true),target_(target), type_(type), cool_time_(0) , ObjectCommon(graph_, x, y) {
 	
 	
 	speed_size_ = speed;
 	SetRotate(angle);
 	hit_use_ = true;
 	GraphNode::Load();
+	SetWorldPosition();
+
 }
 
 ShotObject::~ShotObject()
@@ -79,7 +82,8 @@ void ShotObject::Update(float delta_time) {
 	// 位置更新
 	SetPosition(position_.x_ + speed_.x_, position_.y_ + speed_.y_);
 	ObjectCommon::SetWorldPosition();
-	
+	//スコア加算用タイム加算
+	cool_time_ += delta_time;
 
 }
 
@@ -104,7 +108,7 @@ LongShot::LongShot(const int graph_handle, float x, float y, float keep, float a
 	extender_ = WindowManager::GetInstance()->GetWindowLength() / size_x_;
 
 	size_x_ = WindowManager::GetInstance()->GetWindowLength();
-	SetHitSize(size_x_, size_y_ * window_setting::graph_extender_);
+	SetHitSize(size_x_, system_set::lazer_width);
 	hit_use_ = false;
 
 }
@@ -119,7 +123,7 @@ LongShot::LongShot(const char* graph_, float x, float y, float keep, float angle
 	
 	extender_ = WindowManager::GetInstance()->GetWindowLength() / size_x_;
 	size_x_ = WindowManager::GetInstance()->GetWindowLength();
-	SetHitSize(size_x_ , size_y_ * window_setting::graph_extender_);
+	SetHitSize(size_x_ , system_set::lazer_width);
 }
 
 void LongShot::SetWorldPosition()
@@ -136,7 +140,7 @@ void LongShot::SetWorldPosition()
     mat.SetMatrixRotate(rotate_);
     for (int i = 0; i < hit_set::squair_point; i++) {
         point_[i].ChangeForMatrix(mat);
-		point_[i].Add(GetWorldPosition().x_, GetWorldPosition().y_ + hit_size_.y_ / 2.0f); // ワールド座標に戻す
+		point_[i].Add(GetWorldPosition().x_, GetWorldPosition().y_ ); // ワールド座標に戻す
     }
 
     //ベクトル作成
@@ -151,8 +155,12 @@ void LongShot::ChangeUsed()
 {
 }
 
+
 void LongShot::Update(float delta_time)
 {
+	//スコア加算用タイム加算
+	cool_time_ += delta_time;
+
 	//予備動作カウントの減少
 	pre_count_ -= delta_time;
 
@@ -214,6 +222,7 @@ void LongShot::Draw(int screen_handle, Camera* camera)
 			DrawRotaGraph3(draw_pos_.x_, draw_pos_.y_, NULL, size_y_ / 2, extender_, window_setting::graph_extender_
 				, rotate_, graph_handle_, TRUE);
 		}
+		
 
 	}
 }

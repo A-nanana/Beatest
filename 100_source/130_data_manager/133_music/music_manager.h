@@ -94,6 +94,7 @@ public:
 	MusicData GetMusicData() { return play_music_; };//データ取得
 
 	float GetMsPerHyousi() { return play_music_.ms_per_hyousi_; }; //1拍当たりの秒数(ms)
+	int GetHyousi() { return play_music_.hyousi_; }; //1小節あたりの拍数
 
 	LineUp operator[](int i) { return title_line_up_[i]; }; //ラインナップから1作品取得
 	int GetLineupSize() { return title_line_up_.size(); };//リストサイズ

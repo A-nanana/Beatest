@@ -116,7 +116,7 @@ void GameScene::RestartTextUpdate()
 	//サイズ確認
 	int text_length = GetDrawStringWidth(txts.c_str(), -1);
 
-	new_text_->AddChild(new TextFormatNode(txts.c_str(), GetColor(255, 0, 255), TxtFontManager::GetInstance()->SerchFont(string_set::font_midasi1),
+	new_text_->AddChild(new TextFormatNode(txts.c_str(), GetColor(0, 240, 255), TxtFontManager::GetInstance()->SerchFont(string_set::font_midasi1),
 		WindowManager::GetInstance()->GetWindowCenterX() - text_length / 2 , line_set::title_y));
 
 	//元々根ノードがあるなら削除

@@ -25,7 +25,7 @@ TextNode::TextNode(const char* text, unsigned int text_color, float x, float y)
 TextNode::TextNode(const char* text, unsigned int red, unsigned int green, unsigned int blue, float x, float y)
 {
 	text_ = text;
-	text_color_ = ChangeColorToCode(red, green, blue);
+	text_color_ = GetColor(red, green, blue);
 	SetPosition(x, y);
 }
 
@@ -43,7 +43,7 @@ void TextNode::SetColor(unsigned int text_color)
 
 void TextNode::SetColor(unsigned int red, unsigned int green, unsigned int blue)
 {
-	text_color_ = ChangeColorToCode(red, green, blue);
+	text_color_ = GetColor(red, green, blue);
 }
 
 //ÉçÅ[Éh
@@ -153,7 +153,7 @@ TextFormatNode::TextFormatNode(const char* text, unsigned int text_color, int fo
 TextFormatNode::TextFormatNode(const char* text, unsigned int red, unsigned int green, unsigned int blue, int font_handle, float x, float y)
 {
 	text_ = text;
-	text_color_ = ChangeColorToCode(red, green, blue);
+	text_color_ = GetColor(red, green, blue);
 	font_handle_ = font_handle;
 	SetPosition(x, y);
 }
@@ -171,7 +171,7 @@ void TextFormatNode::SetColor(unsigned int text_color)
 
 void TextFormatNode::SetColor(unsigned int red, unsigned int green, unsigned int blue)
 {
-	text_color_ = ChangeColorToCode(red, green, blue);
+	text_color_ = GetColor(red, green, blue);
 }
 
 void TextFormatNode::SetFontHandle(int handle)

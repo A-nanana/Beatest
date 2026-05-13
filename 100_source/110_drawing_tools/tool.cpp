@@ -50,6 +50,25 @@ bool InRenge(int param, int low, int max)
 	return true;
 }
 
+bool InRenge2(float param, float a, float b)
+{
+	float low, max;
+	//小さい方をlow,大きい方をmaxに
+	if (a > b) {
+		max = a;
+		low = b;
+	}
+	else {
+		max = b;
+		low = a;
+	}
+
+	//範囲外か
+	if (param < low || max < param) { return false; }
+
+	return true;
+}
+
 int Abs(int param)
 {
 	int returner = param;
@@ -76,16 +95,21 @@ void ChangeColorToRgb(const unsigned int color_code, int& red, int& green, int& 
 	blue = blue_16;
 }
 
-unsigned int ChangeColorToCode(int red, int green, int blue)
+unsigned int ChangeColorToCode(int red, int green, int blue,int color_bit)
 {
+	
 	//とりあえず左シフト
 	unsigned int red_16 = red << 16;
 	unsigned int green_16 = green << 8;
 	unsigned int blue_16 = blue;
 
 	//ひたすら足す
-
-	return red_16+green_16+blue_16;
+	//32bitスケールだとalphaが入る
+	if (color_bit == 32) {
+		return ((255 << 24)|red_16 | green_16 | blue_16);
+	}
+	//違うなら入れない
+	return (red_16|green_16|blue_16);
 }
 
 bool AlmostEqual(double a, double b, double epsilon)

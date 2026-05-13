@@ -52,18 +52,21 @@ void HitLineEffect::Update(float delta_time) {
 	
 }
 
-HitLineEffect::HitLineEffect(int loop_max, int time_per_loop, Vector2D vector_point, Vector2D size,int type )
+HitLineEffect::HitLineEffect(int loop_max, int time_per_loop, Vector2D vector_point, Vector2D size, int red,int green, int blue, int type)
 	:AlphaNode(window_setting::null_param)
 {
 	SetWorldPosition();
-	SetEffPositon(vector_point, size);
 	looper_max_ = loop_max;
 	looper_count_ = 0;
 	time_count_ = 0.0f;
 	time_per_loop_harf_ = time_per_loop / 2;
 	eff_type_ = type;
+	
+	color_code_ = GetColor(red, green, blue);
+	SetEffPositon(vector_point, size);
 
 }
+
 
 void HitLineEffect::SetEffPositon(Vector2D player_point, Vector2D graph_size)
 {
@@ -71,9 +74,7 @@ void HitLineEffect::SetEffPositon(Vector2D player_point, Vector2D graph_size)
 	Vector2D first_pos(player_point.x_ - graph_size.x_ / 2, player_point.y_ - graph_size.y_ / 2);
 	first_pos.Sub(world_position_);
 	//四角を描画
-	//線でやるのは後で多角形にするときのため
-	AddChild(new BoxNode({ first_pos.x_, first_pos.y_ }, { graph_size.x_, graph_size.y_ }, GetColor(255, 0, 255), effect_param::eff_thick));
-	
+	AddChild(new BoxNode({ first_pos.x_, first_pos.y_ }, { graph_size.x_, graph_size.y_ },color_code_, effect_param::eff_thick));
 }
 
 //------------------------------
@@ -121,7 +122,7 @@ void PlayerEffect::Create(int flg)
 	//クリティカル判定 & 画面上にエフェクトがない
 	if ((flg & effect_set::effect_critical) & ~(flg_ & effect_set::effect_critical)) {
 		
-		AddChild(new HitLineEffect(effect_param::loop_hit, effect_param::time_per_loop, player_->GetCenter(), player_->GetSize(), effect_set::effect_critical));
+		AddChild(new HitLineEffect(effect_param::loop_hit, effect_param::time_per_loop, player_->GetCenter(), player_->GetSize(),250,0,250, effect_set::effect_critical));
 		//Se再生
 		MusicManager::GetInstance()->PlaySe(k_play_critical);
 	}
@@ -129,7 +130,7 @@ void PlayerEffect::Create(int flg)
 	//回避判定 & 画面上にエフェクトがない
 	if ((flg & effect_set::effect_avoid) & ~(flg_ & effect_set::effect_avoid)) {
 		
-		AddChild(new HitLineEffect(effect_param::loop_hit, effect_param::time_per_loop, player_->GetCenter(), player_->GetSize(), effect_set::effect_avoid));
+		AddChild(new HitLineEffect(effect_param::loop_hit, effect_param::time_per_loop, player_->GetCenter(), player_->GetSize(),0,240,255, effect_set::effect_avoid));
 		
 	}
 

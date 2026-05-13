@@ -24,6 +24,7 @@ protected:
 	int type_;//タイプデータ
 	Vector2D target_;//対象方向
 	bool used_; //有効か
+	int cool_time_;//スコア加算クール
 public:
 //  コンストラクタ
 	ShotObject(const int graph_handle, float x, float y, float speed, float angle, Vector2D target, int type) ;
@@ -49,7 +50,10 @@ public:
 	bool IsUsed() { return used_; };
 	//有効かの切り替え
 	virtual void ChangeUsed() { used_ = false; };
-
+	//クールタイムを渡す
+	int GetCoolTime() { return cool_time_; };
+	//クールタイムリセット
+	void ResetCoolTime() { cool_time_ = 0; };
 	
 	//更新(更新するときの時間)
 	void Update(float delta_time)override;

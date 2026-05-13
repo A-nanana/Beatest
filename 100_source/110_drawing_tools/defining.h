@@ -37,6 +37,7 @@ namespace window_setting {
 //  画像拡大率
 	static float graph_extender_ = 0.4f;
 	static float selecter_extender_ = 0.15f;
+	static float player_extender_ = 0.18f;
 
 //  fps
 	static const int fps = 60;
@@ -81,7 +82,7 @@ namespace file_set {
 //  出典について
 	static const char* syutten_memo = "200_resource/syutten.txt";
 //  画像ファイルパス
-	static const char* player = "200_resource/230_object/aruku.png"; //プレイヤー
+	static const char* player = "200_resource/230_object/player.png"; //プレイヤー
 	static const char* enemy = "200_resource/230_object/enemy.png"; //敵
 	static const char* shot = "200_resource/230_object/bullet.png"; //弾
 	static const char* lazer = "200_resource/230_object/lazer.png"; //レーザー
@@ -300,10 +301,10 @@ namespace effect_param {
 //------------------------------
 namespace system_set {
 //  プレイヤーの速さ
-	static const float player_walk_speed = 10.0f;
+	static const float player_walk_speed = 12.0f;
 //  プレイヤーの当たり判定サイズ
-	static const float player_hit_size_x = 50.0f;//x
-	static const float player_hit_size_y = 70.0f;//y
+	static const float player_hit_size_x = 40.0f;//x
+	static const float player_hit_size_y = 40.0f;//y
 
 //  弾のデフォルトの速さ
 	static const float shot_speed_def = 5.0f;
@@ -332,12 +333,17 @@ namespace system_set {
 		k_enemy_lazer, //レーザー
 	};
 //  必須待機時間(ms)
-	static const int need_wait_time_ = 0.2 * ms_per_s;
+	static const int need_wait_time = 0.2 * ms_per_s;
+
+//  レーザーの幅
+	static const int lazer_width = 20;
 
 //  判定開始距離
-	static const float start_hit_check = 70.0f;
+	static const int start_hit_check = 60;
 //  クリティカルチェック基準距離
-	static const float critical_hit_check = 35.0f;
+	static const int critical_hit_check = 35;
+//  得点加算音符(加算までに何分音符くらいの長さを空けるか)
+	static const int score_per_hyousi = 4;
 
 //  再開カウント数(ms)
 	static const int restart_count_up = 3 * ms_per_s;
@@ -353,6 +359,7 @@ namespace system_set {
 
 //  背景透明度
 	static const float alpha_back = 0.8f;
+
 }
 
 #endif // !__DEFINING_DRAWING_H__

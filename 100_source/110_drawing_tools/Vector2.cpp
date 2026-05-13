@@ -199,3 +199,9 @@
 		matrix_[0][1] = -sin(rad);
 		matrix_[1][0] = sin(rad);
 	}
+
+	double Dot(const Vector2D& _a, const Vector2D& _b)
+	{
+		return _a.x_ * _b.x_ + _a.y_ * _b.y_;
+
+	}

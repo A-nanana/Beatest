@@ -27,8 +27,8 @@ void ShotManager::Load() {
 	//画像読み込み
 	graph_.insert({ file_set::lazer, GraphRoader::GetInstance()->RoadingGraph(file_set::lazer) });
 	graph_.insert({ file_set::shot, GraphRoader::GetInstance()->RoadingGraph(file_set::shot) });
-	per_time_ = MusicManager::GetInstance()->GetMsPerHyousi();
-	long_time_ = 0;
+
+
 }
 //リソース解放
 void ShotManager::Release() {
@@ -67,7 +67,7 @@ void ShotManager::Update(float delta_time) {
 		}
 
 		//当たっているか
-		if (player_->IsHit(shot) || (is_lazer && shot->IsHit(player_))) {
+		if ( shot->IsHit(player_)) {
 			
 			//コンボの消去
 			ScoreManager::GetInstance()->ScoreUpdate(k_miss);
@@ -75,28 +75,27 @@ void ShotManager::Update(float delta_time) {
 			shot->ChangeUsed();
 			
 		}
-		
+
 		//判定距離で分岐
-		if( (player_->GetDistance() < system_set::critical_hit_check*system_set::critical_hit_check)//クリティカルの範囲かつ
-			&&((shot->GetCenter().Length_2zyou() > player_->GetCenter().Length_2zyou()) || is_lazer))//(弾がプレイヤーの奥にあるかレーザー)
+		if( (shot->GetDistance() < system_set::critical_hit_check*system_set::critical_hit_check)//クリティカルの範囲かつ
+			&& shot->GetCoolTime() > per_get_score_)//(スコアの加算をしてもいい)
 		{
 			//エフェクトのフラグを立てる
 			player_->SetEffect(effect_set::effect_critical);
 			//クリティカル加算
 			ScoreManager::GetInstance()->ScoreUpdate(k_critical);
-			//存在フラグ切り替え
-			shot->ChangeUsed();
-			
+			//クールリセット
+			shot->ResetCoolTime();
 		}
-		else if ((player_->GetDistance() < system_set::start_hit_check* system_set::start_hit_check) &&
-			((shot->GetCenter().Length_2zyou() > player_->GetCenter().Length_2zyou()) || is_lazer)) //判定開始ライン かつ　(弾がプレイヤーの奥にあるかレーザー)
+		else if ((shot->GetDistance() < system_set::start_hit_check* system_set::start_hit_check) //判定開始ライン かつ
+			&& shot->GetCoolTime() > per_get_score_)//(スコアの加算をしてもいい) 
 		{
 			//エフェクトのフラグを立てる
 			player_->SetEffect(effect_set::effect_avoid);
 			//スコア加算
 			ScoreManager::GetInstance()->ScoreUpdate(k_great);
-			//存在フラグ切り替え
-			shot->ChangeUsed();
+			//クールリセット
+			shot->ResetCoolTime();
 
 		}
 	
@@ -136,6 +135,8 @@ void ShotManager::SetUp() {
 //コンストラクタ
 ShotManager::ShotManager()
 {
+	//どれくらいの間隔でスコア加算をするか(小節から割り出す)
+	per_get_score_ = MusicManager::GetInstance()->GetMsPerHyousi() * MusicManager::GetInstance()->GetHyousi() / system_set::score_per_hyousi;
 }
 
 //  セッター
