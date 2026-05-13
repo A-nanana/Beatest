@@ -75,7 +75,6 @@ void ShotManager::Update(float delta_time) {
 			shot->ChangeUsed();
 			
 		}
-		printf("%d\n", shot->GetDistance());
 
 		//判定距離で分岐
 		if( (shot->GetDistance() < system_set::critical_hit_check*system_set::critical_hit_check)//クリティカルの範囲かつ

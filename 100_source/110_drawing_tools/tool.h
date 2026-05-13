@@ -44,14 +44,15 @@ bool InRenge2(float param, float a, float b);
 int Abs(int param);
 
 // @カラーコードからrgb変換
-// @in int color_code カラーコード
+// @in int color_code カラーコード(24bit)
 // @in int& red int& green int& blue それぞれ色素(返り値)
 void ChangeColorToRgb(unsigned int color_code, int& red, int& green, int& blue);
 
 // @rgbからカラーコード変換
 // @in int red, int green, int blue それぞれ色素
+// @in int color_bit ウィンドウカラービット
 // @out unsigned int カラーコード
-unsigned int ChangeColorToCode(int red, int green, int blue);
+unsigned int ChangeColorToCode(int red, int green, int blue, int color_bit);
 
 // @誤差考慮等価判定(1e-8 = 0.00000001)
 // @in double a, double b  それぞれ比較したい値, double epsilon  許容範囲

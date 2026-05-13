@@ -222,8 +222,7 @@ void LongShot::Draw(int screen_handle, Camera* camera)
 			DrawRotaGraph3(draw_pos_.x_, draw_pos_.y_, NULL, size_y_ / 2, extender_, window_setting::graph_extender_
 				, rotate_, graph_handle_, TRUE);
 		}
-		DrawLine(point_[0].x_, point_[0].y_, point_[1].x_, point_[1].y_, GetColor(0, 255, 255));
-		DrawLine(point_[3].x_, point_[3].y_, point_[2].x_, point_[2].y_, GetColor(0, 255, 255));
+		
 
 	}
 }

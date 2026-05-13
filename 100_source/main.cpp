@@ -19,13 +19,15 @@
 #include "130_data_manager\134_other/window_manager.h"
 #include "../200_resource/250_other/resource.h"
 
-//int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) 
-int main(){
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) 
+{
 	
-	
+	//ウィンドウの初期化
 	WindowManager::GetInstance()->WindowSettings();
+	//アイコン設定
 	SetMainWindowText(string_set::title);
 	SetWindowIconID(IDI_ICON1);
+	//ライブラリ起動
 	if (DxLib_Init() == -1) {
 		return -1;
 	}

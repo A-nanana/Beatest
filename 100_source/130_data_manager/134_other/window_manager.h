@@ -34,13 +34,17 @@ public:
 	void WindowSettings();
 	//  ゲッター
 	Vector2D GetWindowSize() { return window_size_; };//ウィンドウの大きさ
+	//セレクターの初期位置
 	Vector2D GetSelecterCenter() {
 		return { (window_size_.x_ / line_set::amount_x_max) + line_set::selecter_pos_x,
-		(window_size_.y_ / line_set::amount_y_max) + line_set::selecter_pos_y };};//セレクターの初期位置
+		(window_size_.y_ / line_set::amount_y_max) + line_set::selecter_pos_y };};
+	
 	Vector2D GetPopUpSize() { return {window_size_.x_ * window_setting::pop_up_extend_x,
 		window_size_.y_ * window_setting::pop_up_extend_y }; };//ポップアップの大きさ
+	
 	float GetWindowCenterX() { return window_size_.x_ / 2; };//中央位置x
 	float GetWindowCenterY() { return window_size_.y_ / 2; };//中央位置y
 	float GetWindowLength() { return window_lemgth_; };//対角線の長さ
+	int GetColorBit() { return color_bit_; };//ウィンドウのカラービット
 };
 #endif // !__WINDOW_MANAGER_H__

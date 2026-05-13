@@ -37,6 +37,7 @@ namespace window_setting {
 //  画像拡大率
 	static float graph_extender_ = 0.4f;
 	static float selecter_extender_ = 0.15f;
+	static float player_extender_ = 0.18f;
 
 //  fps
 	static const int fps = 60;
@@ -81,7 +82,7 @@ namespace file_set {
 //  出典について
 	static const char* syutten_memo = "200_resource/syutten.txt";
 //  画像ファイルパス
-	static const char* player = "200_resource/230_object/aruku.png"; //プレイヤー
+	static const char* player = "200_resource/230_object/player.png"; //プレイヤー
 	static const char* enemy = "200_resource/230_object/enemy.png"; //敵
 	static const char* shot = "200_resource/230_object/bullet.png"; //弾
 	static const char* lazer = "200_resource/230_object/lazer.png"; //レーザー
@@ -303,7 +304,7 @@ namespace system_set {
 	static const float player_walk_speed = 12.0f;
 //  プレイヤーの当たり判定サイズ
 	static const float player_hit_size_x = 40.0f;//x
-	static const float player_hit_size_y = 60.0f;//y
+	static const float player_hit_size_y = 40.0f;//y
 
 //  弾のデフォルトの速さ
 	static const float shot_speed_def = 5.0f;
@@ -358,6 +359,7 @@ namespace system_set {
 
 //  背景透明度
 	static const float alpha_back = 0.8f;
+
 }
 
 #endif // !__DEFINING_DRAWING_H__

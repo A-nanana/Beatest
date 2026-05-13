@@ -22,6 +22,15 @@ ObjectCommon::ObjectCommon(const char* name, float x, float y, float hit_size_x,
 
 }
 
+ObjectCommon::ObjectCommon(const char* name, float x, float y, float extender, float hit_size_x, float hit_size_y)
+    :GraphNode(name, x, y,extender) {
+
+    rotate_ = 0.0f;
+    hit_size_.Set(hit_size_x, hit_size_y);
+    hit_use_ = true;
+    distance_ = window_setting::null_param;
+
+}
 ObjectCommon::ObjectCommon(const int graph_handle, float x, float y)
     :GraphNode(graph_handle, x, y){
     

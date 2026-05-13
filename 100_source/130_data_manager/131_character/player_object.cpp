@@ -19,7 +19,7 @@
 
 
 PlayerObject* PlayerObject::player_ = nullptr;
-PlayerObject::PlayerObject():ObjectCommon(file_set::player, WindowManager::GetInstance()->GetWindowCenterX(), WindowManager::GetInstance()->GetWindowCenterY(),system_set::player_hit_size_x, system_set::player_hit_size_y)
+PlayerObject::PlayerObject():ObjectCommon(file_set::player, WindowManager::GetInstance()->GetWindowCenterX(), WindowManager::GetInstance()->GetWindowCenterY(),window_setting::player_extender_,system_set::player_hit_size_x, system_set::player_hit_size_y)
 {
 	effect_ = new PlayerEffect(this);
 	AddChild(effect_);
