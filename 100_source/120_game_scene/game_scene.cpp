@@ -278,7 +278,6 @@ void GameScene::Draw(int screen_handle) {
 void GameScene::Finalize()
 {
 	root_->ReleaseResourceAll();
-	MusicManager::GetInstance()->DeleteMusic();
 
 }
 

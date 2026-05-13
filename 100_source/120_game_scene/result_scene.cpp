@@ -151,6 +151,8 @@ void ResultScene::SetUp() {
 void ResultScene::Finalize() {
 	root_->ReleaseResourceAll();
 	ScoreManager::GetInstance()->Reset();
+	MusicManager::GetInstance()->DeleteMusic();
+
 	//BGMÄ¶
 	MusicManager::GetInstance()->PlayBgm();
 }

@@ -119,11 +119,15 @@ bool AlmostEqual(double a, double b, double epsilon)
 
 int ChangeBitToNum(int flg)
 {
-	//0以下ならそもそもフラグではないので突き返す
-	if (flg <= 0) {
+	//0未満ならそもそもフラグではないので突き返す
+	if (flg < 0) {
 		return -1;
 	}
 	int i = 0;//返り値
+	//フラグが0なら0を返す
+	if (flg == 0) {
+		return 0;
+	}
 	while (true) {
 		//フラグが見つかるか
 		if ((flg >> i) & 1) {
@@ -131,7 +135,7 @@ int ChangeBitToNum(int flg)
 		}
 		i++;
 	}
-	return i;
+	return i + 1;
 }
 
 // UTF-8 -> Shift-JIS 
