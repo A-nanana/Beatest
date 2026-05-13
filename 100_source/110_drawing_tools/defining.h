@@ -218,8 +218,8 @@ namespace string_set {
 	static const char* menu[4] =
 	{
 		"Play (ゲームプレイ！)",
-		"Config (設定)",
-		"Credit (or End Game)",
+		"Config or End Game(設定)",
+		"Credit (素材の出典情報)",
 		"About (説明はココ！)"
 	};//メニュー項目
 
