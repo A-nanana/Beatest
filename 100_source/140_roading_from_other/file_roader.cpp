@@ -44,6 +44,7 @@ FileRoader::FileRoader()
 		sqlite3_close(db_);
 		return;
 	}
+
 	std::string table_name = file_set::music_data_base_table;//stringに変換
 	std::string qel_text = "select count(*) from sqlite_master where type= 'table' and name='" + table_name + "'; ";//命令文
 	//テーブルが確認できるか
@@ -53,12 +54,15 @@ FileRoader::FileRoader()
 		return;
 	}
 	//テーブルが存在するか
-	if (count  < 0) {
+	if (count  <= 0) {
 		use_lib_ = false;
 		sqlite3_close(db_);
 		return;
 	}
-	use_lib_ = true;
+	else {
+		use_lib_ = true;
+
+	}
 }
 
 FileRoader::~FileRoader()
@@ -88,10 +92,21 @@ void FileRoader::RoadLineup(std::vector<LineUp>* title)
 	sqlite3_stmt* stmt = NULL; //状態格納ハンドル.
 
 	//確認できるか
-	if (use_lib_
-		&&(sqlite3_prepare_v2(db_,inser_msg_f.c_str(),inser_msg_f.size(),&stmt,NULL) != SQLITE_OK)) {
-		use_lib_ = false;
-		sqlite3_close(db_);
+	if ((use_lib_
+		&& (sqlite3_prepare_v2(db_,inser_msg_f.c_str(),inser_msg_f.size(),&stmt,NULL) != SQLITE_OK)) || !use_lib_) {
+		//ポインタつくる
+		std::ifstream lineup_p("200_resource/220_music/Lineup.txt");
+		//ファイルが開くか
+		if (lineup_p.is_open()) {
+			std::string name;
+			//取得できる間繰り返す
+			while (std::getline(lineup_p, name)) {
+				title->push_back({ name ,NULL });
+			}
+		}
+
+		lineup_p.close();
+		return;
 	}
 	//ライブラリ使用確認
 	if (use_lib_) {
@@ -142,24 +157,8 @@ void FileRoader::RoadLineup(std::vector<LineUp>* title)
 		
 		sqlite3_finalize(stmt);
 
-			
-		
-
 	}
-	if(!use_lib_) {
-		//ポインタつくる
-		std::ifstream lineup_p("200_resource/220_music/Lineup.txt");
-		//ファイルが開くか
-		if (lineup_p.is_open()) {
-			std::string name;
-			//取得できる間繰り返す
-			while (std::getline(lineup_p, name)) {
-				title->push_back({ name ,NULL});
-			}
-		}
-
-		lineup_p.close();
-	}
+	
 }
 
 
@@ -179,10 +178,19 @@ void FileRoader::RoadMusic(MusicData* music_data)
 	std::string inser_msg = "select * from " + table_name + " WHERE MusicKey = ? ;"; //クエリ文
 	sqlite3_stmt* stmt = NULL; //状態格納ハンドル.
 	//確認できるか
-	if (use_lib_
-		&& (sqlite3_prepare_v2(db_, inser_msg.c_str(), inser_msg.size(), &stmt, NULL) != SQLITE_OK)) {
-		use_lib_ = false;
-		sqlite3_close(db_);
+	if ((use_lib_
+		&& (sqlite3_prepare_v2(db_, inser_msg.c_str(), inser_msg.size(), &stmt, NULL) != SQLITE_OK)) || !use_lib_) {
+		//プロパティファイルを拾う
+		file_name = file_set::music_data_file_pass + music_data->title_ + "/propaty.txt";
+		std::ifstream propaty_p(file_name.c_str());
+		if (propaty_p.is_open()) {
+			propaty_p >> music_data->bpm_;
+			propaty_p >> music_data->time_;
+			propaty_p >> music_data->hyousi_;
+		}
+
+		propaty_p.close();
+		return;
 	}
 	//ライブラリ使用確認
 	if (use_lib_) {
@@ -199,17 +207,7 @@ void FileRoader::RoadMusic(MusicData* music_data)
 		sqlite3_finalize(stmt);
 
 	}
-	else {
-		file_name = file_set::music_data_file_pass + music_data->title_ + "/propaty.txt";
-		std::ifstream propaty_p(file_name.c_str());
-		if (propaty_p.is_open()) {
-			propaty_p >> music_data->bpm_;
-			propaty_p >> music_data->time_;
-			propaty_p >> music_data->hyousi_;
-		}
-
-		propaty_p.close();
-	}
+	
 	//1拍当たりの秒数計算
 	music_data->ms_per_hyousi_ = system_set::ms_per_s * 60.0f / music_data->bpm_;
 }
@@ -269,8 +267,6 @@ void FileRoader::WriteScore(const MusicData& music_data)
 		//文章確認
 		if (use_lib_
 			&& (sqlite3_prepare_v2(db_, inser_msg_3.c_str(), inser_msg_3.size(), &stmt, NULL) != SQLITE_OK)) {
-			use_lib_ = false;
-			sqlite3_close(db_);
 			return;
 		}
 		//ここまできた場合そもそもデータがないので挿入する

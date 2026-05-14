@@ -301,10 +301,18 @@ void SelectScene::Init() {
 	//サイズ設定のためにロード
 	check_size->Load();
 
+	//固定UIオブジェクト追加
 	root_->AddChild(new TextFormatNode(string_set::select_song, GetColor(255, 255, 255), TxtFontManager::GetInstance()->SerchFont(string_set::font_midasi1), WindowManager::GetInstance()->GetWindowCenterX() - string_size / ((line_set::amount_y_max - 1) / 2), line_set::midasi_y));
 	root_->AddChild(new TextNode(string_set::high_score, GetColor(255, 255, 255), WindowManager::GetInstance()->GetWindowCenterX() + WindowManager::GetInstance()->GetSelecterCenter().x_, WindowManager::GetInstance()->GetSelecterCenter().y_ + line_set::brank_y * (line_set::amount_y_max - 2)));
+	//スコア更新が出来ないならその旨の文を追加
+	if (!FileRoader::GetInstance()->CanUseDb()){
+		string_size = GetDrawFormatStringWidth(string_set::cannot_update);
+		root_->AddChild(new TextNode(string_set::cannot_update, GetColor(250, 0, 0), WindowManager::GetInstance()->GetWindowSize().x_ - string_size - line_set::brank_x,
+			WindowManager::GetInstance()->GetSelecterCenter().y_ + line_set::brank_y * (line_set::amount_y_max - 3)));
+	}
 	root_->AddChild(check_size);
 	root_->AddChild(new LineNode(WindowManager::GetInstance()->GetSelecterCenter().x_, WindowManager::GetInstance()->GetSelecterCenter().y_ + line_set::brank_y * 2 + check_size->GetSizeY() /2, WindowManager::GetInstance()->GetWindowCenterX() - WindowManager::GetInstance()->GetSelecterCenter().x_, 0.0f,GetColor(0,0,0),1.0f));
+	
 	//	難易度
 	for (int i = 0; i < system_set::defficulter_max; i++) {
 		defficult_[i] = new TextNode(string_set::defficult[i], GetColor(255, 255, 255), WindowManager::GetInstance()->GetSelecterCenter().x_, WindowManager::GetInstance()->GetWindowCenterY() + WindowManager::GetInstance()->GetSelecterCenter().y_ - line_set::brank_y);

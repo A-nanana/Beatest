@@ -62,6 +62,8 @@ public:
 	//出典(文章)読み込み
 	void RoadSyutten(std::string& syutten, const char* file_name);
 	
+	//データベースが起動しているか
+	bool CanUseDb() { return use_lib_; };
 
 };
 

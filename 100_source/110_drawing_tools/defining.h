@@ -193,6 +193,9 @@ namespace string_set {
 	static const char* config_set = "Set Config";//設定
 	static const char* result = "Your Result"; //結果
 	static const char* game_finish = "Game Set !";//終了
+//  スコアエラー
+	static const char* cannot_update = "ハイスコアは記録されないよ！";
+
 //  名詞
 	static const char* conbo = "C O N B O !"; //結果
 	static const char* score = "Score";//スコア
