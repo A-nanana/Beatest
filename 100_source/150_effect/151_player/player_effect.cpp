@@ -8,11 +8,12 @@
 //Copyright (c) 2026 A.nanami All rights reserved.
 //------------------------------
 #include "player_effect.h"
-#include "..\..\130_data_manager\131_character\player_object.h"
-#include "..\..\130_data_manager\133_music\music_manager.h"
-#include "..\..\110_drawing_tools\alpha_node.h"
-#include "..\..\110_drawing_tools\box_node.h"
-#include "..\..\110_drawing_tools\defining.h"
+#include "../../130_data_manager/131_character/player_object.h"
+#include "../../130_data_manager/133_music/music_manager.h"
+#include "../../130_data_manager/134_other/color_manager.h"
+#include "../../110_drawing_tools/alpha_node.h"
+#include "../../110_drawing_tools/box_node.h"
+#include "../../110_drawing_tools/defining.h"
 
 
 //------------------------------
@@ -65,6 +66,20 @@ HitLineEffect::HitLineEffect(int loop_max, int time_per_loop, Vector2D vector_po
 	color_code_ = GetColor(red, green, blue);
 	SetEffPositon(vector_point, size);
 
+}
+
+HitLineEffect::HitLineEffect(int loop_max, int time_per_loop, Vector2D vector_point, Vector2D size, int color_code, int type)
+	:AlphaNode(window_setting::null_param) 
+{
+	SetWorldPosition();
+	looper_max_ = loop_max;
+	looper_count_ = 0;
+	time_count_ = 0.0f;
+	time_per_loop_harf_ = time_per_loop / 2;
+	eff_type_ = type;
+
+	color_code_ = color_code;
+	SetEffPositon(vector_point, size);
 }
 
 
@@ -122,7 +137,8 @@ void PlayerEffect::Create(int flg)
 	//クリティカル判定 & 画面上にエフェクトがない
 	if ((flg & effect_set::effect_critical) & ~(flg_ & effect_set::effect_critical)) {
 		
-		AddChild(new HitLineEffect(effect_param::loop_hit, effect_param::time_per_loop, player_->GetCenter(), player_->GetSize(),250,0,250, effect_set::effect_critical));
+		AddChild(new HitLineEffect(effect_param::loop_hit, effect_param::time_per_loop, player_->GetCenter(), player_->GetSize(),
+			ColorManager::GetInstance()->SerchColor(string_set::font_eff1) , effect_set::effect_critical));
 		//Se再生
 		MusicManager::GetInstance()->PlaySe(k_play_critical);
 	}
@@ -130,7 +146,8 @@ void PlayerEffect::Create(int flg)
 	//回避判定 & 画面上にエフェクトがない
 	if ((flg & effect_set::effect_avoid) & ~(flg_ & effect_set::effect_avoid)) {
 		
-		AddChild(new HitLineEffect(effect_param::loop_hit, effect_param::time_per_loop, player_->GetCenter(), player_->GetSize(),0,240,255, effect_set::effect_avoid));
+		AddChild(new HitLineEffect(effect_param::loop_hit, effect_param::time_per_loop, player_->GetCenter(), player_->GetSize(),
+			ColorManager::GetInstance()->SerchColor(string_set::font_eff2), effect_set::effect_avoid));
 		
 	}
 

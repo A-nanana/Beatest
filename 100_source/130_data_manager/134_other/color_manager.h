@@ -27,13 +27,13 @@ class ColorSet
 {
 public:
 	enum Color {
-		k_red, //赤
-		k_green,//緑
-		k_blue,//青
-		k_max//最大
+		kRed, //赤
+		kGreen,//緑
+		kBlue,//青
+		kMax//最大
 	};
 private:
-	int rgb_[k_max];//色要素
+	int rgb_[kMax];//色要素
 public:
 	//コンストラクタ
 	ColorSet();
@@ -42,7 +42,7 @@ public:
 	void SetColor3(int r, int g, int b);
 	//色の取得
 	int Color(Color youso) { return rgb_[youso]; };//各要素
-	unsigned int ColorCode() { return GetColor(rgb_[k_red], rgb_[k_green], rgb_[k_blue]); };//色コード
+	unsigned int ColorCode() { return GetColor(rgb_[kRed], rgb_[kGreen], rgb_[kBlue]); };//色コード
 };
 
 
@@ -75,7 +75,8 @@ public:
 	void AddColor(ColorSet* color, const char* collect_name);//あるものを登録
 	//  色検索
 	unsigned int SerchColor(const char* collect_name); //配列番号から検索
-
+	//  色削除
+	void DeleteColor(const char* collect_name);//色を削除
 
 };
 

@@ -33,7 +33,8 @@ protected:
 	void Update(float delta_time)override;
 public:
 //  コンストラクタ
-	HitLineEffect(int loop_max, int time_per_loop, Vector2D vector_point, Vector2D size, int red, int green, int blue ,int type);
+	HitLineEffect(int loop_max, int time_per_loop, Vector2D vector_point, Vector2D size, int red, int green, int blue, int type);
+	HitLineEffect(int loop_max, int time_per_loop, Vector2D vector_point, Vector2D size, int color_code ,int type);
 
 //  位置設定(第一引数で中心を渡すこと)
 	void SetEffPositon(Vector2D player_point, Vector2D graph_size);

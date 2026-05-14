@@ -87,12 +87,12 @@ void GameScene::TextUpdate()
 	Node* new_text_ = new Node();
 
 	//テキストデータ作成
-	new_text_->AddChild(new TextNode(ScoreManager::GetInstance()->GetNowConbo().c_str(), GetColor(255, 0, 255),
+	new_text_->AddChild(new TextNode(ScoreManager::GetInstance()->GetNowConbo().c_str(),ColorManager::GetInstance()->SerchColor(string_set::font_eff1),
 		WindowManager::GetInstance()->GetWindowCenterX() , line_set::title_y));
 	//サイズ確認
 	int text_length = GetDrawStringWidth(ScoreManager::GetInstance()->GetScore().c_str(), -1);
 
-	new_text_->AddChild(new TextNode(ScoreManager::GetInstance()->GetScore().c_str(), GetColor(255, 0, 255),
+	new_text_->AddChild(new TextNode(ScoreManager::GetInstance()->GetScore().c_str(),ColorManager::GetInstance()->SerchColor(string_set::font_eff1),
 		WindowManager::GetInstance()->GetWindowSize().x_ - text_length - line_set::brank_x, WindowManager::GetInstance()->GetWindowSize().y_ - line_set::brank_y));
 
 	//元々根ノードがあるなら削除
@@ -170,7 +170,7 @@ void GameScene::Init()
 	shot_manage_->SetEnemyManager(enemy_);
 
 	//固定テキストをそのまま追加
-	root_->AddChild(new TextNode(string_set::conbo, GetColor(255, 0, 255),
+	root_->AddChild(new TextNode(string_set::conbo,ColorManager::GetInstance()->SerchColor(string_set::font_eff1),
 		WindowManager::GetInstance()->GetWindowCenterX(), line_set::title_y - line_set::brank_y));
 
 	//確認ポップアップ作成

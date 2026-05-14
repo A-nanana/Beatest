@@ -215,6 +215,7 @@ void LongShot::Draw(int screen_handle, Camera* camera)
 		}
 		// 予告線カウントに合わせて表示を切り替える
 		if (pre_count_ > 0.0f) {
+			//ここのみ画像と合わせるため数値を直入れしてます。
 			DrawLine(draw_pos_.x_, draw_pos_.y_, target_draw_pos_.x_, target_draw_pos_.y_, GetColor(0,255,255));
 
 		}

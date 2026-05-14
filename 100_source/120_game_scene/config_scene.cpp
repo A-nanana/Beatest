@@ -90,7 +90,7 @@ void ConfigScene::TextUpdate()
 		std::string text = std::to_string(ConfigsManager::GetInstance()->GetIt((Configs)i));
 		int string_size = GetDrawStringWidth(text.c_str(), -1);
 
-		new_text_->AddChild(new TextNode(text.c_str(),ColorManager::GetInstance()->SerchColor(string_set::font_nomal1),
+		new_text_->AddChild(new TextNode(text.c_str(),ColorManager::GetInstance()->SerchColor(string_set::font_midasi1),
 			line_set::brank_x * 3, line_set::brank_y * i * 2));
 
 	}

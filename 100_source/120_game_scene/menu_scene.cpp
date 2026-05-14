@@ -123,7 +123,7 @@ void MenuScene::Init()
 
 	selecter_node_ = new GraphNode(file_set::selecter, WindowManager::GetInstance()->GetSelecterCenter().x_, WindowManager::GetInstance()->GetSelecterCenter().y_,window_setting::selecter_extender_,true);
 
-	root_->AddChild(new TextFormatNode(string_set::select_menu, ColorManager::GetInstance()->SerchColor(string_set::font_nomal1), TxtFontManager::GetInstance()->SerchFont(string_set::font_midasi1), WindowManager::GetInstance()->GetWindowCenterX() - string_size / 2, line_set::midasi_y));
+	root_->AddChild(new TextFormatNode(string_set::select_menu, ColorManager::GetInstance()->SerchColor(string_set::font_midasi1), TxtFontManager::GetInstance()->SerchFont(string_set::font_midasi1), WindowManager::GetInstance()->GetWindowCenterX() - string_size / 2, line_set::midasi_y));
 	root_->AddChild(selecter_node_);
 
 
@@ -304,7 +304,7 @@ void SelectScene::Init() {
 
 	//固定UIオブジェクト追加
 	root_->AddChild(new TextFormatNode(string_set::select_song, ColorManager::GetInstance()->SerchColor(string_set::font_midasi1), TxtFontManager::GetInstance()->SerchFont(string_set::font_midasi1), WindowManager::GetInstance()->GetWindowCenterX() - string_size / ((line_set::amount_y_max - 1) / 2), line_set::midasi_y));
-	root_->AddChild(new TextNode(string_set::high_score, ColorManager::GetInstance()->SerchColor(string_set::font_nomal1), WindowManager::GetInstance()->GetWindowCenterX() + WindowManager::GetInstance()->GetSelecterCenter().x_, WindowManager::GetInstance()->GetSelecterCenter().y_ + line_set::brank_y * (line_set::amount_y_max - 2)));
+	root_->AddChild(new TextNode(string_set::high_score, ColorManager::GetInstance()->SerchColor(string_set::font_midasi2), WindowManager::GetInstance()->GetWindowCenterX() + WindowManager::GetInstance()->GetSelecterCenter().x_, WindowManager::GetInstance()->GetSelecterCenter().y_ + line_set::brank_y * (line_set::amount_y_max - 2)));
 	//スコア更新が出来ないならその旨の文を追加
 	if (!FileRoader::GetInstance()->CanUseDb()){
 		string_size = GetDrawFormatStringWidth(string_set::cannot_update);
@@ -316,7 +316,7 @@ void SelectScene::Init() {
 	
 	//	難易度
 	for (int i = 0; i < system_set::defficulter_max; i++) {
-		defficult_[i] = new TextNode(string_set::defficult[i], ColorManager::GetInstance()->SerchColor(string_set::font_nomal1), WindowManager::GetInstance()->GetSelecterCenter().x_, WindowManager::GetInstance()->GetWindowCenterY() + WindowManager::GetInstance()->GetSelecterCenter().y_ - line_set::brank_y);
+		defficult_[i] = new TextNode(string_set::defficult[i], ColorManager::GetInstance()->SerchColor(string_set::font_midasi2), WindowManager::GetInstance()->GetSelecterCenter().x_, WindowManager::GetInstance()->GetWindowCenterY() + WindowManager::GetInstance()->GetSelecterCenter().y_ - line_set::brank_y);
 	}
 	//位置初期化
 	for (int i = 0; i < system_set::defficulter_max; i++) {
@@ -327,10 +327,6 @@ void SelectScene::Init() {
 	}
 
 	TextUpdate();
-
-
-
-
 	next_scene_ = this;
 };
 

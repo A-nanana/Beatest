@@ -8,7 +8,7 @@
 //Copyright (c) 2026 A.nanami All rights reserved.
 //------------------------------
 #include "color_manager.h"
-#include "../../100_source/110_drawing_tools/defining.h"
+#include "../../110_drawing_tools/defining.h"
 
 //-----------------------------
 // @name   ColorSet
@@ -20,16 +20,16 @@
 
 ColorSet::ColorSet()
 {
-	rgb_[k_red] = 0;
-	rgb_[k_green] = 0;
-	rgb_[k_blue] = 0;
+	rgb_[kRed] = 0;
+	rgb_[kGreen] = 0;
+	rgb_[kBlue] = 0;
 }
 
 ColorSet::ColorSet(int r, int g, int b)
 {
-	rgb_[k_red] = 0;
-	rgb_[k_green] = 0;
-	rgb_[k_blue] = 0;
+	rgb_[kRed] = 0;
+	rgb_[kGreen] = 0;
+	rgb_[kBlue] = 0;
 
 	SetColor3(r, g, b);
 }
@@ -38,15 +38,15 @@ void ColorSet::SetColor3(int r, int g, int b)
 {
 	//r‚ª-1ˆÈŠO‚È‚ç
 	if (r != -1) {
-		rgb_[k_red] = r;
+		rgb_[kRed] = r;
 	}
 	//g‚ª-1ˆÈŠO‚È‚ç
 	if (g != -1) {
-		rgb_[k_green] = r;
+		rgb_[kGreen] = g;
 	}
 	//b‚ª-1ˆÈŠO‚È‚ç
 	if (b != -1) {
-		rgb_[k_blue] = r;
+		rgb_[kBlue] = b;
 	}
 }
 
@@ -62,8 +62,8 @@ ColorManager* ColorManager::instance_ = nullptr;
 
 ColorManager::ColorManager() {
 	AddColor(250, 178, 123, string_set::font_midasi1);
-	AddColor(240, 240, 240, string_set::font_midasi2);
-	AddColor(245, 170, 23, string_set::font_nomal1);
+	AddColor(243, 236, 216, string_set::font_midasi2);
+	AddColor(225, 90, 4, string_set::font_nomal1);
 	AddColor(240, 0, 0, string_set::font_secure);
 	AddColor(255, 0, 255, string_set::font_eff1);
 	AddColor(0, 255, 255, string_set::font_eff2);
@@ -106,4 +106,14 @@ unsigned int ColorManager::SerchColor(const char* collect_name)
 		return GetColor(0, 0, 0);
 	}
 	return color_[collect_name]->ColorCode();
+}
+
+void ColorManager::DeleteColor(const char* collect_name)
+{
+	//Šù‚É‚ ‚é‚È‚çíœ‚·‚é
+	if (color_.count(collect_name)) {
+		delete color_[collect_name];
+		color_.erase(collect_name);
+
+	}
 }
