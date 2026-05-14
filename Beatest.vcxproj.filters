@@ -186,7 +186,7 @@
     <ClCompile Include="100_source\110_drawing_tools\box_node.cpp">
       <Filter>ソース ファイル\110_drawing_tool</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ActionGame1\ActionGame\100_source\130_data_manager\134_other\color_manager.cpp">
+    <ClCompile Include="100_source\130_data_manager\134_other\color_manager.cpp">
       <Filter>ソース ファイル\130_data_manager\134_other</Filter>
     </ClCompile>
   </ItemGroup>
@@ -293,9 +293,6 @@
     <ClInclude Include="100_source\120_game_scene\background_node.h">
       <Filter>ヘッダー ファイル\120_game_scene</Filter>
     </ClInclude>
-    <ClInclude Include="100_source\110_drawing_tools\defining.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="100_source\120_game_scene\menu_scene.h">
       <Filter>ヘッダー ファイル\120_game_scene</Filter>
     </ClInclude>
@@ -317,7 +314,10 @@
     <ClInclude Include="100_source\110_drawing_tools\box_node.h">
       <Filter>ヘッダー ファイル\110_drawing_tool</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\ActionGame1\ActionGame\100_source\130_data_manager\134_other\color_manager.h">
+    <ClInclude Include="100_source\110_drawing_tools\defining.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="100_source\130_data_manager\134_other\color_manager.h">
       <Filter>ヘッダー ファイル\130_data_manager\134_other</Filter>
     </ClInclude>
   </ItemGroup>

@@ -25,6 +25,7 @@
 #include "../130_data_manager/133_music/music_manager.h"
 #include "../130_data_manager/134_other/configs_manager.h"
 #include "../130_data_manager/134_other/score_manager.h"
+#include "../130_data_manager/134_other/color_manager.h"
 #include "../130_data_manager/134_other/txt_font_manager.h"
 #include "../130_data_manager/134_other/window_manager.h"
 #include "../140_roading_from_other/file_roader.h"

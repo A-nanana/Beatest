@@ -15,6 +15,7 @@
 #include "../110_drawing_tools/inputer.h"
 #include "../130_data_manager/134_other/configs_manager.h"
 #include "../130_data_manager/133_music/music_manager.h"
+#include "../130_data_manager/134_other/color_manager.h"
 #include "../130_data_manager/134_other/txt_font_manager.h"
 #include "../130_data_manager/134_other/window_manager.h"
 #include "../140_roading_from_other/file_roader.h"
@@ -89,7 +90,7 @@ void ConfigScene::TextUpdate()
 		std::string text = std::to_string(ConfigsManager::GetInstance()->GetIt((Configs)i));
 		int string_size = GetDrawStringWidth(text.c_str(), -1);
 
-		new_text_->AddChild(new TextNode(text.c_str(), GetColor(255, 255, 255),
+		new_text_->AddChild(new TextNode(text.c_str(),ColorManager::GetInstance()->SerchColor(string_set::font_nomal1),
 			line_set::brank_x * 3, line_set::brank_y * i * 2));
 
 	}
@@ -118,12 +119,12 @@ void ConfigScene::Init()
 
 	selecter_node_ = new GraphNode(file_set::selecter, WindowManager::GetInstance()->GetSelecterCenter().x_, WindowManager::GetInstance()->GetSelecterCenter().y_, window_setting::selecter_extender_, true);
 
-	root_->AddChild(new TextFormatNode(string_set::config_set, GetColor(255, 255, 255), TxtFontManager::GetInstance()->SerchFont(string_set::font_midasi1), WindowManager::GetInstance()->GetWindowCenterX() - string_size / 2, line_set::midasi_y));
+	root_->AddChild(new TextFormatNode(string_set::config_set,ColorManager::GetInstance()->SerchColor(string_set::font_nomal1), TxtFontManager::GetInstance()->SerchFont(string_set::font_midasi1), WindowManager::GetInstance()->GetWindowCenterX() - string_size / 2, line_set::midasi_y));
 	
 	string_size = GetDrawStringWidth(string_set::push_to_return, -1);
-	root_->AddChild(new TextNode(string_set::push_to_return, GetColor(255, 255, 255), WindowManager::GetInstance()->GetWindowSize().x_ - string_size - ege_set::brank_x, WindowManager::GetInstance()->GetWindowSize().y_ - line_set::brank_y ));
+	root_->AddChild(new TextNode(string_set::push_to_return,ColorManager::GetInstance()->SerchColor(string_set::font_nomal1), WindowManager::GetInstance()->GetWindowSize().x_ - string_size - ege_set::brank_x, WindowManager::GetInstance()->GetWindowSize().y_ - line_set::brank_y ));
 	
-	root_->AddChild(new TextNode(string_set::push_to_end, GetColor(255, 255, 255), ege_set::brank_x, WindowManager::GetInstance()->GetWindowSize().y_ - line_set::brank_y ));
+	root_->AddChild(new TextNode(string_set::push_to_end,ColorManager::GetInstance()->SerchColor(string_set::font_nomal1), ege_set::brank_x, WindowManager::GetInstance()->GetWindowSize().y_ - line_set::brank_y ));
 	
 	//固定テキスト関係
 	Node* new_text_ = new Node();
@@ -131,9 +132,9 @@ void ConfigScene::Init()
 	int string_size_max = NULL;
 	//項目分追加
 	for (int i = 0; i < k_config_amount; i++) {
-		new_text_->AddChild(new TextNode(string_set::configs[i], GetColor(255, 255, 255), line_set::brank_x * 2, line_set::brank_y * (i * 2 - 1)));
-		new_text_->AddChild(new TextNode("<", GetColor(255, 255, 255), line_set::brank_x * 2,  line_set::brank_y * i * 2));
-		new_text_->AddChild(new TextNode(">", GetColor(255, 255, 255), line_set::brank_x * 5,  line_set::brank_y * i * 2));
+		new_text_->AddChild(new TextNode(string_set::configs[i],ColorManager::GetInstance()->SerchColor(string_set::font_nomal1), line_set::brank_x * 2, line_set::brank_y * (i * 2 - 1)));
+		new_text_->AddChild(new TextNode("<",ColorManager::GetInstance()->SerchColor(string_set::font_nomal1), line_set::brank_x * 2,  line_set::brank_y * i * 2));
+		new_text_->AddChild(new TextNode(">",ColorManager::GetInstance()->SerchColor(string_set::font_nomal1), line_set::brank_x * 5,  line_set::brank_y * i * 2));
 	}
 	root_->AddChild(new_text_);
 	root_->AddChild(selecter_node_);
@@ -206,12 +207,12 @@ void CreditScene::Init()
 	root_->AddChild(new BackgroundNode(file_set::menu_back_defalt, { window_setting::null_param,window_setting::null_param }));
 
 	int string_size = GetDrawStringWidth(string_set::push_to_return, -1);
-	root_->AddChild(new TextNode(string_set::push_to_return, GetColor(255, 255, 255), WindowManager::GetInstance()->GetWindowSize().x_ - string_size - ege_set::brank_x, WindowManager::GetInstance()->GetWindowSize().y_ - line_set::brank_y * 3));
+	root_->AddChild(new TextNode(string_set::push_to_return,ColorManager::GetInstance()->SerchColor(string_set::font_nomal1), WindowManager::GetInstance()->GetWindowSize().x_ - string_size - ege_set::brank_x, WindowManager::GetInstance()->GetWindowSize().y_ - line_set::brank_y * 3));
 
 	//テキストを設定
 	FileRoader::GetInstance()->RoadSyutten(text_,file_set::syutten_memo);
 
-	root_->AddChild(new TextNode(text_.c_str(), GetColor(255, 255, 255), line_set::brank_x + ege_set::brank_x, line_set::brank_y + ege_set::brank_y));
+	root_->AddChild(new TextNode(text_.c_str(),ColorManager::GetInstance()->SerchColor(string_set::font_nomal1), line_set::brank_x + ege_set::brank_x, line_set::brank_y + ege_set::brank_y));
 
 	next_scene_ = this;
 }
@@ -264,12 +265,12 @@ void AboutScene::Init()
 	root_->AddChild(new BackgroundNode(file_set::menu_back_defalt, { window_setting::null_param,window_setting::null_param }));
 
 	int string_size = GetDrawStringWidth(string_set::push_to_return, -1);
-	root_->AddChild(new TextNode(string_set::push_to_return, GetColor(255, 255, 255), WindowManager::GetInstance()->GetWindowSize().x_ - string_size - ege_set::brank_x, WindowManager::GetInstance()->GetWindowSize().y_ - line_set::brank_y * 3));
+	root_->AddChild(new TextNode(string_set::push_to_return,ColorManager::GetInstance()->SerchColor(string_set::font_nomal1), WindowManager::GetInstance()->GetWindowSize().x_ - string_size - ege_set::brank_x, WindowManager::GetInstance()->GetWindowSize().y_ - line_set::brank_y * 3));
 
 	//テキストを設定
 	FileRoader::GetInstance()->RoadSyutten(text_, file_set::tutorial_memo);
 
-	root_->AddChild(new TextNode(text_.c_str(), GetColor(255, 255, 255), line_set::brank_x + ege_set::brank_x, line_set::brank_y + ege_set::brank_y));
+	root_->AddChild(new TextNode(text_.c_str(),ColorManager::GetInstance()->SerchColor(string_set::font_nomal1), line_set::brank_x + ege_set::brank_x, line_set::brank_y + ege_set::brank_y));
 
 	next_scene_ = this;
 }

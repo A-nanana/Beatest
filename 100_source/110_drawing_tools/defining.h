@@ -203,10 +203,12 @@ namespace string_set {
 	static const char* max_conbo = "Max Conbo";//最大コンボ
 	static const char* cursol = "->"; //カーソル
 //  フォント設定用
-	static const char* font_midasi1 = "Midasi1";
-	static const char* font_midasi2 = "Midasi2";
-	static const char* font_nomal1 = "Nomal1";
-	static const char* font_secure = "Secure";
+	static const char* font_midasi1 = "Midasi1";//見出し1
+	static const char* font_midasi2 = "Midasi2";//見出し2
+	static const char* font_nomal1 = "Nomal1";//通常1
+	static const char* font_secure = "Secure";//警告
+	static const char* font_eff1 = "Eff1";//効果1(1番いいもの)
+	static const char* font_eff2 = "Eff2";//効果2(2番目でいいもの)
 
 	static const char* result_uchiwake[4] =
 	{ "Critical",

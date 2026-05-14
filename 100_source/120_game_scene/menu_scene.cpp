@@ -20,6 +20,7 @@
 #include "background_node.h"
 #include "../130_data_manager/133_music/music_manager.h"
 #include "../130_data_manager/134_other/configs_manager.h"
+#include "../130_data_manager/134_other/color_manager.h"
 #include "../130_data_manager/134_other/txt_font_manager.h"
 #include "../130_data_manager/134_other/window_manager.h"
 #include "../140_roading_from_other/file_roader.h"
@@ -93,7 +94,7 @@ void MenuScene::TextUpdate() {
 		std::string text = string_set::menu[i];
 		int string_size = GetDrawStringWidth(text.c_str(), -1);
 
-		new_text_->AddChild(new TextNode(text.c_str(), GetColor(255, 255, 255),
+		new_text_->AddChild(new TextNode(text.c_str(), ColorManager::GetInstance()->SerchColor(string_set::font_nomal1),
 			window_setting::null_param, line_set::brank_y * i * 2));
 
 	}
@@ -122,7 +123,7 @@ void MenuScene::Init()
 
 	selecter_node_ = new GraphNode(file_set::selecter, WindowManager::GetInstance()->GetSelecterCenter().x_, WindowManager::GetInstance()->GetSelecterCenter().y_,window_setting::selecter_extender_,true);
 
-	root_->AddChild(new TextFormatNode(string_set::select_menu, GetColor(255, 255, 255), TxtFontManager::GetInstance()->SerchFont(string_set::font_midasi1), WindowManager::GetInstance()->GetWindowCenterX() - string_size / 2, line_set::midasi_y));
+	root_->AddChild(new TextFormatNode(string_set::select_menu, ColorManager::GetInstance()->SerchColor(string_set::font_nomal1), TxtFontManager::GetInstance()->SerchFont(string_set::font_midasi1), WindowManager::GetInstance()->GetWindowCenterX() - string_size / 2, line_set::midasi_y));
 	root_->AddChild(selecter_node_);
 
 
@@ -255,12 +256,12 @@ void SelectScene::TextUpdate()
 			MusicManager::GetInstance()->operator[]((selecter_[k_music] - ((line_set::amount_y_max - 1) / 2) + MusicManager::GetInstance()->GetLineupSize() + i) % MusicManager::GetInstance()->GetLineupSize()).title;
 		int string_size = GetDrawStringWidth(text.c_str(), -1);
 
-		new_text_->AddChild(new TextNode(text.c_str(), GetColor(255, 255, 255),
+		new_text_->AddChild(new TextNode(text.c_str(), ColorManager::GetInstance()->SerchColor(string_set::font_nomal1),
 			line_set::brank_x, line_set::brank_y * i));
 
 	}
 	//ハイスコアの表示
-	new_text_->AddChild(new TextNode(std::to_string(MusicManager::GetInstance()->operator[](selecter_[k_music]).high_score[selecter_[k_defficult]].value_or(window_setting::null_param)).c_str(), GetColor(255, 255, 255),
+	new_text_->AddChild(new TextNode(std::to_string(MusicManager::GetInstance()->operator[](selecter_[k_music]).high_score[selecter_[k_defficult]].value_or(window_setting::null_param)).c_str(), ColorManager::GetInstance()->SerchColor(string_set::font_nomal1),
 		WindowManager::GetInstance()->GetWindowCenterX(), line_set::brank_y * (line_set::amount_y_max - 1)));
 
 	//元々根ノードがあるなら削除
@@ -302,12 +303,12 @@ void SelectScene::Init() {
 	check_size->Load();
 
 	//固定UIオブジェクト追加
-	root_->AddChild(new TextFormatNode(string_set::select_song, GetColor(255, 255, 255), TxtFontManager::GetInstance()->SerchFont(string_set::font_midasi1), WindowManager::GetInstance()->GetWindowCenterX() - string_size / ((line_set::amount_y_max - 1) / 2), line_set::midasi_y));
-	root_->AddChild(new TextNode(string_set::high_score, GetColor(255, 255, 255), WindowManager::GetInstance()->GetWindowCenterX() + WindowManager::GetInstance()->GetSelecterCenter().x_, WindowManager::GetInstance()->GetSelecterCenter().y_ + line_set::brank_y * (line_set::amount_y_max - 2)));
+	root_->AddChild(new TextFormatNode(string_set::select_song, ColorManager::GetInstance()->SerchColor(string_set::font_midasi1), TxtFontManager::GetInstance()->SerchFont(string_set::font_midasi1), WindowManager::GetInstance()->GetWindowCenterX() - string_size / ((line_set::amount_y_max - 1) / 2), line_set::midasi_y));
+	root_->AddChild(new TextNode(string_set::high_score, ColorManager::GetInstance()->SerchColor(string_set::font_nomal1), WindowManager::GetInstance()->GetWindowCenterX() + WindowManager::GetInstance()->GetSelecterCenter().x_, WindowManager::GetInstance()->GetSelecterCenter().y_ + line_set::brank_y * (line_set::amount_y_max - 2)));
 	//スコア更新が出来ないならその旨の文を追加
 	if (!FileRoader::GetInstance()->CanUseDb()){
 		string_size = GetDrawFormatStringWidth(string_set::cannot_update);
-		root_->AddChild(new TextNode(string_set::cannot_update, GetColor(250, 0, 0), WindowManager::GetInstance()->GetWindowSize().x_ - string_size - line_set::brank_x,
+		root_->AddChild(new TextNode(string_set::cannot_update, ColorManager::GetInstance()->SerchColor(string_set::font_secure), WindowManager::GetInstance()->GetWindowSize().x_ - string_size - line_set::brank_x,
 			WindowManager::GetInstance()->GetSelecterCenter().y_ + line_set::brank_y * (line_set::amount_y_max - 3)));
 	}
 	root_->AddChild(check_size);
@@ -315,7 +316,7 @@ void SelectScene::Init() {
 	
 	//	難易度
 	for (int i = 0; i < system_set::defficulter_max; i++) {
-		defficult_[i] = new TextNode(string_set::defficult[i], GetColor(255, 255, 255), WindowManager::GetInstance()->GetSelecterCenter().x_, WindowManager::GetInstance()->GetWindowCenterY() + WindowManager::GetInstance()->GetSelecterCenter().y_ - line_set::brank_y);
+		defficult_[i] = new TextNode(string_set::defficult[i], ColorManager::GetInstance()->SerchColor(string_set::font_nomal1), WindowManager::GetInstance()->GetSelecterCenter().x_, WindowManager::GetInstance()->GetWindowCenterY() + WindowManager::GetInstance()->GetSelecterCenter().y_ - line_set::brank_y);
 	}
 	//位置初期化
 	for (int i = 0; i < system_set::defficulter_max; i++) {
