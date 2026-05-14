@@ -27,8 +27,8 @@ protected:
 	int cool_time_;//スコア加算クール
 public:
 //  コンストラクタ
-	ShotObject(const int graph_handle, float x, float y, float speed, float angle, Vector2D target, int type) ;
-	ShotObject(const char* graph_, float x, float y, float speed, float angle,Vector2D target, int type);
+	ShotObject(const int graph_handle, float x, float y, float speed,  Vector2D target, int type) ;
+	ShotObject(const char* graph_, float x, float y, float speed,Vector2D target, int type);
 //  デストラクタ
 	~ShotObject();
 
@@ -75,8 +75,8 @@ protected:
 	float extender_; //専用のx拡大率
 public:
 	//  コンストラクタ
-	LongShot(const int graph_handle, float x, float y, float keep, float angle, Vector2D target, int type) ;
-	LongShot(const  char* graph_, float x, float y, float keep, float angle, Vector2D target, int type);
+	LongShot(const int graph_handle, float x, float y, float keep, Vector2D target, int type) ;
+	LongShot(const  char* graph_, float x, float y, float keep,  Vector2D target, int type);
 	//  デストラクタ
 	~LongShot() {};
 

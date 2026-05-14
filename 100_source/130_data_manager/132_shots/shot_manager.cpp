@@ -165,16 +165,16 @@ void ShotManager::AddShot(float x, float y, float speed, float angle, int type)
 		//タイプで分けて追加
 		//時差打ちか通常 
 		if ((type == system_set::k_enemy_nomal) || (type == system_set::k_enemy_later_renge)) {
-			Node::AddChild(new ShotObject(graph_[file_set::shot], x, y, speed, angle, GetPlayerCenter(), type));
+			Node::AddChild(new ShotObject(graph_[file_set::shot], x, y, speed,  GetPlayerCenter(), type));
 		}
 		//一周打ち
 		if (type == system_set::k_enemy_all_renge) {
-			Node::AddChild(new ShotObject(graph_[file_set::shot], x, y, speed, angle, { WindowManager::GetInstance()->GetWindowLength() * cos(angle), WindowManager::GetInstance()->GetWindowLength() * sin(angle) },type));
+			Node::AddChild(new ShotObject(graph_[file_set::shot], x, y, speed, { WindowManager::GetInstance()->GetWindowLength() * cos(angle), WindowManager::GetInstance()->GetWindowLength() * sin(angle) },type));
 		}
 		//レーザー
 		if (type == system_set::k_enemy_lazer) {
 
-			Node::AddChild(new LongShot(graph_[file_set::lazer],window_setting::null_param,window_setting::null_param, speed, angle, GetPlayerCenter(), type));
+			Node::AddChild(new LongShot(graph_[file_set::lazer],window_setting::null_param,window_setting::null_param, speed,  GetPlayerCenter(), type));
 
 		}
 		

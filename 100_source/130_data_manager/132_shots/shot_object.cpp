@@ -15,23 +15,23 @@
 #include "../133_music/music_manager.h"
 #include "../134_other/window_manager.h"
 
-ShotObject::ShotObject(const int graph_handle, float x, float y, float speed, float angle, Vector2D target, int type)
+ShotObject::ShotObject(const int graph_handle, float x, float y, float speed,  Vector2D target, int type)
 	:used_(true), target_(target), type_(type),cool_time_(0), ObjectCommon(graph_handle, x, y) {
 
 
 	speed_size_ = speed;
-	SetRotate(angle);
+	SetAngle(target_.x_, target_.y_);
 	hit_use_ = true;
 	GraphNode::Load();
 	SetWorldPosition();
 }
 
-ShotObject::ShotObject(const char* graph_, float x, float y, float speed, float angle, Vector2D target, int type)
+ShotObject::ShotObject(const char* graph_, float x, float y, float speed,  Vector2D target, int type)
 	:used_(true),target_(target), type_(type), cool_time_(0) , ObjectCommon(graph_, x, y) {
 	
 	
 	speed_size_ = speed;
-	SetRotate(angle);
+	SetAngle(target_.x_, target_.y_);	
 	hit_use_ = true;
 	GraphNode::Load();
 	SetWorldPosition();
@@ -92,8 +92,8 @@ void ShotObject::Release()
 	
 }
 
-LongShot::LongShot(const int graph_handle, float x, float y, float keep, float angle, Vector2D target, int type)
-	:ShotObject(graph_handle, x, y, keep, angle, target, type)
+LongShot::LongShot(const int graph_handle, float x, float y, float keep,  Vector2D target, int type)
+	:ShotObject(graph_handle, x, y, keep,  target, type)
 {
 
 	//カウントセット
@@ -113,8 +113,8 @@ LongShot::LongShot(const int graph_handle, float x, float y, float keep, float a
 
 }
 
-LongShot::LongShot(const char* graph_, float x, float y, float keep, float angle, Vector2D target, int type)
-	:ShotObject(graph_, x, y, keep, angle, target, type)
+LongShot::LongShot(const char* graph_, float x, float y, float keep,  Vector2D target, int type)
+	:ShotObject(graph_, x, y, keep, target, type)
 {
 	pre_count_ = system_set::border_time;
 	inner_count_ = keep;
