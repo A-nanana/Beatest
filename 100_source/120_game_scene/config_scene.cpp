@@ -90,7 +90,7 @@ void ConfigScene::TextUpdate()
 		std::string text = std::to_string(ConfigsManager::GetInstance()->GetIt((Configs)i));
 		int string_size = GetDrawStringWidth(text.c_str(), -1);
 
-		new_text_->AddChild(new TextNode(text.c_str(),ColorManager::GetInstance()->SerchColor(string_set::font_midasi1),
+		new_text_->AddChild(new TextNode(text.c_str(),ColorManager::GetInstance()->SerchColor(string_set::font_nomal1),
 			line_set::brank_x * 3, line_set::brank_y * i * 2));
 
 	}
@@ -119,7 +119,7 @@ void ConfigScene::Init()
 
 	selecter_node_ = new GraphNode(file_set::selecter, WindowManager::GetInstance()->GetSelecterCenter().x_, WindowManager::GetInstance()->GetSelecterCenter().y_, window_setting::selecter_extender_, true);
 
-	root_->AddChild(new TextFormatNode(string_set::config_set,ColorManager::GetInstance()->SerchColor(string_set::font_nomal1), TxtFontManager::GetInstance()->SerchFont(string_set::font_midasi1), WindowManager::GetInstance()->GetWindowCenterX() - string_size / 2, line_set::midasi_y));
+	root_->AddChild(new TextFormatNode(string_set::config_set,ColorManager::GetInstance()->SerchColor(string_set::font_midasi1), TxtFontManager::GetInstance()->SerchFont(string_set::font_midasi1), WindowManager::GetInstance()->GetWindowCenterX() - string_size / 2, line_set::midasi_y));
 	
 	string_size = GetDrawStringWidth(string_set::push_to_return, -1);
 	root_->AddChild(new TextNode(string_set::push_to_return,ColorManager::GetInstance()->SerchColor(string_set::font_nomal1), WindowManager::GetInstance()->GetWindowSize().x_ - string_size - ege_set::brank_x, WindowManager::GetInstance()->GetWindowSize().y_ - line_set::brank_y ));
