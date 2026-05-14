@@ -21,7 +21,10 @@ TxtFontManager::TxtFontManager() {
 }
 //  デストラクタ
 TxtFontManager::~TxtFontManager() {
-
+	//ポインタ削除
+	for (auto font : fonts_) {
+		delete font.second;
+	}
 }
 
 //  インスタンスアクセス

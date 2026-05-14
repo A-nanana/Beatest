@@ -135,6 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\ActionGame1\ActionGame\100_source\130_data_manager\134_other\color_manager.cpp" />
     <ClCompile Include="100_source\110_drawing_tools\alpha_node.cpp" />
     <ClCompile Include="100_source\110_drawing_tools\box_node.cpp" />
     <ClCompile Include="100_source\110_drawing_tools\camera.cpp" />
@@ -174,6 +175,7 @@
     <ClCompile Include="100_source\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\ActionGame1\ActionGame\100_source\130_data_manager\134_other\color_manager.h" />
     <ClInclude Include="100_source\110_drawing_tools\alpha_node.h" />
     <ClInclude Include="100_source\110_drawing_tools\box_node.h" />
     <ClInclude Include="100_source\110_drawing_tools\camera.h" />

@@ -205,6 +205,8 @@ namespace string_set {
 //  フォント設定用
 	static const char* font_midasi1 = "Midasi1";
 	static const char* font_midasi2 = "Midasi2";
+	static const char* font_nomal1 = "Nomal1";
+	static const char* font_secure = "Secure";
 
 	static const char* result_uchiwake[4] =
 	{ "Critical",
