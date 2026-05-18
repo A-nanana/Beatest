@@ -62,8 +62,8 @@ void ScoreManager::ComboUpdate(bool is_conbo)
 
 void ScoreManager::ScoreUpdate(HitType type)
 {
-	//スコアが最大でなければ加算
-	if (score_.score < score_set::conbo_max) {
+	//コンボが最大でなければ加算
+	if (count_conbo_ < score_set::conbo_max) {
 		//当たり判定の結果で分岐
 		switch (type)
 		{
