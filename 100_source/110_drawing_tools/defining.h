@@ -324,7 +324,7 @@ namespace system_set {
 //  ‘¬“x‚ÌŒ¸­•
 	static const float shot_speed_down = 0.5;
 //  Šp“x‚ª‘å‚«‚­‚È‚Á‚½‚Æ‚«‚ÌC³Šp“x
-	static const float repair_rad = M_PI * 350.0f / 180.0f;
+	static const float repair_rad = M_PI * 360.0f / 180.0f;
 //  1s‚ğms‚É’¼‚·
 	static const int ms_per_s = 1000;
 //  —P—\ŠÔ(ms)

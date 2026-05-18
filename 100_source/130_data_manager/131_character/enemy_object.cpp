@@ -62,7 +62,7 @@ void EnemyObject::Update(float delta_time) {
 		if (shot_booker_->operator[](n).type == system_set::k_enemy_later_renge) {
 			speed -= system_set::shot_speed_down;
 		}
-		shot_manager_->AddShot(world_position_.x_ + size_x_ / 2, world_position_.y_ + size_y_ / 2,
+		shot_manager_->AddShot(world_position_.x_ + size_x_ / 2, world_position_.y_ + size_y_ / 4,
 			speed, angle, shot_booker_->operator[](n).type);
 
 	}
