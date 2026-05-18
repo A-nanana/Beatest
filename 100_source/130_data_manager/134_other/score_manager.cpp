@@ -62,33 +62,53 @@ void ScoreManager::ComboUpdate(bool is_conbo)
 
 void ScoreManager::ScoreUpdate(HitType type)
 {
-	//当たり判定の結果で分岐
-	switch (type)
-	{
-	case k_critical:
-		score_.critical++;
-		score_.score += score_set::per_critical;
-		ComboUpdate(true);
-		break;
-	case k_great:
-		score_.great++;
-		score_.score += score_set::per_avoiding;
-		ComboUpdate(true);
-		break;
-	case k_miss:
-		score_.miss++;
-		ComboUpdate(false);
-		break;
-	case k_none:
-		score_.good++;
-		score_.score += score_set::per_none;
-		break;
-	case k_lazer_none:
-		score_.critical++;
-		score_.score += score_set::per_lazer;
-		break;
-	default:
-		break;
+	//スコアが最大でなければ加算
+	if (score_.score < score_set::conbo_max) {
+		//当たり判定の結果で分岐
+		switch (type)
+		{
+		case k_critical:
+			score_.critical++;
+			ComboUpdate(true);
+			break;
+		case k_great:
+			score_.great++;
+			ComboUpdate(true);
+			break;
+		case k_miss:
+			score_.miss++;
+			ComboUpdate(false);
+			break;
+		case k_none:
+			score_.good++;
+			break;
+		case k_lazer_none:
+			score_.critical++;
+			break;
+		default:
+			break;
+		}
+	}
+	//スコアが最大でなければ加算
+	if (score_.score < score_set::score_max) {
+		//当たり判定の結果で分岐
+		switch (type)
+		{
+		case k_critical:
+			score_.score += score_set::per_critical;
+			break;
+		case k_great:
+			score_.score += score_set::per_avoiding;
+			break;
+		case k_none:
+			score_.score += score_set::per_none;
+			break;
+		case k_lazer_none:
+			score_.score += score_set::per_lazer;
+			break;
+		default:
+			break;
+		}
 	}
 
 }

@@ -260,6 +260,12 @@ namespace score_set {
 	static const int per_none = 100;
 //  レーザー回避
 	static const int per_lazer = 600;
+//  スコア最大
+	static const int score_max = 100000000;
+//  コンボ最大
+	static const int conbo_max = 10000;
+
+
 }
 
 //-----------------------------
