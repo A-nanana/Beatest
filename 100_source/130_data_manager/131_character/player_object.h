@@ -12,8 +12,8 @@
 #define __PLAYER_OBJECT_H__
 
 #include "object_common.h"
-#include "..\..\110_drawing_tools\defining.h"
-#include "..\..\110_drawing_tools\Vector2.h"
+#include "../../110_drawing_tools/defining.h"
+#include "../../110_drawing_tools/Vector2.h"
 
 class PlayerEffect;
 

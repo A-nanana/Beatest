@@ -11,11 +11,11 @@
 #include <iostream>
 #include "enemy_object.h"
 
-#include "..\132_shots\shot_manager.h"
-#include "..\132_shots\shot_booker.h"
-#include "..\132_shots\shot_object.h"
-#include "..\..\110_drawing_tools\defining.h"
-#include "..\..\110_drawing_tools\tool.h"
+#include "../132_shots/shot_manager.h"
+#include "../132_shots/shot_booker.h"
+#include "../132_shots/shot_object.h"
+#include "../../110_drawing_tools/defining.h"
+#include "../../110_drawing_tools/tool.h"
 
 EnemyObject::EnemyObject(ShotManager* shot_manager, std::vector<ShotBooker>* shot_booker)
 	:shot_manager_(shot_manager),shot_booker_(shot_booker),ObjectCommon(file_set::enemy, 1.0f, 1.0f, 90.0f, 120.0f)

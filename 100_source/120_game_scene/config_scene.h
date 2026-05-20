@@ -12,7 +12,7 @@
 #define __CONFIG_SCENE_H__ 
 
 #include <string>
-#include "..\110_drawing_tools\scene.h"
+#include "../110_drawing_tools/scene.h"
 
 class Node;
 class TextNode;

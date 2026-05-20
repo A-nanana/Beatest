@@ -9,8 +9,8 @@
 //------------------------------
 #include "DxLib.h"
 #include "configs_manager.h"
-#include "..\133_music\music_manager.h"
-#include "..\..\110_drawing_tools\defining.h"
+#include "../133_music/music_manager.h"
+#include "../../110_drawing_tools/defining.h"
 
 ConfigsManager* ConfigsManager::instance_ = nullptr;
 

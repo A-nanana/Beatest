@@ -11,7 +11,7 @@
 #ifndef __FIELD_EFFECT_H__
 #define __FIELD_EFFECT_H__
 
-#include "..\110_drawing_tools\alpha_node.h"
+#include "../110_drawing_tools/alpha_node.h"
 
 //------------------------------
 // @name   BackBeatEffect

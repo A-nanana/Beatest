@@ -8,9 +8,9 @@
 //Copyright (c) 2026 A.nanami All rights reserved.
 //------------------------------
 #include "DxLib.h"
-#include "..\..\140_roading_from_other\file_roader.h"
-#include "..\..\110_drawing_tools\defining.h"
-#include "..\..\110_drawing_tools\tool.h"
+#include "../../140_roading_from_other/file_roader.h"
+#include "../../110_drawing_tools/defining.h"
+#include "../../110_drawing_tools/tool.h"
 #include "music_manager.h"
 
 MusicManager* MusicManager::music_manager_ = nullptr;

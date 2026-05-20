@@ -11,7 +11,7 @@
 #include "score_manager.h"
 #include "../133_music/music_manager.h"
 #include "../../140_roading_from_other/file_roader.h"
-#include "..\..\110_drawing_tools\defining.h"
+#include "../../110_drawing_tools/defining.h"
 
 //------------------------------
 // @name   ScoreManager

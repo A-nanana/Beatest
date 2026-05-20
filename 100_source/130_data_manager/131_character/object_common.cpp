@@ -8,9 +8,9 @@
 //Copyright (c) 2026 A.nanami All rights reserved.
 //------------------------------
 #include <iostream>
-#include "..\..\110_drawing_tools\tool.h"
+#include "../../110_drawing_tools/tool.h"
 #include "object_common.h"
-#include "..\..\110_drawing_tools\defining.h"
+#include "../../110_drawing_tools/defining.h"
 
 ObjectCommon::ObjectCommon(const char* name, float x, float y, float hit_size_x, float hit_size_y)
     :GraphNode(name, x, y) {

@@ -8,7 +8,7 @@
 //Copyright (c) 2026 A.nanami All rights reserved.
 //------------------------------
 #include "camera.h"
-#include "..\130_data_manager\131_character\player_object.h"
+#include "../130_data_manager/131_character/player_object.h"
 #include "defining.h"
 Camera::Camera(float x, float y) :position_(x, y)
 {

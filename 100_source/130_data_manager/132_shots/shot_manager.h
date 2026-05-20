@@ -11,8 +11,8 @@
 #define __SHOT_MANAGER_H__
 
 #include <unordered_map>
-#include "..\..\110_drawing_tools\node.h"
-#include "..\131_character\player_object.h"
+#include "../../110_drawing_tools/node.h"
+#include "../131_character/player_object.h"
 
 class EnemyManager;
 class PlayerObject;

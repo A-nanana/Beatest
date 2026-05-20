@@ -11,7 +11,7 @@
 #ifndef __TOP_SCENE_H__
 #define __TOP_SCENE_H__ 
 
-#include "..\110_drawing_tools\scene.h"
+#include "../110_drawing_tools/scene.h"
 
 class Node;
 class TextNode;

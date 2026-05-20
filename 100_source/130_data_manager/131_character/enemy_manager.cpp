@@ -8,7 +8,7 @@
 //Copyright (c) 2026 A.nanami All rights reserved.
 //------------------------------
 #include "enemy_manager.h"
-#include "..\132_shots\shot_manager.h"
+#include "../132_shots/shot_manager.h"
 #include "enemy_object.h"
 
 //ÉçÅ[Éh

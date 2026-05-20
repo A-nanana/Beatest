@@ -340,7 +340,7 @@ Scene* SelectScene::Update(float delta_time) {
 	camera_->Update();
 
 	//直前の選択が今の選択と違うならテキストを更新
-	if (last_select_ != selecter_) {
+	if ((last_select_[k_defficult] != selecter_[k_defficult]) || (last_select_[k_music] != selecter_[k_music])) {
 		TextUpdate();
 	}
 

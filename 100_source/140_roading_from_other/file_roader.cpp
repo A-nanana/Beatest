@@ -17,10 +17,10 @@
 // ソースと同じ場所にあるライブラリの読み込み指定   
 #pragma comment(lib, "sqlite3.lib")
 
-#include "..\130_data_manager\133_music\music_manager.h"
-#include "..\130_data_manager\132_shots\shot_booker.h"
-#include "..\110_drawing_tools\defining.h"
-#include "..\110_drawing_tools\tool.h"
+#include "../130_data_manager/133_music/music_manager.h"
+#include "../130_data_manager/132_shots/shot_booker.h"
+#include "../110_drawing_tools/defining.h"
+#include "../110_drawing_tools/tool.h"
 #include "file_roader.h"
 
 FileRoader* FileRoader::roader_ = nullptr;
@@ -341,8 +341,8 @@ std::vector<ShotBooker>* FileRoader::RoadHumen(const MusicData& music_data)
 	while (humen_2.size() > i) {
 		switch (humen_2[i])
 		{
-		case  '\0': break;
-		case '\n':
+		case  '/0': break;
+		case '/n':
 			//タイミング調整をば
 
 			//カウント調整

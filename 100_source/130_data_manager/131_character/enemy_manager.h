@@ -11,7 +11,7 @@
 #ifndef __ENEMY_MANAGER_H__
 #define __ENEMY_MANAGER_H__
 
-#include "..\..\110_drawing_tools\node.h"
+#include "../../110_drawing_tools/node.h"
 
 class ShotManager;
 class EnemyObject;

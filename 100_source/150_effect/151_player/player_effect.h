@@ -10,8 +10,8 @@
 #ifndef __PLAYER_EFFECT_H__
 #define __PLAYER_EFFECT_H__
 
-#include "..\..\110_drawing_tools\node.h"
-#include "..\..\110_drawing_tools\alpha_node.h"
+#include "../../110_drawing_tools/node.h"
+#include "../../110_drawing_tools/alpha_node.h"
 
 class PlayerObject;
 //------------------------------

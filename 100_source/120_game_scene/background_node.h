@@ -11,9 +11,9 @@
 #ifndef __BACKGROUND_NODE_H__
 #define __BACKGROUND_NODE_H__
 
-#include "..\110_drawing_tools\graph_node.h"
-#include "..\110_drawing_tools\Vector2.h"
-#include "..\110_drawing_tools\defining.h"
+#include "../110_drawing_tools/graph_node.h"
+#include "../110_drawing_tools/Vector2.h"
+#include "../110_drawing_tools/defining.h"
 
 
 class BackgroundNode:public GraphNode

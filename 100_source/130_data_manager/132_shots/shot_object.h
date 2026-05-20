@@ -10,8 +10,8 @@
 #ifndef __SHOT_OBJECT_H__
 #define __SHOT_OBJECT_H__
 
-#include "..\..\110_drawing_tools\Vector2.h"
-#include "..\131_character\object_common.h"
+#include "../../110_drawing_tools/Vector2.h"
+#include "../131_character/object_common.h"
 //-----------------------------
 // @name   ShotObject
 // @brief  í èÌíe

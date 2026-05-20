@@ -10,8 +10,8 @@
 
 #pragma once
 
-#include "..\110_drawing_tools\alpha_node.h"
-#include "..\110_drawing_tools\scene.h"
+#include "../110_drawing_tools/alpha_node.h"
+#include "../110_drawing_tools/scene.h"
 
 class EnemyManager;
 class PlayerObject;

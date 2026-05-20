@@ -11,7 +11,7 @@
 #define __RESULT_SCENE_H__
 
 
-#include "..\110_drawing_tools\scene.h"
+#include "../110_drawing_tools/scene.h"
 
 class Node;
 class TextNode;
