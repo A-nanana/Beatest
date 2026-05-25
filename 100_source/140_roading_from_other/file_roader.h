@@ -60,7 +60,7 @@ public:
 	std::vector<ShotBooker>* RoadHumen(const MusicData& music_data);
 
 	//文章読み込み
-	void RoadTxt(std::string& syutten, const char* file_name);
+	void RoadTxt(std::string& txt, const char* file_name);
 	
 	//データベースが起動しているか
 	bool CanUseDb() { return use_lib_; };

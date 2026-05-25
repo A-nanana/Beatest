@@ -425,7 +425,7 @@ std::vector<ShotBooker>* FileRoader::RoadHumen(const MusicData& music_data)
 	return booker;
 }
 
-void FileRoader::RoadTxt(std::string& syutten, const char* file_name)
+void FileRoader::RoadTxt(std::string& txt, const char* file_name)
 {
 	//ファイル読み込み
 	std::ifstream file_p(file_name, std::ios::binary);
@@ -439,7 +439,7 @@ void FileRoader::RoadTxt(std::string& syutten, const char* file_name)
 	std::istreambuf_iterator<char> top(file_p.rdbuf());//はじめ
 	std::istreambuf_iterator<char> last;//おわり
 	//一気に初期化
-	syutten = std::string(top, last);
+	txt = std::string(top, last);
 
 	//終了
 	file_p.close();
