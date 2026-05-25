@@ -210,7 +210,7 @@ void CreditScene::Init()
 	root_->AddChild(new TextNode(string_set::push_to_return,ColorManager::GetInstance()->SerchColor(string_set::font_nomal1), WindowManager::GetInstance()->GetWindowSize().x_ - string_size - ege_set::brank_x, WindowManager::GetInstance()->GetWindowSize().y_ - line_set::brank_y * 3));
 
 	//テキストを設定
-	FileRoader::GetInstance()->RoadSyutten(text_,file_set::syutten_memo);
+	FileRoader::GetInstance()->RoadTxt(text_,file_set::syutten_memo);
 
 	root_->AddChild(new TextNode(text_.c_str(),ColorManager::GetInstance()->SerchColor(string_set::font_nomal1), line_set::brank_x + ege_set::brank_x, line_set::brank_y + ege_set::brank_y));
 
@@ -268,7 +268,7 @@ void AboutScene::Init()
 	root_->AddChild(new TextNode(string_set::push_to_return,ColorManager::GetInstance()->SerchColor(string_set::font_nomal1), WindowManager::GetInstance()->GetWindowSize().x_ - string_size - ege_set::brank_x, WindowManager::GetInstance()->GetWindowSize().y_ - line_set::brank_y * 3));
 
 	//テキストを設定
-	FileRoader::GetInstance()->RoadSyutten(text_, file_set::tutorial_memo);
+	FileRoader::GetInstance()->RoadTxt(text_, file_set::tutorial_memo);
 
 	root_->AddChild(new TextNode(text_.c_str(),ColorManager::GetInstance()->SerchColor(string_set::font_nomal1), line_set::brank_x + ege_set::brank_x, line_set::brank_y + ege_set::brank_y));
 

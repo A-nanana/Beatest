@@ -425,7 +425,7 @@ std::vector<ShotBooker>* FileRoader::RoadHumen(const MusicData& music_data)
 	return booker;
 }
 
-void FileRoader::RoadSyutten(std::string& syutten, const char* file_name)
+void FileRoader::RoadTxt(std::string& syutten, const char* file_name)
 {
 	//ƒtƒ@ƒCƒ‹“Ç‚İ‚İ
 	std::ifstream file_p(file_name, std::ios::binary);

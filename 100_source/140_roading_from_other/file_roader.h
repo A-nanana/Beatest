@@ -59,8 +59,8 @@ public:
 	//譜面読み込み
 	std::vector<ShotBooker>* RoadHumen(const MusicData& music_data);
 
-	//出典(文章)読み込み
-	void RoadSyutten(std::string& syutten, const char* file_name);
+	//文章読み込み
+	void RoadTxt(std::string& syutten, const char* file_name);
 	
 	//データベースが起動しているか
 	bool CanUseDb() { return use_lib_; };

@@ -37,4 +37,5 @@ void WindowManager::WindowSettings()
 
 	SetWindowSizeChangeEnableFlag(FALSE, FALSE);
 	SetUsePremulAlphaConvertLoad(TRUE);
+
 }
