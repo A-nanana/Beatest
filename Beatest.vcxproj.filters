@@ -99,9 +99,6 @@
     <ClCompile Include="100_source\110_drawing_tools\scene_manager.cpp">
       <Filter>ソース ファイル\110_drawing_tool</Filter>
     </ClCompile>
-    <ClCompile Include="100_source\110_drawing_tools\splite_node.cpp">
-      <Filter>ソース ファイル\110_drawing_tool</Filter>
-    </ClCompile>
     <ClCompile Include="100_source\110_drawing_tools\text_node.cpp">
       <Filter>ソース ファイル\110_drawing_tool</Filter>
     </ClCompile>
@@ -180,14 +177,14 @@
     <ClCompile Include="100_source\130_data_manager\134_other\window_manager.cpp">
       <Filter>ソース ファイル\130_data_manager\134_other</Filter>
     </ClCompile>
-    <ClCompile Include="100_source\110_drawing_tools\circle_node.cpp">
-      <Filter>ソース ファイル\110_drawing_tool</Filter>
-    </ClCompile>
     <ClCompile Include="100_source\110_drawing_tools\box_node.cpp">
       <Filter>ソース ファイル\110_drawing_tool</Filter>
     </ClCompile>
     <ClCompile Include="100_source\130_data_manager\134_other\color_manager.cpp">
       <Filter>ソース ファイル\130_data_manager\134_other</Filter>
+    </ClCompile>
+    <ClCompile Include="100_source\110_drawing_tools\circle_node.cpp">
+      <Filter>ソース ファイル\110_drawing_tool</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -213,9 +210,6 @@
       <Filter>ヘッダー ファイル\110_drawing_tool</Filter>
     </ClInclude>
     <ClInclude Include="100_source\110_drawing_tools\scene_manager.h">
-      <Filter>ヘッダー ファイル\110_drawing_tool</Filter>
-    </ClInclude>
-    <ClInclude Include="100_source\110_drawing_tools\splite_node.h">
       <Filter>ヘッダー ファイル\110_drawing_tool</Filter>
     </ClInclude>
     <ClInclude Include="100_source\110_drawing_tools\text_node.h">
@@ -308,9 +302,6 @@
     <ClInclude Include="100_source\130_data_manager\134_other\window_manager.h">
       <Filter>ヘッダー ファイル\130_data_manager\134_other</Filter>
     </ClInclude>
-    <ClInclude Include="100_source\110_drawing_tools\circle_node.h">
-      <Filter>ヘッダー ファイル\110_drawing_tool</Filter>
-    </ClInclude>
     <ClInclude Include="100_source\110_drawing_tools\box_node.h">
       <Filter>ヘッダー ファイル\110_drawing_tool</Filter>
     </ClInclude>
@@ -319,6 +310,9 @@
     </ClInclude>
     <ClInclude Include="100_source\130_data_manager\134_other\color_manager.h">
       <Filter>ヘッダー ファイル\130_data_manager\134_other</Filter>
+    </ClInclude>
+    <ClInclude Include="100_source\110_drawing_tools\circle_node.h">
+      <Filter>ヘッダー ファイル\110_drawing_tool</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

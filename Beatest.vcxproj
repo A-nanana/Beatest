@@ -144,7 +144,6 @@
     <ClCompile Include="100_source\110_drawing_tools\line_node.cpp" />
     <ClCompile Include="100_source\110_drawing_tools\node.cpp" />
     <ClCompile Include="100_source\110_drawing_tools\scene_manager.cpp" />
-    <ClCompile Include="100_source\110_drawing_tools\splite_node.cpp" />
     <ClCompile Include="100_source\110_drawing_tools\text_node.cpp" />
     <ClCompile Include="100_source\110_drawing_tools\time.cpp" />
     <ClCompile Include="100_source\110_drawing_tools\tool.cpp" />
@@ -186,7 +185,6 @@
     <ClInclude Include="100_source\110_drawing_tools\node.h" />
     <ClInclude Include="100_source\110_drawing_tools\scene.h" />
     <ClInclude Include="100_source\110_drawing_tools\scene_manager.h" />
-    <ClInclude Include="100_source\110_drawing_tools\splite_node.h" />
     <ClInclude Include="100_source\110_drawing_tools\text_node.h" />
     <ClInclude Include="100_source\110_drawing_tools\time.h" />
     <ClInclude Include="100_source\110_drawing_tools\tool.h" />
