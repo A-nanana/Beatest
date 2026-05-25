@@ -341,8 +341,8 @@ std::vector<ShotBooker>* FileRoader::RoadHumen(const MusicData& music_data)
 	while (humen_2.size() > i) {
 		switch (humen_2[i])
 		{
-		case  '/0': break;
-		case '/n':
+		case  '\0': break;
+		case '\n':
 			//タイミング調整をば
 
 			//カウント調整

@@ -32,7 +32,7 @@ void ShotManager::Load() {
 }
 //リソース解放
 void ShotManager::Release() {
-	
+
 }
 //更新(更新するときの時間)
 void ShotManager::Update(float delta_time) {
@@ -48,9 +48,9 @@ void ShotManager::Update(float delta_time) {
 			continue;
 		}
 		//レーザーか
-		
+
 		bool is_lazer = (shot->GetType() == system_set::k_enemy_lazer);
-		
+
 		//オブジェクトが有効か
 		if (!(shot->IsUsed())) {
 			//レーザーならカウント
@@ -67,17 +67,17 @@ void ShotManager::Update(float delta_time) {
 		}
 
 		//当たっているか
-		if ( shot->IsHit(player_)) {
-			
+		if (shot->IsHit(player_)) {
+
 			//コンボの消去
 			ScoreManager::GetInstance()->ScoreUpdate(k_miss);
 			//存在フラグ切り替え(レーザーは除く)
 			shot->ChangeUsed();
-			
+
 		}
 
 		//判定距離で分岐
-		if( (shot->GetDistance() < system_set::critical_hit_check*system_set::critical_hit_check)//クリティカルの範囲かつ
+		if ((shot->GetDistance() < system_set::critical_hit_check * system_set::critical_hit_check)//クリティカルの範囲かつ
 			&& shot->GetCoolTime() > per_get_score_)//(スコアの加算をしてもいい)
 		{
 			//エフェクトのフラグを立てる
@@ -87,7 +87,7 @@ void ShotManager::Update(float delta_time) {
 			//クールリセット
 			shot->ResetCoolTime();
 		}
-		else if ((shot->GetDistance() < system_set::start_hit_check* system_set::start_hit_check) //判定開始ライン かつ
+		else if ((shot->GetDistance() < system_set::start_hit_check * system_set::start_hit_check) //判定開始ライン かつ
 			&& shot->GetCoolTime() > per_get_score_)//(スコアの加算をしてもいい) 
 		{
 			//エフェクトのフラグを立てる
@@ -98,7 +98,7 @@ void ShotManager::Update(float delta_time) {
 			shot->ResetCoolTime();
 
 		}
-	
+
 	}
 	//位置確認
 	//敵と当たっていたら直前位置に移動
@@ -110,7 +110,7 @@ void ShotManager::Update(float delta_time) {
 void ShotManager::ShotIn(Camera* camera)
 {
 	for (Node* node : children_) {
-		
+
 		//弾のキャスト
 		ShotObject* shot = dynamic_cast<ShotObject*>(node);
 		//オブジェクトがあるか
@@ -165,18 +165,18 @@ void ShotManager::AddShot(float x, float y, float speed, float angle, int type)
 		//タイプで分けて追加
 		//時差打ちか通常 
 		if ((type == system_set::k_enemy_nomal) || (type == system_set::k_enemy_later_renge)) {
-			Node::AddChild(new ShotObject(graph_[file_set::shot], x, y, speed,  player_->GetPosition(), type));
+			Node::AddChild(new ShotObject(graph_[file_set::shot], x, y, speed, player_->GetPosition(), type));
 		}
 		//一周打ち
 		if (type == system_set::k_enemy_all_renge) {
-			Node::AddChild(new ShotObject(graph_[file_set::shot], x, y, speed, { WindowManager::GetInstance()->GetWindowLength() * cos(angle), WindowManager::GetInstance()->GetWindowLength() * sin(angle) },type));
+			Node::AddChild(new ShotObject(graph_[file_set::shot], x, y, speed, { WindowManager::GetInstance()->GetWindowLength() * cos(angle), WindowManager::GetInstance()->GetWindowLength() * sin(angle) }, type));
 		}
 		//レーザー
 		if (type == system_set::k_enemy_lazer) {
 
-			Node::AddChild(new LongShot(graph_[file_set::lazer],window_setting::null_param,window_setting::null_param, speed, player_->GetPosition(), type));
+			Node::AddChild(new LongShot(graph_[file_set::lazer], window_setting::null_param, window_setting::null_param, speed, player_->GetPosition(), type));
 
 		}
-		
+
 	}
 }
