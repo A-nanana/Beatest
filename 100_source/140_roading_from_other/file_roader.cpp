@@ -150,7 +150,7 @@ void FileRoader::RoadLineup(std::vector<LineUp>* title)
 
 			//ÅŒã‚ÉƒXƒRƒAî•ñ
 			for (int i = 0;i < system_set::defficulter_max;i++) {
-				DBresult.high_score[i] = sqlite3_column_int(stmt, 11 + i);
+				DBresult.high_score[i] = sqlite3_column_int(stmt, 12 + i);
 			}
 			title->push_back(DBresult);
 		};
