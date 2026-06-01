@@ -316,8 +316,8 @@ namespace system_set {
 //  プレイヤーの速さ
 	static const float player_walk_speed = 12.0f;
 //  プレイヤーの当たり判定サイズ
-	static const float player_hit_size_x = 40.0f;//x
-	static const float player_hit_size_y = 40.0f;//y
+	static const float player_hit_size_x = 39.0f;//x
+	static const float player_hit_size_y = 39.0f;//y
 
 //  弾のデフォルトの速さ
 	static const float shot_speed_def = 5.0f;
@@ -352,9 +352,9 @@ namespace system_set {
 	static const int lazer_width = 20;
 
 //  判定開始距離
-	static const int start_hit_check = 60;
+	static const int start_hit_check = 62;
 //  クリティカルチェック基準距離
-	static const int critical_hit_check = 35;
+	static const int critical_hit_check = 39;
 //  得点加算音符(加算までに何分音符くらいの長さを空けるか)
 	static const int score_per_hyousi = 4;
 
