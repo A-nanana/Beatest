@@ -15,6 +15,11 @@
 * Visual Studio
 * Git
 
+## ゲームの概要
+　リズムに合わせて敵の弾幕を避けよう！  
+　ギリギリで躱すとスコアアップ！  
+
+
 ## 工夫した点
 
 * SQLiteを使用した楽曲の読み込み、書き込み
@@ -26,7 +31,7 @@
   * 登録すれば呼び出し忘れが無くなるようになっています。
 * `std::unrodered_map`を利用した画像の読み込み回数の減少
 
-  * 読み込んだ画像を`GraphRoader`クラスの`std::unordered\_map<std::string, int> graph\_`内に保管するようにしました。
+  * 読み込んだ画像を`GraphRoader`クラスの`std::unordered_map<std::string, int> graph_`内に保管するようにしました。
   * 同じ画像を複数回読み込まないようにし、画像読み込み時間の短縮を図っています。
 
 ## 起動方法
@@ -45,19 +50,37 @@
 * D : 右移動
 * P : 一時停止
 
+* 一時停止中
+  * P : 再開
+  * Q : 選択画面に戻る(スコアは記録されない)
+  
 **<ゲーム外>**
 
 * W A S D : それぞれ項目切り替え
+  * 基本
+    * W : 上
+    * S : 下
+  * 楽曲選択画面
+    * A : 難易度を下げる
+    * D : 難易度を上げる
+  * 設定画面
+    * A : 音量を下げる
+    * D : 音量を上げる
 
-  * A , D については設定画面のみ数値変更となります。
 * Enter : 決定
+* Esc   : 特記がなければ戻る
 
 ## 備考、不具合
 
 * レーザーの回避判定が不安定です。
 * 楽曲「初詣」はテストプレイ用に楽曲時間が10秒に設定されています。
 * ソースの著作権表記はドキュメントファイル内の`著作権表記`に記載しています。
-  
+
+## 更新履歴
+2026/05/13 初版完成  
+2026/05/14 色管理クラスによる配色管理に変更  
+2026/05/18 安全地帯を減らすためにターゲット指定に使う座標を変更  
+2026/06/02 当たったときのエフェクトを追加  
 ## 参考資料、各種ライブラリ
   
 **ライブラリ**    
@@ -75,6 +98,16 @@
   
 * [無職の学び舎](https://www.nekonecode.com/)様
   * [点と矩形(回転あり)の衝突](https://www.nekonecode.com/math-lab/pages/collision2/point-and-box/)  
+
+* [CREX](https://crexgroup.com/ja/development/)様
+  * [画面遷移図の書き方を解説 作成ツールやテンプレートも紹介](https://crexgroup.com/ja/development/project/screen-transition-diagram-guide/)  
+
+* [ゆるふわでばっぐ](https://code.aetheria.jp/)様
+  * [C言語における文字コードの基礎と実践：UTF-8・Shift_JISの変換と処理方法を解説](https://code.aetheria.jp/14100/)  
+
+* [yoshida](https://zenn.dev/yoshia)様
+  * [【C/C++言語の日本語】 第9回 Shift_JISとUTF-8の相互変換](https://zenn.dev/yoshia/articles/c-cpp0-section9-shift_jis-to_from-utf-cf93841ba2e0)
+  
 
 ## 著作権表記
 　libjpeg　Copyright (C) 1991-2013, Thomas G. Lane, Guido Vollbeding.
