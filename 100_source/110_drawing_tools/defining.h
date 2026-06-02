@@ -278,6 +278,7 @@ namespace effect_set {
 	static const int effect_critical = 1 << 0;//クリティカル
 	static const int effect_avoid = 1 << 1;//ちょい避け
 	static const int effect_none = 1 << 2; //がっつり避け
+	static const int effect_hit = 1 << 3; //当たっている
 }
 //-----------------------------
 // @name   effect_param
@@ -293,8 +294,8 @@ namespace effect_param {
 
 //  広がり関係
 	//外への広がり
-	static const float pos_out_x = 1.0f;//x
-	static const float pos_out_y = 1.0f;//y
+	static const float pos_out_x = 2.0f;//x
+	static const float pos_out_y = 2.0f;//y
 
 //  太さ関係
 	static const float eff_thick = 2.0;//太さ(基本これ)
@@ -305,6 +306,14 @@ namespace effect_param {
 
 //  スコア表示エフェクト
 	static const int wait_score = 50;//スコア表示の間の待機時間
+
+//  当たり  //
+
+//  分割個数
+	static const int dec_per_dot = 6;
+//  距離
+	static const int max_per_length = 5;
+
 }
 
 //-----------------------------
