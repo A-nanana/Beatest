@@ -381,6 +381,8 @@ namespace system_set {
 
 //  ”wŒi“§–¾“x
 	static const float alpha_back = 0.8f;
+//  “ü—ÍÅ‘å
+	static const int tex_max = 1000;
 
 }
 

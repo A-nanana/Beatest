@@ -73,6 +73,12 @@
     <Filter Include="ヘッダー ファイル\150_effect\151_player">
       <UniqueIdentifier>{0da939f7-8cf2-4773-9008-8e0967e6afef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\160_tenplates">
+      <UniqueIdentifier>{2bc9ebc3-6ea2-4605-a1d6-e68aadf38959}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\160_templates">
+      <UniqueIdentifier>{6647f385-4c97-4a7c-b4d7-2c74d1c041ad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="100_source\main.cpp">
@@ -159,12 +165,6 @@
     <ClCompile Include="100_source\140_roading_from_other\file_roader.cpp">
       <Filter>ソース ファイル\140_roading_from_other</Filter>
     </ClCompile>
-    <ClCompile Include="100_source\150_effect\151_player\player_effect.cpp">
-      <Filter>ソース ファイル\150_effect\151_player</Filter>
-    </ClCompile>
-    <ClCompile Include="100_source\150_effect\field_effect.cpp">
-      <Filter>ソース ファイル\150_effect</Filter>
-    </ClCompile>
     <ClCompile Include="100_source\120_game_scene\menu_scene.cpp">
       <Filter>ソース ファイル\120_game_scene</Filter>
     </ClCompile>
@@ -186,8 +186,32 @@
     <ClCompile Include="100_source\110_drawing_tools\circle_node.cpp">
       <Filter>ソース ファイル\110_drawing_tool</Filter>
     </ClCompile>
+    <ClCompile Include="100_source\130_data_manager\133_music\chanks.cpp">
+      <Filter>ソース ファイル\130_data_manager\133_music</Filter>
+    </ClCompile>
+    <ClCompile Include="100_source\130_data_manager\133_music\data_manager.cpp">
+      <Filter>ソース ファイル\130_data_manager\133_music</Filter>
+    </ClCompile>
+    <ClCompile Include="100_source\130_data_manager\133_music\file_manager.cpp">
+      <Filter>ソース ファイル\130_data_manager\133_music</Filter>
+    </ClCompile>
+    <ClCompile Include="100_source\130_data_manager\133_music\maker.cpp">
+      <Filter>ソース ファイル\130_data_manager\133_music</Filter>
+    </ClCompile>
+    <ClCompile Include="100_source\130_data_manager\133_music\read_music.cpp">
+      <Filter>ソース ファイル\130_data_manager\133_music</Filter>
+    </ClCompile>
     <ClCompile Include="100_source\150_effect\151_player\effect_dot.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\150_effect\151_player</Filter>
+    </ClCompile>
+    <ClCompile Include="100_source\150_effect\field_effect.cpp">
+      <Filter>ソース ファイル\150_effect</Filter>
+    </ClCompile>
+    <ClCompile Include="100_source\150_effect\151_player\player_effect.cpp">
+      <Filter>ソース ファイル\150_effect\151_player</Filter>
+    </ClCompile>
+    <ClCompile Include="100_source\120_game_scene\add_music_scene.cpp">
+      <Filter>ソース ファイル\120_game_scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -318,7 +342,28 @@
       <Filter>ヘッダー ファイル\110_drawing_tool</Filter>
     </ClInclude>
     <ClInclude Include="100_source\150_effect\151_player\effect_dot.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\150_effect\151_player</Filter>
+    </ClInclude>
+    <ClInclude Include="100_source\130_data_manager\133_music\chanks.h">
+      <Filter>ヘッダー ファイル\130_data_manager\133_music</Filter>
+    </ClInclude>
+    <ClInclude Include="100_source\130_data_manager\133_music\data_manager.h">
+      <Filter>ヘッダー ファイル\130_data_manager\133_music</Filter>
+    </ClInclude>
+    <ClInclude Include="100_source\130_data_manager\133_music\file_manager.h">
+      <Filter>ヘッダー ファイル\130_data_manager\133_music</Filter>
+    </ClInclude>
+    <ClInclude Include="100_source\130_data_manager\133_music\maker.h">
+      <Filter>ヘッダー ファイル\130_data_manager\133_music</Filter>
+    </ClInclude>
+    <ClInclude Include="100_source\130_data_manager\133_music\read_music.h">
+      <Filter>ヘッダー ファイル\130_data_manager\133_music</Filter>
+    </ClInclude>
+    <ClInclude Include="100_source\120_game_scene\add_music_scene.h">
+      <Filter>ヘッダー ファイル\120_game_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="100_source\160_tenplated\manager_tenplate.h">
+      <Filter>ヘッダー ファイル\160_tenplates</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
