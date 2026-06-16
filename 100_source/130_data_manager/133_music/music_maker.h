@@ -25,6 +25,6 @@ class MusicMaker:public Singleton<MusicMaker>
 public:
 	 bool GetFile(std::string* name, WavData* &get_data, int* tag_rate, int* second_length);//ファイル入手
 	 bool WriteFile(std::string* name, std::string* param);//ファイル出力
-	 bool WritePropaty(std::string* name,MusicMakerWant* param,int second_length);//プロパティ追加
+	 bool WritePropaty(std::string* name,MusicMakerWant* param,int second_length,int deff_flg);//プロパティ追加
 };
 

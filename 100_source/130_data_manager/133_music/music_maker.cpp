@@ -9,6 +9,7 @@
 //Copyright (c) 2026 A.nanami All rights reserved.
 //------------------------------
 #include <fstream>
+#include "music_manager.h"
 #include "music_maker.h"
 #include "read_music.h"
 #include "data_manager.h"
@@ -49,7 +50,7 @@ bool MusicMaker::GetFile(std::string* name, WavData*& get_data, int* tag_rate, i
 			return true;
 		}
 	}
-    return false;
+	return false;
 }
 
 bool MusicMaker::WriteFile(std::string* name, std::string* param)
@@ -62,8 +63,14 @@ bool MusicMaker::WriteFile(std::string* name, std::string* param)
 	return true;
 }
 
-bool MusicMaker::WritePropaty(std::string* name, MusicMakerWant* param, int second_length)
+bool MusicMaker::WritePropaty(std::string* name, MusicMakerWant* param, int second_length, int deff_flg)
 {
+	//‘‚«ž‚Ýƒf[ƒ^ì¬
+	MusicData music_data_;
+	music_data_.time_ = second_length;
+	music_data_.title_ = *name;
+	music_data_.bpm_ = param->bpm;
+	music_data_.hyousi_ = param->hakusuu;
 
-	return false;
+	return FileRoader::GetInstance()->WriteData(&music_data_,deff_flg);
 }

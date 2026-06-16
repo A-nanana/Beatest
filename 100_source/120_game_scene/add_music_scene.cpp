@@ -318,6 +318,9 @@ Scene* WaitForWriteScene::Update(float delta_time)
 	MusicMakerWant  music = DataManager::GetInstance()->GetMusicMakerWant ();
 	std::string title = DataManager::GetInstance()->GetTitle();
 	int tag_t = DataManager::GetInstance()->GetTagTimr();
+	int length = DataManager::GetInstance()->GetTime();
+	bool to_write = true;//書き込み可否
+	std::uint8_t flgs = 0;//難易度フラグ
 
 	//難易度分繰り返し
 	for (int i = 0; i < system_set::defficulter_max; i++) {
@@ -335,10 +338,20 @@ Scene* WaitForWriteScene::Update(float delta_time)
 		//結果確認
 		if (!check) {
 			next_ = new ErrScene(ErrScene::ErrId::k_write_err);
-
+			to_write = false;
+			break;
 		}
-		DataManager::GetInstance()->SetFinWrite(true);
+		flgs |= 1 << i;
 	}
+	//情報書き込み可否
+	if (to_write) {
+		//書き込み
+		if (!MusicMaker::GetInstance()->WritePropaty(&title, &music, length, flgs)) {
+			next_ = new ErrScene(ErrScene::ErrId::k_write_err);
+		}
+	}
+	DataManager::GetInstance()->SetFinWrite(true);
+
 	return next_;
 }
 
