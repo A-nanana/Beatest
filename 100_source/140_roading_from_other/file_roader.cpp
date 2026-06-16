@@ -212,6 +212,85 @@ void FileRoader::RoadMusic(MusicData* music_data)
 	music_data->ms_per_hyousi_ = system_set::ms_per_s * 60.0f / music_data->bpm_;
 }
 
+bool FileRoader::WriteData(MusicData* write_data, std::uint8_t flg)
+{
+	//プロパティ系
+	std::string table_name = file_set::music_data_base_table;//stringに変換
+	std::string table_name_diff = file_set::defficult_data_base_table;//stringに変換
+	std::string inser_msg = "SELECT COUNT(*) FROM " + table_name + " WHERE Title = ?;"; //クエリ文(存在確認)
+	std::string inser_msg_2 = "INSERT INTO " + table_name + "( Title , Bpm , time , Hyousi) values (? , ? , ? , ?);"; //クエリ文(入力)
+	std::string inser_msg_3 = "INSERT INTO " + table_name_diff + "(Easy, Nomal, Hard, Beyond) values (? , ? , ? , ?);"; //クエリ文(難易度入力)
+	
+	sqlite3_stmt* stmt = NULL; //状態格納ハンドル.
+	bool can_update = false;//データ更新できるか
+	std::string write_title = ToUtf8(write_data->title_.c_str());//入力タイトル
+
+	//確認できるか
+	if (use_lib_
+		&& (sqlite3_prepare_v2(db_, inser_msg.c_str(), inser_msg.size(), &stmt, NULL) != SQLITE_OK)) {
+	}
+	else {
+		sqlite3_bind_text(stmt, 1, write_title.c_str(), -1, SQLITE_TRANSIENT);
+		//処理確認用
+		int r = NULL;
+		//Sqliteが動く間は処理
+		while (SQLITE_ROW == (r = sqlite3_step(stmt))) {
+			//最初の結果を見る
+			if (sqlite3_column_int(stmt, 0) <= 0) {
+				can_update = true;
+			}
+		}
+		sqlite3_finalize(stmt);
+
+	}
+	//アップデートか確認
+	if (can_update) {
+		//確認できるか
+		if (use_lib_
+			&& (sqlite3_prepare_v2(db_, inser_msg_2.c_str(), inser_msg_2.size(), &stmt, NULL) != SQLITE_OK)) {
+			return false;
+		}
+		else {
+			//情報入力
+			sqlite3_bind_text(stmt, 1, write_title.c_str(), -1, SQLITE_TRANSIENT);
+			sqlite3_bind_int(stmt, 2, write_data->bpm_);
+			sqlite3_bind_int(stmt, 3, write_data->time_);
+			sqlite3_bind_int(stmt, 4, write_data->hyousi_);
+			//処理確認用
+			int r = NULL;
+			//Sqliteが動く間は処理
+			while (SQLITE_DONE != (r = sqlite3_step(stmt))) {
+
+			}
+
+			sqlite3_finalize(stmt);
+		}
+		//確認できるか
+		if (use_lib_
+			&& (sqlite3_prepare_v2(db_, inser_msg_3.c_str(), inser_msg_3.size(), &stmt, NULL) != SQLITE_OK)) {
+			return false;
+		}
+		else {
+			//情報入力
+			sqlite3_bind_int(stmt, 1, (flg & system_set::Defficulter::k_music_easy));
+			sqlite3_bind_int(stmt, 2, (flg & system_set::Defficulter::k_music_nomal));
+			sqlite3_bind_int(stmt, 3, (flg & system_set::Defficulter::k_music_hard));
+			sqlite3_bind_int(stmt, 4, (flg & system_set::Defficulter::k_music_beyond));
+			//処理確認用
+			int r = NULL;
+			//Sqliteが動く間は処理
+			while (SQLITE_DONE != (r = sqlite3_step(stmt))) {
+
+			}
+
+			sqlite3_finalize(stmt);
+		}
+		return true;
+	}
+
+	return false;
+}
+
 void FileRoader::WriteScore(const MusicData& music_data)
 {
 	//プロパティ読み込み

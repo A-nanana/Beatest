@@ -21,7 +21,7 @@ class ShotBooker;
 
 //-----------------------------
 // @name   FileRoader
-// @brief  ファイル読み込み
+// @brief  ゲームファイル読み込み
 // @memo   
 //------------------------------
 class FileRoader
@@ -48,6 +48,9 @@ public:
 	void RoadLineup(std::vector<LineUp>* title);
 	//曲読み込み
 	void RoadMusic(MusicData* music_data);
+	//曲データ書き込み
+	bool WriteData(MusicData* write_data, std::uint8_t flg);
+
 	//スコア書き込み
 	void WriteScore(const MusicData& music_data);
 

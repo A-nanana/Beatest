@@ -23,7 +23,7 @@ void FileInScene::Init()
 {
 	root_ = new Node();
 
-	root_->AddChild(new TextNode("読込先ファイル名を入力(inputフォルダに入れておく,拡張子も込みで入力)", 255,255,255 , line_set::brank_x,line_set::brank_y));
+	root_->AddChild(new TextNode("読込先ファイル名を入力(inputフォルダに入れておく,拡張子は不要)", 255,255,255 , line_set::brank_x,line_set::brank_y));
 	next_ = this;
 	//入力作成
 	input_handle_ = MakeKeyInput(system_set::tex_max, FALSE, FALSE, FALSE);
@@ -56,6 +56,7 @@ void FileInScene::Contact()
 
 Scene* FileInScene::Update(float delta_time)
 {
+	Contact();
 	root_->UpdateAll(delta_time);
 	return next_;
 }
@@ -104,6 +105,7 @@ void WaitScene::SetUp()
 
 Scene* WaitScene::Update(float delta_time)
 {
+	Contact();
 	root_->UpdateAll(delta_time);
 	return next_;
 }
@@ -128,15 +130,12 @@ void InputDataScene::Init()
 	}
 
 	root_[Fase::k_input_bpm]->AddChild(new TextNode( "Bpmを入力", 255,255,255, line_set::brank_x,line_set::brank_y ));
-	root_[Fase::k_input_nanido]->AddChild(new TextNode( "難易度を入力  ",  255,255,255 , line_set::brank_x,line_set::brank_y ));
-	root_[Fase::k_input_nanido]->AddChild(new TextNode("Easy: 1 , Nomal: 2 , Hard: 3 , Beyond: 4",  200,250,250 , line_set::brank_x,line_set::brank_y*2 ));
 	root_[Fase::k_input_hakusuu]->AddChild(new TextNode( "1小節の拍子数(基本はbpmのカウント方式に準拠)",  255,255,255 ,line_set::brank_x,line_set::brank_y));
-	root_[Fase::k_input_file_name]->AddChild(new TextNode( "出力先ファイル名を入力(拡張子不要)", 255,255,255,line_set::brank_x,line_set::brank_y));
 	next_ = this;
 	fase_ = Fase::k_input_bpm;
 	//入力作成
 	input_handle_ = MakeKeyInput(system_set::tex_max, FALSE, FALSE, TRUE);
-	input_data_ = new MusicData();
+	input_data_ = new MusicMakerWant ();
 
 }
 
@@ -160,10 +159,6 @@ void InputDataScene::Contact()
 		case Fase::k_input_bpm:
 			input_data_->bpm = GetKeyInputNumber(input_handle_);
 			SetActiveKeyInput(input_handle_);
-			break;
-		case Fase::k_input_nanido:
-			input_data_->nanido = GetKeyInputNumber(input_handle_);
-			SetActiveKeyInput(input_handle_);
 
 			break;
 		case Fase::k_input_hakusuu:
@@ -173,13 +168,7 @@ void InputDataScene::Contact()
 			input_handle_ = MakeKeyInput(system_set::tex_max, FALSE, FALSE, FALSE);
 			SetActiveKeyInput(input_handle_);
 
-			break;
-		case Fase::k_input_file_name:
-			char buffer[1001];
-			GetKeyInputString(buffer ,input_handle_);
-			input_data_->file_title = buffer;
-
-			DataManager::GetInstance()->SetMusicData(input_data_);
+			DataManager::GetInstance()->SetMusicMakerWant (input_data_);
 			input_data_ = nullptr;
 			next_ = new WaitForWriteScene();
 			break;
@@ -199,6 +188,7 @@ void InputDataScene::Contact()
 
 Scene* InputDataScene::Update(float delta_time)
 {
+	Contact();
 	//終わってないなら更新
 	if (fase_ < Fase::k_max) {
 		root_[fase_]->UpdateAll(delta_time);
@@ -248,6 +238,7 @@ void EndScene::Contact()
 
 Scene* EndScene::Update(float delta_time)
 {
+	Contact();
 	root_->UpdateAll(delta_time);
 	return next_;
 }
@@ -268,7 +259,6 @@ void WaitForReadScene::Contact()
 {
 	if (DataManager::GetInstance()->GetFinRead()) {
 		next_ = new InputDataScene();
-		std::cout << "D - ok\n";
 	}
 
 }
@@ -287,7 +277,7 @@ Scene* WaitForReadScene::Update(float delta_time)
 	WavData* data = new WavData();
 	int* tag = new int();
 	int* length = new int();
-	bool check = FileManager::GetInstance()->GetFile(&title, data, tag, length);
+	bool check = MusicMaker::GetInstance()->GetFile(&title, data, tag, length);
 	//結果確認
 	if (!check) {
 		next_ = new ErrScene(ErrScene::ErrId::k_read_err);
@@ -325,24 +315,30 @@ Scene* WaitForWriteScene::Update(float delta_time)
 {
 	//データ作成
 	WavData data = DataManager::GetInstance()->GetWav();
-	MusicData music = DataManager::GetInstance()->GetMusicData();
+	MusicMakerWant  music = DataManager::GetInstance()->GetMusicMakerWant ();
+	std::string title = DataManager::GetInstance()->GetTitle();
 	int tag_t = DataManager::GetInstance()->GetTagTimr();
-	std::string* writing_data = DataManager::GetInstance()->GetMaker().MakeHumen(&data, music.bpm, music.nanido, music.hakusuu, tag_t);
 
-	//書き込み
-	std::string get_file("output/");
-	{
-		std::string file_name(music.file_title);
-		get_file.append(file_name);
-		get_file.append(".txt");
-	}
-	bool check = FileManager::GetInstance()->WriteFile(&get_file,writing_data);
-	//結果確認
-	if (!check) {
-		next_ = new ErrScene(ErrScene::ErrId::k_write_err);
+	//難易度分繰り返し
+	for (int i = 0; i < system_set::defficulter_max; i++) {
+		std::string* writing_data = DataManager::GetInstance()->GetMaker().MakeHumen(&data, music.bpm, i, music.hakusuu, tag_t);
 
+		//書き込み
+		std::string get_file(file_set::music_data_file_pass);
+		{
+			get_file.append(title);
+			get_file.append("/");
+			get_file.append(string_set::defficult[i]);
+			get_file.append(".txt");
+		}
+		bool check = MusicMaker::GetInstance()->WriteFile(&get_file, writing_data);
+		//結果確認
+		if (!check) {
+			next_ = new ErrScene(ErrScene::ErrId::k_write_err);
+
+		}
+		DataManager::GetInstance()->SetFinWrite(true);
 	}
-	DataManager::GetInstance()->SetFinWrite(true);
 	return next_;
 }
 
@@ -363,6 +359,7 @@ void ErrScene::Contact()
 
 Scene* ErrScene::Update(float delta_time)
 {
+	Contact();
 	root_->UpdateAll(delta_time);
 	return next_;
 }

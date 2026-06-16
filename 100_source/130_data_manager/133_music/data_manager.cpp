@@ -10,123 +10,118 @@
 //------------------------------
 #include "data_manager.h"
 
-void DataManager::Mutex()
-{
-	std::lock_guard<std::mutex> lock_(mtx_);
-}
-
 Maker DataManager::GetMaker()
 {
-	Mutex();
+	std::lock_guard<std::mutex> lock_(mtx_);
 	return *maker_;
 }
 
 WavData DataManager::GetWav()
 {
-	Mutex();
+	std::lock_guard<std::mutex> lock_(mtx_);
 	return *wav_data_;
 }
 
-MusicData DataManager::GetMusicData()
+MusicMakerWant DataManager::GetMusicMakerWant()
 {
-	Mutex();
+	std::lock_guard<std::mutex> lock_(mtx_);
 	return *music_data_;
 }
 
 int DataManager::GetTagTimr()
 {
-	Mutex();
+	std::lock_guard<std::mutex> lock_(mtx_);
 	return tag_time_;
 }
 
 int DataManager::GetTime()
 {
-	Mutex();
+	std::lock_guard<std::mutex> lock_(mtx_);
 	return time_;
 }
 
 bool DataManager::GetFinRead()
 {
-	Mutex();
+	std::lock_guard<std::mutex> lock_(mtx_);
 	return is_fin_read_;
 }
 
 bool DataManager::GetFinWrite()
 {
-	Mutex();
+	std::lock_guard<std::mutex> lock_(mtx_);
 	return is_fin_write_;
 }
 
 bool DataManager::GetEnd()
 {
-	Mutex();
+	std::lock_guard<std::mutex> lock_(mtx_);
 	return is_end_;
 }
 
 std::string DataManager::GetTitle()
 {
-	Mutex();
+	std::lock_guard<std::mutex> lock_(mtx_);
 	return title_;
 }
 
 int DataManager::SetTagTime(int tag_time) {
-	Mutex();
+	std::lock_guard<std::mutex> lock_(mtx_);
 	tag_time_ = tag_time;
 	return tag_time_; 
 }
 
 int DataManager::SetTime(int tm)
 {
-	Mutex();
+	std::lock_guard<std::mutex> lock_(mtx_);
 	time_ = tm; 
 	return time_;
 }
 
 Maker* DataManager::SetMaker(Maker* maker)
 {
-	Mutex();
+	std::lock_guard<std::mutex> lock_(mtx_);
 	maker_ = maker;  
 	return maker_;
 }
 
 WavData* DataManager::SetWav(WavData* wav_data)
 {
-	Mutex();
+	std::lock_guard<std::mutex> lock_(mtx_);
 	wav_data_ = wav_data;
 	return wav_data_;
 }
 
-MusicData* DataManager::SetMusicData(MusicData* music_data)
+MusicMakerWant* DataManager::SetMusicMakerWant(MusicMakerWant* music_data)
 {
-	Mutex();
+	std::lock_guard<std::mutex> lock_(mtx_);
 	music_data_ = music_data;
 	return music_data_;
 }
 
 bool DataManager::SetFinRead(bool t)
 {
-	Mutex();
+	std::lock_guard<std::mutex> lock_(mtx_);
 	is_fin_read_ = t;
 	return is_fin_read_;
 }
 
 bool DataManager::SetFinWrite(bool t)
 {
-	Mutex();
+	std::lock_guard<std::mutex> lock_(mtx_);
 	is_fin_write_ = t;
 	return is_fin_write_;
 }
 
 bool DataManager::SetEnd(bool t)
 {
-	Mutex();
+	std::lock_guard<std::mutex> lock_(mtx_);
 	is_end_ = t;
 	return is_end_;
 }
 
 std::string DataManager::SetTitle(std::string str)
 {
-	Mutex();
+	std::lock_guard<std::mutex> lock_(mtx_);
 	title_.clear();
 	title_.append(str);
 	return title_;

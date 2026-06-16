@@ -67,9 +67,7 @@ public:
 	//状況で変化
 	enum Fase {
 		k_input_bpm,//bpm
-		k_input_nanido,///難易度
 		k_input_hakusuu,//拍数
-		k_input_file_name,//ファイル名
 		k_max
 	};
 protected:
@@ -79,7 +77,7 @@ protected:
 	
 	int fase_;//状況管理
 	int input_handle_;//入力管理ハンドル
-	MusicData* input_data_;//入力データ
+	MusicMakerWant* input_data_;//入力データ
 
 public:
 	void Init() override;//初期化

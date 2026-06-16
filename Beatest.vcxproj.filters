@@ -192,7 +192,7 @@
     <ClCompile Include="100_source\130_data_manager\133_music\data_manager.cpp">
       <Filter>ソース ファイル\130_data_manager\133_music</Filter>
     </ClCompile>
-    <ClCompile Include="100_source\130_data_manager\133_music\file_manager.cpp">
+    <ClCompile Include="100_source\130_data_manager\133_music\music_maker.cpp">
       <Filter>ソース ファイル\130_data_manager\133_music</Filter>
     </ClCompile>
     <ClCompile Include="100_source\130_data_manager\133_music\maker.cpp">
@@ -350,7 +350,7 @@
     <ClInclude Include="100_source\130_data_manager\133_music\data_manager.h">
       <Filter>ヘッダー ファイル\130_data_manager\133_music</Filter>
     </ClInclude>
-    <ClInclude Include="100_source\130_data_manager\133_music\file_manager.h">
+    <ClInclude Include="100_source\130_data_manager\133_music\music_maker.h">
       <Filter>ヘッダー ファイル\130_data_manager\133_music</Filter>
     </ClInclude>
     <ClInclude Include="100_source\130_data_manager\133_music\maker.h">

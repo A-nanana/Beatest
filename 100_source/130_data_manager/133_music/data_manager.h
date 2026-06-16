@@ -14,14 +14,12 @@
 
 #include "../../160_tenplated/manager_tenplate.h"
 #include "maker.h"
-#include "../133_music/file_manager.h"
+#include "../133_music/music_maker.h"
 
 //譜面制に必要なプロパティ
-struct MusicData {
-	int nanido;//難易度による取り出し変更
+struct MusicMakerWant {
 	int bpm;//bpm
 	int hakusuu;//拍子
-	std::string file_title;//出力タイトル
 };
 
 //データ管理用
@@ -32,7 +30,7 @@ class DataManager:public Singleton<DataManager>
 	std::string title_;//タイトル
 	Maker* maker_;//譜面作成機
 	WavData* wav_data_;//波長データ
-	MusicData* music_data_;//譜面作成用追加データ
+	MusicMakerWant * music_data_;//譜面作成用追加データ
 	
 	int tag_time_; //記録位置
 	int time_;//時間
@@ -40,14 +38,13 @@ class DataManager:public Singleton<DataManager>
 	bool is_fin_read_;//読込の終了
 	bool is_fin_write_;//書き込みの終了
 	bool is_end_;//終了タイミング
-	void Mutex();//マルチスレッド対策
 
 public:
 
 	//取得関係(データ)
 	Maker GetMaker();
 	WavData GetWav();
-	MusicData GetMusicData();
+	MusicMakerWant  GetMusicMakerWant ();
 
 	int GetTagTimr();
 	int GetTime();
@@ -64,7 +61,7 @@ public:
 	
 	Maker* SetMaker(Maker* maker);
 	WavData* SetWav(WavData* wav_data);
-	MusicData* SetMusicData(MusicData* music_data);
+	MusicMakerWant * SetMusicMakerWant (MusicMakerWant * music_data);
 
 	bool SetFinRead(bool t);
 	bool SetFinWrite(bool t);

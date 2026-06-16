@@ -164,7 +164,7 @@
     <ClCompile Include="100_source\130_data_manager\132_shots\shot_object.cpp" />
     <ClCompile Include="100_source\130_data_manager\133_music\chanks.cpp" />
     <ClCompile Include="100_source\130_data_manager\133_music\data_manager.cpp" />
-    <ClCompile Include="100_source\130_data_manager\133_music\file_manager.cpp" />
+    <ClCompile Include="100_source\130_data_manager\133_music\music_maker.cpp" />
     <ClCompile Include="100_source\130_data_manager\133_music\maker.cpp" />
     <ClCompile Include="100_source\130_data_manager\133_music\music_manager.cpp" />
     <ClCompile Include="100_source\130_data_manager\133_music\read_music.cpp" />
@@ -213,7 +213,7 @@
     <ClInclude Include="100_source\130_data_manager\132_shots\shot_object.h" />
     <ClInclude Include="100_source\130_data_manager\133_music\chanks.h" />
     <ClInclude Include="100_source\130_data_manager\133_music\data_manager.h" />
-    <ClInclude Include="100_source\130_data_manager\133_music\file_manager.h" />
+    <ClInclude Include="100_source\130_data_manager\133_music\music_maker.h" />
     <ClInclude Include="100_source\130_data_manager\133_music\maker.h" />
     <ClInclude Include="100_source\130_data_manager\133_music\music_manager.h" />
     <ClInclude Include="100_source\130_data_manager\133_music\read_music.h" />

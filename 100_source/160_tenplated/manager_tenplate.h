@@ -28,23 +28,3 @@ public:
 	}
 
 };
-
-
-template <typename M_RENGE = int>
-class Vector2D {
-public:
-	M_RENGE x_, y_; //ç¿ïW
-	void Add(const Vector2D& a) {
-		x_ += a.x_;
-		y_ += a.y_;
-	};
-	void Sub(const Vector2D& a) {
-		x_ -= a.x_;
-		y_ -= a.y_;
-	};
-	void Set(const Vector2D& a) {
-		x_ = a.x_;
-		y_ = a.y_;
-	};
-};
-
