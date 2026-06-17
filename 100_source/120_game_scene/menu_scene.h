@@ -42,6 +42,7 @@ public:
 		k_config,//設定
 		k_credit, //クレジットを出す
 		k_about, //説明
+		k_add_music, //曲追加
 
 		k_menu_item_max //最大
 	};

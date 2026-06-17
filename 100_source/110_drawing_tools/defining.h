@@ -222,12 +222,13 @@ namespace string_set {
 	"Home Music",
 	"Home SE"};//調整項目
 
-	static const char* menu[4] =
+	static const char* menu[5] =
 	{
 		"Play (ゲームプレイ！)",
 		"Config or End Game(設定)",
 		"Credit (素材の出典情報)",
-		"About (説明はココ！)"
+		"About (説明はココ！)",
+		"Add Music (楽曲追加サポートツール)"
 	};//メニュー項目
 
 	static const char* defficult[4] =

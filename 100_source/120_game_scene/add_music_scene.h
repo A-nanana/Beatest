@@ -114,13 +114,14 @@ public:
 class WaitForReadScene :public WaitScene
 {
 protected:
-	std::future<int> updata_sub_thred_;//サブスレッド
+	std::future<bool> updata_sub_thred_;//サブスレッド
 
 public:
 	WaitForReadScene() :WaitScene({ "Wait For Reading","読込中......" }) {};
 	void Init() override;//初期化
 
 	void Contact();//入力確認
+	bool Reading();//ファイル読込
 	Scene* Update(float delta_time) override;//更新
 };
 
@@ -128,21 +129,19 @@ class WaitForWriteScene : public WaitScene
 {
 protected:
 	
-	std::future<int> updata_sub_thred_;//サブスレッド
+	std::future<bool> updata_sub_thred_;//サブスレッド
 
 public:
 	WaitForWriteScene() :WaitScene({ "Wait For Writing","書込中......" }) {};
 	void Init() override;//初期化
 
 	void Contact();//入力確認
+	bool Writing();//ファイル書き込み
 	Scene* Update(float delta_time) override;//更新
 };
 
 class ErrScene:public WaitScene
 {
-	Node* root_;//UI根ノード
-	Scene* next_;//次のスクリーン待ち
-
 	int err_nun_;
 public:
 	enum ErrId {

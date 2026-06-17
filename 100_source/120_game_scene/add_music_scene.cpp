@@ -12,9 +12,11 @@
 #include "DxLib.h"
 
 #include "../110_drawing_tools/defining.h"
+#include "../130_data_manager/134_other/color_manager.h"
 #include "../130_data_manager/133_music/data_manager.h"
 #include "../110_drawing_tools/text_node.h"
 #include "add_music_scene.h"
+#include "menu_scene.h"
 
 //------------------------------
 //ファイル名入力
@@ -23,8 +25,10 @@ void FileInScene::Init()
 {
 	root_ = new Node();
 
-	root_->AddChild(new TextNode("読込先ファイル名を入力(inputフォルダに入れておく,拡張子は不要)", 255,255,255 , line_set::brank_x,line_set::brank_y));
+	root_->AddChild(new TextNode("読込先ファイル名を入力(200_resource -> 220_music 内にフォルダを作って入れる,拡張子は不要)", ColorManager::GetInstance()->SerchColor(string_set::font_nomal1), 
+		line_set::brank_x, line_set::brank_y));
 	next_ = this;
+	camera_ = new Camera(0, 0);
 	//入力作成
 	input_handle_ = MakeKeyInput(system_set::tex_max, FALSE, FALSE, FALSE);
 }
@@ -91,10 +95,11 @@ void WaitScene::Init()
 
 	int i = 0;//行計算用
 	for (auto tex : show_text_) {
-		root_->AddChild(new TextNode( tex.c_str(), 255,255,255, line_set::brank_x, line_set::brank_y * i + line_set::brank_y));
+		root_->AddChild(new TextNode( tex.c_str(), ColorManager::GetInstance()->SerchColor(string_set::font_nomal1), line_set::brank_x, line_set::brank_y * i + line_set::brank_y));
 		++i;
 	}
 	next_ = this;
+	camera_ = new Camera(0, 0);
 
 }
 
@@ -129,13 +134,15 @@ void InputDataScene::Init()
 		root_[i] = new Node();
 	}
 
-	root_[Fase::k_input_bpm]->AddChild(new TextNode( "Bpmを入力", 255,255,255, line_set::brank_x,line_set::brank_y ));
-	root_[Fase::k_input_hakusuu]->AddChild(new TextNode( "1小節の拍子数(基本はbpmのカウント方式に準拠)",  255,255,255 ,line_set::brank_x,line_set::brank_y));
+	root_[Fase::k_input_bpm]->AddChild(new TextNode( "Bpmを入力",ColorManager::GetInstance()->SerchColor(string_set::font_nomal1),  line_set::brank_x,line_set::brank_y ));
+	root_[Fase::k_input_hakusuu]->AddChild(new TextNode( "1小節の拍子数(基本はbpmのカウント方式に準拠)",  ColorManager::GetInstance()->SerchColor(string_set::font_nomal1), 
+		line_set::brank_x,line_set::brank_y));
 	next_ = this;
 	fase_ = Fase::k_input_bpm;
 	//入力作成
 	input_handle_ = MakeKeyInput(system_set::tex_max, FALSE, FALSE, TRUE);
 	input_data_ = new MusicMakerWant ();
+	camera_ = new Camera(0, 0);
 
 }
 
@@ -218,9 +225,10 @@ void EndScene::Init()
 {
 	root_ = new Node();
 
-	root_->AddChild(new TextNode( "完成しました！Outputファイル内を確認してください！", 255,255,255 ,line_set::brank_x,line_set::brank_y));
-	root_->AddChild(new TextNode("適当なキーで終了", 255,255,255 ,line_set::brank_x,line_set::brank_y*2));
+	root_->AddChild(new TextNode( "完成しました！Outputファイル内を確認してください！", ColorManager::GetInstance()->SerchColor(string_set::font_nomal1), line_set::brank_x,line_set::brank_y));
+	root_->AddChild(new TextNode("適当なキーで終了", ColorManager::GetInstance()->SerchColor(string_set::font_nomal1), line_set::brank_x,line_set::brank_y*2));
 	next_ = this;
+	camera_ = new Camera(0, 0);
 }
 
 void EndScene::SetUp()
@@ -233,6 +241,7 @@ void EndScene::Contact()
 	//キー確認
 	if (CheckHitKeyAll() != 0) {
 		DataManager::GetInstance()->SetEnd(true);
+		next_ = new MenuScene();
 	}
 }
 
@@ -259,29 +268,29 @@ void WaitForReadScene::Contact()
 {
 	if (DataManager::GetInstance()->GetFinRead()) {
 		next_ = new InputDataScene();
+		updata_sub_thred_.wait();
 	}
 
 }
 
-void WaitForReadScene::Init()
-{
-	DataManager::GetInstance()->SetFinRead(false);
-	WaitScene::Init();
-}
-
-
-Scene* WaitForReadScene::Update(float delta_time)
+bool WaitForReadScene::Reading()
 {
 	//読込
 	std::string title = DataManager::GetInstance()->GetTitle();
 	WavData* data = new WavData();
 	int* tag = new int();
 	int* length = new int();
-	bool check = MusicMaker::GetInstance()->GetFile(&title, data, tag, length);
+	//読み込み
+	std::string get_file(file_set::music_data_file_pass);
+	{
+		get_file.append(title);
+		get_file.append("/");
+		get_file.append(title);
+	}
+	bool check = MusicMaker::GetInstance()->GetFile(&get_file, data, tag, length);
 	//結果確認
 	if (!check) {
 		next_ = new ErrScene(ErrScene::ErrId::k_read_err);
-
 	}
 
 	//代入
@@ -293,6 +302,21 @@ Scene* WaitForReadScene::Update(float delta_time)
 	DataManager::GetInstance()->SetFinRead(true);
 	std::cout << "ok\n";
 
+	return true;
+}
+
+void WaitForReadScene::Init()
+{
+	DataManager::GetInstance()->SetFinRead(false);
+	WaitScene::Init();
+	updata_sub_thred_ = std::async(&WaitForReadScene::Reading, this);
+
+}
+
+
+Scene* WaitForReadScene::Update(float delta_time)
+{
+	Contact();
 	return next_;
 }
 
@@ -300,6 +324,8 @@ void WaitForWriteScene::Init()
 {
 	DataManager::GetInstance()->SetFinWrite(false);
 	WaitScene::Init();
+	updata_sub_thred_ = std::async(&WaitForWriteScene::Writing, this);
+
 
 }
 
@@ -308,14 +334,15 @@ void WaitForWriteScene::Contact()
 
 	if (DataManager::GetInstance()->GetFinWrite()) {
 		next_ = new EndScene();
+		updata_sub_thred_.wait();
 	}
 }
 
-Scene* WaitForWriteScene::Update(float delta_time)
+bool WaitForWriteScene::Writing()
 {
 	//データ作成
 	WavData data = DataManager::GetInstance()->GetWav();
-	MusicMakerWant  music = DataManager::GetInstance()->GetMusicMakerWant ();
+	MusicMakerWant  music = DataManager::GetInstance()->GetMusicMakerWant();
 	std::string title = DataManager::GetInstance()->GetTitle();
 	int tag_t = DataManager::GetInstance()->GetTagTimr();
 	int length = DataManager::GetInstance()->GetTime();
@@ -324,7 +351,7 @@ Scene* WaitForWriteScene::Update(float delta_time)
 
 	//難易度分繰り返し
 	for (int i = 0; i < system_set::defficulter_max; i++) {
-		std::string* writing_data = DataManager::GetInstance()->GetMaker().MakeHumen(&data, music.bpm, i, music.hakusuu, tag_t);
+		std::string* writing_data = DataManager::GetInstance()->GetMaker().MakeHumen(&data, music.bpm, i, music.hakusuu, tag_t, length);
 
 		//書き込み
 		std::string get_file(file_set::music_data_file_pass);
@@ -351,7 +378,12 @@ Scene* WaitForWriteScene::Update(float delta_time)
 		}
 	}
 	DataManager::GetInstance()->SetFinWrite(true);
+	return true;
+}
 
+Scene* WaitForWriteScene::Update(float delta_time)
+{
+	Contact();
 	return next_;
 }
 
@@ -360,6 +392,7 @@ void ErrScene::Init()
 	std::string add_text("エラー番号 : ");
 	add_text.append(std::to_string(err_nun_));
 	show_text_.push_back(add_text);
+	WaitScene::Init();
 }
 
 void ErrScene::Contact()

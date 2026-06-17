@@ -12,6 +12,7 @@
 #include "maker.h"
 #include "read_music.h"
 
+int Maker::last_none_time = 5;
 
 bool Maker::Init()
 {
@@ -50,8 +51,11 @@ bool Maker::SetData(int diff)
 	return true;
 }
 
-bool Maker::GetTopData(WavData* datas, int tag_time)
+bool Maker::GetTopData(WavData* datas, int tag_time,int bpm, int length)
 {
+	int tag_timer = tag_time * (60.0f / bpm);//取得位置
+	int w_end_time = (length - 5) * (bpm / 60.0f);//削る位置
+	int time_c = 0;//経過観察用
 	//データ解析
 	for (int i = 0; i < datas->datas.size(); i++) {
 		//バッファに加える
@@ -79,8 +83,9 @@ bool Maker::GetTopData(WavData* datas, int tag_time)
 				++count_time_;
 			}
 			//秒数末なら次に
-			if (count_time_ == tag_time) {
+			if (count_time_ == tag_timer) {
 				count_time_ = 0;
+				++time_c;
 			}
 			if (bunkatu_ >= datas->format.channels) {
 				bunkatu_ = 0;
@@ -88,16 +93,19 @@ bool Maker::GetTopData(WavData* datas, int tag_time)
 
 		}
 
+		if (time_c > w_end_time) {
+			break;
+		}
 
 	}return true;
 }
 
-std::string* Maker::MakeHumen(WavData* datas, int bpm, int diff, int hakusuu, int tag_time)
+std::string* Maker::MakeHumen(WavData* datas, int bpm, int diff, int hakusuu, int tag_time, int length)
 {
 	std::string* reslt = new std::string();
 	Init();
 	SetData(diff);
-	GetTopData(datas, tag_time);
+	GetTopData(datas, tag_time,bpm,length);
 
 	//譜面変換
 	for (int i = 0; i < sec_top_.size(); i++) {

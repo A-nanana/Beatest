@@ -22,12 +22,12 @@ bool MusicMaker::GetFile(std::string* name, WavData*& get_data, int* tag_rate, i
 	{
 		std::string  names(*name);
 		//MP3ファイル読込
-		drmp3* file = nullptr;
+		drmp3 file;
 		//ファイル存在の確認
 		names.append(".mp3");
-		if (drmp3_init_file(file, names.c_str(), NULL)) {
+		if (drmp3_init_file(&file, names.c_str(), NULL)) {
 
-			get_data = ReadMp3::GetInstance()->ReadIt(file);
+			get_data = ReadMp3::GetInstance()->ReadIt(&file);
 			*second_length = get_data->data_size / get_data->format.bytesPerSecond;//時間
 			*tag_rate = get_data->format.samplePerSecond;//記録位置
 			return true;

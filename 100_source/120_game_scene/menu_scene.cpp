@@ -17,6 +17,7 @@
 #include "../110_drawing_tools/inputer.h"
 #include "../110_drawing_tools/tool.h"
 #include "config_scene.h"
+#include "add_music_scene.h"
 #include "background_node.h"
 #include "../130_data_manager/133_music/music_manager.h"
 #include "../130_data_manager/134_other/configs_manager.h"
@@ -67,6 +68,9 @@ void MenuScene::PushCheck() {
 			break; 
 		case k_about:
 			next_scene_ = new AboutScene();
+			break;
+		case k_add_music:
+			next_scene_ = new FileInScene();
 			break;
 		default:
 			next_scene_ = new ConfigScene();

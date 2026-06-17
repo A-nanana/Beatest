@@ -17,6 +17,7 @@
 
 class Maker
 {
+	static int last_none_time; //最後に何もない時間(s)
 	uint32_t buffer_;//余り
 	int buffer_count_;//読み込み量カウント
 	int count_time_;//拍子間カウント
@@ -30,8 +31,8 @@ class Maker
 	bool Init();// データ初期化
 	bool SetData(int diff);
 public:	
-	bool GetTopData(WavData* datas, int tag_time);
-	std::string* MakeHumen(WavData* datas,int bpm,int diff, int hakusuu,int tag_time);
+	bool GetTopData(WavData* datas, int tag_time, int bpm, int length);
+	std::string* MakeHumen(WavData* datas,int bpm,int diff, int hakusuu,int tag_time, int length);
 };
 
 
