@@ -123,7 +123,7 @@ namespace line_set {
 	static const int amount_y_max = 5; // y
 //  セレクター系の位置補正値
 	static const int selecter_pos_x = 0;//x
-	static const int selecter_pos_y = 65;//y
+	static const int selecter_pos_y = 40;//y
 //  見出しの初期配置
 	static const int midasi_y = 60;//y
 //  結果の位置

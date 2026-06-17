@@ -48,7 +48,7 @@ void MenuScene::PushCheck() {
 	//セレクターをループさせる
 	selecter_ = (selecter_ + k_menu_item_max) % k_menu_item_max;
 	//選択位置の修正
-	selecter_node_->SetPosition(WindowManager::GetInstance()->GetSelecterCenter().x_, WindowManager::GetInstance()->GetSelecterCenter().y_ + selecter_ * line_set::brank_y * 2);
+	selecter_node_->SetPosition(WindowManager::GetInstance()->GetSelecterCenter().x_, WindowManager::GetInstance()->GetSelecterCenter().y_ + selecter_ * line_set::brank_y * 1.5 );
 	selecter_node_->SetCenter();
 	//エンターで決定
 	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_RETURN)) {
@@ -99,7 +99,7 @@ void MenuScene::TextUpdate() {
 		int string_size = GetDrawStringWidth(text.c_str(), -1);
 
 		new_text_->AddChild(new TextNode(text.c_str(), ColorManager::GetInstance()->SerchColor(string_set::font_nomal1),
-			window_setting::null_param, line_set::brank_y * i * 2));
+			window_setting::null_param, line_set::brank_y * i * 1.5 ));
 
 	}
 

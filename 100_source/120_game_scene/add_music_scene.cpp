@@ -68,7 +68,7 @@ Scene* FileInScene::Update(float delta_time)
 void FileInScene::Draw(int window_handle)
 {
 	root_->DrawAll(window_handle,camera_);
-	DrawKeyInputString(20, 60, input_handle_);
+	DrawKeyInputString(line_set::brank_x, line_set::brank_y * 2, input_handle_);
 }
 
 void FileInScene::Finalize()
@@ -400,6 +400,7 @@ void ErrScene::Contact()
 	//キー確認
 	if (CheckHitKeyAll() != 0) {
 		DataManager::GetInstance()->SetEnd(true);
+		next_ = new MenuScene();
 	}
 }
 
