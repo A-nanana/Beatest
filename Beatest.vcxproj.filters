@@ -76,9 +76,6 @@
     <Filter Include="ヘッダー ファイル\160_tenplates">
       <UniqueIdentifier>{2bc9ebc3-6ea2-4605-a1d6-e68aadf38959}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\160_templates">
-      <UniqueIdentifier>{6647f385-4c97-4a7c-b4d7-2c74d1c041ad}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="100_source\main.cpp">
