@@ -1,117 +1,3 @@
-# Beatest
-
-## 概要
-
-## 制作情報
-
-* 制作期間: 2026年2月～2026年5月
-* 開発人数: 1人
-* 担当範囲: 企画、実装、デバッグ、UI作成、一部素材
-
-## 使用技術
-
-* C++
-* Dxライブラリ
-* Visual Studio
-* Git
-
-## ゲームの概要
-　リズムに合わせて敵の弾幕を避けよう！  
-　ギリギリで躱すとスコアアップ！  
-
-
-## 工夫した点
-
-* SQLiteを使用した楽曲の読み込み、書き込み
-  * 曲情報、難易度、ハイスコアのテーブルにそれぞれ内容を記録、呼び出しています。
-  * これにより、SQLiteでの簡単なテーブル操作だけで内容を変えられるようにしています。
-* 継承を利用したクラス作成
-
-  * 基底クラスに全体として必要な関数を入れることで、呼び出しで書く関数を少なくしました。
-  * 登録すれば呼び出し忘れが無くなるようになっています。
-* `std::unrodered_map`を利用した画像の読み込み回数の減少
-
-  * 読み込んだ画像を`GraphRoader`クラスの`std::unordered_map<std::string, int> graph_`内に保管するようにしました。
-  * 同じ画像を複数回読み込まないようにし、画像読み込み時間の短縮を図っています。
-
-## 起動方法
-
-1. `Beatest.sln`をVisual Studioで開く。
-2. RelaseまたはDebugでビルドする。
-3. 2.で生成された`exe`ファイルを起動する。
-
-## 操作方法
-
-**<ゲーム中>**
-
-* W : 上移動
-* S : 下移動
-* A : 左移動
-* D : 右移動
-* P : 一時停止
-
-* 一時停止中
-  * P : 再開
-  * Q : 選択画面に戻る(スコアは記録されない)
-  
-**<ゲーム外>**
-
-* W A S D : それぞれ項目切り替え
-  * 基本
-    * W : 上
-    * S : 下
-  * 楽曲選択画面
-    * A : 難易度を下げる
-    * D : 難易度を上げる
-  * 設定画面
-    * A : 音量を下げる
-    * D : 音量を上げる
-
-* Enter : 決定
-* Esc   : 特記がなければ戻る
-
-## 備考、不具合
-
-* レーザーの回避判定が不安定です。
-* 楽曲「初詣」はテストプレイ用に楽曲時間が10秒に設定されています。
-* ソースの著作権表記はドキュメントファイル内の`著作権表記`に記載しています。
-
-## 更新履歴
-2026/05/13 初版完成  
-2026/05/14 色管理クラスによる配色管理に変更  
-2026/05/18 安全地帯を減らすためにターゲット指定に使う座標を変更  
-2026/06/02 当たったときのエフェクトを追加  
-2026/06/17 内部に譜面作成機能を追加
-## 参考資料、各種ライブラリ
-  
-**ライブラリ**    
-
-* [ＤＸライブラリ置き場](https://dxlib.xsrv.jp/index.html)  
-* [SQLite](https://sqlite.org/index.html)  
-
-**参考資料**  
-  
-* [@yukikoblog8376(yukiko@一流のIT研修講師を目指し学習中)](https://qiita.com/yukikoblog8376)様
-  * [【保存版】単体テスト仕様書の作り方完全ガイド - テンプレート・チェックシート付き](https://qiita.com/yukikoblog8376/items/584c8748feec931926a3#-%E5%9F%BA%E6%9C%AC%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E6%A8%AA%E5%9E%8B)  
-  
-* [理数アラカルト](https://risalc.info/)様
-  * [外積の長さ = 平行四辺形の面積](https://risalc.info/src/cross-product-parallelogram-area.html)  
-  
-* [無職の学び舎](https://www.nekonecode.com/)様
-  * [点と矩形(回転あり)の衝突](https://www.nekonecode.com/math-lab/pages/collision2/point-and-box/)  
-
-* [CREX](https://crexgroup.com/ja/development/)様
-  * [画面遷移図の書き方を解説 作成ツールやテンプレートも紹介](https://crexgroup.com/ja/development/project/screen-transition-diagram-guide/)  
-
-* [ゆるふわでばっぐ](https://code.aetheria.jp/)様
-  * [C言語における文字コードの基礎と実践：UTF-8・Shift_JISの変換と処理方法を解説](https://code.aetheria.jp/14100/)  
-
-* [yoshida](https://zenn.dev/yoshia)様
-  * [【C/C++言語の日本語】 第9回 Shift_JISとUTF-8の相互変換](https://zenn.dev/yoshia/articles/c-cpp0-section9-shift_jis-to_from-utf-cf93841ba2e0)
-
-  
-
-## 著作権表記
 　libjpeg　Copyright (C) 1991-2013, Thomas G. Lane, Guido Vollbeding.
 　　　this software is based in part on the work of the Independent JPEG Group
 
@@ -273,4 +159,53 @@
 
       DX Library Copyright (C) 2001-2025 Takumi Yamada.
 
- 
+
+===================================================================================
+
+This software is available as a choice of the following licenses. Choose
+whichever you prefer.
+
+===============================================================================
+ALTERNATIVE 1 - Public Domain (www.unlicense.org)
+===============================================================================
+This is free and unencumbered software released into the public domain.
+
+Anyone is free to copy, modify, publish, use, compile, sell, or distribute this
+software, either in source code form or as a compiled binary, for any purpose,
+commercial or non-commercial, and by any means.
+
+In jurisdictions that recognize copyright laws, the author or authors of this
+software dedicate any and all copyright interest in the software to the public
+domain. We make this dedication for the benefit of the public at large and to
+the detriment of our heirs and successors. We intend this dedication to be an
+overt act of relinquishment in perpetuity of all present and future rights to
+this software under copyright law.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+For more information, please refer to <http://unlicense.org/>
+
+===============================================================================
+ALTERNATIVE 2 - MIT No Attribution
+===============================================================================
+Copyright 2020 David Reid
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
