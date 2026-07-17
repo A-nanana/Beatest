@@ -41,6 +41,22 @@ void Inputer::GetMousePointer(int* x, int* y)
 	*y = now_.y_;
 }
 
+void Inputer::GetStickAmount(float* x, float* y, const int per_param)
+{
+	if (now_pad_.x_ != 0) {
+		*x = (now_pad_.x_ - last_pad_.x_) / per_param;
+	}
+	else {
+		*x = (now_pad_.x_) / per_param;
+	}
+	if (now_pad_.y_ != 0) {
+		*y = (now_pad_.y_ - last_pad_.y_) / per_param;
+	}
+	else {
+		*y = (now_pad_.y_) / per_param;
+	}
+}
+
 void Inputer::Update()
 {
 	//マウスの入力状態更新
@@ -59,5 +75,16 @@ void Inputer::Update()
 	}
 	GetHitKeyStateAll(key_buf_);
 
+	//パッドの接続取得
+	if (GetJoypadNum()) {
+		is_use_controller_ = true;
+	}
+	else {
+		is_use_controller_ = false;
+	}
 
+	//パッド更新
+	last_pad_ = now_pad_;
+	now_pad_.in_key_ = GetJoypadInputState(DX_INPUT_PAD1);
+	GetJoypadAnalogInput(&now_pad_.x_, &now_pad_.y_, DX_INPUT_PAD1);
 }

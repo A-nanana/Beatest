@@ -29,16 +29,40 @@ void ConfigScene::PushCheck() {
 	
 	//直前の選択を保管
 	last_select_ = selecter_;
-
+	int pad_log = 0;//フラグでパッドの方向管理
+	/*
+	* 1ビット目　上 2ビット目　下
+	* 3ビット目　右 4ビット目　左
+	*/
+	{
+		float pad_x = 0, pad_y = 0;
+		Inputer::GetInstance()->GetStickAmount(&pad_x, &pad_y);
+		//パッドの上判定
+		if ((Inputer::GetInstance()->GetDownPad(PAD_INPUT_UP) || pad_y > 0) && Inputer::GetInstance()->GetIsPad()) {
+			pad_log |= 1 << 0;
+		}
+		//パッドの下判定
+		if ((Inputer::GetInstance()->GetDownPad(PAD_INPUT_DOWN) || pad_y < 0) && Inputer::GetInstance()->GetIsPad()) {
+			pad_log |= 1 << 1;
+		}
+		//パッドの右判定
+		if ((Inputer::GetInstance()->GetDownPad(PAD_INPUT_RIGHT) || pad_x < 0) && Inputer::GetInstance()->GetIsPad()) {
+			pad_log |= 1 << 2;
+		}
+		//パッドの左判定
+		if ((Inputer::GetInstance()->GetDownPad(PAD_INPUT_LEFT) || pad_x > 0) && Inputer::GetInstance()->GetIsPad()) {
+			pad_log |= 1 << 3;
+		}
+	}
 	//W,Sで項目変更
 	//Wなら上
-	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_W)) {
+	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_W)|| (pad_log & 1 << 0) != 0) {
 		selecter_--;
 		MusicManager::GetInstance()->PlaySe(k_select);
 
 	}
 	//Sなら下
-	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_S)) {
+	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_S) || (pad_log & 1 << 1) != 0) {
 		selecter_++;
 		MusicManager::GetInstance()->PlaySe(k_select);
 
@@ -51,27 +75,27 @@ void ConfigScene::PushCheck() {
 
 	//A,Dで量調整
 	//Aなら減少
-	if (Inputer::GetInstance()->GetHitKey(KEY_INPUT_A)) {
+	if (Inputer::GetInstance()->GetHitKey(KEY_INPUT_A) || (pad_log & 1 << 2) != 0) {
 		ConfigsManager::GetInstance()->SubIt((Configs)selecter_);
 		MusicManager::GetInstance()->PlaySe(k_select);
 
 	}
 	//Dなら増加
-	if (Inputer::GetInstance()->GetHitKey(KEY_INPUT_D)) {
+	if (Inputer::GetInstance()->GetHitKey(KEY_INPUT_D) || (pad_log & 1 << 3) != 0) {
 		ConfigsManager::GetInstance()->AddIt((Configs)selecter_);
 		MusicManager::GetInstance()->PlaySe(k_select);
 
 	}
 
 	//エンターで戻す
-	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_RETURN)) {
+	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_RETURN) || (Inputer::GetInstance()->GetDownPad(PAD_INPUT_2) && Inputer::GetInstance()->GetIsPad())) {
 		ConfigsManager::GetInstance()->SetIt();
 		MusicManager::GetInstance()->PlaySe(k_select);
 
 		next_scene_ = GetToReturnScene();
 	}
 	//エスケープキーで終了
-	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_ESCAPE)) {
+	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_ESCAPE) || (Inputer::GetInstance()->GetDownPad(PAD_INPUT_1) && Inputer::GetInstance()->GetIsPad())) {
 		MusicManager::GetInstance()->PlaySe(k_select);
 		ConfigsManager::GetInstance()->SetEnd();
 	}
@@ -195,7 +219,7 @@ void ConfigScene::Draw(int screen_handle)
 
 void CreditScene::PushCheck() {
 	//エンターで戻る
-	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_RETURN)) {
+	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_RETURN) || (Inputer::GetInstance()->GetDownPad(PAD_INPUT_2) && Inputer::GetInstance()->GetIsPad())) {
 		next_scene_ = GetToReturnScene();
 	}
 }
@@ -253,7 +277,7 @@ void CreditScene::Draw(int screen_handle)
 //------------------------------
 void AboutScene::PushCheck() {
 	//エンターで戻る
-	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_RETURN)) {
+	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_RETURN) || (Inputer::GetInstance()->GetDownPad(PAD_INPUT_2) && Inputer::GetInstance()->GetIsPad())) {
 		next_scene_ = GetToReturnScene();
 	}
 }

@@ -11,6 +11,7 @@
 //------------------------------
 
 #pragma once
+#include <vector>
 #include "DxLib.h"
 
 
@@ -29,11 +30,47 @@ public:
 	Mouse() :x_(0), y_(0), bottom_(0), log_type_(0) {};
 };
 
+//-----------------------------
+// @name   Controller
+// @brief  コントローラー入力
+// @memo   Dxライブラリ準拠
+//------------------------------
+class Controller {
+public:
+	int in_key_;//状態
+	int x_, y_;//スティック状態
+
+//コンストラクタ
+	Controller() :in_key_(0),  x_(0), y_(0) {};
+
+};
+/*
+ロジクールのキー
+
+PAD_INPUT_DOWN  下矢印
+PAD_INPUT_UP     上矢印
+	多分左右も同じ
+PAD_INPUT_1　A
+PAD_INPUT_2　B
+PAD_INPUT_3  X
+PAD_INPUT_4　Y
+PAD_INPUT_5　LB
+PAD_INPUT_6　RB
+PAD_INPUT_7　Back
+PAD_INPUT_8　Start
+PAD_INPUT_9　左スティック押し
+PAD_INPUT_10	右スティック押し
+PAD_INPUT_11　
+*/
 
 class Inputer
 {
+
 	static Inputer* instance_;//既にこれがあるか
 	static const int kKeyInputAll = 256;//確認するキーの数
+	
+	Controller last_pad_;//直前のコントローラーの入力状態
+	Controller now_pad_;//今のコントローラーの入力状態
 	char key_buf_[kKeyInputAll]; //入力キーの状態を得る
 	char key_buf_last_[kKeyInputAll]; //直前の入力キーの状態を得る
 
@@ -42,6 +79,7 @@ class Inputer
 	int mouse_wheel_;//マウスホイールの回転量
 
 	int tag_;//取得したタグ
+	bool is_use_controller_;//コントローラー使用有無
 
 protected:
 
@@ -78,11 +116,22 @@ public:
 	//マウスの回転量
 	int GetMouseWheel() { return mouse_wheel_; };
 
+	//スティック入力量(単位変換つき)
+	void GetStickAmount(float* x, float* y, const int per_param = 1000);
+	//対象のボタンの投下状態
+	bool GetHitPad(int key) { return ((now_pad_.in_key_ & key)!= 0); };
+	//対象のボタンが押された
+	bool GetDownPad(int key) { return (((now_pad_.in_key_ & key )!= 0) && ((last_pad_.in_key_ & key) == 0)); };
+	//対象のボタンが離された
+	bool GetUpPad(int key) { return (((now_pad_.in_key_ & key) == 0) && ((last_pad_.in_key_ & key) != 0)); };
+
+
 	//セットされたタグ
 	int GetTagParam() { return tag_; };
 	//入力キーの状態を返す
-	char* GetKeyState() {
-		return key_buf_;};
+	char* GetKeyState() {return key_buf_;};
+	//コントローラーの有無
+	bool GetIsPad() { return is_use_controller_; };
 
 //  更新処理
 	void Update();

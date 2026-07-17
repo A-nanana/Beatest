@@ -57,7 +57,7 @@ void ResultScene::PushCheck() {
 
 	}
 	//ƒGƒ“ƒ^[‚ÅŒˆ’è
-	if (!Inputer::GetInstance()->GetDownKey(KEY_INPUT_RETURN)) {
+	if (!Inputer::GetInstance()->GetDownKey(KEY_INPUT_RETURN) || (Inputer::GetInstance()->GetDownPad(PAD_INPUT_2) && Inputer::GetInstance()->GetIsPad())) {
 
 		return;
 	}

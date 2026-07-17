@@ -76,3 +76,75 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	DxLib_End();
 	return 0;
 }
+
+
+/*//パッド対応確認
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+{
+
+	//ウィンドウの初期化
+	WindowManager::GetInstance()->WindowSettings();
+	//アイコン設定
+	SetMainWindowText(string_set::title);
+	SetWindowIconID(IDI_ICON1);
+	//ライブラリ起動
+	if (DxLib_Init() == -1) {
+		return -1;
+	}
+
+	SetAlwaysRunFlag(TRUE);
+	//Se読み込み
+	MusicManager::GetInstance()->SetSe();
+	//bgm読み込み
+	MusicManager::GetInstance()->SetBgm();
+
+	//シーン設定
+	//時間計測用変数
+	Time time;
+	//裏画面化
+	SetDrawScreen(DX_SCREEN_BACK);
+
+
+	//テストキーこれ！！
+	int test_pad = PAD_INPUT_5;
+
+
+
+	//画面制御用時間確認
+	float next_to_time = time.GetDelta();
+	float set_last = GetNowCount();
+
+	//メインループ
+	while ((ProcessMessage() != -1) && !Inputer::GetInstance()->GetHitKey(KEY_INPUT_ESCAPE)) {
+		//画面クリア
+		ClearDrawScreen();
+		//設定系更新
+		time.Update();
+		Inputer::GetInstance()->Update();
+
+
+
+		//押されたら文字出す
+		if (Inputer::GetInstance()->GetHitPad(test_pad)) {
+			DrawString(10, 10, "押されたよ", GetColor(255, 255, 255));
+		}
+
+
+		//描画系更新
+		
+		ScreenFlip();
+
+
+		//fpsの確認
+		while (next_to_time < window_setting::sec_per_frame)
+		{
+			float now = GetNowCount();
+			next_to_time += now - set_last;
+			set_last = now;
+		}
+	}
+	//終了設定
+	DxLib_End();
+	return 0;
+}
+*/
