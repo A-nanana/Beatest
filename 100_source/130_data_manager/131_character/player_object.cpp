@@ -47,27 +47,38 @@ void PlayerObject::Update(float delta_time)
 
 	//加算用
 	Vector2D move_vector(window_setting::null_param,window_setting::null_param);
+	
 	//直前位置の記憶
 	last_pos_.Set(world_position_);
+	//スティックの取得
+	{
+		float add_x = 0.0f, add_y = 0.0f;
+		Inputer::GetInstance()->GetNowStickAmount(&add_x, &add_y, 600);
+		move_vector.Add(add_x, add_y);
+	}
+	//スティック量がとれないならボタンで計測
+	if (move_vector.Length_2zyou() == 0) {
 
-	//Wキーで上に
-	if (Inputer::GetInstance()->GetHitKey(KEY_INPUT_W)) {
-		move_vector.Add(window_setting::null_param, -system_set::player_walk_speed);
+		//Wキー/Upで上に
+		if (Inputer::GetInstance()->GetHitKey(KEY_INPUT_W) || Inputer::GetInstance()->GetHitPad(PAD_INPUT_UP)) {
+			move_vector.Add(window_setting::null_param, -system_set::player_walk_speed);
+		}
+		//Sキー/Downで下に
+		if (Inputer::GetInstance()->GetHitKey(KEY_INPUT_S) || Inputer::GetInstance()->GetHitPad(PAD_INPUT_DOWN)) {
+			move_vector.Add(window_setting::null_param, system_set::player_walk_speed);
+		}
+		//Aキー/Leftで左に
+		if (Inputer::GetInstance()->GetHitKey(KEY_INPUT_A)|| Inputer::GetInstance()->GetHitPad(PAD_INPUT_LEFT)) {
+			move_vector.Add(-system_set::player_walk_speed, window_setting::null_param);
+		}
+		//Dキー/Rightで右に
+		if (Inputer::GetInstance()->GetHitKey(KEY_INPUT_D) || Inputer::GetInstance()->GetHitPad(PAD_INPUT_RIGHT)) {
+			move_vector.Add(system_set::player_walk_speed, window_setting::null_param);
+		}
+		//ノルム化
+		move_vector.Normalize();
 	}
-	//Sキーで下に
-	if (Inputer::GetInstance()->GetHitKey(KEY_INPUT_S)) {
-		move_vector.Add(window_setting::null_param, system_set::player_walk_speed);
-	}
-	//Aキーで左に
-	if (Inputer::GetInstance()->GetHitKey(KEY_INPUT_A)) {
-		move_vector.Add(-system_set::player_walk_speed, window_setting::null_param);
-	}
-	//Dキーで右に
-	if (Inputer::GetInstance()->GetHitKey(KEY_INPUT_D)) {
-		move_vector.Add(system_set::player_walk_speed, window_setting::null_param);
-	}
-	//ノルム化
-	move_vector.Normalize();
+	
 	move_vector.Scale(system_set::player_walk_speed);
 	
 	//端の場合はクランプ

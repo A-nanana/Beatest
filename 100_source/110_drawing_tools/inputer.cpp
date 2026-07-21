@@ -57,6 +57,12 @@ void Inputer::GetStickAmount(float* x, float* y, const int per_param)
 	}
 }
 
+void Inputer::GetNowStickAmount(float* x, float* y, const int per_param)
+{
+	*x = now_pad_.x_ / per_param;
+	*y = now_pad_.y_ / per_param;
+}
+
 void Inputer::Update()
 {
 	//マウスの入力状態更新

@@ -118,6 +118,9 @@ public:
 
 	//スティック入力量(単位変換つき)
 	void GetStickAmount(float* x, float* y, const int per_param = 1000);
+	//今の入力量(変換込み)
+	void GetNowStickAmount(float* x, float* y, const int per_param = 1000);
+
 	//対象のボタンの投下状態
 	bool GetHitPad(int key) { return ((now_pad_.in_key_ & key)!= 0); };
 	//対象のボタンが押された

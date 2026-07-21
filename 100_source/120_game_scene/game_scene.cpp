@@ -38,18 +38,18 @@
 //------------------------------
 void GameScene::SceneCheck() {
 
-	//playフェーズでPボタンが押されたら一時停止
-	if ((fase_ == k_play) && Inputer::GetInstance()->GetDownKey(KEY_INPUT_P))
+	//playフェーズでPボタン/Backが押されたら一時停止
+	if ((fase_ == k_play) && (Inputer::GetInstance()->GetDownKey(KEY_INPUT_P) || Inputer::GetInstance()->GetDownPad(PAD_INPUT_7)))
 	{
 		MusicManager::GetInstance()->StopMusic();
 		fase_ = k_stop;
 
 	}
-	else if ((fase_ == k_stop) && Inputer::GetInstance()->GetDownKey(KEY_INPUT_P))//stopフェーズでPボタンが押されたら再開
+	else if ((fase_ == k_stop) && (Inputer::GetInstance()->GetDownKey(KEY_INPUT_P) || Inputer::GetInstance()->GetDownPad(PAD_INPUT_8) ))//stopフェーズでPボタン/Startが押されたら再開
 	{
 		fase_ = k_restart;
 	}
-	else if ((fase_ == k_stop) && Inputer::GetInstance()->GetDownKey(KEY_INPUT_Q))//stopフェーズでQボタンが押されたら終了
+	else if ((fase_ == k_stop) && (Inputer::GetInstance()->GetDownKey(KEY_INPUT_Q) || Inputer::GetInstance()->GetDownPad(PAD_INPUT_7) || Inputer::GetInstance()->GetDownPad(PAD_INPUT_2)))//stopフェーズでQボタン/Back/Aが押されたら終了
 	{
 		//曲を止めてスコアリセット
 		MusicManager::GetInstance()->StopMusic();
@@ -188,6 +188,11 @@ void GameScene::Init()
 	TextUpdate();
 	end_game_->AddChild(new TextNode(string_set::game_finish, GetColor(255, 255, 255),
 		WindowManager::GetInstance()->GetWindowCenterX(), WindowManager::GetInstance()->GetWindowCenterY()));
+
+	//ジョイパッドの無効範囲設定
+	if (Inputer::GetInstance()->GetIsPad()) {
+		SetJoypadDeadZone(DX_INPUT_PAD1, 0.02);
+	}
 
 	next_scene_ = this;
 }
