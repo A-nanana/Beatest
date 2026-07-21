@@ -95,7 +95,7 @@ void ConfigScene::PushCheck() {
 		next_scene_ = GetToReturnScene();
 	}
 	//エスケープキーで終了
-	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_ESCAPE) || (Inputer::GetInstance()->GetDownPad(PAD_INPUT_1) && Inputer::GetInstance()->GetIsPad())) {
+	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_ESCAPE) || (Inputer::GetInstance()->GetDownPad(PAD_INPUT_1) || Inputer::GetInstance()->GetDownPad(PAD_INPUT_7))) {
 		MusicManager::GetInstance()->PlaySe(k_select);
 		ConfigsManager::GetInstance()->SetEnd();
 	}

@@ -92,7 +92,7 @@ void MenuScene::PushCheck() {
 
 	}
 	//Escキーで設定
-	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_ESCAPE) || (Inputer::GetInstance()->GetDownPad(PAD_INPUT_1) && Inputer::GetInstance()->GetIsPad())) {
+	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_ESCAPE) || (Inputer::GetInstance()->GetDownPad(PAD_INPUT_1) || Inputer::GetInstance()->GetDownPad(PAD_INPUT_7))) {
 		MusicManager::GetInstance()->PlaySe(k_select);
 
 		next_scene_ = new ConfigScene();
@@ -275,7 +275,7 @@ void SelectScene::PushCheck() {
 		next_scene_ = new GameScene();
 	}
 	//Escキーで設定
-	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_ESCAPE) || (Inputer::GetInstance()->GetDownPad(PAD_INPUT_1) && Inputer::GetInstance()->GetIsPad())) {
+	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_ESCAPE) || (Inputer::GetInstance()->GetDownPad(PAD_INPUT_1) || Inputer::GetInstance()->GetDownPad(PAD_INPUT_7))) {
 		MusicManager::GetInstance()->PlaySe(k_select);
 
 		next_scene_ = new MenuScene();
