@@ -34,6 +34,10 @@ void TopScene::PushCheck() {
 	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_RETURN)) {
 		next_scene_ = new MenuScene();
 	}
+	//ƒpƒbƒh‚ÌB‚Å‚àOK
+	if (Inputer::GetInstance()->GetDownPad(PAD_INPUT_2) && Inputer::GetInstance()->GetIsPad()) {
+		next_scene_ = new MenuScene();
+	}
 }
 
 

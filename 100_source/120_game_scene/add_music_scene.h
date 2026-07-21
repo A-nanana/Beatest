@@ -21,7 +21,6 @@
 class FileInScene:public Scene
 {
 protected:
-	Camera* camera_;//カメラ
 	Node* root_;//UI根ノード
 	Scene* next_;//次のスクリーン待ち
 	int input_handle_;//入力ハンドル
@@ -42,7 +41,6 @@ public:
 class WaitScene :public Scene
 {
 protected:
-	Camera* camera_;//カメラ
 	Node* root_;//UI根ノード
 	Scene* next_;//次のスクリーン待ち
 
@@ -71,7 +69,6 @@ public:
 		k_max
 	};
 protected:
-	Camera* camera_;//カメラ
 	Node* root_[k_max];//UI根ノード
 	Scene* next_;//次のスクリーン待ち
 	
@@ -95,7 +92,6 @@ public:
 class EndScene :public Scene
 {
 protected:
-	Camera* camera_;//カメラ
 	Node* root_;//UI根ノード
 	Scene* next_;//次のスクリーン待ち
 public:

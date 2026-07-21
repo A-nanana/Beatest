@@ -35,13 +35,26 @@
 void MenuScene::PushCheck() {
 	//直前の選択を保管
 	last_select_ = selecter_;
-
+	bool pad_up = false;
+	bool pad_down = false;
+	{
+		float pad_x = 0, pad_y = 0;
+		Inputer::GetInstance()->GetStickAmount(&pad_x, &pad_y);
+		//パッドの上判定
+		if ((Inputer::GetInstance()->GetDownPad(PAD_INPUT_UP) || pad_y > 0) && Inputer::GetInstance()->GetIsPad()) {
+			pad_up = true;
+		}
+		//パッドの下判定
+		if ((Inputer::GetInstance()->GetDownPad(PAD_INPUT_DOWN) || pad_y < 0) && Inputer::GetInstance()->GetIsPad()) {
+			pad_down = true;
+		}
+	}
 	//W,Sキーで選択
-	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_W)) {
+	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_W) || pad_up) {
 		MusicManager::GetInstance()->PlaySe(k_select);
 		selecter_--;
 	}
-	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_S)) {
+	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_S) || pad_down) {
 		MusicManager::GetInstance()->PlaySe(k_select);
 		selecter_++;
 	}
@@ -51,7 +64,7 @@ void MenuScene::PushCheck() {
 	selecter_node_->SetPosition(WindowManager::GetInstance()->GetSelecterCenter().x_, WindowManager::GetInstance()->GetSelecterCenter().y_ + selecter_ * line_set::brank_y * 1.5 );
 	selecter_node_->SetCenter();
 	//エンターで決定
-	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_RETURN)) {
+	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_RETURN) || (Inputer::GetInstance()->GetDownPad(PAD_INPUT_2) && Inputer::GetInstance()->GetIsPad())) {
 		MusicManager::GetInstance()->PlaySe(k_select);
 		
 		//セレクターの値で分ける
@@ -79,7 +92,7 @@ void MenuScene::PushCheck() {
 
 	}
 	//Escキーで設定
-	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_ESCAPE)) {
+	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_ESCAPE) || (Inputer::GetInstance()->GetDownPad(PAD_INPUT_1) || Inputer::GetInstance()->GetDownPad(PAD_INPUT_7))) {
 		MusicManager::GetInstance()->PlaySe(k_select);
 
 		next_scene_ = new ConfigScene();
@@ -192,23 +205,47 @@ void SelectScene::PushCheck() {
 	last_select_[k_music] = selecter_[k_music];
 	last_select_[k_defficult] = selecter_[k_defficult];
 	int upper = 1; //難易度ループ用増加幅
-
+	int pad_log = 0;//フラグでパッドの方向管理
+	/*
+	* 1ビット目　上 2ビット目　下
+	* 3ビット目　右 4ビット目　左
+	*/
+	{
+		float pad_x = 0, pad_y = 0;
+		Inputer::GetInstance()->GetStickAmount(&pad_x, &pad_y);
+		//パッドの上判定
+		if ((Inputer::GetInstance()->GetDownPad(PAD_INPUT_UP) || pad_y > 0) && Inputer::GetInstance()->GetIsPad()) {
+			pad_log |= 1<<0;
+		}
+		//パッドの下判定
+		if ((Inputer::GetInstance()->GetDownPad(PAD_INPUT_DOWN) || pad_y < 0) && Inputer::GetInstance()->GetIsPad()) {
+			pad_log |= 1<<1;
+		}
+		//パッドの右判定
+		if ((Inputer::GetInstance()->GetDownPad(PAD_INPUT_RIGHT) || pad_x < 0) && Inputer::GetInstance()->GetIsPad()) {
+			pad_log |= 1 << 2;
+		}
+		//パッドの左判定
+		if ((Inputer::GetInstance()->GetDownPad(PAD_INPUT_LEFT) || pad_x > 0) && Inputer::GetInstance()->GetIsPad()) {
+			pad_log |= 1 << 3;
+		}
+	}
 	//W,Sキーで曲選択
-	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_W)) {
+	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_W)|| (pad_log & 1<<0) != 0) {
 		MusicManager::GetInstance()->PlaySe(k_select);
 		selecter_[k_music]--;
 	}
-	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_S)) {
+	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_S) || (pad_log & 1 << 1) != 0) {
 		MusicManager::GetInstance()->PlaySe(k_select);
 		selecter_[k_music]++;
 	}
 	//A,Dキーで難易度選択
-	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_A)) {
+	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_A) || (pad_log & 1 << 2) != 0) {
 		MusicManager::GetInstance()->PlaySe(k_select);
 		selecter_[k_defficult]--;
 		upper = -1;
 	}
-	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_D)) {
+	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_D) || (pad_log & 1 << 3) != 0) {
 		MusicManager::GetInstance()->PlaySe(k_select);
 		selecter_[k_defficult]++;
 		upper = +1;
@@ -231,14 +268,14 @@ void SelectScene::PushCheck() {
 	
 
 	//エンターで決定
-	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_RETURN)) {
+	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_RETURN) || (Inputer::GetInstance()->GetDownPad(PAD_INPUT_2) && Inputer::GetInstance()->GetIsPad())) {
 		MusicManager::GetInstance()->PlaySe(k_select);
 		MusicManager::GetInstance()->SetPlayMusic(MusicManager::GetInstance()->operator[](selecter_[k_music]));
 		MusicManager::GetInstance()->SetDefficult(selecter_[k_defficult]);
 		next_scene_ = new GameScene();
 	}
 	//Escキーで設定
-	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_ESCAPE)) {
+	if (Inputer::GetInstance()->GetDownKey(KEY_INPUT_ESCAPE) || (Inputer::GetInstance()->GetDownPad(PAD_INPUT_1) || Inputer::GetInstance()->GetDownPad(PAD_INPUT_7))) {
 		MusicManager::GetInstance()->PlaySe(k_select);
 
 		next_scene_ = new MenuScene();
