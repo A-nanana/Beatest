@@ -210,6 +210,9 @@
     <ClCompile Include="100_source\120_game_scene\add_music_scene.cpp">
       <Filter>ソース ファイル\120_game_scene</Filter>
     </ClCompile>
+    <ClCompile Include="100_source\120_game_scene\tutorial_scene.cpp">
+      <Filter>ソース ファイル\120_game_scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="100_source\110_drawing_tools\alpha_node.h">
@@ -361,6 +364,9 @@
     </ClInclude>
     <ClInclude Include="100_source\160_tenplated\manager_tenplate.h">
       <Filter>ヘッダー ファイル\160_tenplates</Filter>
+    </ClInclude>
+    <ClInclude Include="100_source\120_game_scene\tutorial_scene.h">
+      <Filter>ヘッダー ファイル\120_game_scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
