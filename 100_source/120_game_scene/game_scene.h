@@ -25,7 +25,7 @@ class ShotManager;
 class GameScene:public Scene
 {
 	
-
+protected:
 	Scene* next_scene_;//次のシーン
 
 	Node* root_;//根ノード作成

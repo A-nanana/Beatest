@@ -178,8 +178,7 @@ void FileRoader::RoadMusic(MusicData* music_data)
 	std::string inser_msg = "select * from " + table_name + " WHERE MusicKey = ? ;"; //クエリ文
 	sqlite3_stmt* stmt = NULL; //状態格納ハンドル.
 	//確認できるか
-	if ((use_lib_
-		&& (sqlite3_prepare_v2(db_, inser_msg.c_str(), inser_msg.size(), &stmt, NULL) != SQLITE_OK)) || !use_lib_) {
+	if ((sqlite3_prepare_v2(db_, inser_msg.c_str(), inser_msg.size(), &stmt, NULL) != SQLITE_OK) || !use_lib_) {
 		//プロパティファイルを拾う
 		file_name = file_set::music_data_file_pass + music_data->title_ + "/propaty.txt";
 		std::ifstream propaty_p(file_name.c_str());
@@ -207,7 +206,20 @@ void FileRoader::RoadMusic(MusicData* music_data)
 		sqlite3_finalize(stmt);
 
 	}
-	
+	//データがなければプロパティから拾う
+	if (music_data->bpm_ == 0) {
+		//プロパティファイルを拾う
+		file_name = file_set::music_data_file_pass + music_data->title_ + "/propaty.txt";
+		std::ifstream propaty_p(file_name.c_str());
+		if (propaty_p.is_open()) {
+			propaty_p >> music_data->bpm_;
+			propaty_p >> music_data->time_;
+			propaty_p >> music_data->hyousi_;
+		}
+
+		propaty_p.close();
+	}
+
 	//1拍当たりの秒数計算
 	music_data->ms_per_hyousi_ = system_set::ms_per_s * 60.0f / music_data->bpm_;
 }

@@ -18,6 +18,7 @@
 #include "../110_drawing_tools/tool.h"
 #include "config_scene.h"
 #include "add_music_scene.h"
+#include "tutorial_scene.h"
 #include "background_node.h"
 #include "../130_data_manager/133_music/music_manager.h"
 #include "../130_data_manager/134_other/configs_manager.h"
@@ -72,6 +73,9 @@ void MenuScene::PushCheck() {
 		{
 		case k_play:
 			next_scene_ = new SelectScene();
+			break;
+		case k_tutorial:
+			next_scene_ = new TutorialScene();
 			break;
 		case k_config:
 			next_scene_ = new ConfigScene();

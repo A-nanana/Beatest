@@ -135,7 +135,7 @@ int ChangeBitToNum(int flg)
 		}
 		i++;
 	}
-	return i + 1;
+	return i;
 }
 
 // UTF-8 -> Shift-JIS 

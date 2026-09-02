@@ -40,6 +40,7 @@ public:
 	enum MenuItem {
 		k_play, //曲を選ぶ
 		k_config,//設定
+		k_tutorial,//チュートリアル
 		k_credit, //クレジットを出す
 		k_about, //説明
 		k_add_music, //曲追加
