@@ -14,6 +14,8 @@
 #include "110_drawing_tools/time.h"
 #include "140_roading_from_other/file_roader.h"
 #include "120_game_scene/top_scene.h"
+#include "120_game_scene/tutorial_scene.h"
+
 #include "130_data_manager/133_music/music_manager.h"
 #include "130_data_manager/134_other/configs_manager.h"
 #include "130_data_manager/134_other/window_manager.h"
@@ -40,7 +42,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	//シーン設定
 	SceneManager* scene_manage = new SceneManager();
-	scene_manage->SetNextScene(new TopScene());
+	scene_manage->SetNextScene(new TutorialScene());
 	//時間計測用変数
 	Time time;
 	//裏画面化

@@ -150,7 +150,9 @@ void ResultScene::SetUp() {
 }
 //  I—¹
 void ResultScene::Finalize() {
-	root_->ReleaseResourceAll();
+	if (root_) {
+		root_->ReleaseResourceAll();
+	}
 	ScoreManager::GetInstance()->Reset();
 	MusicManager::GetInstance()->DeleteMusic();
 

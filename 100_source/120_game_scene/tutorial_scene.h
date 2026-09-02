@@ -15,6 +15,7 @@
 #include "../110_drawing_tools/text_node.h"
 
 
+
 //チュートリアルテキスト用CSVファイル
 //Csvデータチャンク
 struct CsvData
@@ -41,7 +42,7 @@ public:
 };
 
 //チュートリアルシーンクラス
-class TutorialScene:GameScene
+class TutorialScene: public GameScene
 {
 protected:
 	TextNode* tutorial_txt_; //チュートリアル表示文

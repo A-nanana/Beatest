@@ -9,33 +9,41 @@
 //------------------------------
 
 #include "../140_roading_from_other/file_roader.h"
+#include "../130_data_manager/134_other/txt_font_manager.h"
 #include "../130_data_manager/133_music/music_manager.h"
+#include "result_scene.h"
 #include "tutorial_scene.h"
+#include "menu_scene.h"
 
 void TutorialScene::UpdateTxt()
 {
+	if (text_all_.GetCsv()->empty()) {
+		return;
+	}
 	//テキスト更新
-	if (!text_all_.GetCsv()->empty()) {
-		tutorial_txt_->SetText(text_all_.GetCsv()->front().text.c_str());
-		//再読み込み
-		tutorial_txt_->LoadResourceAll();
-		tutorial_txt_->SetUpAll();
+	if (text_all_.GetCsv()->front().time >= last_time_) {
 
+		tutorial_txt_->SetText(text_all_.GetCsv()->front().text.c_str());
 		//最初を削除
-		text_all_.GetCsv()->erase(text_all_.GetCsv()->begin());
+		text_all_.GetCsv()->pop_front();
+	}
+	else if (last_pop_up_ > last_time_ + 2 * system_set::ms_per_s) //テキスト消去
+	{
+		tutorial_txt_->SetText("");
 	}
 }
 
 void TutorialScene::Init() {
 	
-	MusicManager::GetInstance()->SetPlayMusic({ "tutorial",{0,0,0,0}, });
-	MusicManager::GetInstance()->SetDefficult();
+	MusicManager::GetInstance()->SetPlayMusic({ "tutorial",{0,0,0,0}, 0,0});
+	MusicManager::GetInstance()->SetDefficult(0);
 	//テキスト設定
-	std::string txt;//入力テキスト
+	std::string txt("0,Hello,");//入力テキスト
 	FileRoader::GetInstance()->RoadTxt(txt,"testcsv.csv");
 	text_all_.ConvertCsv(txt.c_str());
 	//ゲームシーン側初期化
 	GameScene::Init();
+	tutorial_txt_ = new TextNode("test",255,255,255,10,10);
 
 }
 
@@ -63,11 +71,19 @@ Scene* TutorialScene::Update(float delta_time)
 	GameScene::Update(delta_time);
 
 	//テキスト更新
-	if (text_all_.GetCsv()->front().time >= last_pop_up_) {
+	if (!text_all_.GetCsv()->empty()) {
 		UpdateTxt();
 		last_pop_up_ = last_time_;
 	}
 
+	if (next_scene_ != this) {
+		ResultScene* casting_scene = dynamic_cast<ResultScene*>(next_scene_);
+		if (casting_scene) {
+			casting_scene->Finalize();
+			next_scene_ = new MenuScene();
+		}
+
+	}
 	return next_scene_;
 }
 
@@ -89,7 +105,7 @@ void TutorialCsv::ConvertCsv(const char* csv)
 	int i = 0; //カウント(文字)
 	int check = 0;//最終確認位置
 	CsvLavel lavel = k_csv_time; //Csv項目
-	CsvData pool_data = { "test",0}; //初期データ
+	CsvData pool_data; //初期データ
 	std::string text_moto;//変換前テキスト
 
 	while (true)
@@ -116,7 +132,6 @@ void TutorialCsv::ConvertCsv(const char* csv)
 				check = i;
 				lavel = k_csv_time;
 				break;
-			default:
 			}
 			
 
