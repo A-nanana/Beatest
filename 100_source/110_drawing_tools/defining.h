@@ -74,6 +74,9 @@ namespace file_set {
 	static const char* score_data_base_table = "Score"; //スコア探索用テーブル
 //  チュートリアル文章パス
 	static const char* tutorial_memo = "200_resource/tutorial_memo.txt";
+//  チュートリアルファイル名
+	static const char* tutorial_name = "tutorial";
+
 //  bgmファイルパス
 	static const char* bgm_data_pass = "200_resource/bgm.mp3";//相対パス
 //  Seファイルパス
@@ -222,10 +225,11 @@ namespace string_set {
 	"Home Music",
 	"Home SE"};//調整項目
 
-	static const char* menu[5] =
+	static const char* menu[6] =
 	{
 		"Play (ゲームプレイ！)",
 		"Config or End Game(設定)",
+		"Tutorial(チュートリアル)",
 		"Credit (素材の出典情報)",
 		"About (説明はココ！)",
 		"Add Music (楽曲追加サポートツール)"
