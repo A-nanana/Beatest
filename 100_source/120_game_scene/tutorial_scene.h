@@ -37,7 +37,8 @@ protected:
 	std::list<CsvData> csv_data_; //Csvのリスト
 public:
 	void ConvertCsv(const char* csv);//コンバーター
-	std::list<CsvData>* GetCsv() { return &csv_data_; } //Csvの取得
+	const std::list<CsvData>* GetCsv() { return &csv_data_; } //Csvの取得
+	void DelFront();//先頭除去
 
 };
 

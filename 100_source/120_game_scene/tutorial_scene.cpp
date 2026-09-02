@@ -17,20 +17,25 @@
 
 void TutorialScene::UpdateTxt()
 {
+	if ((last_pop_up_ + 2 * system_set::ms_per_s < last_time_) ) //テキスト消去
+	{
+		tutorial_txt_->SetText("");
+		last_pop_up_ = last_time_;
+		return;
+	}
 	if (text_all_.GetCsv()->empty()) {
 		return;
 	}
 	//テキスト更新
-	if (text_all_.GetCsv()->front().time * system_set::ms_per_s >= last_time_) {
+	if (text_all_.GetCsv()->front().time * system_set::ms_per_s <= last_time_) {
 
 		tutorial_txt_->SetText(text_all_.GetCsv()->front().text.c_str());
 		//最初を削除
-		text_all_.GetCsv()->pop_front();
+		text_all_.DelFront();
+		last_pop_up_ = last_time_;
+
 	}
-	else if (last_pop_up_ > last_time_ + 2 * system_set::ms_per_s) //テキスト消去
-	{
-		tutorial_txt_->SetText("");
-	}
+	
 }
 
 void TutorialScene::Init() {
@@ -71,10 +76,9 @@ Scene* TutorialScene::Update(float delta_time)
 	GameScene::Update(delta_time);
 
 	//テキスト更新
-	if (!text_all_.GetCsv()->empty()) {
-		UpdateTxt();
-		last_pop_up_ = last_time_;
-	}
+	
+	UpdateTxt();
+
 
 	if (next_scene_ != this) {
 		ResultScene* casting_scene = dynamic_cast<ResultScene*>(next_scene_);
@@ -94,6 +98,9 @@ void TutorialScene::Draw(int screen_handle)
 
 	//チュートリアル文の描画
 	tutorial_txt_->Draw(screen_handle,camera_);
+
+	DrawFormatString(100, 100, GetColor(255, 255, 255), "%d", last_time_);
+	DrawFormatString(120,120, GetColor(255,255,255),"%d",last_pop_up_);
 
 }
 
@@ -155,4 +162,9 @@ void TutorialCsv::ConvertCsv(const char* csv)
 		}
 
 	}
+}
+
+void TutorialCsv::DelFront()
+{
+	csv_data_.pop_front();
 }
