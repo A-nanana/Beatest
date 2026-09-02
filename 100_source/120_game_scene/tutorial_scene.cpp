@@ -21,7 +21,7 @@ void TutorialScene::UpdateTxt()
 		return;
 	}
 	//テキスト更新
-	if (text_all_.GetCsv()->front().time >= last_time_) {
+	if (text_all_.GetCsv()->front().time * system_set::ms_per_s >= last_time_) {
 
 		tutorial_txt_->SetText(text_all_.GetCsv()->front().text.c_str());
 		//最初を削除
@@ -39,7 +39,7 @@ void TutorialScene::Init() {
 	MusicManager::GetInstance()->SetDefficult(0);
 	//テキスト設定
 	std::string txt("0,Hello,");//入力テキスト
-	FileRoader::GetInstance()->RoadTxt(txt,"testcsv.csv");
+	FileRoader::GetInstance()->RoadTxt(txt,"200_resource/testcsv.csv");
 	text_all_.ConvertCsv(txt.c_str());
 	//ゲームシーン側初期化
 	GameScene::Init();
@@ -101,7 +101,11 @@ void TutorialScene::Draw(int screen_handle)
 
 void TutorialCsv::ConvertCsv(const char* csv)
 {
-	std::string csv_char(csv);
+	int size = 0;
+	{
+		std::string csv_char(csv);
+		size = csv_char.size();
+	}
 	int i = 0; //カウント(文字)
 	int check = 0;//最終確認位置
 	CsvLavel lavel = k_csv_time; //Csv項目
@@ -110,10 +114,11 @@ void TutorialCsv::ConvertCsv(const char* csv)
 
 	while (true)
 	{
+		if (csv[i] != '\r') {
+			text_moto.push_back(csv[i]);
+		}
 		//区切りなら分岐
-		if (csv_char[i] == ',' || csv_char[i] == '\n') {
-
-			text_moto = std::string(csv_char[check], csv_char[i - 1]);
+		if (csv[i] == ',' || csv[i] == '\n') {
 
 			//ラベルで変換
 			switch (lavel)
@@ -133,17 +138,19 @@ void TutorialCsv::ConvertCsv(const char* csv)
 				lavel = k_csv_time;
 				break;
 			}
-			
+			text_moto.clear();
 
 		}
 		//改行で代入
-		if (csv_char[i] == '\n') {
+		if (csv[i] == '\n') {
+			
+
 			csv_data_.push_back(pool_data);
 		}
 		++i;
 
 		//最後ならそこで終了
-		if (csv_char.size() >= i) {
+		if (size <= i) {
 			break;
 		}
 
