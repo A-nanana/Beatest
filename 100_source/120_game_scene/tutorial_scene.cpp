@@ -19,7 +19,7 @@
 
 void TutorialScene::UpdateTxt()
 {
-	if ((last_pop_up_ + 2 * system_set::ms_per_s < last_time_) ) //テキスト消去
+	if ((last_pop_up_ +text_pop_time_ < last_time_) ) //テキスト消去
 	{
 		tutorial_txt_->SetText("");
 		last_pop_up_ = last_time_;
