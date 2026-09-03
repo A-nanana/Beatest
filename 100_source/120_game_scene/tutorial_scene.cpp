@@ -19,7 +19,7 @@
 
 void TutorialScene::UpdateTxt()
 {
-	if ((last_pop_up_ + 2 * system_set::ms_per_s < last_time_) ) //テキスト消去
+	if ((last_pop_up_ +text_pop_time_ < last_time_) ) //テキスト消去
 	{
 		tutorial_txt_->SetText("");
 		last_pop_up_ = last_time_;
@@ -94,9 +94,10 @@ Scene* TutorialScene::Update(float delta_time)
 	
 	UpdateTxt();
 
-
+	//シーンの確認
 	if (next_scene_ != this) {
 		ResultScene* casting_scene = dynamic_cast<ResultScene*>(next_scene_);
+		//リザルトではなくメニューに変える
 		if (casting_scene) {
 			casting_scene->Finalize();
 			next_scene_ = new MenuScene();
@@ -134,12 +135,14 @@ void TutorialCsv::ConvertCsv(const char* csv)
 
 	while (true)
 	{
+		//\rはバグになりかねないので省く
 		if (csv[i] != '\r') {
 			text_moto.push_back(csv[i]);
 		}
 		//区切りなら分岐
 		if (csv[i] == ',' || csv[i] == '\n') {
 			
+			//空なら"0"を入れる
 			if (text_moto.empty()) {
 				text_moto = "0";
 			}
